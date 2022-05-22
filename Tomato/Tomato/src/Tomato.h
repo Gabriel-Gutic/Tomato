@@ -1,4 +1,8 @@
 #pragma once
 
-#include "Tomato/Core/Logger/Print.h"
-#include "Tomato/Core/App.h"
+#include "pchTomato.h"
+
+#include "Tomato/Layer.h"
+#include "Tomato/App.h"
+#include "Tomato/Event/Events.h"
+#include "Tomato/Event/Input.h"

@@ -58,7 +58,7 @@
       <PrecompiledHeaderFile>pchTomato.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATO_PLATFORM_WINDOWS;DEBUG;TOMATO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -75,7 +75,7 @@
       <PrecompiledHeaderFile>pchTomato.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATO_PLATFORM_WINDOWS;RELEASE;TOMATO_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -88,24 +88,50 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Tomato.h" />
-    <ClInclude Include="src\Tomato\Core\App.h" />
+    <ClInclude Include="src\Tomato\App.h" />
     <ClInclude Include="src\Tomato\Core\DateTime\Date.h" />
     <ClInclude Include="src\Tomato\Core\DateTime\DateTime.h" />
     <ClInclude Include="src\Tomato\Core\DateTime\Time.h" />
     <ClInclude Include="src\Tomato\Core\Logger\Logger.h" />
     <ClInclude Include="src\Tomato\Core\Logger\Print.h" />
+    <ClInclude Include="src\Tomato\Event\Event.h" />
+    <ClInclude Include="src\Tomato\Event\Events.h" />
+    <ClInclude Include="src\Tomato\Event\Input.h" />
+    <ClInclude Include="src\Tomato\Event\KeyboardCodes.h" />
+    <ClInclude Include="src\Tomato\Event\KeyboardEvent.h" />
+    <ClInclude Include="src\Tomato\Event\MouseCodes.h" />
+    <ClInclude Include="src\Tomato\Event\MouseEvent.h" />
+    <ClInclude Include="src\Tomato\Event\WindowEvent.h" />
+    <ClInclude Include="src\Tomato\GUI\GUI.h" />
+    <ClInclude Include="src\Tomato\Layer.h" />
+    <ClInclude Include="src\Tomato\Window.h" />
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Tomato\Core\App.cpp" />
+    <ClCompile Include="src\Tomato\App.cpp" />
     <ClCompile Include="src\Tomato\Core\DateTime\Date.cpp" />
     <ClCompile Include="src\Tomato\Core\DateTime\DateTime.cpp" />
     <ClCompile Include="src\Tomato\Core\DateTime\Time.cpp" />
-    <ClCompile Include="src\Tomato\Core\EntryPoint.cpp" />
     <ClCompile Include="src\Tomato\Core\Logger\Logger.cpp" />
+    <ClCompile Include="src\Tomato\EntryPoint.cpp" />
+    <ClCompile Include="src\Tomato\Event\Event.cpp" />
+    <ClCompile Include="src\Tomato\Event\Input.cpp" />
+    <ClCompile Include="src\Tomato\GUI\GUI.cpp" />
+    <ClCompile Include="src\Tomato\Window.cpp" />
     <ClCompile Include="src\pchTomato.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="dependencies\GLFW\GLFW.vcxproj">
+      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="dependencies\Glad\Glad.vcxproj">
+      <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="dependencies\ImGui\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

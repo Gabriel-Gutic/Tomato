@@ -1,6 +1,6 @@
 #include "pchTomato.h"
 #include "App.h"
-#include "DateTime/DateTime.h"
+#include "Core/DateTime/DateTime.h"
 
 
 int main(int argc, char** argv)
@@ -12,6 +12,7 @@ int main(int argc, char** argv)
 
 	app->Run();
 
+	TOMATO_PRINT("Deleting App...");
 	delete app;
 
 	return 0;

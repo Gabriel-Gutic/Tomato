@@ -13,11 +13,23 @@
     <Filter Include="Tomato\Core\Logger">
       <UniqueIdentifier>{805F9A13-6C43-5B69-D5A3-55BCC1A645EB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Event">
+      <UniqueIdentifier>{EAEA70F8-D64D-009D-7FD3-38536B15CC1F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\GUI">
+      <UniqueIdentifier>{6D2E7DE4-59E6-BE31-C2ED-978DAEC45922}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Tomato.h" />
-    <ClInclude Include="src\Tomato\Core\App.h">
-      <Filter>Tomato\Core</Filter>
+    <ClInclude Include="src\Tomato\App.h">
+      <Filter>Tomato</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\DateTime\Date.h">
+      <Filter>Tomato\Core\DateTime</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\DateTime\DateTime.h">
+      <Filter>Tomato\Core\DateTime</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\DateTime\Time.h">
       <Filter>Tomato\Core\DateTime</Filter>
@@ -28,25 +40,72 @@
     <ClInclude Include="src\Tomato\Core\Logger\Print.h">
       <Filter>Tomato\Core\Logger</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Event\Event.h">
+      <Filter>Tomato\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Event\Events.h">
+      <Filter>Tomato\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Event\Input.h">
+      <Filter>Tomato\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Event\KeyboardCodes.h">
+      <Filter>Tomato\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Event\KeyboardEvent.h">
+      <Filter>Tomato\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Event\MouseCodes.h">
+      <Filter>Tomato\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Event\MouseEvent.h">
+      <Filter>Tomato\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Event\WindowEvent.h">
+      <Filter>Tomato\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\GUI\GUI.h">
+      <Filter>Tomato\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Layer.h">
+      <Filter>Tomato</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Window.h">
+      <Filter>Tomato</Filter>
+    </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Core\DateTime\Date.h" />
-    <ClInclude Include="src\Tomato\Core\DateTime\DateTime.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Tomato\Core\App.cpp">
-      <Filter>Tomato\Core</Filter>
+    <ClCompile Include="src\Tomato\App.cpp">
+      <Filter>Tomato</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\DateTime\Date.cpp">
+      <Filter>Tomato\Core\DateTime</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\DateTime\DateTime.cpp">
+      <Filter>Tomato\Core\DateTime</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Core\DateTime\Time.cpp">
       <Filter>Tomato\Core\DateTime</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Core\EntryPoint.cpp">
-      <Filter>Tomato\Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\Tomato\Core\Logger\Logger.cpp">
       <Filter>Tomato\Core\Logger</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\EntryPoint.cpp">
+      <Filter>Tomato</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Event\Event.cpp">
+      <Filter>Tomato\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Event\Input.cpp">
+      <Filter>Tomato\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\GUI\GUI.cpp">
+      <Filter>Tomato\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Window.cpp">
+      <Filter>Tomato</Filter>
+    </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\Tomato\Core\DateTime\Date.cpp" />
-    <ClCompile Include="src\Tomato\Core\DateTime\DateTime.cpp" />
   </ItemGroup>
 </Project>
