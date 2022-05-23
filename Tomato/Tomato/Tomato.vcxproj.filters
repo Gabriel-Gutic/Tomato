@@ -74,6 +74,10 @@
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\Tomato\Renderer\Shader.h" />
+    <ClInclude Include="src\Tomato\Core\FileManager\File.h" />
+    <ClInclude Include="src\Tomato\Core\BaseTypes.h" />
+    <ClInclude Include="src\Tomato\Renderer\ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -107,5 +111,8 @@
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Tomato\Core\FileManager\File.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\ShaderProgram.cpp" />
   </ItemGroup>
 </Project>

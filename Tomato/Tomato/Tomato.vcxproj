@@ -89,9 +89,11 @@
   <ItemGroup>
     <ClInclude Include="src\Tomato.h" />
     <ClInclude Include="src\Tomato\App.h" />
+    <ClInclude Include="src\Tomato\Core\BaseTypes.h" />
     <ClInclude Include="src\Tomato\Core\DateTime\Date.h" />
     <ClInclude Include="src\Tomato\Core\DateTime\DateTime.h" />
     <ClInclude Include="src\Tomato\Core\DateTime\Time.h" />
+    <ClInclude Include="src\Tomato\Core\FileManager\File.h" />
     <ClInclude Include="src\Tomato\Core\Logger\Logger.h" />
     <ClInclude Include="src\Tomato\Core\Logger\Print.h" />
     <ClInclude Include="src\Tomato\Event\Event.h" />
@@ -104,6 +106,8 @@
     <ClInclude Include="src\Tomato\Event\WindowEvent.h" />
     <ClInclude Include="src\Tomato\GUI\GUI.h" />
     <ClInclude Include="src\Tomato\Layer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Shader.h" />
+    <ClInclude Include="src\Tomato\Renderer\ShaderProgram.h" />
     <ClInclude Include="src\Tomato\Window.h" />
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
@@ -112,11 +116,14 @@
     <ClCompile Include="src\Tomato\Core\DateTime\Date.cpp" />
     <ClCompile Include="src\Tomato\Core\DateTime\DateTime.cpp" />
     <ClCompile Include="src\Tomato\Core\DateTime\Time.cpp" />
+    <ClCompile Include="src\Tomato\Core\FileManager\File.cpp" />
     <ClCompile Include="src\Tomato\Core\Logger\Logger.cpp" />
     <ClCompile Include="src\Tomato\EntryPoint.cpp" />
     <ClCompile Include="src\Tomato\Event\Event.cpp" />
     <ClCompile Include="src\Tomato\Event\Input.cpp" />
     <ClCompile Include="src\Tomato\GUI\GUI.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\ShaderProgram.cpp" />
     <ClCompile Include="src\Tomato\Window.cpp" />
     <ClCompile Include="src\pchTomato.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
