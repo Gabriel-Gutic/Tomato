@@ -10,14 +10,23 @@
     <Filter Include="Tomato\Core\DateTime">
       <UniqueIdentifier>{CDBA17EA-B949-A1B3-6268-B5AE4ED6B159}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Core\FileManager">
+      <UniqueIdentifier>{7B0BE106-E742-299E-F04C-8DC15C035097}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato\Core\Logger">
       <UniqueIdentifier>{805F9A13-6C43-5B69-D5A3-55BCC1A645EB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\Core\Maths">
+      <UniqueIdentifier>{FD572E2F-696E-2CC5-B2E5-B7E61E3BFD4C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tomato\Event">
       <UniqueIdentifier>{EAEA70F8-D64D-009D-7FD3-38536B15CC1F}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tomato\GUI">
       <UniqueIdentifier>{6D2E7DE4-59E6-BE31-C2ED-978DAEC45922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\Renderer">
+      <UniqueIdentifier>{9FF23DDA-0B7E-AB9E-148F-2E938099079F}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,11 +43,32 @@
     <ClInclude Include="src\Tomato\Core\DateTime\Time.h">
       <Filter>Tomato\Core\DateTime</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Core\FileManager\File.h">
+      <Filter>Tomato\Core\FileManager</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Core\Logger\Logger.h">
       <Filter>Tomato\Core\Logger</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\Logger\Print.h">
       <Filter>Tomato\Core\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\BaseTypes.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\Float.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\Int.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\Maths.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\UInt.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\Vec.h">
+      <Filter>Tomato\Core\Maths</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Event\Event.h">
       <Filter>Tomato\Event</Filter>
@@ -70,14 +100,16 @@
     <ClInclude Include="src\Tomato\Layer.h">
       <Filter>Tomato</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Shader.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\ShaderProgram.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Window.h">
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Renderer\Shader.h" />
-    <ClInclude Include="src\Tomato\Core\FileManager\File.h" />
-    <ClInclude Include="src\Tomato\Core\BaseTypes.h" />
-    <ClInclude Include="src\Tomato\Renderer\ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -92,8 +124,20 @@
     <ClCompile Include="src\Tomato\Core\DateTime\Time.cpp">
       <Filter>Tomato\Core\DateTime</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Core\FileManager\File.cpp">
+      <Filter>Tomato\Core\FileManager</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Core\Logger\Logger.cpp">
       <Filter>Tomato\Core\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\Maths\Float.cpp">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\Maths\Int.cpp">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp">
+      <Filter>Tomato\Core\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\EntryPoint.cpp">
       <Filter>Tomato</Filter>
@@ -107,12 +151,15 @@
     <ClCompile Include="src\Tomato\GUI\GUI.cpp">
       <Filter>Tomato\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Shader.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\ShaderProgram.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Window.cpp">
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Tomato\Core\FileManager\File.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\ShaderProgram.cpp" />
   </ItemGroup>
 </Project>

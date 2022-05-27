@@ -6,7 +6,6 @@ class FirstLayer : public Tomato::Layer
 public:
 	FirstLayer()
 	{
-
 	}
 	~FirstLayer() {}
 

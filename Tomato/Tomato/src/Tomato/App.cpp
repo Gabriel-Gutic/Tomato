@@ -90,19 +90,19 @@ namespace Tomato
 
 			shaderProgram->Use(false);
 
-			//GUI::Begin();
-			//
-			//ImGui::ShowDemoWindow();
-			//
-			//ImGui::Begin("First Layer");
-			//ImGui::End();
-			//
-			//for (auto& layer : m_LayerStack)
-			//{
-			//	layer->OnGUI();
-			//}
-			//
-			//GUI::End();
+			GUI::Begin();
+			
+			ImGui::ShowDemoWindow();
+			
+			ImGui::Begin("First Layer");
+			ImGui::End();
+			
+			for (auto& layer : m_LayerStack)
+			{
+				layer->OnGUI();
+			}
+			
+			GUI::End();
 
 			m_Window->Swap();
 		}

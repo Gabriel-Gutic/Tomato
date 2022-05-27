@@ -6,7 +6,7 @@
 #include "Tomato/App.h"
 #include "Tomato/Event/Events.h"
 #include "Tomato/Event/Input.h"
-
+#include "Tomato/Core/Maths/Maths.h"
 
 //ImGui
 #include <imgui/imgui.h>
