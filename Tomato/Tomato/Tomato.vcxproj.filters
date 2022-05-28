@@ -64,6 +64,9 @@
     <ClInclude Include="src\Tomato\Core\Maths\Maths.h">
       <Filter>Tomato\Core\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\Matrix.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Core\Maths\UInt.h">
       <Filter>Tomato\Core\Maths</Filter>
     </ClInclude>
@@ -110,7 +113,6 @@
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Core\Maths\Matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">

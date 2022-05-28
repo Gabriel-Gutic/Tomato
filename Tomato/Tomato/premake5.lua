@@ -6,7 +6,7 @@ dependencies["ImGui"] = "dependencies/ImGui"
 group "Dependencies"
 	include "dependencies/GLFW"
 	include "dependencies/Glad"
-	include "dependencies/ImGui/imgui"
+	include "dependencies/ImGui"
 group ""
 
 project "Tomato"
