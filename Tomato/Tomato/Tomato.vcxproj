@@ -99,6 +99,7 @@
     <ClInclude Include="src\Tomato\Core\Maths\Float.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Int.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Maths.h" />
+    <ClInclude Include="src\Tomato\Core\Maths\Matrix.h" />
     <ClInclude Include="src\Tomato\Core\Maths\UInt.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Vec.h" />
     <ClInclude Include="src\Tomato\Event\Event.h" />
