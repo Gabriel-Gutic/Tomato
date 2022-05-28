@@ -6,14 +6,18 @@ class FirstLayer : public Tomato::Layer
 public:
 	FirstLayer()
 	{
-		Tomato::Matrix<Tomato::Float, 2, 5> M1(1);
-		Tomato::Matrix<Tomato::Float, 2, 5> M2(5);
+		const int n = 9;
+		Tomato::Matrix<Tomato::Float, n, n> M(1);
 
-		M1[1][3] = -1;
-		M2[1][3] = -1;
+		std::ifstream input("assets/matrix.txt");
 
-		PRINT((M1 + M2).ToString());
-		PRINT((M1 - M2).ToString());
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				input >> M[i][j];
+		
+		input.close();
+
+		PRINT(M.GetDeterminant());
 	}
 	~FirstLayer() {}
 
