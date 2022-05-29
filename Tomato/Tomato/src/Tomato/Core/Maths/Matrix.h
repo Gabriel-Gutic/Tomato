@@ -13,6 +13,7 @@ namespace Tomato
 	{
 	public:
 		Matrix(const T& el = 0);
+		Matrix(const Matrix<T, ROWS, COLS>& M);
 		~Matrix();
 		
 		std::string ToString() const;
@@ -23,11 +24,13 @@ namespace Tomato
 		Matrix<T, ROWS, COLS> operator-(const Matrix<T, ROWS, COLS>& other);
 		
 		T GetDeterminant() const;
+		T GetDeterminant1() const;
 		// TODO: More efficient
 
 		template <typename T, size_t M, size_t N, size_t P>
 		friend Matrix<T, M, P> operator*(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B);
-	private:
+	private: 
+		static T Determinant(const Matrix<T, ROWS, COLS>& A, UInt n = 0);
 		static T GetMinor(const Matrix<T, ROWS, COLS>& A, UInt n);
 	protected:
 		std::array<std::array<T, COLS>, ROWS> m_Data;
@@ -42,6 +45,12 @@ namespace Tomato
 					m_Data[i][j] = 0;
 				else
 					m_Data[i][j] = el;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	inline Matrix<T, ROWS, COLS>::Matrix(const Matrix<T, ROWS, COLS>& M)
+	{
+		m_Data = M.m_Data;
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
@@ -103,6 +112,14 @@ namespace Tomato
 	template<typename T, size_t ROWS, size_t COLS>
 	inline T Matrix<T, ROWS, COLS>::GetDeterminant() const
 	{
+		auto M = *this;
+
+		return T();
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	inline T Matrix<T, ROWS, COLS>::GetDeterminant1() const
+	{
 		return GetMinor(*this, ROWS);
 	}
 
@@ -122,6 +139,34 @@ namespace Tomato
 			}
 		}
 		return C;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	inline T Matrix<T, ROWS, COLS>::Determinant(const Matrix<T, ROWS, COLS>& A, UInt n)
+	{
+		if (ROWS != COLS)
+			return NAN;
+		UInt line = n;
+		while (line < ROWS)
+			if (A[line][n] == 0)
+				line++;
+			else break;
+
+		if (line == ROWS)
+			return 0;
+
+		if (line != n)
+			for (UInt j = n; j < ROWS; j++)
+				std::swap(A[n][j], A[line][j]);
+
+		for (UInt i = n + 1; i < ROWS; i++)
+			if (A[i][n] != 0)
+			{
+				for (UInt j = n; j < ROWS; j++)
+				{
+					//A[i][n]
+				}
+			}
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
