@@ -6,18 +6,24 @@ class FirstLayer : public Tomato::Layer
 public:
 	FirstLayer()
 	{
-		const int n = 9;
+		Tomato::Timer T;
+
+		const int n = 10;
 		Tomato::Matrix<Tomato::Float, n, n> M(1);
-
+		
 		std::ifstream input("assets/matrix.txt");
-
+		
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
 				input >> M[i][j];
 		
 		input.close();
-
+		
 		PRINT(M.GetDeterminant());
+
+		PRINT(T.SecondsToString());
+		PRINT(T.MillisecondsToString());
+		PRINT(T.MicrosecondsToString());
 	}
 	~FirstLayer() {}
 

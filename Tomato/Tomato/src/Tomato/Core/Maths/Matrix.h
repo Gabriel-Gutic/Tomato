@@ -23,6 +23,7 @@ namespace Tomato
 		Matrix<T, ROWS, COLS> operator-(const Matrix<T, ROWS, COLS>& other);
 		
 		T GetDeterminant() const;
+		// TODO: More efficient
 
 		template <typename T, size_t M, size_t N, size_t P>
 		friend Matrix<T, M, P> operator*(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B);

@@ -113,6 +113,8 @@
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\Tomato\Core\Timer\Timer.h" />
+    <ClInclude Include="src\Tomato\Core\Maths\Math.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -164,5 +166,7 @@
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp" />
+    <ClCompile Include="src\Tomato\Core\Maths\Math.cpp" />
   </ItemGroup>
 </Project>

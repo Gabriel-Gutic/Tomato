@@ -98,10 +98,12 @@
     <ClInclude Include="src\Tomato\Core\Maths\BaseTypes.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Float.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Int.h" />
+    <ClInclude Include="src\Tomato\Core\Maths\Math.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Maths.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Matrix.h" />
     <ClInclude Include="src\Tomato\Core\Maths\UInt.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Vec.h" />
+    <ClInclude Include="src\Tomato\Core\Timer\Timer.h" />
     <ClInclude Include="src\Tomato\Event\Event.h" />
     <ClInclude Include="src\Tomato\Event\Events.h" />
     <ClInclude Include="src\Tomato\Event\Input.h" />
@@ -126,7 +128,9 @@
     <ClCompile Include="src\Tomato\Core\Logger\Logger.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Float.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Int.cpp" />
+    <ClCompile Include="src\Tomato\Core\Maths\Math.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp" />
+    <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp" />
     <ClCompile Include="src\Tomato\EntryPoint.cpp" />
     <ClCompile Include="src\Tomato\Event\Event.cpp" />
     <ClCompile Include="src\Tomato\Event\Input.cpp" />
