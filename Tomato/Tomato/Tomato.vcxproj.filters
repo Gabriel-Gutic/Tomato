@@ -115,6 +115,7 @@
     <ClInclude Include="src\pchTomato.h" />
     <ClInclude Include="src\Tomato\Core\Timer\Timer.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Math.h" />
+    <ClInclude Include="src\Tomato\Core\Maths\Mat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
