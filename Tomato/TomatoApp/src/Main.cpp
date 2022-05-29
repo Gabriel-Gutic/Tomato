@@ -8,7 +8,7 @@ public:
 	{
 		Tomato::Timer T;
 
-		const int n = 10;
+		const int n = 9;
 		Tomato::Matrix<Tomato::Float, n, n> M(1);
 		
 		std::ifstream input("assets/matrix.txt");

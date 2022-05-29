@@ -24,14 +24,11 @@ namespace Tomato
 		Matrix<T, ROWS, COLS> operator-(const Matrix<T, ROWS, COLS>& other);
 		
 		T GetDeterminant() const;
-		T GetDeterminant1() const;
-		// TODO: More efficient
 
 		template <typename T, size_t M, size_t N, size_t P>
 		friend Matrix<T, M, P> operator*(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B);
 	private: 
-		static T Determinant(const Matrix<T, ROWS, COLS>& A, UInt n = 0);
-		static T GetMinor(const Matrix<T, ROWS, COLS>& A, UInt n);
+		static void Diagonally(Matrix<T, ROWS, COLS>& A, UInt n = 0);
 	protected:
 		std::array<std::array<T, COLS>, ROWS> m_Data;
 	};
@@ -112,15 +109,16 @@ namespace Tomato
 	template<typename T, size_t ROWS, size_t COLS>
 	inline T Matrix<T, ROWS, COLS>::GetDeterminant() const
 	{
+		if (ROWS != COLS)
+			return NAN;
 		auto M = *this;
 
-		return T();
-	}
+		T det = 0;
 
-	template<typename T, size_t ROWS, size_t COLS>
-	inline T Matrix<T, ROWS, COLS>::GetDeterminant1() const
-	{
-		return GetMinor(*this, ROWS);
+		Diagonally(M);
+		for (UInt i = 0; i < ROWS; i++)
+			det += M[i][i];
+		return det;
 	}
 
 	template<typename T, size_t M, size_t N, size_t P>
@@ -142,10 +140,8 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	inline T Matrix<T, ROWS, COLS>::Determinant(const Matrix<T, ROWS, COLS>& A, UInt n)
+	inline void Matrix<T, ROWS, COLS>::Diagonally(Matrix<T, ROWS, COLS>& A, UInt n)
 	{
-		if (ROWS != COLS)
-			return NAN;
 		UInt line = n;
 		while (line < ROWS)
 			if (A[line][n] == 0)
@@ -153,7 +149,7 @@ namespace Tomato
 			else break;
 
 		if (line == ROWS)
-			return 0;
+			return;
 
 		if (line != n)
 			for (UInt j = n; j < ROWS; j++)
@@ -162,36 +158,16 @@ namespace Tomato
 		for (UInt i = n + 1; i < ROWS; i++)
 			if (A[i][n] != 0)
 			{
-				for (UInt j = n; j < ROWS; j++)
+				T el = -A[i][n] / A[n][n];
+				A[i][n] = 0;
+				for (UInt j = n + 1; j < ROWS; j++)
 				{
-					//A[i][n]
+					A[i][j] += el * A[n][j];
 				}
 			}
-	}
 
-	template<typename T, size_t ROWS, size_t COLS>
-	T Matrix<T, ROWS, COLS>::GetMinor(const Matrix<T, ROWS, COLS>& A, UInt n)
-	{
-		if (ROWS != COLS || n > ROWS)
-			return NAN;
-		if (n == 1)
-			return A[0][0];
-		T minor = 0;
-		for (UInt k = 0; k < n; k++)
-		{
-			Matrix<T, ROWS, COLS> B;
-			for (UInt i = 1; i < n; i++)
-			{
-				UInt p = 0;
-				for (UInt j = 0; j < n; j++)
-					if (j != k)
-						B[i - 1][p++] = A[i][j];
-			}
-
-			if (A[0][k] != 0)
-				minor += A[0][k] * pow(-1.0, k) * GetMinor(B, n - 1);
-		}
-		return minor;
+		if (n < ROWS - 1)
+			Diagonally(A, n + 1);
 	}
 
 }
