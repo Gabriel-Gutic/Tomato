@@ -115,8 +115,12 @@
     <ClInclude Include="src\Tomato\Event\WindowEvent.h" />
     <ClInclude Include="src\Tomato\GUI\GUI.h" />
     <ClInclude Include="src\Tomato\Layer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Buffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Shader.h" />
     <ClInclude Include="src\Tomato\Renderer\ShaderProgram.h" />
+    <ClInclude Include="src\Tomato\Renderer\Vertex.h" />
+    <ClInclude Include="src\Tomato\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Tomato\Window.h" />
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
@@ -136,8 +140,11 @@
     <ClCompile Include="src\Tomato\Event\Event.cpp" />
     <ClCompile Include="src\Tomato\Event\Input.cpp" />
     <ClCompile Include="src\Tomato\GUI\GUI.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp" />
     <ClCompile Include="src\Tomato\Renderer\ShaderProgram.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Tomato\Window.cpp" />
     <ClCompile Include="src\pchTomato.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

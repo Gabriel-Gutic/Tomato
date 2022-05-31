@@ -116,6 +116,10 @@
     <ClInclude Include="src\Tomato\Core\Timer\Timer.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Math.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Mat.h" />
+    <ClInclude Include="src\Tomato\Renderer\Buffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Vertex.h" />
+    <ClInclude Include="src\Tomato\Renderer\IndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -169,5 +173,8 @@
     <ClCompile Include="src\pchTomato.cpp" />
     <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Math.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\IndexBuffer.cpp" />
   </ItemGroup>
 </Project>

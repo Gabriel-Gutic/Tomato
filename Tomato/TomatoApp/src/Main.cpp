@@ -6,7 +6,7 @@ class FirstLayer : public Tomato::Layer
 public:
 	FirstLayer()
 	{
-
+		Tomato::GUI::HideDockspace();
 	}
 	~FirstLayer() {}
 

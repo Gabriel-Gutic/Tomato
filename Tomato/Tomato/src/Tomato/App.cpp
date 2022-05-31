@@ -8,6 +8,9 @@
 #include "GUI/GUI.h"
 #include "Renderer/ShaderProgram.h"
 
+#include "Renderer/VertexBuffer.h"
+#include "Renderer/IndexBuffer.h"
+
 
 namespace Tomato
 {
@@ -18,7 +21,7 @@ namespace Tomato
 		TOMATO_ASSERT(!s_Instance, "App already instantiated!");
 		s_Instance = this;
 
-		m_Window = std::make_unique<Window>();
+		m_Window = std::make_unique<Window>("Tomato Window", 800, 800);
 
 		GUI::Init();
 	}
@@ -30,18 +33,28 @@ namespace Tomato
 
 	void App::Run()
 	{
-		float coords[] =
-		{
-			-0.5f, -0.5f,
-			-0.5f,  0.5f,
-			 0.5f, -0.5f
-		};
-		unsigned int vb;
-		glCreateBuffers(1, &vb);
-		glBindBuffer(GL_ARRAY_BUFFER, vb);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(coords), coords, GL_STATIC_DRAW);
+		std::shared_ptr<VertexBuffer> vb = std::make_shared<VertexBuffer>(std::initializer_list<Vertex>{
+			{ { -0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+			{ { -0.5f,  0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+			{ {  0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}},
+			{ {  0.5f,  0.5f, 0.0f}, {1.0f, 0.0f, 1.0f, 1.0f} },
+			{ {  1.0f,  0.0f, 0.0f}, {1.0f, 1.0f, 0.0f, 1.0f}},
+		});
+		
+		unsigned int va;
+		glCreateVertexArrays(1, &va);
+		glBindVertexArray(va);
+
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(Float3)));
+
+		std::shared_ptr<IndexBuffer> ib = std::make_shared<IndexBuffer>(std::initializer_list<UInt>{
+			0, 1, 2,
+			2, 3, 1,
+			3, 4, 2,
+		});
 
 		std::shared_ptr<ShaderProgram> shaderProgram = std::make_shared<ShaderProgram>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
 
@@ -70,13 +83,18 @@ namespace Tomato
 			m_Window->Clear(1.0f, 0.0f, 0.0f);
 
 			shaderProgram->Use();
+			glBindVertexArray(va);
+			ib->Bind();
 
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+			//glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDrawElements(GL_TRIANGLES, ib->GetSize(), GL_UNSIGNED_INT, (void*)0);
 
 			for (auto& layer : m_LayerStack)
 			{
 				layer->OnUpdate();
 			}
+
+			glBindVertexArray(0);
 
 			shaderProgram->Use(false);
 
