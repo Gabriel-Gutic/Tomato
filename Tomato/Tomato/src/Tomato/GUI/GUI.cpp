@@ -12,6 +12,8 @@
 
 namespace Tomato::GUI
 {
+    bool Data::IsDockspaceShown = false;
+
     void Init()
     {
         // Setup Dear ImGui context
@@ -57,23 +59,8 @@ namespace Tomato::GUI
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        auto& window = App::GetWindow();
-        ImGui::SetNextWindowPos(ImVec2(window->GetX(), window->GetY()));
-        ImGui::SetNextWindowSize(ImVec2(window->GetWidth(), window->GetHeight()));
-        ImGui::Begin("DockSpace", NULL,
-            ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoScrollbar |
-            ImGuiWindowFlags_NoScrollWithMouse
-        );
-
-        // TODO: Menu
-
-        // Declare Central dockspace
-        auto dockspaceID = ImGui::GetID("HUB_DockSpace");
-        ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_PassthruCentralNode/*|ImGuiDockNodeFlags_NoResize*/);
-        ImGui::End();
+        if (Data::IsDockspaceShown)
+            Dockspace();
     }
 
     void End()
@@ -93,5 +80,36 @@ namespace Tomato::GUI
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
+    }
+
+    void GUI::ShowDockspace()
+    {
+        Data::IsDockspaceShown = true;
+    }
+
+    void GUI::HideDockspace()
+    {
+        Data::IsDockspaceShown = false;
+    }
+
+    void GUI::Dockspace()
+    {
+        auto& window = App::GetWindow();
+        ImGui::SetNextWindowPos(ImVec2(window->GetX(), window->GetY()));
+        ImGui::SetNextWindowSize(ImVec2(window->GetWidth(), window->GetHeight()));
+        ImGui::Begin("DockSpace", NULL,
+            ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoScrollbar |
+            ImGuiWindowFlags_NoScrollWithMouse
+        );
+
+        // TODO: Menu
+
+        // Declare Central dockspace
+        auto dockspaceID = ImGui::GetID("HUB_DockSpace");
+        ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_PassthruCentralNode/*|ImGuiDockNodeFlags_NoResize*/);
+        ImGui::End();
     }
 }

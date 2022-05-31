@@ -4,6 +4,7 @@
 namespace Tomato
 {
 	typedef bool		Bool;
+
 	typedef char		Char;
 	typedef short		Short;
 	typedef long long   Long;
