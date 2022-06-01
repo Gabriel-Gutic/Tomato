@@ -10,6 +10,7 @@ namespace Tomato
 		virtual ~Buffer();
 
 		virtual void Bind() = 0;
+		virtual void Unbind(){};
 	protected:
 		UInt m_RendererID;
 	};

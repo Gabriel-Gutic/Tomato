@@ -120,6 +120,7 @@
     <ClInclude Include="src\Tomato\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Vertex.h" />
     <ClInclude Include="src\Tomato\Renderer\IndexBuffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -176,5 +177,6 @@
     <ClCompile Include="src\Tomato\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\VertexArray.cpp" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 
 #include "Renderer/VertexBuffer.h"
 #include "Renderer/IndexBuffer.h"
+#include "Renderer/VertexArray.h"
 
 
 namespace Tomato
@@ -40,16 +41,8 @@ namespace Tomato
 			{ {  0.5f,  0.5f, 0.0f}, {1.0f, 0.0f, 1.0f, 1.0f} },
 			{ {  1.0f,  0.0f, 0.0f}, {1.0f, 1.0f, 0.0f, 1.0f}},
 		});
-		
-		unsigned int va;
-		glCreateVertexArrays(1, &va);
-		glBindVertexArray(va);
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(Float3)));
-
+		std::shared_ptr<VertexArray> va = std::make_shared<VertexArray>();
+	
 		std::shared_ptr<IndexBuffer> ib = std::make_shared<IndexBuffer>(std::initializer_list<UInt>{
 			0, 1, 2,
 			2, 3, 1,
@@ -57,6 +50,7 @@ namespace Tomato
 		});
 
 		std::shared_ptr<ShaderProgram> shaderProgram = std::make_shared<ShaderProgram>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
+
 
 		while (isRunning)
 		{
@@ -83,7 +77,7 @@ namespace Tomato
 			m_Window->Clear(1.0f, 0.0f, 0.0f);
 
 			shaderProgram->Use();
-			glBindVertexArray(va);
+			va->Bind();
 			ib->Bind();
 
 			//glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -94,8 +88,7 @@ namespace Tomato
 				layer->OnUpdate();
 			}
 
-			glBindVertexArray(0);
-
+			VertexArray::Unbind();
 			shaderProgram->Use(false);
 
 			GUI::Begin();
