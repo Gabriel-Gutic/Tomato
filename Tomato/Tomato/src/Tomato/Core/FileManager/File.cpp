@@ -4,6 +4,11 @@
 
 namespace Tomato
 {
+	bool File::Exist(std::string_view path)
+	{
+		return std::filesystem::exists(path.data());
+	}
+
 	std::optional<std::string> File::Read(std::string_view source)
 	{
 		std::ifstream file(source.data());

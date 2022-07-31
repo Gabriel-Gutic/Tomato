@@ -1,7 +1,6 @@
 #include "pchTomato.h"
 #include "App.h"
 
-#include <imgui/imgui.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -35,10 +34,10 @@ namespace Tomato
 	void App::Run()
 	{
 		std::shared_ptr<VertexBuffer> vb = std::make_shared<VertexBuffer>(std::initializer_list<Vertex>{
-			{ { -0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-			{ { -0.5f,  0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
-			{ {  0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}},
-			{ {  0.5f,  0.5f, 0.0f}, {1.0f, 0.0f, 1.0f, 1.0f} },
+			{ { -0.5f, -0.5f, 0.0f}, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f }},
+			{ { -0.5f,  0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, { 0.0f, 1.0f } },
+			{ {  0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, { 1.0f, 0.0f } },
+			{ {  0.5f,  0.5f, 0.0f}, {1.0f, 0.0f, 1.0f, 1.0f}, { 1.0f, 1.0f } },
 			{ {  1.0f,  0.0f, 0.0f}, {1.0f, 1.0f, 0.0f, 1.0f}},
 		});
 		std::shared_ptr<VertexArray> va = std::make_shared<VertexArray>();
@@ -92,11 +91,6 @@ namespace Tomato
 			shaderProgram->Use(false);
 
 			GUI::Begin();
-			
-			ImGui::ShowDemoWindow();
-			
-			ImGui::Begin("First Layer");
-			ImGui::End();
 			
 			for (auto& layer : m_LayerStack)
 			{

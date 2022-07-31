@@ -19,6 +19,9 @@
     <Filter Include="Tomato\Core\Maths">
       <UniqueIdentifier>{FD572E2F-696E-2CC5-B2E5-B7E61E3BFD4C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Core\Timer">
+      <UniqueIdentifier>{6148B12F-CD5E-AFC5-16D6-3AE7822B804D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato\Event">
       <UniqueIdentifier>{EAEA70F8-D64D-009D-7FD3-38536B15CC1F}</UniqueIdentifier>
     </Filter>
@@ -61,6 +64,12 @@
     <ClInclude Include="src\Tomato\Core\Maths\Int.h">
       <Filter>Tomato\Core\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\Mat.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\Math.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Core\Maths\Maths.h">
       <Filter>Tomato\Core\Maths</Filter>
     </ClInclude>
@@ -72,6 +81,9 @@
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\Maths\Vec.h">
       <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Timer\Timer.h">
+      <Filter>Tomato\Core\Timer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Event\Event.h">
       <Filter>Tomato\Event</Filter>
@@ -103,24 +115,34 @@
     <ClInclude Include="src\Tomato\Layer.h">
       <Filter>Tomato</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Buffer.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Image.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\IndexBuffer.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Shader.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\ShaderProgram.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Vertex.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\VertexArray.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\VertexBuffer.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Window.h">
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Core\Timer\Timer.h" />
-    <ClInclude Include="src\Tomato\Core\Maths\Math.h" />
-    <ClInclude Include="src\Tomato\Core\Maths\Mat.h" />
-    <ClInclude Include="src\Tomato\Renderer\Buffer.h" />
-    <ClInclude Include="src\Tomato\Renderer\VertexBuffer.h" />
-    <ClInclude Include="src\Tomato\Renderer\Vertex.h" />
-    <ClInclude Include="src\Tomato\Renderer\IndexBuffer.h" />
-    <ClInclude Include="src\Tomato\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -147,8 +169,14 @@
     <ClCompile Include="src\Tomato\Core\Maths\Int.cpp">
       <Filter>Tomato\Core\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Core\Maths\Math.cpp">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp">
       <Filter>Tomato\Core\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp">
+      <Filter>Tomato\Core\Timer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\EntryPoint.cpp">
       <Filter>Tomato</Filter>
@@ -162,21 +190,30 @@
     <ClCompile Include="src\Tomato\GUI\GUI.cpp">
       <Filter>Tomato\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Buffer.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Image.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\IndexBuffer.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\ShaderProgram.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\VertexArray.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\VertexBuffer.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Window.cpp">
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp" />
-    <ClCompile Include="src\Tomato\Core\Maths\Math.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\VertexBuffer.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\IndexBuffer.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\VertexArray.cpp" />
   </ItemGroup>
 </Project>

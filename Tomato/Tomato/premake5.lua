@@ -31,6 +31,7 @@ project "Tomato"
 	{
 		"src",
 		"src/Tomato",
+		"dependencies/stb_image",
 		"dependencies/spdlog/include",
 		dependencies["GLFW"],
 		dependencies["Glad"],

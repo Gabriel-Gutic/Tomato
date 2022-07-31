@@ -1,4 +1,8 @@
 
-[submodule "Tomato/Tomato/dependencies/ImGui/imgui"]
+[submodule "ImGui"]
 	path = Tomato/Tomato/dependencies/ImGui/imgui
 	url = https://github.com/ocornut/imgui.git
+
+[submodule "stb_image"]
+	path = Tomato/Tomato/dependencies/stb_image/stb_image
+	url = https://github.com/nothings/stb.git

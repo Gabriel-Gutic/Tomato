@@ -7,5 +7,6 @@ namespace  Tomato
 	{
 		Float3 Coords;
 		Float4 Color;
+		Float2 TexCoords;
 	};
 }
