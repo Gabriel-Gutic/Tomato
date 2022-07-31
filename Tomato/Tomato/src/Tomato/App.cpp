@@ -10,6 +10,7 @@
 #include "Renderer/VertexBuffer.h"
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Texture.h"
 
 
 namespace Tomato
@@ -38,18 +39,19 @@ namespace Tomato
 			{ { -0.5f,  0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, { 0.0f, 1.0f } },
 			{ {  0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, { 1.0f, 0.0f } },
 			{ {  0.5f,  0.5f, 0.0f}, {1.0f, 0.0f, 1.0f, 1.0f}, { 1.0f, 1.0f } },
-			{ {  1.0f,  0.0f, 0.0f}, {1.0f, 1.0f, 0.0f, 1.0f}},
+			//{ {  1.0f,  0.0f, 0.0f}, {1.0f, 1.0f, 0.0f, 1.0f}},
 		});
 		std::shared_ptr<VertexArray> va = std::make_shared<VertexArray>();
 	
 		std::shared_ptr<IndexBuffer> ib = std::make_shared<IndexBuffer>(std::initializer_list<UInt>{
 			0, 1, 2,
 			2, 3, 1,
-			3, 4, 2,
+			//3, 4, 2,
 		});
 
 		std::shared_ptr<ShaderProgram> shaderProgram = std::make_shared<ShaderProgram>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
 
+		std::shared_ptr<Texture> texture = std::make_shared<Texture>("assets/images/plain.png");
 
 		while (isRunning)
 		{
@@ -76,6 +78,8 @@ namespace Tomato
 			m_Window->Clear(1.0f, 0.0f, 0.0f);
 
 			shaderProgram->Use();
+
+			texture->Bind();
 			va->Bind();
 			ib->Bind();
 
