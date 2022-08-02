@@ -1,5 +1,7 @@
 #include "pchTomato.h"
 #include "Timer.h"
+#include "Timer.h"
+#include "Timer.h"
 
 
 namespace Tomato
@@ -17,6 +19,13 @@ namespace Tomato
 	void Timer::start()
 	{
 		m_Start = std::chrono::high_resolution_clock::now();
+	}
+
+	void Timer::Wait(Double ms)
+	{
+		Timer t;
+
+		while (t.GetMilliseconds() < ms);
 	}
 
 	ULong Timer::GetMicroseconds(UInt precision) const
@@ -55,5 +64,4 @@ namespace Tomato
 	{
 		return Math::ToString(GetSeconds(precision)) + "s";
 	}
-
 }

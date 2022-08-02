@@ -8,6 +8,7 @@
 #include "Tomato/Event/Events.h"
 #include "Tomato/Event/Input.h"
 #include "Tomato/Core/Maths/Maths.h"
+#include "Tomato/Core/Timer/Timer.h"
 
 //ImGui
 #include <imgui/imgui.h>
