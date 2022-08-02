@@ -27,7 +27,7 @@ namespace Tomato
 
 		GUI::Init();
 
-		m_Camera = std::make_unique<Camera>(Float3(2.0f, -2.0f, 7.0f));
+		m_Camera = std::make_unique<Camera>();
 	}
 
 	App::~App()
@@ -87,10 +87,8 @@ namespace Tomato
 			ib->Bind();
 
 			auto view = m_Camera->Update();
-			TOMATO_PRINT(view.ToString());
 
-			Int location = glGetUniformLocation(shaderProgram->GetID(), "View");
-			glUniformMatrix4fv(location, 1, GL_FALSE, &view[0][0]);
+			shaderProgram->SetUniformMat4("View", view);
 
 			//glDrawArrays(GL_TRIANGLES, 0, 3);
 			glDrawElements(GL_TRIANGLES, ib->GetSize(), GL_UNSIGNED_INT, (void*)0);
@@ -136,6 +134,11 @@ namespace Tomato
 	std::unique_ptr<Window>& App::GetWindow()
 	{
 		return s_Instance->m_Window;
+	}
+
+	std::unique_ptr<Camera>& App::GetCamera()
+	{
+		return s_Instance->m_Camera;
 	}
 
 	void App::Exit()

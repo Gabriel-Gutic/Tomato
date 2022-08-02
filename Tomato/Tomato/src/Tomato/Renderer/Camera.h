@@ -10,6 +10,10 @@ namespace Tomato
 		~Camera();
 
 		Mat4 Update() const;
+
+		void MoveX(Float dist);
+		void MoveY(Float dist);
+		void MoveZ(Float dist);
 	private:
 		Float3 m_Position;
 		Float3 m_Target;

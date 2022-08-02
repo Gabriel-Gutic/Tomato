@@ -13,7 +13,15 @@ public:
 
 	virtual void OnUpdate()
 	{
-
+		auto& camera = Tomato::App::GetCamera();
+		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
+			camera->MoveX(-m_Speed);
+		if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
+			camera->MoveX(m_Speed);
+		if (Tomato::Input::Keyboard(TOMATO_KEY_UP))
+			camera->MoveY(m_Speed);
+		if (Tomato::Input::Keyboard(TOMATO_KEY_DOWN))
+			camera->MoveY(-m_Speed);
 	}
 
 	virtual void OnEvent(Tomato::Event& e)
@@ -28,6 +36,7 @@ public:
 		ImGui::End();
 	}
 private:
+	Tomato::Float m_Speed = 0.2f;
 };
 
 

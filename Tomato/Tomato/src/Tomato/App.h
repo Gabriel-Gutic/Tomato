@@ -20,6 +20,7 @@ namespace Tomato
 		static void Exit();
 
 		static std::unique_ptr<Window>& GetWindow();
+		static std::unique_ptr<Camera>& GetCamera();
 
 		static void PushEvent(Event* event);
 		static void PushLayer(Layer* layer);
