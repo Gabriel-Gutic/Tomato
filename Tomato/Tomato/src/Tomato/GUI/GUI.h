@@ -7,8 +7,8 @@ namespace Tomato::GUI
 		static bool IsDockspaceShown;
 	};
 
-	void Init();
-	void Destroy();
+	void Initialize();
+	void Terminate();
 
 	void Begin();
 	void End();

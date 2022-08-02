@@ -13,6 +13,8 @@
 #include "Renderer/Texture/Texture.h"
 #include "Renderer/Camera.h"
 
+#include "Renderer/Renderer.h"
+
 
 namespace Tomato
 {
@@ -25,14 +27,16 @@ namespace Tomato
 
 		m_Window = std::make_unique<Window>("Tomato Window", 800, 800);
 
-		GUI::Init();
+		GUI::Initialize();
+
+		Renderer::Initialize();
 
 		m_Camera = std::make_unique<Camera>();
 	}
 
 	App::~App()
 	{
-		GUI::Destroy();
+		GUI::Terminate();
 	}
 
 	Int App::Run()
@@ -51,8 +55,6 @@ namespace Tomato
 			2, 3, 1,
 			//3, 4, 2,
 		});
-
-		std::shared_ptr<ShaderProgram> shaderProgram = std::make_shared<ShaderProgram>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
 
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("assets/images/plain.png");
 
@@ -80,15 +82,11 @@ namespace Tomato
 
 			m_Window->Clear(1.0f, 0.0f, 0.0f);
 
-			shaderProgram->Use();
+			Renderer::Begin();
 
 			texture->Bind();
 			va->Bind();
 			ib->Bind();
-
-			auto view = m_Camera->Update();
-
-			shaderProgram->SetUniformMat4("View", view);
 
 			//glDrawArrays(GL_TRIANGLES, 0, 3);
 			glDrawElements(GL_TRIANGLES, ib->GetSize(), GL_UNSIGNED_INT, (void*)0);
@@ -99,7 +97,8 @@ namespace Tomato
 			}
 
 			VertexArray::Unbind();
-			shaderProgram->Use(false);
+
+			Renderer::End();
 
 			GUI::Begin();
 			

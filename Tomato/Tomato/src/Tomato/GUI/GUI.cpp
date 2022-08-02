@@ -14,7 +14,7 @@ namespace Tomato::GUI
 {
     bool Data::IsDockspaceShown = false;
 
-    void Init()
+    void Initialize()
     {
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
@@ -45,7 +45,7 @@ namespace Tomato::GUI
         }
     }
 
-    void Destroy()
+    void Terminate()
     {
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
