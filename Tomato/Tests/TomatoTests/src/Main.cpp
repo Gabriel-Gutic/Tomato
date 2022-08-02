@@ -10,7 +10,7 @@ public:
 	{
 		PushLayer(new Tomato::Tests::MathTestsLayer());
 
-		SLEEP(0, ""); //TODO: Pause Function
+		SLEEP(10000);
 		Exit();
 	}
 

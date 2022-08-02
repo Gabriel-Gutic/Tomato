@@ -25,4 +25,4 @@ namespace Tomato
 	};
 }
 
-#define SLEEP(ms) Timer::Wait(ms)
+#define SLEEP(ms) Tomato::Timer::Wait(ms)

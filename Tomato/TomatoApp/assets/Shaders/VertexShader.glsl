@@ -6,9 +6,11 @@ layout (location = 2) in vec2 inTexCoords;
 out vec4 Color;
 out vec2 TexCoords;
 
+uniform mat4 View;
+
 void main()
 {
 	Color = inColor;
 	TexCoords = inTexCoords;
-	gl_Position = vec4(inCoords, 1.0f);
+	gl_Position = View * vec4(inCoords, 1.0f);
 }

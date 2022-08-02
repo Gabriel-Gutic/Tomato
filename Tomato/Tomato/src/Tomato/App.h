@@ -3,6 +3,8 @@
 #include "Window.h"
 #include "Layer.h"
 
+#include "Renderer/Camera.h"
+
 
 namespace Tomato
 {
@@ -11,7 +13,7 @@ namespace Tomato
 	public:
 		App();
 		~App();
-		void Run();
+		Int Run();
 
 		static App* Get() { return s_Instance; }
 		static App* Create();
@@ -28,6 +30,7 @@ namespace Tomato
 		std::vector<Layer*> m_LayerStack;
 
 		std::unique_ptr<Window> m_Window;
+		std::unique_ptr<Camera> m_Camera;
 
 		static App* s_Instance;
 	};

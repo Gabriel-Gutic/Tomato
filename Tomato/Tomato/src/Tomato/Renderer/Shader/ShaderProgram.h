@@ -10,6 +10,8 @@ namespace Tomato
 		~ShaderProgram();
 
 		void Use(bool use = true);
+
+		UInt GetID() const;
 	private:
 		UInt m_RendererID;
 	};

@@ -24,6 +24,7 @@ namespace Tomato
 		Matrix<T, ROWS, COLS> operator-(const Matrix<T, ROWS, COLS>& other);
 		
 		Float GetDeterminant() const;
+		const std::array<std::array<T, COLS>, ROWS>& GetData() const;
 
 		template <typename T, size_t M, size_t N, size_t P>
 		friend Matrix<T, M, P> operator*(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B);
@@ -123,6 +124,12 @@ namespace Tomato
 		for (UInt i = 0; i < ROWS; i++)
 			det *= M[i][i];
 		return det;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	inline const std::array<std::array<T, COLS>, ROWS>& Matrix<T, ROWS, COLS>::GetData() const
+	{
+		return m_Data;
 	}
 
 	template<typename T, size_t M, size_t N, size_t P>

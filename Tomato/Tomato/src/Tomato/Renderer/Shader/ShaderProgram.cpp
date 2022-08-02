@@ -38,4 +38,9 @@ namespace Tomato
 			glUseProgram(0);
 		}
 	}
+
+	UInt ShaderProgram::GetID() const
+	{
+		return m_RendererID;
+	}
 }

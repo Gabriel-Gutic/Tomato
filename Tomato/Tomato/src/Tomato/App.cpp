@@ -5,12 +5,13 @@
 #include <GLFW/glfw3.h>
 
 #include "GUI/GUI.h"
-#include "Renderer/ShaderProgram.h"
+#include "Renderer/Shader/ShaderProgram.h"
 
-#include "Renderer/VertexBuffer.h"
-#include "Renderer/IndexBuffer.h"
-#include "Renderer/VertexArray.h"
-#include "Renderer/Texture.h"
+#include "Renderer/Buffer/VertexBuffer.h"
+#include "Renderer/Buffer/IndexBuffer.h"
+#include "Renderer/Buffer/VertexArray.h"
+#include "Renderer/Texture/Texture.h"
+#include "Renderer/Camera.h"
 
 
 namespace Tomato
@@ -25,6 +26,8 @@ namespace Tomato
 		m_Window = std::make_unique<Window>("Tomato Window", 800, 800);
 
 		GUI::Init();
+
+		m_Camera = std::make_unique<Camera>(Float3(2.0f, -2.0f, 7.0f));
 	}
 
 	App::~App()
@@ -32,7 +35,7 @@ namespace Tomato
 		GUI::Destroy();
 	}
 
-	void App::Run()
+	Int App::Run()
 	{
 		std::shared_ptr<VertexBuffer> vb = std::make_shared<VertexBuffer>(std::initializer_list<Vertex>{
 			{ { -0.5f, -0.5f, 0.0f}, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f }},
@@ -83,6 +86,12 @@ namespace Tomato
 			va->Bind();
 			ib->Bind();
 
+			auto view = m_Camera->Update();
+			TOMATO_PRINT(view.ToString());
+
+			Int location = glGetUniformLocation(shaderProgram->GetID(), "View");
+			glUniformMatrix4fv(location, 1, GL_FALSE, &view[0][0]);
+
 			//glDrawArrays(GL_TRIANGLES, 0, 3);
 			glDrawElements(GL_TRIANGLES, ib->GetSize(), GL_UNSIGNED_INT, (void*)0);
 
@@ -105,6 +114,8 @@ namespace Tomato
 
 			m_Window->Swap();
 		}
+
+		return 0;
 	}
 
 	void App::PushEvent(Event* event)

@@ -24,11 +24,11 @@ public:																\
 																	\
 	static Type DotProduct(const Type##2& f1, const Type##2& f2);	\
 																	\
-	bool operator==(const Type##2& other);							\
-	bool operator!=(const Type##2& other);							\
-	Type##2 operator+(const Type##2& other);							\
-	Type##2 operator-(const Type##2& other);							\
-	Type operator*(const Type##2& other);							\
+	bool operator==(const Type##2& other) const;							\
+	bool operator!=(const Type##2& other) const;							\
+	Type##2 operator+(const Type##2& other) const;							\
+	Type##2 operator-(const Type##2& other) const;							\
+	Type operator*(const Type##2& other) const;							\
 	Type& operator[](size_t index); 									\
 	const Type& operator[](size_t index) const;						\
 	friend Type##2 operator*(const Type##2& f2, Type dot);			\
@@ -58,27 +58,27 @@ Type Type##2::DotProduct(const Type##2& f1, const Type##2& f2)			\
 	return f1.x * f2.x + f1.y * f2.y;									\
 }																		\
 																		\
-bool Type##2::operator==(const Type##2& other)							\
+bool Type##2::operator==(const Type##2& other) const						\
 {																		\
 	return x == other.x && y == other.y;							\
 }																		\
 																		\
-bool Type##2::operator!=(const Type##2& other)							\
+bool Type##2::operator!=(const Type##2& other) const							\
 {																		\
 	return !(x == other.x && y == other.y);							\
 }																		\
 																		\
-Type##2 Type##2::operator+(const Type##2& other)							\
+Type##2 Type##2::operator+(const Type##2& other) const							\
 {																		\
 	return Type##2(x + other.x, y + other.y);							\
 }																		\
 																		\
-Type##2 Type##2::operator-(const Type##2& other)							\
+Type##2 Type##2::operator-(const Type##2& other) const							\
 {																		\
 	return Type##2(x - other.x, y - other.y);							\
 }																		\
 																		\
-Type Type##2::operator*(const Type##2& other)							\
+Type Type##2::operator*(const Type##2& other) const							\
 {																		\
 	return DotProduct(*this, other);									\
 }																		\
@@ -137,11 +137,11 @@ Type##2 operator*(Type dot, const Type##2& f2)							\
 		static Type DotProduct(const Type##3 & f1, const Type##3 & f2);		\
 		static Type##3 CrossProduct(const Type##3 & f1, const Type##3 & f2);	\
 																			\
-		bool operator==(const Type##3& other);							\
-		bool operator!=(const Type##3& other);							\
-		Type##3 operator+(const Type##3 & other);								\
-		Type##3 operator-(const Type##3 & other);								\
-		Type operator*(const Type##3 & other);								\
+		bool operator==(const Type##3& other) const;							\
+		bool operator!=(const Type##3& other) const;							\
+		Type##3 operator+(const Type##3 & other) const;								\
+		Type##3 operator-(const Type##3 & other) const;								\
+		Type operator*(const Type##3 & other) const;								\
 		Type& operator[](size_t index); 									\
 		const Type& operator[](size_t index) const;						\
 		friend Type##3 operator*(const Type##3 & f3, Type dot);				\
@@ -192,27 +192,27 @@ Type##3 Type##3::CrossProduct(const Type##3& f1, const Type##3& f2)					\
 	);																			\
 }																				\
 																				\
-bool Type##3::operator==(const Type##3& other)									\
+bool Type##3::operator==(const Type##3& other) const									\
 {																				\
 	return x == other.x && y == other.y && z == other.z;						\
 }																				\
 																				\
-bool Type##3::operator!=(const Type##3& other)									\
+bool Type##3::operator!=(const Type##3& other) const									\
 {																				\
 	return !(x == other.x && y == other.y && z == other.z);						\
 }																				\
 																				\
-Type##3 Type##3::operator+(const Type##3& other)									\
+Type##3 Type##3::operator+(const Type##3& other) const								\
 {																				\
 	return Type##3(x + other.x, y + other.y, z + other.z);						\
 }																				\
 																				\
-Type##3 Type##3::operator-(const Type##3& other)									\
+Type##3 Type##3::operator-(const Type##3& other) const									\
 {																				\
 	return Type##3(x - other.x, y - other.y, z - other.z);						\
 }																				\
 																				\
-Type Type##3::operator*(const Type##3& other)									\
+Type Type##3::operator*(const Type##3& other) const									\
 {																				\
 	return DotProduct(*this, other);											\
 }																				\
@@ -278,11 +278,11 @@ Type##3 operator*(Type dot, const Type##3& f3)									\
 																				\
 		static Type DotProduct(const Type##4 & f1, const Type##4 & f2);			\
 																				\
-		bool operator==(const Type##4& other);							\
-		bool operator!=(const Type##4& other);							\
-		Type##4 operator+(const Type##4 & other);									\
-		Type##4 operator-(const Type##4 & other);									\
-		Type operator*(const Type##4 & other);									\
+		bool operator==(const Type##4& other) const;							\
+		bool operator!=(const Type##4& other) const;							\
+		Type##4 operator+(const Type##4 & other) const;									\
+		Type##4 operator-(const Type##4 & other) const;									\
+		Type operator*(const Type##4 & other) const;									\
 		Type& operator[](size_t index); 									\
 		const Type& operator[](size_t index) const;						\
 		friend Type##4 operator*(const Type##4 & f3, Type dot);					\
@@ -332,27 +332,27 @@ Type Type##4::DotProduct(const Type##4& f1, const Type##4& f2)						\
 	return f1.x * f2.x + f1.y * f2.y + f1.z * f2.z + f1.t * f2.t;					\
 }																					\
 																				\
-bool Type##4::operator==(const Type##4& other)									\
+bool Type##4::operator==(const Type##4& other) const									\
 {																				\
 	return x == other.x && y == other.y && z == other.z && t == other.t;						\
 }																				\
 																				\
-bool Type##4::operator!=(const Type##4& other)									\
+bool Type##4::operator!=(const Type##4& other) const									\
 {																				\
 	return !(x == other.x && y == other.y && z == other.z && t == other.t);						\
 }																				\
 																					\
-Type##4 Type##4::operator+(const Type##4& other)										\
+Type##4 Type##4::operator+(const Type##4& other) const										\
 {																					\
 	return Type##4(x + other.x, y + other.y, z + other.z, t + other.t);				\
 }																					\
 																					\
-Type##4 Type##4::operator-(const Type##4& other)										\
+Type##4 Type##4::operator-(const Type##4& other) const										\
 {																					\
 	return Type##4(x - other.x, y - other.y, z - other.z, t - other.t);				\
 }																					\
 																					\
-Type Type##4::operator*(const Type##4& other)										\
+Type Type##4::operator*(const Type##4& other) const										\
 {																					\
 	return DotProduct(*this, other);												\
 }																					\

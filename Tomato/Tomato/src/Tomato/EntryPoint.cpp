@@ -9,11 +9,19 @@ int main(int argc, char** argv)
 	TOMATO_PRINT("Start App: {0}", Tomato::DateTime::Now().ToString());
 
 	auto app = Tomato::App::Create();
+	int result = -1;
 
-	app->Run();
+	if (app)
+	{
+		result = app->Run();
 
-	TOMATO_PRINT("Deleting App...");
-	delete app;
+		TOMATO_PRINT("Deleting App...");
+		delete app;
+	}
+	else
+	{
+		TOMATO_ERROR("App was not startup properly");
+	}
 
-	return 0;
+	return result;
 }
