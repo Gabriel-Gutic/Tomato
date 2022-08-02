@@ -130,6 +130,9 @@
     <ClInclude Include="src\Tomato\Renderer\ShaderProgram.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Texture.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Vertex.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
@@ -143,7 +146,6 @@
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Renderer\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -206,6 +208,9 @@
     <ClCompile Include="src\Tomato\Renderer\ShaderProgram.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Texture.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\VertexArray.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
@@ -216,6 +221,5 @@
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Texture.cpp" />
   </ItemGroup>
 </Project>

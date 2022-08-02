@@ -8,7 +8,7 @@ public:																\
 			std::pair<Type, Type> data;							\
 		};															\
 		struct {													\
-			Type list[2];							\
+			std::array<Type, 2> list;							\
 		};															\
 		struct {													\
 			Type x, y;												\
@@ -24,6 +24,8 @@ public:																\
 																	\
 	static Type DotProduct(const Type##2& f1, const Type##2& f2);	\
 																	\
+	bool operator==(const Type##2& other);							\
+	bool operator!=(const Type##2& other);							\
 	Type##2 operator+(const Type##2& other);							\
 	Type##2 operator-(const Type##2& other);							\
 	Type operator*(const Type##2& other);							\
@@ -54,6 +56,16 @@ std::string Type##2::ToString() const									\
 Type Type##2::DotProduct(const Type##2& f1, const Type##2& f2)			\
 {																		\
 	return f1.x * f2.x + f1.y * f2.y;									\
+}																		\
+																		\
+bool Type##2::operator==(const Type##2& other)							\
+{																		\
+	return x == other.x && y == other.y;							\
+}																		\
+																		\
+bool Type##2::operator!=(const Type##2& other)							\
+{																		\
+	return !(x == other.x && y == other.y);							\
 }																		\
 																		\
 Type##2 Type##2::operator+(const Type##2& other)							\
@@ -100,7 +112,7 @@ Type##2 operator*(Type dot, const Type##2& f2)							\
 				std::tuple<Type, Type, Type> data;						\
 			};																\
 			struct {													\
-				Type list[3];							\
+				std::array<Type, 3> list;							\
 			};															\
 			struct {														\
 				Type##2 xy;													\
@@ -125,6 +137,8 @@ Type##2 operator*(Type dot, const Type##2& f2)							\
 		static Type DotProduct(const Type##3 & f1, const Type##3 & f2);		\
 		static Type##3 CrossProduct(const Type##3 & f1, const Type##3 & f2);	\
 																			\
+		bool operator==(const Type##3& other);							\
+		bool operator!=(const Type##3& other);							\
 		Type##3 operator+(const Type##3 & other);								\
 		Type##3 operator-(const Type##3 & other);								\
 		Type operator*(const Type##3 & other);								\
@@ -178,6 +192,16 @@ Type##3 Type##3::CrossProduct(const Type##3& f1, const Type##3& f2)					\
 	);																			\
 }																				\
 																				\
+bool Type##3::operator==(const Type##3& other)									\
+{																				\
+	return x == other.x && y == other.y && z == other.z;						\
+}																				\
+																				\
+bool Type##3::operator!=(const Type##3& other)									\
+{																				\
+	return !(x == other.x && y == other.y && z == other.z);						\
+}																				\
+																				\
 Type##3 Type##3::operator+(const Type##3& other)									\
 {																				\
 	return Type##3(x + other.x, y + other.y, z + other.z);						\
@@ -222,7 +246,7 @@ Type##3 operator*(Type dot, const Type##3& f3)									\
 				std::tuple<Type, Type, Type, Type> data;					\
 			};																	\
 			struct {													\
-				Type list[4];							\
+				std::array<Type, 4> list;							\
 			};															\
 			struct {															\
 				Type##3 xyz;														\
@@ -254,6 +278,8 @@ Type##3 operator*(Type dot, const Type##3& f3)									\
 																				\
 		static Type DotProduct(const Type##4 & f1, const Type##4 & f2);			\
 																				\
+		bool operator==(const Type##4& other);							\
+		bool operator!=(const Type##4& other);							\
 		Type##4 operator+(const Type##4 & other);									\
 		Type##4 operator-(const Type##4 & other);									\
 		Type operator*(const Type##4 & other);									\
@@ -305,6 +331,16 @@ Type Type##4::DotProduct(const Type##4& f1, const Type##4& f2)						\
 {																					\
 	return f1.x * f2.x + f1.y * f2.y + f1.z * f2.z + f1.t * f2.t;					\
 }																					\
+																				\
+bool Type##4::operator==(const Type##4& other)									\
+{																				\
+	return x == other.x && y == other.y && z == other.z && t == other.t;						\
+}																				\
+																				\
+bool Type##4::operator!=(const Type##4& other)									\
+{																				\
+	return !(x == other.x && y == other.y && z == other.z && t == other.t);						\
+}																				\
 																					\
 Type##4 Type##4::operator+(const Type##4& other)										\
 {																					\

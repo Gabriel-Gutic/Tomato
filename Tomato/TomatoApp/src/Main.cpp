@@ -8,6 +8,7 @@ public:
 	{
 		Tomato::GUI::HideDockspace();
 	}
+
 	~FirstLayer() {}
 
 	virtual void OnUpdate()

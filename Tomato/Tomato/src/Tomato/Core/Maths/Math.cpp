@@ -80,6 +80,36 @@ namespace Tomato
 	{
 		return value ? "True" : "False";
 	}
+
+	Float Math::Trunc(Float number, UInt precision)
+	{
+		UInt power = 1;
+		for (UInt i = 0; i < precision; i++)
+			power *= 10;
+		return floorf(number * power) / (Float)power;
+	}
+
+	Double Math::Trunc(Double number, UInt precision)
+	{
+		UInt power = 1;
+		for (UInt i = 0; i < precision; i++)
+			power *= 10;
+		return floor(number * power) / (Double)power;
+	}
+
+	Mat4 Math::Translate(const Mat4& matrix, const Float3& vector)
+	{
+		Mat4 copy = matrix;
+		copy[0][3] = vector.x;
+		copy[1][3] = vector.y;
+		copy[2][3] = vector.z;
+		return copy;
+	}
+
+	Mat4 Math::Translate(const Mat4& matrix, Float x, Float y, Float z)
+	{
+		return Translate(matrix, Float3(x, y, z));
+	}
 }
 
 

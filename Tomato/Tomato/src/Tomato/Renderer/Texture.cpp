@@ -29,6 +29,7 @@ namespace Tomato
 
 	Texture::~Texture()
 	{
+		glDeleteTextures(1, &m_RendererID);
 	}
 
 	void Texture::Bind()
