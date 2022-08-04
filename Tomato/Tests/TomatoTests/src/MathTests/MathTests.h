@@ -8,5 +8,8 @@ namespace Tomato
 		void LengthTest();
 		void NormalizeTest();
 		void TranslateTest();
+		void MinorTest();
+		void TransposeTest();
+		void InverseTest();
 	}
 }

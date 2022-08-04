@@ -17,6 +17,7 @@ project "TomatoApp"
 	{
 		"src",
 		sln .. "Tomato/src",
+		sln .. "Tomato/src/Tomato",
 		sln .. "Tomato/dependencies/spdlog/include",
 		sln .. "Tomato/dependencies/ImGui",
 	}

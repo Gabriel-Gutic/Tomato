@@ -87,11 +87,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Tomato\Object\Object.h" />
-    <ClInclude Include="src\Tomato\Object\Triangle.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene.h" />
-    <ClInclude Include="src\Tomato\Renderer\Renderer.h" />
-    <ClInclude Include="src\Tomato\Renderer\Camera.h" />
     <ClInclude Include="src\Tomato.h" />
     <ClInclude Include="src\Tomato\App.h" />
     <ClInclude Include="src\Tomato\Core\DateTime\Date.h" />
@@ -120,24 +115,24 @@
     <ClInclude Include="src\Tomato\Event\WindowEvent.h" />
     <ClInclude Include="src\Tomato\GUI\GUI.h" />
     <ClInclude Include="src\Tomato\Layer.h" />
+    <ClInclude Include="src\Tomato\Object\Object.h" />
+    <ClInclude Include="src\Tomato\Object\Triangle.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h" />
-    <ClInclude Include="src\Tomato\Renderer\Texture\Image.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\IndexBuffer.h" />
-    <ClInclude Include="src\Tomato\Renderer\Shader\Shader.h" />
-    <ClInclude Include="src\Tomato\Renderer\Shader\ShaderProgram.h" />
-    <ClInclude Include="src\Tomato\Renderer\Texture\Texture.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Vertex.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexArray.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Camera.h" />
+    <ClInclude Include="src\Tomato\Renderer\Renderer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene.h" />
+    <ClInclude Include="src\Tomato\Renderer\Shader\Shader.h" />
+    <ClInclude Include="src\Tomato\Renderer\Shader\ShaderProgram.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Image.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Texture.h" />
     <ClInclude Include="src\Tomato\Window.h" />
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Tomato\Object\Object.cpp" />
-    <ClCompile Include="src\Tomato\Object\Triangle.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Scene.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Camera.cpp" />
     <ClCompile Include="src\Tomato\App.cpp" />
     <ClCompile Include="src\Tomato\Core\DateTime\Date.cpp" />
     <ClCompile Include="src\Tomato\Core\DateTime\DateTime.cpp" />
@@ -153,14 +148,19 @@
     <ClCompile Include="src\Tomato\Event\Event.cpp" />
     <ClCompile Include="src\Tomato\Event\Input.cpp" />
     <ClCompile Include="src\Tomato\GUI\GUI.cpp" />
+    <ClCompile Include="src\Tomato\Object\Object.cpp" />
+    <ClCompile Include="src\Tomato\Object\Triangle.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\IndexBuffer.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Shader\Shader.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Shader\ShaderProgram.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Texture\Texture.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Shader\Shader.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Shader\ShaderProgram.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Texture\Texture.cpp" />
     <ClCompile Include="src\Tomato\Window.cpp" />
     <ClCompile Include="src\pchTomato.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

@@ -16,10 +16,10 @@ namespace Tomato
 
 	Mat4 Camera::Update() const
 	{
-		Mat4 perspective = Math::Perspective(45, 1.0f, 100.0f);
+		Mat4 projection = Math::Perspective(45, 0.1f, 10.0f);
 		Mat4 view = Math::LookAt(m_Position, m_Target);
 
-		return perspective * view;
+		return projection * view;
 	}
 
 	void Camera::MoveX(Float dist)

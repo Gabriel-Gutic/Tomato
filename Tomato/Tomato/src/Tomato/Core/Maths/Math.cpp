@@ -123,7 +123,7 @@ namespace Tomato
 
 	Mat4 Math::LookAt(const Float3& position, const Float3& target)
 	{
-		Float3 direction = Math::Normalize(position - target);
+		Float3 direction = Math::Normalize(target - position);
 		Float3 right = Math::Normalize(Float3::CrossProduct(Float3(0.0f, 1.0f, 0.0f), direction));
 		Float3 up = Float3::CrossProduct(direction, right);
 
@@ -136,28 +136,26 @@ namespace Tomato
 			axes[2][j] = direction[j];
 
 		Mat4 trans = Mat4(1.0f);
-		trans[0][3] = -position[0];
-		trans[1][3] = -position[1];
-		trans[2][3] = -position[2];
+		for (UInt i = 0; i < 3; i++)
+			axes[i][3] = -position[i];
 
-		Mat4 result = axes * trans;
-		return result;
+		return axes * trans;
 	}
 
 	Mat4 Math::Perspective(Float fov, Float _near, Float _far)
 	{
 		Mat4 perspective = Mat4(0.0f);
 
-		Float S = 1 / (tan(Radians(fov) / 2));
+		Float S = 1.0f / (tan(Radians(fov) / 2));
 
 		perspective[0][0] = perspective[1][1] = S;
 
-		perspective[2][2] = -(_far / (_far - _near));
-		perspective[3][2] = -((_far * _near) / (_far - _near));
+		perspective[2][2] = -(_far + _near) / (_far - _near);
+		perspective[2][3] = -((2 * _far * _near) / (_far - _near));
 
-		perspective[2][3] = -1;
+		perspective[3][2] = -1;
 
-		return perspective;
+		return Math::Inverse(perspective);
 	}
 }
 

@@ -28,8 +28,20 @@
     <Filter Include="Tomato\GUI">
       <UniqueIdentifier>{6D2E7DE4-59E6-BE31-C2ED-978DAEC45922}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Object">
+      <UniqueIdentifier>{3F8A7A1C-AB4A-F652-7485-3FD0E0043B2F}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato\Renderer">
       <UniqueIdentifier>{9FF23DDA-0B7E-AB9E-148F-2E938099079F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\Renderer\Buffer">
+      <UniqueIdentifier>{A86B2110-9465-4A62-7DD2-E072696BB0CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\Renderer\Shader">
+      <UniqueIdentifier>{6519DB36-5113-0489-3A80-9A9926196AF5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\Renderer\Texture">
+      <UniqueIdentifier>{FF46E259-6B7E-2AF1-7488-8E14E03E51EA}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,42 +127,52 @@
     <ClInclude Include="src\Tomato\Layer.h">
       <Filter>Tomato</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h">
-      <Filter>Tomato\Renderer</Filter>
+    <ClInclude Include="src\Tomato\Object\Object.h">
+      <Filter>Tomato\Object</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Texture\Image.h">
-      <Filter>Tomato\Renderer</Filter>
+    <ClInclude Include="src\Tomato\Object\Triangle.h">
+      <Filter>Tomato\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h">
+      <Filter>Tomato\Renderer\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Buffer\IndexBuffer.h">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Buffer\Vertex.h">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Buffer\VertexArray.h">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Camera.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Renderer.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Scene.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Shader\Shader.h">
-      <Filter>Tomato\Renderer</Filter>
+      <Filter>Tomato\Renderer\Shader</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Shader\ShaderProgram.h">
-      <Filter>Tomato\Renderer</Filter>
+      <Filter>Tomato\Renderer\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Texture\Image.h">
+      <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Texture\Texture.h">
-      <Filter>Tomato\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Buffer\Vertex.h">
-      <Filter>Tomato\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Buffer\VertexArray.h">
-      <Filter>Tomato\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h">
-      <Filter>Tomato\Renderer</Filter>
+      <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Window.h">
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Renderer\Camera.h" />
-    <ClInclude Include="src\Tomato\Renderer\Renderer.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene.h" />
-    <ClInclude Include="src\Tomato\Object\Object.h" />
-    <ClInclude Include="src\Tomato\Object\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -198,38 +220,48 @@
     <ClCompile Include="src\Tomato\GUI\GUI.cpp">
       <Filter>Tomato\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp">
-      <Filter>Tomato\Renderer</Filter>
+    <ClCompile Include="src\Tomato\Object\Object.cpp">
+      <Filter>Tomato\Object</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp">
-      <Filter>Tomato\Renderer</Filter>
+    <ClCompile Include="src\Tomato\Object\Triangle.cpp">
+      <Filter>Tomato\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp">
+      <Filter>Tomato\Renderer\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\IndexBuffer.cpp">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Camera.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Renderer.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Scene.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Shader\Shader.cpp">
-      <Filter>Tomato\Renderer</Filter>
+      <Filter>Tomato\Renderer\Shader</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Shader\ShaderProgram.cpp">
-      <Filter>Tomato\Renderer</Filter>
+      <Filter>Tomato\Renderer\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp">
+      <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Texture\Texture.cpp">
-      <Filter>Tomato\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp">
-      <Filter>Tomato\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp">
-      <Filter>Tomato\Renderer</Filter>
+      <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Window.cpp">
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Camera.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Scene.cpp" />
-    <ClCompile Include="src\Tomato\Object\Object.cpp" />
-    <ClCompile Include="src\Tomato\Object\Triangle.cpp" />
   </ItemGroup>
 </Project>

@@ -21,7 +21,7 @@ namespace Tomato
 		virtual std::string ToString() const = 0;
 
 		template<typename E>
-		static E Cast(const Event& e);
+		static const E Cast(const Event& e);
 	};
 
 #define	EVENT_SETUP(type) \
@@ -29,8 +29,8 @@ namespace Tomato
 	virtual const char* GetName() const override { return #type; } 
 	
 	template<typename E>
-	inline E Event::Cast(const Event& e)
+	inline const E Event::Cast(const Event& e)
 	{
-		return *dynamic_cast<E*>(&e);
+		return *dynamic_cast<const E*>(&e);
 	}
 }

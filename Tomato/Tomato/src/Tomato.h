@@ -10,5 +10,11 @@
 #include "Tomato/Core/Maths/Maths.h"
 #include "Tomato/Core/Timer/Timer.h"
 
+//Renderer
+#include "Tomato/Renderer/Renderer.h"
+
+// Object
+//#include "Tomato/Object/Triangle.h"
+
 //ImGui
 #include <imgui/imgui.h>

@@ -31,12 +31,6 @@ namespace Tomato
 		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber);
 
 		s_Instance->m_VertexArray = std::make_unique<VertexArray>();
-
-		RendererData::Vertices[0] = Vertex(Float3(-0.5f, -0.5f, 0.0f));
-		RendererData::Vertices[1] = Vertex(Float3(+0.5f, -0.5f, 0.0f));
-		RendererData::Vertices[2] = Vertex(Float3( 0.0f, +0.5f, 0.0f));
-	
-		RendererData::VertexCounter = 3;
 	}
 
 	void Renderer::Terminate()
@@ -51,6 +45,8 @@ namespace Tomato
 
 	void Renderer::End()
 	{
+		Flush();
+
 		s_Instance->m_ShaderProgram->Use(false);
 	}
 
@@ -59,26 +55,36 @@ namespace Tomato
 		return s_Instance;
 	}
 
-	void Renderer::Draw(const Triangle& triangle)
+	void Renderer::Draw(std::shared_ptr<Triangle> triangle)
 	{
 		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber)
 			Flush();
 
 		for (UInt i = 0; i < 3; i++)
-			RendererData::Vertices[RendererData::VertexCounter++] = triangle.GetVertices()[i];
+			RendererData::Vertices[RendererData::VertexCounter++] = triangle->GetVertices()[i];
 	}
 
 	void Renderer::Flush()
 	{
 		auto& ins = s_Instance;
+
+		//Apply Camera Transforms
+		auto trans = App::GetCurrentCamera()->Update();
+		for (UInt i = 0; i < RendererData::VertexCounter; i++)
+		{
+			Float4 pos = trans * Float4(RendererData::Vertices[i].Coords, 1.0f);
+
+			RendererData::Vertices[i].Coords = pos.xyz;
+
+			TOMATO_ERROR(RendererData::Vertices[i].Coords.ToString());
+		}
+
+
 		ins->m_VertexBuffer->Bind();
 		ins->m_VertexBuffer->SetData(RendererData::Vertices, RendererData::VertexCounter);
 
 		ins->m_ShaderProgram->Use();
 
-		auto view = App::GetCurrentCamera()->Update();
-
-		ins->m_ShaderProgram->SetUniformMat4("View", view);
 
 		ins->m_VertexArray->Bind();
 

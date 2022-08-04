@@ -18,16 +18,23 @@ namespace Tomato
 		
 		std::string ToString() const;
 
+		bool operator==(const Matrix<T, ROWS, COLS>& other) const;
+		bool operator!=(const Matrix<T, ROWS, COLS>& other) const;
 		std::array<T, COLS>& operator[](UInt index);
 		const std::array<T, COLS>& operator[](UInt index) const;
-		Matrix<T, ROWS, COLS> operator+(const Matrix<T, ROWS, COLS>& other);
-		Matrix<T, ROWS, COLS> operator-(const Matrix<T, ROWS, COLS>& other);
+		Matrix<T, ROWS, COLS> operator+(const Matrix<T, ROWS, COLS>& other) const;
+		Matrix<T, ROWS, COLS> operator-(const Matrix<T, ROWS, COLS>& other) const;
 		
 		Float GetDeterminant() const;
+		Matrix<T, ROWS - 1, COLS - 1> Minor(UInt row, UInt col) const;
 		const std::array<std::array<T, COLS>, ROWS>& GetData() const;
 
 		template <typename T, size_t M, size_t N, size_t P>
 		friend Matrix<T, M, P> operator*(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B);
+		template <typename T, size_t ROWS, size_t COLS>
+		friend Matrix<T, ROWS, COLS> operator*(const T scalar, const Matrix<T, ROWS, COLS>& mat);
+		template <typename T, size_t ROWS, size_t COLS>
+		friend Matrix<T, ROWS, COLS> operator*(const Matrix<T, ROWS, COLS>& mat, const T scalar);
 	private: 
 		static void Diagonally(Matrix<T, ROWS, COLS>& A, UInt n = 0);
 	protected:
@@ -76,6 +83,22 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
+	inline bool Matrix<T, ROWS, COLS>::operator==(const Matrix<T, ROWS, COLS>& other) const
+	{
+		for (UInt i = 0; i < ROWS; i++)
+			for (UInt j = 0; j < COLS; j++)
+				if (m_Data[i][j] != other[i][j])
+					return false;
+		return true;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	inline bool Matrix<T, ROWS, COLS>::operator!=(const Matrix<T, ROWS, COLS>& other) const
+	{
+		return !(*this == other);
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
 	inline std::array<T, COLS>& Matrix<T, ROWS, COLS>::operator[](UInt index)
 	{
 		return m_Data[index];
@@ -88,7 +111,7 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	inline Matrix<T, ROWS, COLS> Matrix<T, ROWS, COLS>::operator+(const Matrix<T, ROWS, COLS>& other)
+	inline Matrix<T, ROWS, COLS> Matrix<T, ROWS, COLS>::operator+(const Matrix<T, ROWS, COLS>& other) const
 	{
 		Matrix<T, ROWS, COLS> M;
 		for (UInt i = 0; i < ROWS; i++)
@@ -98,7 +121,7 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	inline Matrix<T, ROWS, COLS> Matrix<T, ROWS, COLS>::operator-(const Matrix<T, ROWS, COLS>& other)
+	inline Matrix<T, ROWS, COLS> Matrix<T, ROWS, COLS>::operator-(const Matrix<T, ROWS, COLS>& other) const
 	{
 		Matrix<T, ROWS, COLS> M;
 		for (UInt i = 0; i < ROWS; i++)
@@ -127,6 +150,28 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
+	inline Matrix<T, ROWS - 1, COLS - 1> Matrix<T, ROWS, COLS>::Minor(UInt row, UInt col) const
+	{
+		TOMATO_ASSERT(row < ROWS && col < COLS, "You're trying to remove a row or a column that is not in the matrix");
+
+		Matrix<T, ROWS - 1, COLS - 1> minor;
+		UInt i0, j0;
+		i0 = j0 = 0;
+		for (UInt i = 0; i < ROWS; i++)
+			for (UInt j = 0; j < COLS; j++)
+				if (i != row && j != col)
+				{
+					minor[i0][j0++] = m_Data[i][j];
+					if (j0 == COLS - 1)
+					{
+						i0++;
+						j0 = 0;
+					}
+				}
+		return minor;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
 	inline const std::array<std::array<T, COLS>, ROWS>& Matrix<T, ROWS, COLS>::GetData() const
 	{
 		return m_Data;
@@ -148,6 +193,23 @@ namespace Tomato
 			}
 		}
 		return C;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	Matrix<T, ROWS, COLS> operator*(const T scalar, const Matrix<T, ROWS, COLS>& mat)
+	{
+		Matrix<T, ROWS, COLS> result;
+
+		for (UInt i = 0; i < ROWS; i++)
+			for (UInt j = 0; j < ROWS; j++)
+				result[i][j] = scalar * mat[i][j];
+		return result;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	Matrix<T, ROWS, COLS> operator*(const Matrix<T, ROWS, COLS>& mat, const T scalar)
+	{
+		return scalar * mat;
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>

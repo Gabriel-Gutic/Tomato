@@ -10,6 +10,9 @@ namespace Tomato::Tests
 		LengthTest();
 		NormalizeTest();
 		TranslateTest();
+		MinorTest();
+		TransposeTest();
+		InverseTest();
 	}
 }
 

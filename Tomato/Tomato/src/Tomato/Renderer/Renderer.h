@@ -21,7 +21,7 @@ namespace Tomato
 
 		static Renderer* Get();
 
-		static void Draw(const Triangle& triangle);
+		static void Draw(std::shared_ptr<Triangle> triangle);
 
 	private:
 		static void Flush();
