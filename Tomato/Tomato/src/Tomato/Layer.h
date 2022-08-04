@@ -8,9 +8,10 @@ namespace Tomato
 	{
 	public:
 		Layer(){}
+		virtual ~Layer(){}
 
 		virtual void OnUpdate(){}
-		virtual void OnEvent(Event& e){}
+		virtual void OnEvent(const Event& e){}
 		virtual void OnGUI(){}
 	};
 }

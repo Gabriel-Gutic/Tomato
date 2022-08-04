@@ -14,6 +14,9 @@ namespace Tomato
 		std::unique_ptr<Camera>& GetCamera();
 		const std::unique_ptr<Camera>& GetCamera() const;
 
+		std::vector<Layer*>& GetLayers();
+		const std::vector<Layer*>& GetLayers() const;
+
 		void PushLayer(Layer* layer);
 		void PopLayer();
 	private:

@@ -1,12 +1,15 @@
 #pragma once
 #include "Shader/ShaderProgram.h"
+#include "Renderer/Buffer/VertexArray.h"
+#include "Renderer/Buffer/VertexBuffer.h"
+#include "Object/Triangle.h"
 
 
 namespace Tomato
 {
 	class Renderer
 	{
-		Renderer(){}
+		Renderer() = default;
 	public:
 		Renderer(const Renderer&) = delete;
 
@@ -17,8 +20,15 @@ namespace Tomato
 		static void End();
 
 		static Renderer* Get();
+
+		static void Draw(const Triangle& triangle);
+
+	private:
+		static void Flush();
 	private:
 		std::unique_ptr<ShaderProgram> m_ShaderProgram;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<VertexArray> m_VertexArray;
 
 		static Renderer* s_Instance;
 	};

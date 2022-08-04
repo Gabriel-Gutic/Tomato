@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "Layer.h"
 
-#include "Renderer/Camera.h"
+#include "Renderer/Scene.h"
 
 
 namespace Tomato
@@ -20,7 +20,8 @@ namespace Tomato
 		static void Exit();
 
 		static std::unique_ptr<Window>& GetWindow();
-		static std::unique_ptr<Camera>& GetCamera();
+		static std::vector<std::unique_ptr<Scene>>& GetScenes();
+		static std::unique_ptr<Camera>& GetCurrentCamera();
 
 		static void PushEvent(Event* event);
 		static void PushLayer(Layer* layer);
@@ -28,10 +29,9 @@ namespace Tomato
 	private:
 		bool isRunning;
 		std::queue<Event*> m_EventQueue;
-		std::vector<Layer*> m_LayerStack;
 
 		std::unique_ptr<Window> m_Window;
-		std::unique_ptr<Camera> m_Camera;
+		std::vector<std::unique_ptr<Scene>> m_SceneList;
 
 		static App* s_Instance;
 	};

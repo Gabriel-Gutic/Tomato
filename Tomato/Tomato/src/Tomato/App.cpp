@@ -31,7 +31,7 @@ namespace Tomato
 
 		Renderer::Initialize();
 
-		m_Camera = std::make_unique<Camera>();
+		m_SceneList.push_back(std::make_unique<Scene>());
 	}
 
 	App::~App()
@@ -41,28 +41,13 @@ namespace Tomato
 
 	Int App::Run()
 	{
-		std::shared_ptr<VertexBuffer> vb = std::make_shared<VertexBuffer>(std::initializer_list<Vertex>{
-			{ { -0.5f, -0.5f, 0.0f}, { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f }},
-			{ { -0.5f,  0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, { 0.0f, 1.0f } },
-			{ {  0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, { 1.0f, 0.0f } },
-			{ {  0.5f,  0.5f, 0.0f}, {1.0f, 0.0f, 1.0f, 1.0f}, { 1.0f, 1.0f } },
-			//{ {  1.0f,  0.0f, 0.0f}, {1.0f, 1.0f, 0.0f, 1.0f}},
-		});
-		std::shared_ptr<VertexArray> va = std::make_shared<VertexArray>();
-	
-		std::shared_ptr<IndexBuffer> ib = std::make_shared<IndexBuffer>(std::initializer_list<UInt>{
-			0, 1, 2,
-			2, 3, 1,
-			//3, 4, 2,
-		});
-
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("assets/images/plain.png");
 
 		while (isRunning)
 		{
 			while (!m_EventQueue.empty())
 			{
-				auto& e = *m_EventQueue.front();
+				const auto& e = *m_EventQueue.front();
 
 				if (e.GetType() == EventType::WindowClose)
 				{
@@ -71,7 +56,7 @@ namespace Tomato
 
 				TOMATO_PRINT(e.ToString());
 
-				for (auto& layer : m_LayerStack)
+				for (auto& layer : m_SceneList[0]->GetLayers())
 				{
 					layer->OnEvent(e);
 				}
@@ -82,27 +67,20 @@ namespace Tomato
 
 			m_Window->Clear(1.0f, 0.0f, 0.0f);
 
+			texture->Bind();
+
 			Renderer::Begin();
 
-			texture->Bind();
-			va->Bind();
-			ib->Bind();
-
-			//glDrawArrays(GL_TRIANGLES, 0, 3);
-			glDrawElements(GL_TRIANGLES, ib->GetSize(), GL_UNSIGNED_INT, (void*)0);
-
-			for (auto& layer : m_LayerStack)
+			for (auto& layer : m_SceneList[0]->GetLayers())
 			{
 				layer->OnUpdate();
 			}
-
-			VertexArray::Unbind();
 
 			Renderer::End();
 
 			GUI::Begin();
 			
-			for (auto& layer : m_LayerStack)
+			for (auto& layer : m_SceneList[0]->GetLayers())
 			{
 				layer->OnGUI();
 			}
@@ -122,12 +100,12 @@ namespace Tomato
 
 	void App::PushLayer(Layer* layer)
 	{
-		s_Instance->m_LayerStack.push_back(layer);
+		s_Instance->m_SceneList[0]->GetLayers().push_back(layer);
 	}
 
 	void App::PopLayer()
 	{
-		s_Instance->m_LayerStack.pop_back();
+		s_Instance->m_SceneList[0]->GetLayers().pop_back();
 	}
 
 	std::unique_ptr<Window>& App::GetWindow()
@@ -135,9 +113,14 @@ namespace Tomato
 		return s_Instance->m_Window;
 	}
 
-	std::unique_ptr<Camera>& App::GetCamera()
+	std::vector<std::unique_ptr<Scene>>& App::GetScenes()
 	{
-		return s_Instance->m_Camera;
+		return s_Instance->m_SceneList;
+	}
+
+	std::unique_ptr<Camera>& App::GetCurrentCamera()
+	{
+		return s_Instance->m_SceneList[0]->GetCamera();
 	}
 
 	void App::Exit()

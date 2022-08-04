@@ -87,6 +87,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Tomato\Object\Object.h" />
+    <ClInclude Include="src\Tomato\Object\Triangle.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene.h" />
     <ClInclude Include="src\Tomato\Renderer\Renderer.h" />
     <ClInclude Include="src\Tomato\Renderer\Camera.h" />
@@ -131,6 +133,8 @@
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Tomato\Object\Object.cpp" />
+    <ClCompile Include="src\Tomato\Object\Triangle.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Camera.cpp" />

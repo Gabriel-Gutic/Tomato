@@ -13,7 +13,7 @@ public:
 
 	virtual void OnUpdate()
 	{
-		auto& camera = Tomato::App::GetCamera();
+		auto& camera = Tomato::App::GetCurrentCamera();
 		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
 			camera->MoveX(-m_Speed);
 		if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
