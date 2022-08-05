@@ -2,6 +2,7 @@
 #include "Shader/ShaderProgram.h"
 #include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Buffer/VertexBuffer.h"
+#include "Renderer/Buffer/IndexBuffer.h"
 #include "Object/Triangle.h"
 
 
@@ -28,6 +29,7 @@ namespace Tomato
 	private:
 		std::unique_ptr<ShaderProgram> m_ShaderProgram;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;
 
 		Mat4 m_ProjectionView;

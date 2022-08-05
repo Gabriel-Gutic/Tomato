@@ -25,30 +25,6 @@ namespace Tomato
 	
 		Init(A, B, C);
 	}
-	const std::array<Vertex, 3>& Triangle::GetVertices() const
-	{
-		return m_Vertices;
-	}
-
-	std::array<Vertex, 3>& Triangle::GetVertices()
-	{
-		return m_Vertices;
-	}
-
-	void Triangle::SetPosition(const Float3& position)
-	{
-		m_Transform.Position = position;
-	}
-
-	void Triangle::SetScale(const Float3& scale)
-	{
-		m_Transform.Scale = scale;
-	}
-
-	void Triangle::SetRotation(const Float3& rotation)
-	{
-		m_Transform.Rotation = rotation;
-	}
 
 	Mat4 Triangle::GetTransform() const
 	{
@@ -58,5 +34,10 @@ namespace Tomato
 		result =  result * Math::Scale(m_Transform.Scale);
 
 		return result;
+	}
+
+	std::vector<UInt> Triangle::GetIndices() const
+	{
+		return { 0, 1, 2 };
 	}
 }

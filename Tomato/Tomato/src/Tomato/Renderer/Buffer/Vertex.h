@@ -26,4 +26,26 @@ namespace  Tomato
 			return *this;
 		}
 	};
+
+	template <size_t COUNT>
+	class VertexInterface
+	{
+	public:
+		const std::array<Vertex, COUNT>& GetVertices() const;
+		std::array<Vertex, COUNT>& GetVertices();
+	protected:
+		std::array<Vertex, COUNT> m_Vertices;
+	};
+
+	template<size_t COUNT>
+	inline const std::array<Vertex, COUNT>& VertexInterface<COUNT>::GetVertices() const
+	{
+		return m_Vertices;
+	}
+
+	template<size_t COUNT>
+	inline std::array<Vertex, COUNT>& VertexInterface<COUNT>::GetVertices()
+	{
+		return m_Vertices;
+	}
 }

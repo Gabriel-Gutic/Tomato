@@ -6,22 +6,15 @@
 
 namespace Tomato
 {
-	IndexBuffer::IndexBuffer(std::initializer_list<UInt> indices)
+	IndexBuffer::IndexBuffer(UInt mvn)
 	{
 		this->Bind();
 
-		m_Size = indices.size();
-
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Size * sizeof(UInt), indices.begin(), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mvn * sizeof(UInt), nullptr, GL_DYNAMIC_DRAW);
 	}
 
 	IndexBuffer::~IndexBuffer()
 	{
-	}
-
-	UInt IndexBuffer::GetSize() const
-	{
-		return m_Size;
 	}
 
 	void IndexBuffer::Bind()
@@ -29,4 +22,8 @@ namespace Tomato
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 	}
 
+	void IndexBuffer::SetRawData(const UInt* data, UInt size) const
+	{
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data);
+	}
 }

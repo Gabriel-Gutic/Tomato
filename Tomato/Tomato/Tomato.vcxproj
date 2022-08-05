@@ -116,6 +116,7 @@
     <ClInclude Include="src\Tomato\GUI\GUI.h" />
     <ClInclude Include="src\Tomato\Layer.h" />
     <ClInclude Include="src\Tomato\Object\Object.h" />
+    <ClInclude Include="src\Tomato\Object\Quad.h" />
     <ClInclude Include="src\Tomato\Object\Transform.h" />
     <ClInclude Include="src\Tomato\Object\Triangle.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="src\Tomato\Event\Input.cpp" />
     <ClCompile Include="src\Tomato\GUI\GUI.cpp" />
     <ClCompile Include="src\Tomato\Object\Object.cpp" />
+    <ClCompile Include="src\Tomato\Object\Quad.cpp" />
     <ClCompile Include="src\Tomato\Object\Transform.cpp" />
     <ClCompile Include="src\Tomato\Object\Triangle.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp" />

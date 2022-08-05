@@ -43,7 +43,7 @@ public:
 		{
 			auto ev = Tomato::Event::Cast<Tomato::WheelEvent>(e);
 
-			m_FOV += ev.GetValue();
+			m_FOV += (Tomato::Float)ev.GetValue();
 		}
 	}
 

@@ -13,4 +13,20 @@ namespace Tomato
 			:Position(position), Scale(scale), Rotation(rotation)
 		{}
 	};
+
+	class TransformInterface
+	{
+	public:
+		TransformInterface() = default;
+		virtual ~TransformInterface() = default;
+
+		void SetPosition(const Float3& position);
+		void SetScale(const Float3& scale);
+		void SetRotation(const Float3& rotation);
+		const Float3& GetPosition() const;
+		const Float3& GetScale() const;
+		const Float3& GetRotation() const;
+	protected:
+		Transform m_Transform;
+	};
 }
