@@ -4,8 +4,8 @@
 
 namespace Tomato::Math
 {
-	const Float pi = acos(-1);
-	const Float e = exp(1);
+	const Float pi = acosf(-1.0f);
+	const Float e = expf(1.0f);
 
 	UInt NumberOfDigits(Int number);
 	UInt NumberOfDigits(UInt number);
@@ -36,15 +36,22 @@ namespace Tomato::Math
 	template <typename T>
 	Float Length(const T& vector);
 
+	// Return the angle of two vectors
+	template <typename T>
+	Float Angle(const T& vector1, const T& vector2);
+
 	// Return the normalized vector
 	template <typename T>
 	T Normalize(const T& vector);
 
-	// Create a translation matrix
-	Mat4 Translate(const Mat4& matrix, const Float3& vector);
-	Mat4 Translate(const Mat4& matrix, Float x, Float y, Float z);
+	// Transformation Matrix
+	Mat4 Translate(const Float3& vector);
+	Mat4 Translate(Float x, Float y, Float z);
+	Mat4 Scale(const Float3& vector);
+	Mat4 Scale(Float x, Float y, Float z);
+	Mat4 Rotate(const Float angle, const Float3& axe = Float3(0.0f, 0.0f, 1.0f));
 	Mat4 LookAt(const Float3& position, const Float3& target);
-	Mat4 Perspective(Float fov, Float _near, Float _far);
+	Mat4 Perspective(Float fov, Float aspect, Float _near, Float _far);
 
 	template<typename T, size_t ROWS, size_t COLS>
 	Matrix<T, COLS, ROWS> Transpose(const Matrix<T, ROWS, COLS>& mat)
@@ -86,6 +93,20 @@ namespace Tomato::Math
 		}
 
 		return sqrt(sum);
+	}
+
+	template<typename T>
+	Float Angle(const T& vector1, const T& vector2)
+	{
+		Float l1 = Length(vector1);
+		Float l2 = Length(vector2);
+
+		if (l1 == 0 || l2 == 0)
+		{
+			return 0;
+		}
+
+		return acosf((vector1 * vector2) / (l1 * l2));
 	}
 
 	template<typename T>

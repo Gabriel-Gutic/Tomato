@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Transform.h"
 #include "Renderer/Buffer/Vertex.h"
 
 
@@ -16,7 +17,16 @@ namespace Tomato
 
 		const std::array<Vertex, 3>& GetVertices() const;
 		std::array<Vertex, 3>& GetVertices();
+
+		//Transform
+		void SetPosition(const Float3& position);
+		void SetScale(const Float3& scale);
+		void SetRotation(const Float3& rotation);
+
+		Mat4 GetTransform() const;
 	private:
 		std::array<Vertex, 3> m_Vertices;
+
+		Transform m_Transform;
 	};
 }

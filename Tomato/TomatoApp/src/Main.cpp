@@ -9,6 +9,9 @@ public:
 		//m_Triangle1 = std::make_shared<Tomato::Triangle>(Tomato::Float3(0.0f, 0.0f, 0.0f), 15.0f);
 		m_Triangle1 = std::make_shared<Tomato::Triangle>();
 
+		m_Triangle1->SetPosition(Tomato::Float3(0.5f, 0.0f, 0.0f));
+		m_Triangle1->SetScale(Tomato::Float3(2.0f, 1.0f, 1.0f));
+
 		Tomato::GUI::HideDockspace();
 	}
 

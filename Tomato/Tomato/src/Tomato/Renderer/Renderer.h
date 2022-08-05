@@ -30,6 +30,8 @@ namespace Tomato
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;
 
+		Mat4 m_ProjectionView;
+
 		static Renderer* s_Instance;
 	};
 }

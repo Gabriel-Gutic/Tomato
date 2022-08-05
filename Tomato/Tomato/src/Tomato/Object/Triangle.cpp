@@ -34,4 +34,29 @@ namespace Tomato
 	{
 		return m_Vertices;
 	}
+
+	void Triangle::SetPosition(const Float3& position)
+	{
+		m_Transform.Position = position;
+	}
+
+	void Triangle::SetScale(const Float3& scale)
+	{
+		m_Transform.Scale = scale;
+	}
+
+	void Triangle::SetRotation(const Float3& rotation)
+	{
+		m_Transform.Rotation = rotation;
+	}
+
+	Mat4 Triangle::GetTransform() const
+	{
+		// Translate * Rotate * Scale
+		Mat4 result = Math::Translate(m_Transform.Position);
+		result = result * Math::Rotate(90.0f);
+		result =  result * Math::Scale(m_Transform.Scale);
+
+		return result;
+	}
 }

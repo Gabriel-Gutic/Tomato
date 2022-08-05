@@ -99,63 +99,96 @@ namespace Tomato
 
 	Float Math::Radians(Float degrees)
 	{
-		return (degrees * pi) / 180;
+		return degrees * (pi / 180);
 	}
 
 	Float Math::Degrees(Float radians)
 	{
-		return (radians * 180) / pi;
+		return radians * (180 / pi);
 	}
 
-	Mat4 Math::Translate(const Mat4& matrix, const Float3& vector)
+	Mat4 Math::Translate(const Float3& vector)
 	{
-		Mat4 copy = matrix;
-		copy[0][3] = vector.x;
-		copy[1][3] = vector.y;
-		copy[2][3] = vector.z;
-		return copy;
+		Mat4 scale(1.0f);
+		scale[0][3] = vector.x;
+		scale[1][3] = vector.y;
+		scale[2][3] = vector.z;
+		return scale;
 	}
 
-	Mat4 Math::Translate(const Mat4& matrix, Float x, Float y, Float z)
+	Mat4 Math::Translate(Float x, Float y, Float z)
 	{
-		return Translate(matrix, Float3(x, y, z));
+		return Translate(Float3(x, y, z));
+	}
+
+	Mat4 Math::Scale(const Float3& vector)
+	{
+		Mat4 scale(1.0f);
+		for (UInt i = 0; i < 3; i++)
+			scale[i][i] = vector[i];
+		return scale;
+	}
+
+	Mat4 Math::Scale(Float x, Float y, Float z)
+	{
+		return Scale(Float3(x, y, z));
+	}
+
+	Mat4 Math::Rotate(const Float angle, const Float3& axe)
+	{
+		Float rad = Math::Radians(angle);
+		Mat4 rotate(1.0f);
+
+		Float c = cos(rad);
+		Float s = sin(rad);
+
+		rotate[0][0] = c + axe.x * axe.x * (1 - c);
+		rotate[0][1] = axe.x * axe.y * (1 - c) - axe.z * s;
+		rotate[0][2] = axe.x * axe.z * (1 - c) + axe.y * s;
+		rotate[1][0] = axe.y * axe.x * (1 - c) + axe.z * s;
+		rotate[1][1] = c + axe.y * axe.y * (1 - c);
+		rotate[1][2] = axe.y * axe.z * (1 - c) - axe.x * s;
+		rotate[2][0] = axe.z * axe.x * (1 - c) - axe.y * s;
+		rotate[2][1] = axe.z * axe.y * (1 - c) + axe.x * s;
+		rotate[2][2] = c + axe.z * axe.z * (1 - c);
+
+		return rotate;
 	}
 
 	Mat4 Math::LookAt(const Float3& position, const Float3& target)
 	{
 		Float3 direction = Math::Normalize(target - position);
-		Float3 right = Math::Normalize(Float3::CrossProduct(Float3(0.0f, 1.0f, 0.0f), direction));
-		Float3 up = Float3::CrossProduct(direction, right);
+		Float3 right = Math::Normalize(Float3::CrossProduct(direction, Float3(0.0f, 1.0f, 0.0f)));
+		Float3 up = Float3::CrossProduct(right, direction);
 
-		Mat4 axes = Mat4(1.0f);
+		Mat4 result = Mat4(1.0f);
 		for (UInt j = 0; j < 3; j++)
-			axes[0][j] = right[j];
+			result[j][0] = right[j];
 		for (UInt j = 0; j < 3; j++)
-			axes[1][j] = up[j];
+			result[j][1] = up[j];
 		for (UInt j = 0; j < 3; j++)
-			axes[2][j] = direction[j];
+			result[j][2] = -direction[j];
+		
+		result[3][0] = -(right * position);
+		result[3][1] = -(up * position);
+		result[3][2] = -(direction * position);
 
-		Mat4 trans = Mat4(1.0f);
-		for (UInt i = 0; i < 3; i++)
-			axes[i][3] = -position[i];
-
-		return axes * trans;
+		return result;
 	}
 
-	Mat4 Math::Perspective(Float fov, Float _near, Float _far)
+	Mat4 Math::Perspective(Float fov, Float aspect, Float _near, Float _far)
 	{
 		Mat4 perspective = Mat4(0.0f);
 
-		Float S = 1.0f / (tan(Radians(fov) / 2));
+		Float S = 1.0f / (tan(Radians(fov) / 2.0f));
 
-		perspective[0][0] = perspective[1][1] = S;
-
+		perspective[0][0] = S / aspect;
+		perspective[1][1] = S;
 		perspective[2][2] = -(_far + _near) / (_far - _near);
-		perspective[2][3] = -((2 * _far * _near) / (_far - _near));
+		perspective[2][3] = -1;
+		perspective[3][2] = -((2 * _far * _near) / (_far - _near));
 
-		perspective[3][2] = -1;
-
-		return Math::Inverse(perspective);
+		return perspective;
 	}
 }
 

@@ -31,6 +31,11 @@ namespace Tomato
 		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber);
 
 		s_Instance->m_VertexArray = std::make_unique<VertexArray>();
+
+		glEnable(GL_BLEND);
+		glEnable(GL_DEPTH_TEST);
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	void Renderer::Terminate()
@@ -40,7 +45,7 @@ namespace Tomato
 
 	void Renderer::Begin()
 	{
-		
+		s_Instance->m_ProjectionView = App::GetCurrentCamera()->Update();
 	}
 
 	void Renderer::End()
@@ -61,18 +66,23 @@ namespace Tomato
 			Flush();
 
 		for (UInt i = 0; i < 3; i++)
-			RendererData::Vertices[RendererData::VertexCounter++] = triangle->GetVertices()[i];
+		{
+			Float4 coords = Float4(triangle->GetVertices()[i].Coords, 1.0f);
+
+			coords = triangle->GetTransform() * coords;
+
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, triangle->GetVertices()[i].Color, triangle->GetVertices()[i].TexCoords);
+		}
 	}
 
 	void Renderer::Flush()
 	{
 		auto& ins = s_Instance;
 
-		//Apply Camera Transforms
-		auto trans = App::GetCurrentCamera()->Update();
+		//Apply Camera Projection View
 		for (UInt i = 0; i < RendererData::VertexCounter; i++)
 		{
-			Float4 pos = trans * Float4(RendererData::Vertices[i].Coords, 1.0f);
+			Float4 pos = s_Instance->m_ProjectionView * Float4(RendererData::Vertices[i].Coords, 1.0f);
 
 			RendererData::Vertices[i].Coords = pos.xyz;
 
@@ -82,10 +92,9 @@ namespace Tomato
 
 		ins->m_VertexBuffer->Bind();
 		ins->m_VertexBuffer->SetData(RendererData::Vertices, RendererData::VertexCounter);
+		ins->m_VertexBuffer->Unbind();
 
 		ins->m_ShaderProgram->Use();
-
-
 		ins->m_VertexArray->Bind();
 
 		glDrawArrays(GL_TRIANGLES, 0, RendererData::VertexCounter);

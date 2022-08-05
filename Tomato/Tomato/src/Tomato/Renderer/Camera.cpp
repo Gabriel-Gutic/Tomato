@@ -16,8 +16,8 @@ namespace Tomato
 
 	Mat4 Camera::Update() const
 	{
-		Mat4 projection = Math::Perspective(45, 0.1f, 10.0f);
 		Mat4 view = Math::LookAt(m_Position, m_Target);
+		Mat4 projection = Math::Perspective(90, 800.0f/800.0f, 0.1f, 100.0f);
 
 		return projection * view;
 	}
