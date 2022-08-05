@@ -10,7 +10,7 @@ public:
 		m_Triangle1 = std::make_shared<Tomato::Triangle>();
 
 		m_Triangle1->SetPosition(Tomato::Float3(0.5f, 0.0f, 0.0f));
-		m_Triangle1->SetScale(Tomato::Float3(2.0f, 1.0f, 1.0f));
+		m_Triangle1->SetScale(Tomato::Float3(0.5f, 0.5f, 0.5f));
 
 		Tomato::GUI::HideDockspace();
 	}
@@ -22,6 +22,10 @@ public:
 		Tomato::Renderer::Draw(m_Triangle1);
 
 		auto& camera = Tomato::App::GetCurrentCamera();
+		const auto& window = Tomato::App::GetWindow();
+
+		camera->SetPerspectiveProjection(m_FOV, window->GetAspectRatio(), 0.1f, 100.0f);
+
 		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
 			camera->MoveX(-m_Speed);
 		if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
@@ -39,7 +43,7 @@ public:
 		{
 			auto ev = Tomato::Event::Cast<Tomato::WheelEvent>(e);
 
-			camera->MoveZ(ev.GetValue());
+			m_FOV += ev.GetValue();
 		}
 	}
 
@@ -51,6 +55,7 @@ public:
 	}
 private:
 	Tomato::Float m_Speed = 0.2f;
+	Tomato::Float m_FOV = 45.0f;
 
 	std::shared_ptr<Tomato::Triangle> m_Triangle1;
 };
