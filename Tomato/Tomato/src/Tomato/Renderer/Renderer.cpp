@@ -90,6 +90,31 @@ namespace Tomato
 		}
 	}
 
+	void Renderer::Draw(std::shared_ptr<Quad> quad)
+	{
+		if (RendererData::VertexCounter + 4 >= RendererData::MaxVertexNumber ||
+			RendererData::IndexCounter + 4 >= RendererData::MaxVertexNumber)
+			Flush();
+
+		for (UInt i = 0; i < 4; i++)
+		{
+			Float4 coords = Float4(quad->GetVertices()[i].Coords, 1.0f);
+
+			coords = quad->GetTransform() * coords;
+
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, quad->GetVertices()[i].Color, quad->GetVertices()[i].TexCoords);
+		}
+
+		auto indices = quad->GetIndices();
+
+		UInt old_ic = RendererData::IndexCounter;
+
+		for (UInt i = 0; i < indices.size(); i++)
+		{
+			RendererData::Indices[RendererData::IndexCounter++] = indices[i] + old_ic;
+		}
+	}
+
 	void Renderer::Flush()
 	{
 		auto& ins = s_Instance;

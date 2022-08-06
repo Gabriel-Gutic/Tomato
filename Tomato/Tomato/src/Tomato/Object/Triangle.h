@@ -15,9 +15,6 @@ namespace Tomato
 		Triangle(const Float3& center, Float radius);
 		virtual ~Triangle() = default;
 
-		Mat4 GetTransform() const;
-
-
 		std::vector<UInt> GetIndices() const;
 	};
 }

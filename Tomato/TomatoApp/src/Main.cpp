@@ -8,6 +8,9 @@ public:
 	{
 		//m_Triangle1 = std::make_shared<Tomato::Triangle>(Tomato::Float3(0.0f, 0.0f, 0.0f), 15.0f);
 		m_Triangle1 = std::make_shared<Tomato::Triangle>();
+		m_Quad1 = std::make_shared<Tomato::Quad>();
+
+		m_Quad1->SetScale(Tomato::Float3(0.2f, 0.2f, 0.0f));
 
 		m_Triangle1->SetPosition(Tomato::Float3(0.5f, 0.0f, 0.0f));
 		m_Triangle1->SetScale(Tomato::Float3(0.5f, 0.5f, 0.5f));
@@ -20,6 +23,7 @@ public:
 	virtual void OnUpdate() override
 	{
 		Tomato::Renderer::Draw(m_Triangle1);
+		Tomato::Renderer::Draw(m_Quad1);
 
 		auto& camera = Tomato::App::GetCurrentCamera();
 		const auto& window = Tomato::App::GetWindow();
@@ -58,6 +62,7 @@ private:
 	Tomato::Float m_FOV = 45.0f;
 
 	std::shared_ptr<Tomato::Triangle> m_Triangle1;
+	std::shared_ptr<Tomato::Quad> m_Quad1;
 };
 
 

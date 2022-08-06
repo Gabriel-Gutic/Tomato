@@ -26,16 +26,6 @@ namespace Tomato
 		Init(A, B, C);
 	}
 
-	Mat4 Triangle::GetTransform() const
-	{
-		// Translate * Rotate * Scale
-		Mat4 result = Math::Translate(m_Transform.Position);
-		result = result * Math::Rotate(90.0f);
-		result =  result * Math::Scale(m_Transform.Scale);
-
-		return result;
-	}
-
 	std::vector<UInt> Triangle::GetIndices() const
 	{
 		return { 0, 1, 2 };

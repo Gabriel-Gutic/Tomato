@@ -4,6 +4,7 @@
 #include "Renderer/Buffer/VertexBuffer.h"
 #include "Renderer/Buffer/IndexBuffer.h"
 #include "Object/Triangle.h"
+#include "Object/Quad.h"
 
 
 namespace Tomato
@@ -23,7 +24,7 @@ namespace Tomato
 		static Renderer* Get();
 
 		static void Draw(std::shared_ptr<Triangle> triangle);
-
+		static void Draw(std::shared_ptr<Quad> quad);
 	private:
 		static void Flush();
 	private:
