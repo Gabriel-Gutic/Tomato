@@ -63,6 +63,33 @@ namespace Tomato
 		return s_Instance;
 	}
 
+	void Renderer::Draw(const Cube& cube)
+	{
+		const auto tran = cube.GetTransform();
+
+		for (const auto& [name, side] : cube.GetSides())
+		{
+			auto& vertices = side.GetVertices();
+			auto indices = side.GetIndices();
+			if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber ||
+				RendererData::IndexCounter + indices.size() >= RendererData::MaxVertexNumber)
+				Flush();
+
+			for (auto& index : indices)
+			{
+				RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
+			}
+
+			const Mat4 side_tran = side.GetTransform();
+
+			for (auto& vertex : vertices)
+			{
+				Float4 coords = tran * side_tran * Float4(vertex.Coords, 1.0f);
+				RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, vertex.Color, vertex.TexCoords);
+			}
+		}
+	}
+
 	void Renderer::Flush()
 	{
 		auto& ins = s_Instance;

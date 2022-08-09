@@ -4,6 +4,7 @@
 #include "Renderer/Buffer/VertexBuffer.h"
 #include "Renderer/Buffer/IndexBuffer.h"
 #include "Object/Object.h"
+#include "Object/3D/Cube.h"
 
 
 namespace Tomato
@@ -33,6 +34,7 @@ namespace Tomato
 
 		template <size_t SIZE>
 		static void Draw(const Object<SIZE>& obj);
+		static void Draw(const Cube& cube);
 	private:
 		static void Flush();
 	private:
@@ -61,9 +63,11 @@ namespace Tomato
 			RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
 		}
 
+		const Mat4 tran = obj.GetTransform();
+
 		for (auto& vertex : vertices)
 		{
-			Float4 coords = obj.GetTransform() * Float4(vertex.Coords, 1.0f);
+			Float4 coords = tran * Float4(vertex.Coords, 1.0f);
 			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, vertex.Color, vertex.TexCoords);
 		}
 	}
