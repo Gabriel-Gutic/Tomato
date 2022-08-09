@@ -171,7 +171,7 @@ namespace Tomato
 		
 		result[3][0] = -(right * position);
 		result[3][1] = -(up * position);
-		result[3][2] = -(direction * position);
+		result[3][2] =  (direction * position);
 
 		return result;
 	}
@@ -189,6 +189,20 @@ namespace Tomato
 		perspective[3][2] = -((2 * _far * _near) / (_far - _near));
 
 		return perspective;
+	}
+
+	Mat4 Math::Orthographic(Float left, Float right, Float bottom, Float top, Float _near, Float _far)
+	{
+		Mat4 ortho(1.0f);
+
+		ortho[0][0] =  2.0f / (right - left);
+		ortho[1][1] =  2.0f / (top - bottom);
+		ortho[2][2] = -2.0f / (_far - _near);
+		ortho[3][0] = -(right + left) / (right - left);
+		ortho[3][1] = -(top + bottom) / (top - bottom);
+		ortho[3][2] = -(_far + _near) / (_far - _near);
+
+		return ortho;
 	}
 }
 

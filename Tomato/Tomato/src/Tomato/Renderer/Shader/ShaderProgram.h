@@ -14,7 +14,9 @@ namespace Tomato
 		void SetUniformMat4(std::string_view location, const Mat4& matrix);
 
 		UInt GetID() const;
+		Int GetUniformLocation(std::string_view uniform);
 	private:
 		UInt m_RendererID;
+		std::unordered_map<std::string, Int> m_UniformLocations;
 	};
 }

@@ -52,6 +52,7 @@ namespace Tomato::Math
 	Mat4 Rotate(const Float angle, const Float3& axe = Float3(0.0f, 0.0f, 1.0f));
 	Mat4 LookAt(const Float3& position, const Float3& target);
 	Mat4 Perspective(Float fov, Float aspect, Float _near, Float _far);
+	Mat4 Orthographic(Float left, Float right, Float bottom, Float top, Float _near, Float _far);
 
 	template<typename T, size_t ROWS, size_t COLS>
 	Matrix<T, COLS, ROWS> Transpose(const Matrix<T, ROWS, COLS>& mat)

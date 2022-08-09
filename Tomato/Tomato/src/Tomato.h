@@ -14,7 +14,9 @@
 #include "Tomato/Renderer/Renderer.h"
 
 // Object
-//#include "Tomato/Object/Triangle.h"
+#include "Tomato/Object/Triangle.h"
+#include "Tomato/Object/Quad.h"
+#include "Tomato/Object/3D/Cube.h"
 
 //ImGui
 #include <imgui/imgui.h>

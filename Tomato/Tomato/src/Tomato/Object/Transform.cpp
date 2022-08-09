@@ -38,7 +38,7 @@ namespace Tomato
 	{
 		// Translate * Rotate * Scale
 		Mat4 result = Math::Translate(m_Transform.Position);
-		result = result * Math::Rotate(90.0f);
+		//result = result * Math::Rotate(0.0f, m_Transform.Rotation);
 		result = result * Math::Scale(m_Transform.Scale);
 
 		return result;

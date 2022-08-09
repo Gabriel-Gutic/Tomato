@@ -41,13 +41,24 @@ namespace Tomato
 
 	void ShaderProgram::SetUniformMat4(std::string_view location, const Mat4& matrix)
 	{
-		Int id = glGetUniformLocation(m_RendererID, location.data());
-		TOMATO_ASSERT(id != -1, "Uniform {0} not found!", location.data());
-		glUniformMatrix4fv(id, 1, GL_FALSE, &matrix[0][0]);
+		Int id = GetUniformLocation(location);
+		glUniformMatrix4fv(id, 1, GL_FALSE, matrix.GetData().data()->data());
 	}
 
 	UInt ShaderProgram::GetID() const
 	{
 		return m_RendererID;
+	}
+
+	Int ShaderProgram::GetUniformLocation(std::string_view uniform)
+	{
+		const char* c_uniform = uniform.data();
+		if (m_UniformLocations.find(c_uniform) != m_UniformLocations.end())
+			return m_UniformLocations[c_uniform];
+
+		Int id = glGetUniformLocation(m_RendererID, c_uniform);
+		TOMATO_ASSERT(id != -1, "Uniform {0} not found!", c_uniform);
+
+		return id;
 	}
 }

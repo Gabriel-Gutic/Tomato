@@ -25,7 +25,7 @@ namespace Tomato
 
 	void VertexBuffer::SetRawData(const Vertex* data, UInt size) const
 	{
-		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, (const Float*)(data));
 	}
 }
 

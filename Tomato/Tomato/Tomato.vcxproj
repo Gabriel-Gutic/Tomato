@@ -115,6 +115,7 @@
     <ClInclude Include="src\Tomato\Event\WindowEvent.h" />
     <ClInclude Include="src\Tomato\GUI\GUI.h" />
     <ClInclude Include="src\Tomato\Layer.h" />
+    <ClInclude Include="src\Tomato\Object\3D\Cube.h" />
     <ClInclude Include="src\Tomato\Object\Object.h" />
     <ClInclude Include="src\Tomato\Object\Quad.h" />
     <ClInclude Include="src\Tomato\Object\Transform.h" />
@@ -150,12 +151,13 @@
     <ClCompile Include="src\Tomato\Event\Event.cpp" />
     <ClCompile Include="src\Tomato\Event\Input.cpp" />
     <ClCompile Include="src\Tomato\GUI\GUI.cpp" />
-    <ClCompile Include="src\Tomato\Object\Object.cpp" />
+    <ClCompile Include="src\Tomato\Object\3D\Cube.cpp" />
     <ClCompile Include="src\Tomato\Object\Quad.cpp" />
     <ClCompile Include="src\Tomato\Object\Transform.cpp" />
     <ClCompile Include="src\Tomato\Object\Triangle.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Buffer\Vertex.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Camera.cpp" />

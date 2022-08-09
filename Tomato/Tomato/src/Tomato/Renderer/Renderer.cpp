@@ -9,14 +9,6 @@
 
 namespace Tomato
 {
-	struct RendererData
-	{
-		static const UInt MaxVertexNumber = 1024;
-		static std::array<Vertex, MaxVertexNumber> Vertices;
-		static UInt VertexCounter;
-		static std::array<UInt, MaxVertexNumber> Indices;
-		static UInt IndexCounter;
-	};
 	std::array<Vertex, RendererData::MaxVertexNumber> RendererData::Vertices = std::array<Vertex, MaxVertexNumber>();
 	UInt RendererData::VertexCounter = 0;
 	std::array<UInt, RendererData::MaxVertexNumber> RendererData::Indices = std::array<UInt, MaxVertexNumber>();
@@ -50,7 +42,13 @@ namespace Tomato
 
 	void Renderer::Begin()
 	{
-		s_Instance->m_ProjectionView = App::GetCurrentCamera()->Update();
+		s_Instance->m_ShaderProgram->Use(true);
+
+		s_Instance->m_Projection = App::GetCurrentCamera()->GetProjection();
+		s_Instance->m_View = App::GetCurrentCamera()->GetView();
+		
+		s_Instance->m_ShaderProgram->SetUniformMat4("Projection", s_Instance->m_Projection);
+		s_Instance->m_ShaderProgram->SetUniformMat4("View", s_Instance->m_View);
 	}
 
 	void Renderer::End()
@@ -65,67 +63,9 @@ namespace Tomato
 		return s_Instance;
 	}
 
-	void Renderer::Draw(std::shared_ptr<Triangle> triangle)
-	{
-		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber ||
-			RendererData::IndexCounter + 3 >= RendererData::MaxVertexNumber)
-			Flush();
-
-		for (UInt i = 0; i < 3; i++)
-		{
-			Float4 coords = Float4(triangle->GetVertices()[i].Coords, 1.0f);
-
-			coords = triangle->GetTransform() * coords;
-
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, triangle->GetVertices()[i].Color, triangle->GetVertices()[i].TexCoords);
-		}
-
-		auto indices = triangle->GetIndices();
-
-		UInt old_ic = RendererData::IndexCounter;
-
-		for (UInt i = 0; i < indices.size(); i++)
-		{
-			RendererData::Indices[RendererData::IndexCounter++] = indices[i] + old_ic;
-		}
-	}
-
-	void Renderer::Draw(std::shared_ptr<Quad> quad)
-	{
-		if (RendererData::VertexCounter + 4 >= RendererData::MaxVertexNumber ||
-			RendererData::IndexCounter + 4 >= RendererData::MaxVertexNumber)
-			Flush();
-
-		for (UInt i = 0; i < 4; i++)
-		{
-			Float4 coords = Float4(quad->GetVertices()[i].Coords, 1.0f);
-
-			coords = quad->GetTransform() * coords;
-
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, quad->GetVertices()[i].Color, quad->GetVertices()[i].TexCoords);
-		}
-
-		auto indices = quad->GetIndices();
-
-		UInt old_ic = RendererData::IndexCounter;
-
-		for (UInt i = 0; i < indices.size(); i++)
-		{
-			RendererData::Indices[RendererData::IndexCounter++] = indices[i] + old_ic;
-		}
-	}
-
 	void Renderer::Flush()
 	{
 		auto& ins = s_Instance;
-
-		//Apply Camera Projection View
-		for (UInt i = 0; i < RendererData::VertexCounter; i++)
-		{
-			Float4 pos = s_Instance->m_ProjectionView * Float4(RendererData::Vertices[i].Coords, 1.0f);
-
-			RendererData::Vertices[i].Coords = pos.xyz;
-		}
 
 		ins->m_VertexBuffer->Bind();
 		ins->m_VertexBuffer->SetData(RendererData::Vertices, RendererData::VertexCounter);
@@ -136,8 +76,6 @@ namespace Tomato
 		ins->m_IndexBuffer->Bind();
 		ins->m_IndexBuffer->SetData(RendererData::Indices, RendererData::IndexCounter);
 		ins->m_IndexBuffer->Unbind();
-
-		ins->m_ShaderProgram->Use();
 
 		glDrawElements(GL_TRIANGLES, RendererData::IndexCounter, GL_UNSIGNED_INT, nullptr);
 

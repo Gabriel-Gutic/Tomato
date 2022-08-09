@@ -54,7 +54,7 @@ namespace Tomato
 					Exit();
 				}
 
-				//TOMATO_PRINT(e.ToString());
+				TOMATO_PRINT(e.ToString());
 
 				for (auto& layer : m_SceneList[0]->GetLayers())
 				{

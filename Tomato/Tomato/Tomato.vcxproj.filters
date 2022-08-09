@@ -175,6 +175,7 @@
     <ClInclude Include="src\pchTomato.h" />
     <ClInclude Include="src\Tomato\Object\Transform.h" />
     <ClInclude Include="src\Tomato\Object\Quad.h" />
+    <ClInclude Include="src\Tomato\Object\3D\Cube.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -222,9 +223,6 @@
     <ClCompile Include="src\Tomato\GUI\GUI.cpp">
       <Filter>Tomato\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Object\Object.cpp">
-      <Filter>Tomato\Object</Filter>
-    </ClCompile>
     <ClCompile Include="src\Tomato\Object\Triangle.cpp">
       <Filter>Tomato\Object</Filter>
     </ClCompile>
@@ -267,5 +265,7 @@
     <ClCompile Include="src\pchTomato.cpp" />
     <ClCompile Include="src\Tomato\Object\Transform.cpp" />
     <ClCompile Include="src\Tomato\Object\Quad.cpp" />
+    <ClCompile Include="src\Tomato\Object\3D\Cube.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Buffer\Vertex.cpp" />
   </ItemGroup>
 </Project>

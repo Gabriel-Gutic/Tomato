@@ -16,20 +16,23 @@ namespace Tomato
 
 	}
 
-	Mat4 Camera::Update() const
+	Mat4 Camera::GetView() const
+	{
+		return Math::LookAt(m_Position, m_Target);
+		//return Math::Transpose(Math::Translate(Float3(-0.5f, 0.0f, -1.0f)));
+		//return Math::Translate(Float3(-0.5f, 0.0f, 0.0f));
+	}
+
+	Mat4 Camera::GetProjection() const
 	{
 		switch (m_ProjectionType)
 		{
 		case Tomato::ProjectionType::Orthographic:
-			//TODO: Implement Orthographic Camera
-			break;
+			return Math::Orthographic(m_OrthographicProjection.Left, m_OrthographicProjection.Right, m_OrthographicProjection.Bottom, m_OrthographicProjection.Top, m_OrthographicProjection.Near, m_OrthographicProjection.Far);
 		case Tomato::ProjectionType::Perspective:
-			Mat4 view = Math::LookAt(m_Position, m_Target);
-			Mat4 projection = Math::Perspective(m_PerspectiveProjection.FOV, m_PerspectiveProjection.AspectRatio, m_PerspectiveProjection.Near, m_PerspectiveProjection.Far);
-
-			return projection * view;
+			return Math::Perspective(m_PerspectiveProjection.FOV, m_PerspectiveProjection.AspectRatio, m_PerspectiveProjection.Near, m_PerspectiveProjection.Far);
 		}
-		return Mat4();
+		return Mat4(1.0f);
 	}
 
 	void Camera::MoveX(Float dist)
@@ -55,5 +58,17 @@ namespace Tomato
 		m_PerspectiveProjection.AspectRatio = aspectRatio;
 		m_PerspectiveProjection.Near = _near;
 		m_PerspectiveProjection.Far = _far;
+	}
+
+	void Camera::SetOrthographicProjection(Float left, Float right, Float bottom, Float top, Float _near, Float _far)
+	{
+		m_ProjectionType = ProjectionType::Orthographic;
+
+		m_OrthographicProjection.Left = left;
+		m_OrthographicProjection.Right = right;
+		m_OrthographicProjection.Bottom = bottom;
+		m_OrthographicProjection.Top = top;
+		m_OrthographicProjection.Near = _near;
+		m_OrthographicProjection.Far = _far;
 	}
 }
