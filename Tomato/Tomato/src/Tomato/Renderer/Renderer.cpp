@@ -78,11 +78,9 @@ namespace Tomato
 				RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
 			}
 
-			const Mat4 side_tran = side.GetTransform();
-
 			for (auto& vertex : vertices)
 			{
-				Float3 coords = Quaternion::Rotate((side_tran * Float4(vertex.Coords, 1.0f)).xyz, 0.0f, 45.0f, 45.0f);
+				Float3 coords = cube.TransformCoords(side.TransformCoords(vertex.Coords));
 				RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, vertex.TexCoords);
 			}
 		}

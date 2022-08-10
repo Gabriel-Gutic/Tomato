@@ -1,4 +1,5 @@
 #pragma once
+#include "Object/Transform.h"
 
 
 namespace Tomato
@@ -26,7 +27,7 @@ namespace Tomato
 		Float Far;
 	};
 
-	class Camera
+	class Camera : public TransformInterface
 	{
 	public:
 		Camera(const Float3& position = { 0.0f, 0.0f, 3.0f }, const Float3& target = {0.0f, 0.0f, 0.0f});
@@ -42,7 +43,6 @@ namespace Tomato
 		void SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far);
 		void SetOrthographicProjection(Float left, Float right, Float bottom, Float top, Float _near, Float _far);
 	private:
-		Float3 m_Position;
 		Float3 m_Target;
 
 		ProjectionType m_ProjectionType;

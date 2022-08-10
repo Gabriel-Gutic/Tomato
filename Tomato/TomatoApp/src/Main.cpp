@@ -17,6 +17,7 @@ public:
 		//m_Quad1->SetScale(Tomato::Float3(10.0f, 10.0f, 1.0f));
 
 		Tomato::GUI::HideDockspace();
+
 	}
 
 	~FirstLayer() {}

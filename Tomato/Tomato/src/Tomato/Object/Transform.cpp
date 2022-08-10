@@ -37,10 +37,10 @@ namespace Tomato
 	Float3 TransformInterface::TransformCoords(const Float3& vector) const
 	{
 		// Translate * Rotate * Scale
-		Mat4 result = Math::Translate(m_Transform.Position);
-		result = result * Math::Scale(m_Transform.Scale);
+		Float3 new_coords = Quaternion::Rotate(vector, m_Transform.Rotation);
+		new_coords = (Math::Scale(m_Transform.Scale) * Math::Translate(m_Transform.Position) * Float4(new_coords, 1.0f)).xyz;
 
-		return Quaternion::Rotate(vector, m_Transform.Rotation);
+		return new_coords;
 	}
 }
 

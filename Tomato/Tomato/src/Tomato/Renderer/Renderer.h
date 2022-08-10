@@ -65,12 +65,10 @@ namespace Tomato
 			RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
 		}
 
-		const Mat4 tran = obj.GetTransform();
-
 		for (auto& vertex : vertices)
 		{
-			Float4 coords = tran * Float4(vertex.Coords, 1.0f);
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, vertex.Color, vertex.TexCoords);
+			Float3 coords = obj.TransformCoords(vertex.Coords);
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, vertex.TexCoords);
 		}
 	}
 

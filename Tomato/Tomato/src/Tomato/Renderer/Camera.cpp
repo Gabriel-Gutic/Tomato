@@ -7,8 +7,9 @@
 namespace Tomato
 {
 	Camera::Camera(const Float3& position, const Float3& target)
-		:m_Position(position), m_Target(target)
+		:m_Target(target)
 	{
+		SetPosition(position);
 	}
 
 	Camera::~Camera()
@@ -18,7 +19,9 @@ namespace Tomato
 
 	Mat4 Camera::GetView() const
 	{
-		return Math::LookAt(m_Position, m_Target);
+		Float3 target = Quaternion::Rotate(m_Target - m_Transform.Position, -1 * m_Transform.Rotation);
+
+		return Math::LookAt(m_Transform.Position, target);
 	}
 
 	Mat4 Camera::GetProjection() const
@@ -35,17 +38,17 @@ namespace Tomato
 
 	void Camera::MoveX(Float dist)
 	{
-		m_Position.x += dist;
+		m_Transform.Position.x += dist;
 	}
 
 	void Camera::MoveY(Float dist)
 	{
-		m_Position.y += dist;
+		m_Transform.Position.y += dist;
 	}
 
 	void Camera::MoveZ(Float dist)
 	{
-		m_Position.z += dist;
+		m_Transform.Position.z += dist;
 	}
 
 	void Camera::SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far)
