@@ -36,7 +36,8 @@ namespace  Tomato
 		const std::array<Vertex, COUNT>& GetVertices() const;
 		std::array<Vertex, COUNT>& GetVertices();
 
-		void SetColor(Float3 color);
+		void SetColor(const Float3& color);
+		void SetAlpha(Float alpha);
 	protected:
 		std::array<Vertex, COUNT> m_Vertices;
 	};
@@ -54,11 +55,20 @@ namespace  Tomato
 	}
 
 	template<size_t COUNT>
-	inline void VertexInterface<COUNT>::SetColor(Float3 color)
+	inline void VertexInterface<COUNT>::SetColor(const Float3& color)
 	{
 		for (auto& vertex : m_Vertices)
 		{
 			vertex.Color.xyz = color;
+		}
+	}
+
+	template<size_t COUNT>
+	inline void VertexInterface<COUNT>::SetAlpha(Float alpha)
+	{
+		for (auto& vertex : m_Vertices)
+		{
+			vertex.Color.t = alpha;
 		}
 	}
 }

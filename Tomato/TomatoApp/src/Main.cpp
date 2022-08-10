@@ -5,6 +5,7 @@ class FirstLayer : public Tomato::Layer
 {
 public:
 	FirstLayer()
+		:m_TriangleColor(Tomato::Float4(1.0f, 1.0f, 1.0f, 1.0f))
 	{
 		m_Timer = Tomato::Timer();
 
@@ -24,6 +25,10 @@ public:
 
 	virtual void OnUpdate() override
 	{
+		Tomato::App::GetCurrentCamera()->SetRotation(m_CameraRotation);
+		
+		m_Triangle1->SetColor(m_TriangleColor.abc);
+		m_Triangle1->SetAlpha(m_TriangleColor.d);
 		Tomato::Renderer::Draw(*m_Triangle1);
 
 		m_Cube1->SetRotation(Tomato::Float3(m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f));
@@ -62,13 +67,18 @@ public:
 	virtual void OnGUI() override
 	{
 		ImGui::Begin("First ImGui Window");
-		ImGui::Text("Hello world!");
+		
+		ImGui::SliderFloat3("Camera Rotation", &m_CameraRotation[0], -90.0f, 90.0f);
+		ImGui::ColorPicker4("Triangle Color", &m_TriangleColor[0]);
+
 		ImGui::End();
 	}
 private:
 	Tomato::Float m_Speed = 0.2f;
 	Tomato::Float m_FOV = 45.0f;
 	Tomato::Timer m_Timer;
+	Tomato::Float3 m_CameraRotation;
+	Tomato::Float4 m_TriangleColor;
 
 	std::shared_ptr<Tomato::Triangle> m_Triangle1;
 	std::shared_ptr<Tomato::Quad> m_Quad1;
