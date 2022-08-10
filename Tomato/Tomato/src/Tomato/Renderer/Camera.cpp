@@ -19,8 +19,6 @@ namespace Tomato
 	Mat4 Camera::GetView() const
 	{
 		return Math::LookAt(m_Position, m_Target);
-		//return Math::Transpose(Math::Translate(Float3(-0.5f, 0.0f, -1.0f)));
-		//return Math::Translate(Float3(-0.5f, 0.0f, 0.0f));
 	}
 
 	Mat4 Camera::GetProjection() const

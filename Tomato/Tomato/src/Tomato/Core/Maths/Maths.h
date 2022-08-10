@@ -7,3 +7,4 @@
 #include "BaseTypes.h"
 #include "Matrix.h"
 #include "Math.h"
+#include "Quaternion.h"

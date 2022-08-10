@@ -43,9 +43,9 @@ public:
 		if (Tomato::Input::Keyboard(TOMATO_KEY_DOWN))
 			camera->MoveY(-m_Speed);
 		if (Tomato::Input::Keyboard(TOMATO_KEY_KP_8))
-			camera->MoveZ(m_Speed);
-		if (Tomato::Input::Keyboard(TOMATO_KEY_KP_2))
 			camera->MoveZ(-m_Speed);
+		if (Tomato::Input::Keyboard(TOMATO_KEY_KP_2))
+			camera->MoveZ(m_Speed);
 	}
 
 	virtual void OnEvent(const Tomato::Event& e) override

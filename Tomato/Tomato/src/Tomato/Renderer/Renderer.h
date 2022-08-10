@@ -34,6 +34,8 @@ namespace Tomato
 
 		template <size_t SIZE>
 		static void Draw(const Object<SIZE>& obj);
+		template <size_t SIZE>
+		static void Draw(const Object<SIZE>& obj, const Mat4 tran);
 		static void Draw(const Cube& cube);
 	private:
 		static void Flush();
@@ -68,6 +70,29 @@ namespace Tomato
 		for (auto& vertex : vertices)
 		{
 			Float4 coords = tran * Float4(vertex.Coords, 1.0f);
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, vertex.Color, vertex.TexCoords);
+		}
+	}
+
+	template<size_t SIZE>
+	inline void Renderer::Draw(const Object<SIZE>& obj, const Mat4 _tran)
+	{
+		auto& vertices = obj.GetVertices();
+		auto indices = obj.GetIndices();
+		if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber ||
+			RendererData::IndexCounter + indices.size() >= RendererData::MaxVertexNumber)
+			Flush();
+
+		for (auto& index : indices)
+		{
+			RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
+		}
+
+		const Mat4 tran = obj.GetTransform();
+
+		for (auto& vertex : vertices)
+		{
+			Float4 coords = _tran * tran * Float4(vertex.Coords, 1.0f);
 			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, vertex.Color, vertex.TexCoords);
 		}
 	}

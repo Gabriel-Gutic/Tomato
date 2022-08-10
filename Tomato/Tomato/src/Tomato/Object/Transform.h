@@ -27,7 +27,7 @@ namespace Tomato
 		const Float3& GetScale() const;
 		const Float3& GetRotation() const;
 
-		Mat4 GetTransform() const;
+		Float3 TransformCoords(const Float3& vector) const;
 	protected:
 		Transform m_Transform;
 	};

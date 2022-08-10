@@ -65,8 +65,6 @@ namespace Tomato
 
 	void Renderer::Draw(const Cube& cube)
 	{
-		const auto tran = cube.GetTransform();
-
 		for (const auto& [name, side] : cube.GetSides())
 		{
 			auto& vertices = side.GetVertices();
@@ -84,8 +82,8 @@ namespace Tomato
 
 			for (auto& vertex : vertices)
 			{
-				Float4 coords = tran * side_tran * Float4(vertex.Coords, 1.0f);
-				RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords.xyz, vertex.Color, vertex.TexCoords);
+				Float3 coords = Quaternion::Rotate((side_tran * Float4(vertex.Coords, 1.0f)).xyz, 0.0f, 45.0f, 45.0f);
+				RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, vertex.TexCoords);
 			}
 		}
 	}
