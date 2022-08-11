@@ -32,6 +32,8 @@ namespace Tomato
 		Renderer::Initialize();
 
 		m_SceneList.push_back(std::make_unique<Scene>());
+
+		m_FrameBuffer = std::make_shared<FrameBuffer>();
 	}
 
 	App::~App()
@@ -41,8 +43,6 @@ namespace Tomato
 
 	Int App::Run()
 	{
-		std::shared_ptr<Texture> texture = std::make_shared<Texture>("assets/images/plain.png");
-
 		while (isRunning)
 		{
 			while (!m_EventQueue.empty())
@@ -65,9 +65,10 @@ namespace Tomato
 				m_EventQueue.pop();
 			}
 
-			m_Window->Clear(1.0f, 0.0f, 0.0f);
+			m_FrameBuffer->SetSize(m_Window->GetWidth(), m_Window->GetHeight());
+			m_FrameBuffer->Bind();
 
-			texture->Bind();
+			m_Window->Clear(1.0f, 0.0f, 0.0f);
 
 			Renderer::Begin();
 
@@ -77,6 +78,8 @@ namespace Tomato
 			}
 
 			Renderer::End();
+
+			m_FrameBuffer->Unbind();
 
 			GUI::Begin();
 			
@@ -106,6 +109,11 @@ namespace Tomato
 	void App::PopLayer()
 	{
 		s_Instance->m_SceneList[0]->GetLayers().pop_back();
+	}
+
+	std::shared_ptr<FrameBuffer> App::GetFrameBuffer()
+	{
+		return s_Instance->m_FrameBuffer;
 	}
 
 	std::unique_ptr<Window>& App::GetWindow()

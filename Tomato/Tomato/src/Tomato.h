@@ -12,6 +12,7 @@
 
 //Renderer
 #include "Tomato/Renderer/Renderer.h"
+#include "Tomato/Renderer/Texture/Texture.h"
 
 // Object
 #include "Tomato/Object/Triangle.h"

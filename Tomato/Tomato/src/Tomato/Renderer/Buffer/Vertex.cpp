@@ -4,6 +4,14 @@
 
 namespace Tomato
 {
+	Vertex::Vertex(const Vertex& other)
+	{
+		Coords = other.Coords;
+		Color = other.Color;
+		TexID = other.TexID;
+		TexCoords = other.TexCoords;
+	}
+
 	std::string Vertex::ToString() const
 	{
 		std::stringstream ss;

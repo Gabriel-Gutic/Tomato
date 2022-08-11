@@ -17,11 +17,18 @@ namespace Tomato
 
 	}
 
-	Mat4 Camera::GetView() const
+	Mat4 Camera::GetView(bool reverseY) const
 	{
 		Float3 target = Quaternion::Rotate(m_Target - m_Transform.Position, -1 * m_Transform.Rotation);
 
-		return Math::LookAt(m_Transform.Position, target);
+		Mat4 view = Math::LookAt(m_Transform.Position, target);
+		if (reverseY)
+		{
+			Mat4 reverse(1.0f);
+			reverse[1][1] = -1.0f;
+			view = reverse * view;
+		}
+		return view;
 	}
 
 	Mat4 Camera::GetProjection() const

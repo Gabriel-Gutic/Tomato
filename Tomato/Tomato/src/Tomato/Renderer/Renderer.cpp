@@ -11,7 +11,7 @@ namespace Tomato
 {
 	std::array<Vertex, RendererData::MaxVertexNumber> RendererData::Vertices = std::array<Vertex, MaxVertexNumber>();
 	UInt RendererData::VertexCounter = 0;
-	std::array<UInt, RendererData::MaxVertexNumber> RendererData::Indices = std::array<UInt, MaxVertexNumber>();
+	std::array<UInt, RendererData::MaxIndexNumber> RendererData::Indices = std::array<UInt, MaxIndexNumber>();
 	UInt RendererData::IndexCounter = 0;
 
 
@@ -33,6 +33,8 @@ namespace Tomato
 		glEnable(GL_DEPTH_TEST);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+		s_Instance->m_TextureCount = 0;
 	}
 
 	void Renderer::Terminate()
@@ -45,10 +47,10 @@ namespace Tomato
 		s_Instance->m_ShaderProgram->Use(true);
 
 		s_Instance->m_Projection = App::GetCurrentCamera()->GetProjection();
-		s_Instance->m_View = App::GetCurrentCamera()->GetView();
+		s_Instance->m_View = App::GetCurrentCamera()->GetView(true);
 		
-		s_Instance->m_ShaderProgram->SetUniformMat4("Projection", s_Instance->m_Projection);
-		s_Instance->m_ShaderProgram->SetUniformMat4("View", s_Instance->m_View);
+		s_Instance->m_ShaderProgram->SetUniformMat4("u_Projection", s_Instance->m_Projection);
+		s_Instance->m_ShaderProgram->SetUniformMat4("u_View", s_Instance->m_View);
 	}
 
 	void Renderer::End()
@@ -70,10 +72,26 @@ namespace Tomato
 			auto& vertices = side.GetVertices();
 			auto indices = side.GetIndices();
 			if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber ||
-				RendererData::IndexCounter + indices.size() >= RendererData::MaxVertexNumber)
+				RendererData::IndexCounter + indices.size() >= RendererData::MaxIndexNumber)
 				Flush();
 
-			for (auto& index : indices)
+			Int texture_id = static_cast<Int>(vertices[0].TexID);
+			if (texture_id != -1)
+			{
+				bool found = false;
+				for (UInt i = 0; i < s_Instance->m_TextureCount && !found; i++)
+					if (texture_id == s_Instance->m_TextureIndices[i])
+						found = true;
+
+				if (!found)
+				{
+					if (s_Instance->m_TextureCount >= 8)
+						Flush();
+					s_Instance->m_TextureIndices[s_Instance->m_TextureCount++] = texture_id;
+				}
+			}
+
+			for (const auto& index : indices)
 			{
 				RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
 			}
@@ -81,14 +99,40 @@ namespace Tomato
 			for (auto& vertex : vertices)
 			{
 				Float3 coords = cube.TransformCoords(side.TransformCoords(vertex.Coords));
-				RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, vertex.TexCoords);
+				RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, vertex.TexID, vertex.TexCoords);
 			}
 		}
+	}
+
+	Float Renderer::CreateTexture(std::string_view name, std::string_view path)
+	{
+		auto& ins = s_Instance;
+		const char* c_name = name.data();
+
+		for (const auto& [_name, _texture] : ins->m_Textures)
+		{
+			TOMATO_ASSERT(_name.compare(c_name) != 0, "Texture with name '{0}' already exist!", c_name);
+		}
+
+		ins->m_Textures.emplace_back(c_name, std::make_shared<Texture>(path));
+		return static_cast<Float>(ins->m_Textures.size() - 1);
+	}
+
+	Float Renderer::GetTextureID(std::string_view name)
+	{
+		for (UInt i = 0; i < s_Instance->m_Textures.size(); i++)
+			if (s_Instance->m_Textures[i].first.compare(name.data()) == 0)
+				return static_cast<Float>(i);
+
+		TOMATO_WARNING("Texture '{0}' not found!", name.data());
+		return -1.0f;
 	}
 
 	void Renderer::Flush()
 	{
 		auto& ins = s_Instance;
+
+		ins->m_ShaderProgram->SetUniformIntArray("u_Textures", ins->m_TextureIndices);
 
 		ins->m_VertexBuffer->Bind();
 		ins->m_VertexBuffer->SetData(RendererData::Vertices, RendererData::VertexCounter);
@@ -99,6 +143,15 @@ namespace Tomato
 		ins->m_IndexBuffer->Bind();
 		ins->m_IndexBuffer->SetData(RendererData::Indices, RendererData::IndexCounter);
 		ins->m_IndexBuffer->Unbind();
+
+		for (UInt i = 0; i < ins->m_TextureCount; i++)
+		{
+			Int unit = ins->m_TextureIndices[i];
+			const auto& texture = ins->m_Textures[unit].second;
+			texture->BindUnit(unit);
+		}
+
+		ins->m_TextureCount = 0;
 
 		glDrawElements(GL_TRIANGLES, RendererData::IndexCounter, GL_UNSIGNED_INT, nullptr);
 

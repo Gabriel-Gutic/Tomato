@@ -10,15 +10,24 @@ public:
 		m_Timer = Tomato::Timer();
 
 		m_Triangle1 = std::make_shared<Tomato::Triangle>();
+		Tomato::Renderer::CreateTexture("triangle", "assets/images/night.jpg");
+		m_Triangle1->SetTexture(Tomato::Renderer::GetTextureID("triangle"));
+		
 		m_Quad1 = std::make_shared<Tomato::Quad>();
 		m_Cube1 = std::make_shared<Tomato::Cube>();
 
+		Tomato::Renderer::CreateTexture("cube", "assets/images/plain.png");
+		for (auto& [name, side] : m_Cube1->GetSides())
+		{
+			side.SetTexture(Tomato::Renderer::GetTextureID("cube"));
+		}
+
 		m_Triangle1->SetPosition(Tomato::Float3(1.0f, 0.0f, 0.0f));
+		m_Quad1->SetPosition(Tomato::Float3(-1.0f, -1.0f, 0.0f));
 
-		//m_Quad1->SetScale(Tomato::Float3(10.0f, 10.0f, 1.0f));
-
-		Tomato::GUI::HideDockspace();
-
+		Tomato::App::GetCurrentCamera()->MoveZ(1.0f);
+		Tomato::GUI::ShowDockspace();
+		Tomato::GUI::ShowRenderWindow();
 	}
 
 	~FirstLayer() {}
@@ -27,9 +36,11 @@ public:
 	{
 		Tomato::App::GetCurrentCamera()->SetRotation(m_CameraRotation);
 		
-		m_Triangle1->SetColor(m_TriangleColor.abc);
-		m_Triangle1->SetAlpha(m_TriangleColor.d);
-		Tomato::Renderer::Draw(*m_Triangle1);
+		Tomato::Renderer::Draw(*m_Triangle1); 
+
+		m_Quad1->SetColor(m_TriangleColor.abc);
+		m_Quad1->SetAlpha(m_TriangleColor.d);
+		Tomato::Renderer::Draw(*m_Quad1);
 
 		m_Cube1->SetRotation(Tomato::Float3(m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f));
 		Tomato::Renderer::Draw(*m_Cube1);

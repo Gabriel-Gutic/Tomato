@@ -5,6 +5,7 @@ namespace Tomato::GUI
 {
 	struct Data {
 		static bool IsDockspaceShown;
+		static bool IsRenderWindowShown;
 	};
 
 	void Initialize();
@@ -16,4 +17,8 @@ namespace Tomato::GUI
 	void ShowDockspace();
 	void HideDockspace();
 	void Dockspace();
+
+	void ShowRenderWindow();
+	void HideRenderWindow();
+	void RenderWindow();
 }

@@ -122,6 +122,7 @@
     <ClInclude Include="src\Tomato\Object\Transform.h" />
     <ClInclude Include="src\Tomato\Object\Triangle.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Buffer\FrameBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\IndexBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Vertex.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexArray.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="src\Tomato\Object\Transform.cpp" />
     <ClCompile Include="src\Tomato\Object\Triangle.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Buffer\FrameBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\IndexBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\Vertex.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp" />

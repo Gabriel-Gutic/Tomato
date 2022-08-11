@@ -12,7 +12,8 @@
 
 namespace Tomato::GUI
 {
-    bool Data::IsDockspaceShown = false;
+	bool Data::IsDockspaceShown = false;
+	bool Data::IsRenderWindowShown = false;
 
     void Initialize()
     {
@@ -60,7 +61,12 @@ namespace Tomato::GUI
         ImGui::NewFrame();
 
         if (Data::IsDockspaceShown)
+        {
             Dockspace();
+            
+            if (Data::IsRenderWindowShown)
+                RenderWindow();
+        }
     }
 
     void End()
@@ -111,5 +117,29 @@ namespace Tomato::GUI
         auto dockspaceID = ImGui::GetID("HUB_DockSpace");
         ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_PassthruCentralNode/*|ImGuiDockNodeFlags_NoResize*/);
         ImGui::End();
+    }
+
+    void ShowRenderWindow()
+    {
+        Data::IsRenderWindowShown = true;
+    }
+
+    void HideRenderWindow()
+    {
+        Data::IsRenderWindowShown = false;
+    }
+
+    void RenderWindow()
+    {
+		ImGui::Begin("RenderWindow");
+
+        auto [w, h] = App::GetFrameBuffer()->GetSize();
+        ImVec2 size = ImGui::GetWindowSize();
+
+        TOMATO_PRINT(size.x);
+
+        ImGui::Image((ImTextureID)App::GetFrameBuffer()->GetTexture()->GetID(), ImVec2(size.x, (size.x * h) / (Float)w));
+
+		ImGui::End();
     }
 }

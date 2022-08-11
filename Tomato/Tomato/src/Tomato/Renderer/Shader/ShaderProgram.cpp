@@ -45,12 +45,18 @@ namespace Tomato
 		glUniformMatrix4fv(id, 1, GL_FALSE, matrix.GetData().data()->data());
 	}
 
+	void ShaderProgram::SetUniformIntData(std::string_view location, UInt size, const int* data) const
+	{
+		Int id = GetUniformLocation(location);
+		glUniform1iv(id, size, data);
+	}
+
 	UInt ShaderProgram::GetID() const
 	{
 		return m_RendererID;
 	}
 
-	Int ShaderProgram::GetUniformLocation(std::string_view uniform)
+	Int ShaderProgram::GetUniformLocation(std::string_view uniform) const
 	{
 		const char* c_uniform = uniform.data();
 		if (m_UniformLocations.find(c_uniform) != m_UniformLocations.end())
