@@ -10,17 +10,14 @@ public:
 		m_Timer = Tomato::Timer();
 
 		m_Triangle1 = std::make_shared<Tomato::Triangle>();
-		Tomato::Renderer::CreateTexture("triangle", "assets/images/night.jpg");
-		m_Triangle1->SetTexture(Tomato::Renderer::GetTextureID("triangle"));
+		m_Textures["triangle"] =  Tomato::Texture::Create("assets/images/night.jpg");
 		
 		m_Quad1 = std::make_shared<Tomato::Quad>();
 		m_Cube1 = std::make_shared<Tomato::Cube>();
 
-		Tomato::Renderer::CreateTexture("cube", "assets/images/plain.png");
-		for (auto& [name, side] : m_Cube1->GetSides())
-		{
-			side.SetTexture(Tomato::Renderer::GetTextureID("cube"));
-		}
+		m_Textures["grass_top"] = Tomato::Texture::Create("assets/images/grass_top.jpg");
+		m_Textures["grass_side"] = Tomato::Texture::Create("assets/images/grass_side.png");
+		m_Textures["grass_bottom"] = Tomato::Texture::Create("assets/images/grass_bottom.png");
 
 		m_Triangle1->SetPosition(Tomato::Float3(1.0f, 0.0f, 0.0f));
 		m_Quad1->SetPosition(Tomato::Float3(-1.0f, -1.0f, 0.0f));
@@ -36,14 +33,20 @@ public:
 	{
 		Tomato::App::GetCurrentCamera()->SetRotation(m_CameraRotation);
 		
-		Tomato::Renderer::Draw(*m_Triangle1); 
+		Tomato::Renderer::Draw(*m_Triangle1, m_Textures["triangle"]);
 
 		m_Quad1->SetColor(m_TriangleColor.abc);
 		m_Quad1->SetAlpha(m_TriangleColor.d);
 		Tomato::Renderer::Draw(*m_Quad1);
 
-		m_Cube1->SetRotation(Tomato::Float3(m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f));
-		Tomato::Renderer::Draw(*m_Cube1);
+		//m_Cube1->SetRotation(Tomato::Float3(m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f));
+		auto& sides = m_Cube1->GetSides();
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::Top], m_Textures["grass_top"]);
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::Bottom], m_Textures["grass_bottom"]);
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::West], m_Textures["grass_side"]);
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::East], m_Textures["grass_side"]);
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::North], m_Textures["grass_side"]);
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::South], m_Textures["grass_side"]);
 
 		const auto& camera = Tomato::App::GetCurrentCamera();
 		const auto& window = Tomato::App::GetWindow();
@@ -90,6 +93,8 @@ private:
 	Tomato::Timer m_Timer;
 	Tomato::Float3 m_CameraRotation;
 	Tomato::Float4 m_TriangleColor;
+
+	std::unordered_map<std::string, std::shared_ptr<Tomato::Texture>> m_Textures;
 
 	std::shared_ptr<Tomato::Triangle> m_Triangle1;
 	std::shared_ptr<Tomato::Quad> m_Quad1;

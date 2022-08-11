@@ -11,6 +11,12 @@
 
 namespace Tomato
 {
+	struct TextureLayout
+	{
+		int Index;
+		int ID;
+	};
+
 	struct RendererData
 	{
 		static const UInt MaxVertexNumber = 2048;
@@ -19,6 +25,10 @@ namespace Tomato
 		static UInt VertexCounter;
 		static std::array<UInt, MaxIndexNumber> Indices;
 		static UInt IndexCounter;
+
+		static const UInt MaxTextureSlots = 32;
+		static std::array<std::shared_ptr<Texture>, MaxTextureSlots> TextureSlots;
+		static UInt TextureSlotsCounter;
 	};
 
 	class Renderer
@@ -37,11 +47,7 @@ namespace Tomato
 		static const std::unique_ptr<FrameBuffer>& GetFrameBuffer();
 
 		template <size_t SIZE>
-		static void Draw(const Object<SIZE>& obj);
-		static void Draw(const Cube& cube);
-
-		static Float CreateTexture(std::string_view name, std::string_view path);
-		static Float GetTextureID(std::string_view name);
+		static void Draw(const Object<SIZE>& obj, std::shared_ptr<Texture> texture = nullptr);
 	private:
 		static void Flush();
 	private:
@@ -50,10 +56,6 @@ namespace Tomato
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;
 		std::unique_ptr<FrameBuffer> m_FrameBuffer;
-		std::vector<std::pair<std::string, std::shared_ptr<Texture>>> m_Textures;
-		std::array<Int, 8> m_TextureIndices;
-		UInt m_TextureCount;
-
 
 		Mat4 m_Projection;
 		Mat4 m_View;
@@ -62,7 +64,7 @@ namespace Tomato
 	};
 
 	template<size_t SIZE>
-	inline void Renderer::Draw(const Object<SIZE>& obj)
+	inline void Renderer::Draw(const Object<SIZE>& obj, std::shared_ptr<Texture> texture)
 	{
 		auto& vertices = obj.GetVertices();
 		auto indices = obj.GetIndices();
@@ -70,19 +72,20 @@ namespace Tomato
 			RendererData::IndexCounter + indices.size() >= RendererData::MaxIndexNumber)
 			Flush();
 
-		Float texture_id = vertices[0].TexID;
-		if (texture_id != -1)
+		Float texIndex = -1.0f;
+		if (texture)
 		{
-			bool found = false;
-			for (UInt i = 0; i < s_Instance->m_TextureCount && !found; i++)
-				if (texture_id == s_Instance->m_TextureIndices[i])
-					found = true;
-
-			if (!found)
+			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
 			{
-				if (s_Instance->m_TextureCount >= 8)
+				if (texture == RendererData::TextureSlots[i])
+					texIndex = static_cast<Float>(texIndex);
+			}
+			if (texIndex == -1.0f)
+			{
+				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
 					Flush();
-				s_Instance->m_TextureIndices[s_Instance->m_TextureCount++] = texture_id;
+				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
+				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
 			}
 		}
 
@@ -94,7 +97,7 @@ namespace Tomato
 		for (auto& vertex : vertices)
 		{
 			Float3 coords = obj.TransformCoords(vertex.Coords);
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, vertex.TexID, vertex.TexCoords);
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, texIndex, vertex.TexCoords);
 		}
 	}
 }

@@ -8,14 +8,14 @@ namespace Tomato
 	{
 		Coords = other.Coords;
 		Color = other.Color;
-		TexID = other.TexID;
+		TexIndex = other.TexIndex;
 		TexCoords = other.TexCoords;
 	}
 
 	std::string Vertex::ToString() const
 	{
 		std::stringstream ss;
-		ss << "Vertex: Coords" << Coords.ToString() << ", Color" << Color.ToString() << ", TexCoords" << TexCoords.ToString();
+		ss << "Vertex: Coords" << Coords.ToString() << ", Color" << Color.ToString() << ", " << TexIndex << ", TexCoords" << TexCoords.ToString();
 		return ss.str();
 	}
 }

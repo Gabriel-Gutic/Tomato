@@ -17,6 +17,8 @@ namespace Tomato
 		void Reset(UInt width, UInt height);
 
 		UInt GetID() const;
+
+		static std::shared_ptr<Texture> Create(std::string_view path);
 	private:
 		UInt m_RendererID;
 	};

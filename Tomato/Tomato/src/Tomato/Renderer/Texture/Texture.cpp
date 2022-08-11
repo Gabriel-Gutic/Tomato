@@ -67,4 +67,9 @@ namespace Tomato
 		return m_RendererID;
 	}
 
+	std::shared_ptr<Texture> Texture::Create(std::string_view path)
+	{
+		return std::make_shared<Texture>(path);
+	}
+
 }

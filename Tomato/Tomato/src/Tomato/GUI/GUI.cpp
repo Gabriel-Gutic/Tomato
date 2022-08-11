@@ -137,8 +137,6 @@ namespace Tomato::GUI
         auto [w, h] = Renderer::GetFrameBuffer()->GetSize();
         ImVec2 size = ImGui::GetWindowSize();
 
-        TOMATO_PRINT(size.x);
-
         ImGui::Image((ImTextureID)Renderer::GetFrameBuffer()->GetTexture()->GetID(), ImVec2(size.x, (size.x * h) / (Float)w));
 
 		ImGui::End();

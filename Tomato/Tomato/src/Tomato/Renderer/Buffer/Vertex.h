@@ -8,11 +8,11 @@ namespace  Tomato
 	{
 		Float3 Coords;
 		Float4 Color;
-		Float TexID;
+		Float TexIndex;
 		Float2 TexCoords;
 
-		Vertex(const Float3& coords = Float3(0.0f, 0.0f, 0.0f), const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f), Float texID = -1.0f, const Float2& texCoords = Float2(0.0f, 0.0f))
-			:Coords(coords), Color(color), TexID(texID), TexCoords(texCoords)
+		Vertex(const Float3& coords = Float3(0.0f, 0.0f, 0.0f), const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f), Float texIndex = -1.0f, const Float2& texCoords = Float2(0.0f, 0.0f))
+			:Coords(coords), Color(color), TexIndex(texIndex), TexCoords(texCoords)
 		{}
 
 		Vertex(const Vertex&);
@@ -26,7 +26,7 @@ namespace  Tomato
 			
 			Coords = other.Coords;
 			Color = other.Color;
-			TexID = other.TexID;
+			TexIndex = other.TexIndex;
 			TexCoords = other.TexCoords;
 
 			return *this;
@@ -62,11 +62,11 @@ namespace  Tomato
 	}
 
 	template<size_t COUNT>
-	inline void VertexInterface<COUNT>::SetTexture(Float textureID)
+	inline void VertexInterface<COUNT>::SetTexture(Float texIndex)
 	{
 		for (auto& vertex : m_Vertices)
 		{
-			vertex.TexID = textureID;
+			vertex.TexIndex = texIndex;
 		}
 	}
 

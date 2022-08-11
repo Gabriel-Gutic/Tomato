@@ -15,6 +15,9 @@ namespace Tomato
 	std::array<UInt, RendererData::MaxIndexNumber> RendererData::Indices = std::array<UInt, MaxIndexNumber>();
 	UInt RendererData::IndexCounter = 0;
 
+	std::array<std::shared_ptr<Texture>, RendererData::MaxTextureSlots> RendererData::TextureSlots = std::array < std::shared_ptr<Texture>, RendererData::MaxTextureSlots>();
+	UInt RendererData::TextureSlotsCounter = 0;
+
 
 	Renderer* Renderer::s_Instance = nullptr;
 	void Renderer::Initialize()
@@ -35,8 +38,6 @@ namespace Tomato
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-		s_Instance->m_TextureCount = 0;
-
 		s_Instance->m_FrameBuffer = std::make_unique<FrameBuffer>();
 	}
 
@@ -54,6 +55,7 @@ namespace Tomato
 		{
 			s_Instance->m_FrameBuffer->SetSize(window->GetWidth(), window->GetHeight());
 			s_Instance->m_FrameBuffer->Bind();
+			s_Instance->m_FrameBuffer->GetTexture()->Bind();
 		}
 		else {
 			s_Instance->m_FrameBuffer->Unbind();
@@ -89,74 +91,20 @@ namespace Tomato
 		return s_Instance->m_FrameBuffer;
 	}
 
-	void Renderer::Draw(const Cube& cube)
-	{
-		for (const auto& [name, side] : cube.GetSides())
-		{
-			auto& vertices = side.GetVertices();
-			auto indices = side.GetIndices();
-			if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber ||
-				RendererData::IndexCounter + indices.size() >= RendererData::MaxIndexNumber)
-				Flush();
-
-			Int texture_id = static_cast<Int>(vertices[0].TexID);
-			if (texture_id != -1)
-			{
-				bool found = false;
-				for (UInt i = 0; i < s_Instance->m_TextureCount && !found; i++)
-					if (texture_id == s_Instance->m_TextureIndices[i])
-						found = true;
-
-				if (!found)
-				{
-					if (s_Instance->m_TextureCount >= 8)
-						Flush();
-					s_Instance->m_TextureIndices[s_Instance->m_TextureCount++] = texture_id;
-				}
-			}
-
-			for (const auto& index : indices)
-			{
-				RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
-			}
-
-			for (auto& vertex : vertices)
-			{
-				Float3 coords = cube.TransformCoords(side.TransformCoords(vertex.Coords));
-				RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, vertex.TexID, vertex.TexCoords);
-			}
-		}
-	}
-
-	Float Renderer::CreateTexture(std::string_view name, std::string_view path)
-	{
-		auto& ins = s_Instance;
-		const char* c_name = name.data();
-
-		for (const auto& [_name, _texture] : ins->m_Textures)
-		{
-			TOMATO_ASSERT(_name.compare(c_name) != 0, "Texture with name '{0}' already exist!", c_name);
-		}
-
-		ins->m_Textures.emplace_back(c_name, std::make_shared<Texture>(path));
-		return static_cast<Float>(ins->m_Textures.size() - 1);
-	}
-
-	Float Renderer::GetTextureID(std::string_view name)
-	{
-		for (UInt i = 0; i < s_Instance->m_Textures.size(); i++)
-			if (s_Instance->m_Textures[i].first.compare(name.data()) == 0)
-				return static_cast<Float>(i);
-
-		TOMATO_WARNING("Texture '{0}' not found!", name.data());
-		return -1.0f;
-	}
-
 	void Renderer::Flush()
 	{
 		auto& ins = s_Instance;
 
-		ins->m_Shader->SetIntArray("u_Textures", ins->m_TextureIndices);
+		for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
+		{
+			RendererData::TextureSlots[i]->BindUnit(i);
+		}
+
+		std::array<int, RendererData::MaxTextureSlots> arr;
+		for (UInt i = 0; i < RendererData::MaxTextureSlots; i++)
+			arr[i] = i;
+
+		ins->m_Shader->SetIntArray("u_Textures", arr);
 
 		ins->m_VertexBuffer->Bind();
 		ins->m_VertexBuffer->SetData(RendererData::Vertices, RendererData::VertexCounter);
@@ -168,19 +116,11 @@ namespace Tomato
 		ins->m_IndexBuffer->SetData(RendererData::Indices, RendererData::IndexCounter);
 		ins->m_IndexBuffer->Unbind();
 
-		for (UInt i = 0; i < ins->m_TextureCount; i++)
-		{
-			Int unit = ins->m_TextureIndices[i];
-			const auto& texture = ins->m_Textures[unit].second;
-			texture->BindUnit(unit);
-		}
-
-		ins->m_TextureCount = 0;
-
 		glDrawElements(GL_TRIANGLES, RendererData::IndexCounter, GL_UNSIGNED_INT, nullptr);
 
 		RendererData::VertexCounter = 0;
 		RendererData::IndexCounter = 0;
+		RendererData::TextureSlotsCounter = 0;
 
 		VertexArray::Unbind();
 	}
