@@ -20,7 +20,6 @@ namespace Tomato
 		static App* Create();
 		static void Exit();
 
-		static std::shared_ptr<FrameBuffer> GetFrameBuffer();
 		static std::unique_ptr<Window>& GetWindow();
 		static std::vector<std::unique_ptr<Scene>>& GetScenes();
 		static std::unique_ptr<Camera>& GetCurrentCamera();
@@ -32,7 +31,6 @@ namespace Tomato
 		bool isRunning;
 		std::queue<Event*> m_EventQueue;
 
-		std::shared_ptr<FrameBuffer> m_FrameBuffer;
 		std::unique_ptr<Window> m_Window;
 		std::vector<std::unique_ptr<Scene>> m_SceneList;
 

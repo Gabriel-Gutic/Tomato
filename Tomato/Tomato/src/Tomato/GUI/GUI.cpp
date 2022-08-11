@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 
 #include "App.h"
+#include "Renderer/Renderer.h"
 
 
 namespace Tomato::GUI
@@ -133,13 +134,18 @@ namespace Tomato::GUI
     {
 		ImGui::Begin("RenderWindow");
 
-        auto [w, h] = App::GetFrameBuffer()->GetSize();
+        auto [w, h] = Renderer::GetFrameBuffer()->GetSize();
         ImVec2 size = ImGui::GetWindowSize();
 
         TOMATO_PRINT(size.x);
 
-        ImGui::Image((ImTextureID)App::GetFrameBuffer()->GetTexture()->GetID(), ImVec2(size.x, (size.x * h) / (Float)w));
+        ImGui::Image((ImTextureID)Renderer::GetFrameBuffer()->GetTexture()->GetID(), ImVec2(size.x, (size.x * h) / (Float)w));
 
 		ImGui::End();
+    }
+
+    bool IsRenderWindowShown()
+    {
+        return Data::IsRenderWindowShown;
     }
 }

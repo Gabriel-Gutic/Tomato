@@ -21,4 +21,5 @@ namespace Tomato::GUI
 	void ShowRenderWindow();
 	void HideRenderWindow();
 	void RenderWindow();
+	bool IsRenderWindowShown();
 }

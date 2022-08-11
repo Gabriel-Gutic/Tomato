@@ -3,6 +3,7 @@
 #include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Buffer/VertexBuffer.h"
 #include "Renderer/Buffer/IndexBuffer.h"
+#include "Renderer/Buffer/FrameBuffer.h"
 #include "Renderer/Texture/Texture.h"
 #include "Object/Object.h"
 #include "Object/3D/Cube.h"
@@ -33,6 +34,7 @@ namespace Tomato
 		static void End();
 
 		static Renderer* Get();
+		static const std::unique_ptr<FrameBuffer>& GetFrameBuffer();
 
 		template <size_t SIZE>
 		static void Draw(const Object<SIZE>& obj);
@@ -47,6 +49,7 @@ namespace Tomato
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;
+		std::unique_ptr<FrameBuffer> m_FrameBuffer;
 		std::vector<std::pair<std::string, std::shared_ptr<Texture>>> m_Textures;
 		std::array<Int, 8> m_TextureIndices;
 		UInt m_TextureCount;

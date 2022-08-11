@@ -5,6 +5,7 @@
 #include "GLFW/glfw3.h"
 
 #include "App.h"
+#include "GUI/GUI.h"
 
 
 namespace Tomato
@@ -35,6 +36,8 @@ namespace Tomato
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 		s_Instance->m_TextureCount = 0;
+
+		s_Instance->m_FrameBuffer = std::make_unique<FrameBuffer>();
 	}
 
 	void Renderer::Terminate()
@@ -44,10 +47,24 @@ namespace Tomato
 
 	void Renderer::Begin()
 	{
+		const auto& window = App::GetWindow();
+
+		bool renderWindow = GUI::IsRenderWindowShown();
+		if (renderWindow)
+		{
+			s_Instance->m_FrameBuffer->SetSize(window->GetWidth(), window->GetHeight());
+			s_Instance->m_FrameBuffer->Bind();
+		}
+		else {
+			s_Instance->m_FrameBuffer->Unbind();
+		}
+
+		window->Clear(1.0f, 0.0f, 0.0f);
+
 		s_Instance->m_Shader->Use(true);
 
 		s_Instance->m_Projection = App::GetCurrentCamera()->GetProjection();
-		s_Instance->m_View = App::GetCurrentCamera()->GetView(true);
+		s_Instance->m_View = App::GetCurrentCamera()->GetView(renderWindow);
 		
 		s_Instance->m_Shader->SetMat4("u_Projection", s_Instance->m_Projection);
 		s_Instance->m_Shader->SetMat4("u_View", s_Instance->m_View);
@@ -58,11 +75,18 @@ namespace Tomato
 		Flush();
 
 		s_Instance->m_Shader->Use(false);
+
+		s_Instance->m_FrameBuffer->Unbind();
 	}
 
 	Renderer* Renderer::Get()
 	{
 		return s_Instance;
+	}
+
+	const std::unique_ptr<FrameBuffer>& Renderer::GetFrameBuffer()
+	{
+		return s_Instance->m_FrameBuffer;
 	}
 
 	void Renderer::Draw(const Cube& cube)
