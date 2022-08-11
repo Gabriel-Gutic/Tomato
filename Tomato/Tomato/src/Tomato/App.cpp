@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "GUI/GUI.h"
-#include "Renderer/Shader/ShaderProgram.h"
+#include "Renderer/Shader.h"
 
 #include "Renderer/Buffer/VertexBuffer.h"
 #include "Renderer/Buffer/IndexBuffer.h"

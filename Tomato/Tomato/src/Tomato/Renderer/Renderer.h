@@ -1,5 +1,5 @@
 #pragma once
-#include "Shader/ShaderProgram.h"
+#include "Shader.h"
 #include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Buffer/VertexBuffer.h"
 #include "Renderer/Buffer/IndexBuffer.h"
@@ -43,7 +43,7 @@ namespace Tomato
 	private:
 		static void Flush();
 	private:
-		std::unique_ptr<ShaderProgram> m_ShaderProgram;
+		std::unique_ptr<Shader> m_Shader;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;

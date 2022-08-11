@@ -22,7 +22,7 @@ namespace Tomato
 
 		s_Instance = new Renderer();
 
-		s_Instance->m_ShaderProgram = std::make_unique<ShaderProgram>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
+		s_Instance->m_Shader = std::make_unique<Shader>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
 		
 		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber);
 		s_Instance->m_IndexBuffer = std::make_unique<IndexBuffer>(RendererData::MaxVertexNumber);
@@ -44,20 +44,20 @@ namespace Tomato
 
 	void Renderer::Begin()
 	{
-		s_Instance->m_ShaderProgram->Use(true);
+		s_Instance->m_Shader->Use(true);
 
 		s_Instance->m_Projection = App::GetCurrentCamera()->GetProjection();
 		s_Instance->m_View = App::GetCurrentCamera()->GetView(true);
 		
-		s_Instance->m_ShaderProgram->SetUniformMat4("u_Projection", s_Instance->m_Projection);
-		s_Instance->m_ShaderProgram->SetUniformMat4("u_View", s_Instance->m_View);
+		s_Instance->m_Shader->SetMat4("u_Projection", s_Instance->m_Projection);
+		s_Instance->m_Shader->SetMat4("u_View", s_Instance->m_View);
 	}
 
 	void Renderer::End()
 	{
 		Flush();
 
-		s_Instance->m_ShaderProgram->Use(false);
+		s_Instance->m_Shader->Use(false);
 	}
 
 	Renderer* Renderer::Get()
@@ -132,7 +132,7 @@ namespace Tomato
 	{
 		auto& ins = s_Instance;
 
-		ins->m_ShaderProgram->SetUniformIntArray("u_Textures", ins->m_TextureIndices);
+		ins->m_Shader->SetIntArray("u_Textures", ins->m_TextureIndices);
 
 		ins->m_VertexBuffer->Bind();
 		ins->m_VertexBuffer->SetData(RendererData::Vertices, RendererData::VertexCounter);
