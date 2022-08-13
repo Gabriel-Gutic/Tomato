@@ -27,7 +27,7 @@ namespace Tomato
 		glDeleteProgram(m_RendererID);
 	}
 
-	void Shader::Use(bool use)
+	void Shader::Use(bool use) const
 	{
 		if (use)
 		{
@@ -60,7 +60,7 @@ namespace Tomato
 	void Shader::SetFloat4(std::string_view location, const Float4& vec) const
 	{
 		Int id = GetUniformLocation(location);
-		glUniform4f(id, vec.x, vec.y, vec.z, vec.t);
+		glUniform4f(id, vec.x, vec.y, vec.z, vec.w);
 	}
 
 	void Shader::SetInt(std::string_view location, Int value) const
@@ -84,7 +84,7 @@ namespace Tomato
 	void Shader::SetInt4(std::string_view location, const Int4& vec) const
 	{
 		Int id = GetUniformLocation(location);
-		glUniform4i(id, vec.x, vec.y, vec.z, vec.t);
+		glUniform4i(id, vec.x, vec.y, vec.z, vec.w);
 	}
 
 	void Shader::SetMat4(std::string_view location, const Mat4& matrix) const
@@ -106,12 +106,13 @@ namespace Tomato
 
 	Int Shader::GetUniformLocation(std::string_view uniform) const
 	{
+		this->Use();
 		const char* c_uniform = uniform.data();
 		if (m_UniformLocations.find(c_uniform) != m_UniformLocations.end())
 			return m_UniformLocations[c_uniform];
 
 		Int id = glGetUniformLocation(m_RendererID, c_uniform);
-		TOMATO_ASSERT(id != -1, "Uniform {0} not found!", c_uniform);
+		//TOMATO_ASSERT(id != -1, "Uniform {0} not found!", c_uniform);
 
 		return id;
 	}

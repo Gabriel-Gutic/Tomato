@@ -84,7 +84,7 @@ namespace  Tomato
 	{
 		for (auto& vertex : m_Vertices)
 		{
-			vertex.Color.t = alpha;
+			vertex.Color.w = alpha;
 		}
 	}
 }

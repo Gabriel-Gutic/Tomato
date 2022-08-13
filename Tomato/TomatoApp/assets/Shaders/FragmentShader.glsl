@@ -5,6 +5,7 @@ in float TexIndex;
 in vec2 TexCoords;
 out vec4 FragColor;
 
+uniform vec2 u_WindowSize;
 uniform sampler2D u_Textures[32];
 
 void main()

@@ -175,6 +175,7 @@
     <ClInclude Include="src\Tomato\Object\3D\Cube.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Quaternion.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\FrameBuffer.h" />
+    <ClInclude Include="src\Tomato\Object\2D\Circle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -265,5 +266,7 @@
     <ClCompile Include="src\Tomato\Renderer\Buffer\Vertex.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Quaternion.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Tomato\Object\2D\Circle.cpp" />
+    <ClCompile Include="src\Tomato\Object\Object.cpp" />
   </ItemGroup>
 </Project>

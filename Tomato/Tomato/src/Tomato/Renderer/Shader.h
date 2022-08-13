@@ -15,7 +15,7 @@ namespace Tomato
 		Shader(std::string_view vertexSource, std::string_view fragmentSource);
 		~Shader();
 
-		void Use(bool use = true);
+		void Use(bool use = true) const;
 
 		void SetFloat(std::string_view location, Float value) const;
 		void SetFloat2(std::string_view location, const Float2& vec) const;

@@ -272,7 +272,7 @@ Type##3 operator*(Type dot, const Type##3& f3)									\
 				Type##3 xyz;														\
 			};																	\
 			struct {															\
-				Type##2 xy, zt;													\
+				Type##2 xy, zw;													\
 			};																	\
 			struct {															\
 				Type##3 abc;														\
@@ -281,17 +281,17 @@ Type##3 operator*(Type dot, const Type##3& f3)									\
 				Type##2 ab, cd;													\
 			};																	\
 			struct {															\
-				Type x, y, z, t;												\
+				Type x, y, z, w;												\
 			};																	\
 			struct {															\
 				Type a, b, c, d;												\
 			};																	\
 		};																		\
 																				\
-		Type##4(Type x = 0.0f, Type y = 0.0f, Type z = 0.0f, Type t = 0.0f);	\
-		Type##4(Type x, const Type##2 & f, Type t = 0.0f);						\
+		Type##4(Type x = 0.0f, Type y = 0.0f, Type z = 0.0f, Type w = 0.0f);	\
+		Type##4(Type x, const Type##2 & f, Type w = 0.0f);						\
 		Type##4(const Type##2 & f1, const Type##2 & f2);							\
-		Type##4(const Type##3 & f, Type t = 0.0f);								\
+		Type##4(const Type##3 & f, Type w = 0.0f);								\
 		Type##4(Type x, const Type##3 & f);										\
 		Type##4(const Type##4 & f);												\
 		std::string ToString() const;											\
@@ -311,46 +311,46 @@ Type##3 operator*(Type dot, const Type##3& f3)									\
 	};
 
 
-#define Vec4cpp(Type) Type##4::Type##4(Type x, Type y, Type z, Type t)			\
-:x(x), y(y), z(z), t(t)																\
+#define Vec4cpp(Type) Type##4::Type##4(Type x, Type y, Type z, Type w)			\
+:x(x), y(y), z(z), w(w)																\
 {																					\
 }																					\
 																					\
-Type##4::Type##4(Type x, const Type##2& f, Type t)									\
-	: x(x), y(f.x), z(f.y), t(t)													\
+Type##4::Type##4(Type x, const Type##2& f, Type w)									\
+	: x(x), y(f.x), z(f.y), w(w)													\
 {																					\
 }																					\
 																					\
 Type##4::Type##4(const Type##2& f1, const Type##2& f2)									\
-	: xy(f1), zt(f2)																\
+	: xy(f1), zw(f2)																\
 {																					\
 }																					\
 																					\
-Type##4::Type##4(const Type##3& f, Type t)											\
-	: x(f.x), y(f.y), z(f.z), t(t)													\
+Type##4::Type##4(const Type##3& f, Type w)											\
+	: x(f.x), y(f.y), z(f.z), w(w)													\
 {																					\
 }																					\
 																					\
 Type##4::Type##4(Type x, const Type##3& f)											\
-	: x(x), y(f.x), z(f.y), t(f.z)													\
+	: x(x), y(f.x), z(f.y), w(f.z)													\
 {																					\
 }																					\
 																					\
 Type##4::Type##4(const Type##4& f)														\
-	: xy(f.xy), zt(f.zt)															\
+	: xy(f.xy), zw(f.zw)															\
 {																					\
 }																					\
 																					\
 std::string Type##4::ToString() const												\
 {																					\
 	std::stringstream ss;															\
-	ss << "(" << x << ", " << y << ", " << z << ", " << t << ")";					\
+	ss << "(" << x << ", " << y << ", " << z << ", " << w << ")";					\
 	return ss.str();																\
 }																					\
 																					\
 Type Type##4::DotProduct(const Type##4& f1, const Type##4& f2)						\
 {																					\
-	return f1.x * f2.x + f1.y * f2.y + f1.z * f2.z + f1.t * f2.t;					\
+	return f1.x * f2.x + f1.y * f2.y + f1.z * f2.z + f1.w * f2.w;					\
 }																					\
 																				\
 Type##4& Type##4::operator=(const Type##4& other)						\
@@ -364,22 +364,22 @@ Type##4& Type##4::operator=(const Type##4& other)						\
 																		\
 bool Type##4::operator==(const Type##4& other) const									\
 {																				\
-	return x == other.x && y == other.y && z == other.z && t == other.t;						\
+	return x == other.x && y == other.y && z == other.z && w == other.w;						\
 }																				\
 																				\
 bool Type##4::operator!=(const Type##4& other) const									\
 {																				\
-	return !(x == other.x && y == other.y && z == other.z && t == other.t);						\
+	return !(x == other.x && y == other.y && z == other.z && w == other.w);						\
 }																				\
 																					\
 Type##4 Type##4::operator+(const Type##4& other) const										\
 {																					\
-	return Type##4(x + other.x, y + other.y, z + other.z, t + other.t);				\
+	return Type##4(x + other.x, y + other.y, z + other.z, w + other.w);				\
 }																					\
 																					\
 Type##4 Type##4::operator-(const Type##4& other) const										\
 {																					\
-	return Type##4(x - other.x, y - other.y, z - other.z, t - other.t);				\
+	return Type##4(x - other.x, y - other.y, z - other.z, w - other.w);				\
 }																					\
 																					\
 Type Type##4::operator*(const Type##4& other) const										\
@@ -399,7 +399,7 @@ const Type& Type##4::operator[](size_t index) const											\
 																					\
 Type##4 operator*(const Type##4& f3, Type dot)										\
 {																					\
-	return Type##4(f3.x * dot, f3.y * dot, f3.z * dot, f3.t * dot);					\
+	return Type##4(f3.x * dot, f3.y * dot, f3.z * dot, f3.w * dot);					\
 }																					\
 																					\
 Type##4 operator*(Type dot, const Type##4& f3)										\

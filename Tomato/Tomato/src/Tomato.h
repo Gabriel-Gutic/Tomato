@@ -17,6 +17,7 @@
 // Object
 #include "Tomato/Object/2D/Triangle.h"
 #include "Tomato/Object/2D/Quad.h"
+#include "Tomato/Object/2D/Circle.h"
 #include "Tomato/Object/3D/Cube.h"
 
 //ImGui

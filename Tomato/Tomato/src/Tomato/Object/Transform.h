@@ -12,6 +12,8 @@ namespace Tomato
 		Transform(const Float3& position = Float3(), const Float3& scale = Float3(1.0f, 1.0f, 1.0f), const Float3& rotation = Float3())
 			:Position(position), Scale(scale), Rotation(rotation)
 		{}
+
+		Float3 Apply(const Float3& vector) const;
 	};
 
 	class TransformInterface
@@ -27,7 +29,8 @@ namespace Tomato
 		const Float3& GetScale() const;
 		const Float3& GetRotation() const;
 
-		Float3 TransformCoords(const Float3& vector) const;
+		const Transform& GetTransform() const; 
+		virtual Float3 TransformCoords(const Float3& vector) const;
 	protected:
 		Transform m_Transform;
 	};

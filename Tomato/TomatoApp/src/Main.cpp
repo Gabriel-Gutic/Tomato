@@ -21,10 +21,15 @@ public:
 
 		m_Triangle1->SetPosition(Tomato::Float3(1.0f, 0.0f, 0.0f));
 		m_Quad1->SetPosition(Tomato::Float3(-1.0f, -1.0f, 0.0f));
+		m_Cube1->SetPosition(Tomato::Float3(0.0f, 1.0f, 0.0f));
+
+		//Circle
+		m_Circle1 = std::make_shared<Tomato::Circle>();
+		m_Circle1->SetRadius(0.7f);
 
 		Tomato::App::GetCurrentCamera()->MoveZ(1.0f);
-		Tomato::GUI::ShowDockspace();
-		Tomato::GUI::ShowRenderWindow();
+		//Tomato::GUI::ShowDockspace();
+		//Tomato::GUI::ShowRenderWindow();
 	}
 
 	~FirstLayer() {}
@@ -34,19 +39,21 @@ public:
 		Tomato::App::GetCurrentCamera()->SetRotation(m_CameraRotation);
 		
 		Tomato::Renderer::Draw(*m_Triangle1, m_Textures["triangle"]);
-
+		
+		m_Cube1->SetRotation(Tomato::Float3(m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f));
+		auto& sides = m_Cube1->GetSides();
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::Top], m_Textures["grass_top"], m_Cube1->GetTransform());
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::Bottom], m_Textures["grass_bottom"], m_Cube1->GetTransform());
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::West], m_Textures["grass_side"], m_Cube1->GetTransform());
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::East], m_Textures["grass_side"], m_Cube1->GetTransform());
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::North], m_Textures["grass_side"], m_Cube1->GetTransform());
+		Tomato::Renderer::Draw(sides[Tomato::CubeSide::South], m_Textures["grass_side"], m_Cube1->GetTransform());
+		
 		m_Quad1->SetColor(m_TriangleColor.abc);
 		m_Quad1->SetAlpha(m_TriangleColor.d);
 		Tomato::Renderer::Draw(*m_Quad1);
 
-		//m_Cube1->SetRotation(Tomato::Float3(m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f));
-		auto& sides = m_Cube1->GetSides();
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::Top], m_Textures["grass_top"]);
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::Bottom], m_Textures["grass_bottom"]);
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::West], m_Textures["grass_side"]);
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::East], m_Textures["grass_side"]);
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::North], m_Textures["grass_side"]);
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::South], m_Textures["grass_side"]);
+		//Tomato::Renderer::Draw(*m_Circle1);
 
 		const auto& camera = Tomato::App::GetCurrentCamera();
 		const auto& window = Tomato::App::GetWindow();
@@ -99,6 +106,7 @@ private:
 	std::shared_ptr<Tomato::Triangle> m_Triangle1;
 	std::shared_ptr<Tomato::Quad> m_Quad1;
 	std::shared_ptr<Tomato::Cube> m_Cube1;
+	std::shared_ptr<Tomato::Circle> m_Circle1;
 };
 
 

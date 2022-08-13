@@ -10,6 +10,19 @@
 
 namespace Tomato
 {
+	struct RendererData
+	{
+		static const UInt MaxVertexNumber = 2048;
+		static const UInt MaxIndexNumber = 16 * MaxVertexNumber;
+		static std::array<Vertex, MaxVertexNumber> Vertices;
+		static UInt VertexCounter;
+		static std::array<UInt, MaxIndexNumber> Indices;
+		static UInt IndexCounter;
+
+		static const UInt MaxTextureSlots = 32;
+		static std::array<std::shared_ptr<Texture>, MaxTextureSlots> TextureSlots;
+		static UInt TextureSlotsCounter;
+	};
 	std::array<Vertex, RendererData::MaxVertexNumber> RendererData::Vertices = std::array<Vertex, MaxVertexNumber>();
 	UInt RendererData::VertexCounter = 0;
 	std::array<UInt, RendererData::MaxIndexNumber> RendererData::Indices = std::array<UInt, MaxIndexNumber>();
@@ -27,6 +40,7 @@ namespace Tomato
 		s_Instance = new Renderer();
 
 		s_Instance->m_Shader = std::make_unique<Shader>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
+		s_Instance->m_CircleShader = std::make_unique<Shader>("assets/Shaders/Circle_VertexShader.glsl", "assets/Shaders/Circle_FragmentShader.glsl");
 		
 		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber);
 		s_Instance->m_IndexBuffer = std::make_unique<IndexBuffer>(RendererData::MaxVertexNumber);
@@ -89,6 +103,109 @@ namespace Tomato
 	const std::unique_ptr<FrameBuffer>& Renderer::GetFrameBuffer()
 	{
 		return s_Instance->m_FrameBuffer;
+	}
+
+	void Renderer::Draw(const Triangle& obj, std::shared_ptr<Texture> texture, const Transform& transform)
+	{
+		auto& vertices = obj.GetVertices();
+		auto indices = obj.GetIndices();
+		if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber ||
+			RendererData::IndexCounter + indices.size() >= RendererData::MaxIndexNumber)
+			Flush();
+
+		Float texIndex = -1.0f;
+		if (texture)
+		{
+			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
+			{
+				if (texture == RendererData::TextureSlots[i])
+					texIndex = static_cast<Float>(texIndex);
+			}
+			if (texIndex == -1.0f)
+			{
+				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
+					Flush();
+				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
+				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
+			}
+		}
+
+		for (const auto& index : indices)
+		{
+			RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
+		}
+
+		for (auto& vertex : vertices)
+		{
+			Float3 coords = transform.Apply(obj.TransformCoords(vertex.Coords));
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, texIndex, vertex.TexCoords);
+		}
+	}
+
+	void Renderer::Draw(const Quad& obj, std::shared_ptr<Texture> texture, const Transform& transform)
+	{
+		auto& vertices = obj.GetVertices();
+		auto indices = obj.GetIndices();
+		if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber ||
+			RendererData::IndexCounter + indices.size() >= RendererData::MaxIndexNumber)
+			Flush();
+
+		Float texIndex = -1.0f;
+		if (texture)
+		{
+			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
+			{
+				if (texture == RendererData::TextureSlots[i])
+					texIndex = static_cast<Float>(texIndex);
+			}
+			if (texIndex == -1.0f)
+			{
+				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
+					Flush();
+				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
+				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
+			}
+		}
+
+		for (auto& index : indices)
+		{
+			RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
+		}
+
+		for (auto& vertex : vertices)
+		{
+			Float3 coords = transform.Apply(obj.TransformCoords(vertex.Coords));
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, texIndex, vertex.TexCoords);
+		}
+	}
+
+	void Renderer::Draw(const Circle& circle, std::shared_ptr<Texture> texture, const Transform& transform)
+	{
+		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber ||
+			RendererData::IndexCounter + 3 >= RendererData::MaxIndexNumber)
+			Flush();
+
+		const auto& center = circle.GetCenter();
+		const auto& radius = circle.GetRadius();
+		const auto& rotation = circle.GetRotation();
+
+		std::array<Vertex, 3> vertices;
+
+		vertices[0].Coords = Float3(center.x, center.y + 2 * radius, center.z);
+		vertices[1].Coords = Float3(center.x + sqrtf(3) * radius, center.y - radius, center.z);
+		vertices[2].Coords = Float3(center.x - sqrtf(3) * radius, center.y - radius, center.z);
+		
+		for (UInt i = 0; i < 3; i++)
+			vertices[i].Coords = transform.Apply(Quaternion::Rotate(vertices[i].Coords, rotation.x, rotation.y, rotation.z));
+	
+		RendererData::Indices[RendererData::IndexCounter++] = 0 + RendererData::VertexCounter;
+		RendererData::Indices[RendererData::IndexCounter++] = 1 + RendererData::VertexCounter;
+		RendererData::Indices[RendererData::IndexCounter++] = 2 + RendererData::VertexCounter;
+	
+		for (const auto& vertex : vertices)
+		{
+			RendererData::Vertices[RendererData::VertexCounter++] = vertex;
+		}
 	}
 
 	void Renderer::Flush()

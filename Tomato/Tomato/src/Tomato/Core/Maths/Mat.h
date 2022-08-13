@@ -140,7 +140,7 @@ namespace Tomato
 		Float4 result(0);
 		for (UInt i = 0; i < ROWS; i++)
 		{
-			result[i] = mat[i][0] * vec.x + mat[i][1] * vec.y + mat[i][2] * vec.z + mat[i][3] * vec.t;
+			result[i] = mat[i][0] * vec.x + mat[i][1] * vec.y + mat[i][2] * vec.z + mat[i][3] * vec.w;
 		}
 		return result;
 	}
@@ -151,7 +151,7 @@ namespace Tomato
 		Double4 result(0);
 		for (UInt i = 0; i < ROWS; i++)
 		{
-			result[i] = mat[i][0] * vec.x + mat[i][1] * vec.y + mat[i][2] * vec.z + mat[i][3] * vec.t;
+			result[i] = mat[i][0] * vec.x + mat[i][1] * vec.y + mat[i][2] * vec.z + mat[i][3] * vec.w;
 		}
 		return result;
 	}
@@ -162,7 +162,7 @@ namespace Tomato
 		Float4 result(0);
 		for (UInt i = 0; i < ROWS; i++)
 		{
-			result[i] = mat[i][0] * vec.x + mat[i][1] * vec.y + mat[i][2] * vec.z + mat[i][3] * vec.t;
+			result[i] = mat[i][0] * vec.x + mat[i][1] * vec.y + mat[i][2] * vec.z + mat[i][3] * vec.w;
 		}
 		return result;
 	}
@@ -173,7 +173,7 @@ namespace Tomato
 		Float4 result(0);
 		for (UInt i = 0; i < ROWS; i++)
 		{
-			result[i] = mat[i][0] * vec.x + mat[i][1] * vec.y + mat[i][2] * vec.z + mat[i][3] * vec.t;
+			result[i] = mat[i][0] * vec.x + mat[i][1] * vec.y + mat[i][2] * vec.z + mat[i][3] * vec.w;
 		}
 		return result;
 	}

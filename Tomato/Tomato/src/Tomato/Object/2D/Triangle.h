@@ -1,10 +1,12 @@
 #pragma once
 #include "Object/Object.h"
+#include "Object/Transform.h"
+#include "Renderer/Buffer/Vertex.h"
 
 
 namespace Tomato
 {
-	class Triangle : public Object<3>
+	class Triangle : public Object, public TransformInterface, public VertexInterface<3>
 	{
 	private:
 		void Init(const Float3& A, const Float3& B, const Float3& C);
@@ -13,6 +15,6 @@ namespace Tomato
 		Triangle(const Float3& center, Float radius);
 		virtual ~Triangle() = default;
 
-		virtual std::vector<UInt> GetIndices() const override;
+		virtual std::vector<UInt> GetIndices() const;
 	};
 }
