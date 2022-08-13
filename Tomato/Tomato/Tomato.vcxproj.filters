@@ -31,14 +31,17 @@
     <Filter Include="Tomato\Object">
       <UniqueIdentifier>{3F8A7A1C-AB4A-F652-7485-3FD0E0043B2F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Object\2D">
+      <UniqueIdentifier>{84A409CE-709D-2820-99CF-0DA58527082C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\Object\3D">
+      <UniqueIdentifier>{A5A409CE-919D-2820-BACF-0DA5A627082C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato\Renderer">
       <UniqueIdentifier>{9FF23DDA-0B7E-AB9E-148F-2E938099079F}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tomato\Renderer\Buffer">
       <UniqueIdentifier>{A86B2110-9465-4A62-7DD2-E072696BB0CE}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tomato\Renderer\Shader">
-      <UniqueIdentifier>{6519DB36-5113-0489-3A80-9A9926196AF5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tomato\Renderer\Texture">
       <UniqueIdentifier>{FF46E259-6B7E-2AF1-7488-8E14E03E51EA}</UniqueIdentifier>
@@ -88,11 +91,17 @@
     <ClInclude Include="src\Tomato\Core\Maths\Matrix.h">
       <Filter>Tomato\Core\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Maths\Quaternion.h">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Core\Maths\UInt.h">
       <Filter>Tomato\Core\Maths</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\Maths\Vec.h">
       <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Timer\Benchmarker.h">
+      <Filter>Tomato\Core\Timer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\Timer\Timer.h">
       <Filter>Tomato\Core\Timer</Filter>
@@ -127,13 +136,28 @@
     <ClInclude Include="src\Tomato\Layer.h">
       <Filter>Tomato</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Object\2D\Circle.h">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Object\2D\Quad.h">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Object\2D\Triangle.h">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Object\3D\Cube.h">
+      <Filter>Tomato\Object\3D</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Object\Object.h">
       <Filter>Tomato\Object</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Object\2D\Triangle.h">
+    <ClInclude Include="src\Tomato\Object\Transform.h">
       <Filter>Tomato\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Buffer\FrameBuffer.h">
       <Filter>Tomato\Renderer\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Buffer\IndexBuffer.h">
@@ -158,7 +182,7 @@
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Shader.h">
-      <Filter>Tomato\Renderer\Shader</Filter>
+      <Filter>Tomato\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Texture\Image.h">
       <Filter>Tomato\Renderer\Texture</Filter>
@@ -170,12 +194,6 @@
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Object\Transform.h" />
-    <ClInclude Include="src\Tomato\Object\2D\Quad.h" />
-    <ClInclude Include="src\Tomato\Object\3D\Cube.h" />
-    <ClInclude Include="src\Tomato\Core\Maths\Quaternion.h" />
-    <ClInclude Include="src\Tomato\Renderer\Buffer\FrameBuffer.h" />
-    <ClInclude Include="src\Tomato\Object\2D\Circle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -205,8 +223,14 @@
     <ClCompile Include="src\Tomato\Core\Maths\Math.cpp">
       <Filter>Tomato\Core\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Core\Maths\Quaternion.cpp">
+      <Filter>Tomato\Core\Maths</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp">
       <Filter>Tomato\Core\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\Timer\Benchmarker.cpp">
+      <Filter>Tomato\Core\Timer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp">
       <Filter>Tomato\Core\Timer</Filter>
@@ -223,13 +247,34 @@
     <ClCompile Include="src\Tomato\GUI\GUI.cpp">
       <Filter>Tomato\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Object\2D\Circle.cpp">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Object\2D\Quad.cpp">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Object\2D\Triangle.cpp">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Object\3D\Cube.cpp">
+      <Filter>Tomato\Object\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Object\Object.cpp">
+      <Filter>Tomato\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Object\Transform.cpp">
       <Filter>Tomato\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp">
       <Filter>Tomato\Renderer\Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Buffer\FrameBuffer.cpp">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\IndexBuffer.cpp">
+      <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Buffer\Vertex.cpp">
       <Filter>Tomato\Renderer\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp">
@@ -248,7 +293,7 @@
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp">
-      <Filter>Tomato\Renderer\Shader</Filter>
+      <Filter>Tomato\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp">
       <Filter>Tomato\Renderer\Texture</Filter>
@@ -260,13 +305,5 @@
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\Tomato\Object\Transform.cpp" />
-    <ClCompile Include="src\Tomato\Object\2D\Quad.cpp" />
-    <ClCompile Include="src\Tomato\Object\3D\Cube.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Buffer\Vertex.cpp" />
-    <ClCompile Include="src\Tomato\Core\Maths\Quaternion.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Buffer\FrameBuffer.cpp" />
-    <ClCompile Include="src\Tomato\Object\2D\Circle.cpp" />
-    <ClCompile Include="src\Tomato\Object\Object.cpp" />
   </ItemGroup>
 </Project>

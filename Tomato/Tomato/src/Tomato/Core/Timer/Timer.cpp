@@ -28,10 +28,10 @@ namespace Tomato
 		while (t.GetMilliseconds() < ms);
 	}
 
-	ULong Timer::GetMicroseconds(UInt precision) const
+	ULong Timer::GetMicroseconds() const
 	{
-		Double seconds = GetSeconds(precision + 6);
-		return ULong(seconds * 1000000);
+		Double seconds = GetSeconds(6);
+		return (ULong)(seconds * 1000000);
 	}
 
 	Double Timer::GetMilliseconds(UInt precision) const
@@ -47,12 +47,12 @@ namespace Tomato
 		std::chrono::duration<Double> duration = end - m_Start;
 
 		Double power = std::pow(10, precision);
-		return ULong(duration.count() * power) / power;
+		return (duration.count() * power) / power;
 	}
 
-	std::string Timer::MicrosecondsToString(UInt precision) const
+	std::string Timer::MicrosecondsToString() const
 	{
-		return Math::ToString(GetMicroseconds(precision)) + (char)230 + "s";
+		return Math::ToString(GetMicroseconds()) + (char)230 + "s";
 	}
 
 	std::string Timer::MillisecondsToString(UInt precision) const

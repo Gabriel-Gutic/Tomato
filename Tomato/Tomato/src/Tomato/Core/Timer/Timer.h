@@ -11,10 +11,10 @@ namespace Tomato
 
 		void start();
 
-		ULong GetMicroseconds(UInt precision = 2) const;
+		ULong GetMicroseconds() const;
 		Double GetMilliseconds(UInt precision = 2) const;
 		Double GetSeconds(UInt precision = 2) const;
-		std::string MicrosecondsToString(UInt precision = 2) const;
+		std::string MicrosecondsToString() const;
 		std::string MillisecondsToString(UInt precision = 2) const;
 		std::string SecondsToString(UInt precision = 2) const;
 		

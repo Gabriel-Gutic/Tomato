@@ -38,7 +38,7 @@ namespace Tomato::Tests
 
 		Float3 vector2(1, 2, 3);
 
-		trans = Math::Translate(trans, vector2);
+		trans = Math::Translate(vector2);
 
 		Float4 translated = trans * vector;
 		Float4 result(5, 5, 9,  1.0f);

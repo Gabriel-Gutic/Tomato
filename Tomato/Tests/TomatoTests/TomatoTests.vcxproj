@@ -87,10 +87,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\FileTests\FileTests.h" />
+    <ClInclude Include="src\FileTests\FileTestsLayer.h" />
     <ClInclude Include="src\MathTests\MathTests.h" />
     <ClInclude Include="src\MathTests\MathTestsLayer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\FileTests\FileTests.cpp" />
+    <ClCompile Include="src\FileTests\FileTestsLayer.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MathTests\MathTests.cpp" />
     <ClCompile Include="src\MathTests\MathTestsLayer.cpp" />

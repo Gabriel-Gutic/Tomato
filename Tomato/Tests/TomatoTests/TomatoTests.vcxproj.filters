@@ -12,6 +12,8 @@
     <ClInclude Include="src\MathTests\MathTestsLayer.h">
       <Filter>MathTests</Filter>
     </ClInclude>
+    <ClInclude Include="src\FileTests\FileTestsLayer.h" />
+    <ClInclude Include="src\FileTests\FileTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />
@@ -21,5 +23,7 @@
     <ClCompile Include="src\MathTests\MathTestsLayer.cpp">
       <Filter>MathTests</Filter>
     </ClCompile>
+    <ClCompile Include="src\FileTests\FileTestsLayer.cpp" />
+    <ClCompile Include="src\FileTests\FileTests.cpp" />
   </ItemGroup>
 </Project>
