@@ -5,30 +5,30 @@
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::Window::Window(class std::basic_string_view<char,struct std::char_traits<char> >,int,int)",
-      "dur": 640294,
+      "dur": 388555,
       "pid": 0,
       "tid": 0,
-      "ts": 369,
+      "ts": 691,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::App::App(void)",
-      "dur": 646520,
+      "dur": 394378,
       "pid": 0,
       "tid": 0,
-      "ts": 640663,
+      "ts": 389246,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "class Tomato::App *__cdecl Tomato::App::Create(void)",
-      "dur": 734658,
+      "dur": 535783,
       "pid": 0,
       "tid": 0,
-      "ts": 1287183,
+      "ts": 783624,
       "ph": "X"
     }
   ]

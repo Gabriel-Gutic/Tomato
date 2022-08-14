@@ -19,6 +19,10 @@ namespace Tomato::Math
 	std::string ToString(Double number, UInt precision = 2);
 	std::string ToString(Bool value);
 
+	//Generate random int value on the closed interval [a, b]
+	Int RandomInt(Int a, Int b);
+	//Generate random floating-point value on the interval [a, b)
+	Float RandomFloat(Float a, Float b);
 	Float Trunc(Float number, UInt precision = 2);
 	Double Trunc(Double number, UInt precision = 2);
 

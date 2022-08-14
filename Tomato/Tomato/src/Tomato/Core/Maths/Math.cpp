@@ -81,6 +81,24 @@ namespace Tomato
 		return value ? "True" : "False";
 	}
 
+	Int Math::RandomInt(Int a, Int b)
+	{
+		std::random_device rd;
+		std::mt19937 mt(rd());
+		std::uniform_int_distribution<Int> distribution(a, b);
+		Int random_int = distribution(mt);
+		return random_int;
+	}
+
+	Float Math::RandomFloat(Float a, Float b)
+	{
+		std::random_device rd;
+		std::mt19937 mt(rd());
+		std::uniform_real_distribution<Float> distribution(a, b);
+		Float random_float = distribution(mt);
+		return random_float;
+	}
+
 	Float Math::Trunc(Float number, UInt precision)
 	{
 		UInt power = 1;

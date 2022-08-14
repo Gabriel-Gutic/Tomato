@@ -13,11 +13,8 @@ namespace Tomato
 	struct RendererData
 	{
 		static const UInt MaxVertexNumber = 2048;
-		static const UInt MaxIndexNumber = 16 * MaxVertexNumber;
 		static std::array<Vertex, MaxVertexNumber> Vertices;
 		static UInt VertexCounter;
-		static std::array<UInt, MaxIndexNumber> Indices;
-		static UInt IndexCounter;
 
 		static const UInt MaxTextureSlots = 32;
 		static std::array<std::shared_ptr<Texture>, MaxTextureSlots> TextureSlots;
@@ -25,8 +22,6 @@ namespace Tomato
 	};
 	std::array<Vertex, RendererData::MaxVertexNumber> RendererData::Vertices = std::array<Vertex, MaxVertexNumber>();
 	UInt RendererData::VertexCounter = 0;
-	std::array<UInt, RendererData::MaxIndexNumber> RendererData::Indices = std::array<UInt, MaxIndexNumber>();
-	UInt RendererData::IndexCounter = 0;
 
 	std::array<std::shared_ptr<Texture>, RendererData::MaxTextureSlots> RendererData::TextureSlots = std::array < std::shared_ptr<Texture>, RendererData::MaxTextureSlots>();
 	UInt RendererData::TextureSlotsCounter = 0;
@@ -43,7 +38,6 @@ namespace Tomato
 		s_Instance->m_CircleShader = std::make_unique<Shader>("assets/Shaders/Circle_VertexShader.glsl", "assets/Shaders/Circle_FragmentShader.glsl");
 		
 		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber);
-		s_Instance->m_IndexBuffer = std::make_unique<IndexBuffer>(RendererData::MaxVertexNumber);
 
 		s_Instance->m_VertexArray = std::make_unique<VertexArray>();
 
@@ -142,8 +136,7 @@ namespace Tomato
 	{
 		auto& vertices = obj.GetVertices();
 		auto indices = obj.GetIndices();
-		if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber ||
-			RendererData::IndexCounter + indices.size() >= RendererData::MaxIndexNumber)
+		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
 			Flush();
 
 		Float texIndex = -1.0f;
@@ -163,22 +156,16 @@ namespace Tomato
 			}
 		}
 
-		for (auto& index : indices)
+		for (const auto& index : indices)
 		{
-			RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
-		}
-
-		for (auto& vertex : vertices)
-		{
-			Float3 coords = transform.Apply(obj.TransformCoords(vertex.Coords));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, texIndex, vertex.TexCoords);
+			Float3 coords = transform.Apply(obj.TransformCoords(vertices[index].Coords));
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertices[index].Color, texIndex, vertices[index].TexCoords);
 		}
 	}
 
 	void Renderer::Draw(const Circle& circle, std::shared_ptr<Texture> texture, const Transform& transform)
 	{
-		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber ||
-			RendererData::IndexCounter + 3 >= RendererData::MaxIndexNumber)
+		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber)
 			Flush();
 
 		const auto& center = circle.GetCenter();
@@ -193,10 +180,6 @@ namespace Tomato
 		
 		for (UInt i = 0; i < 3; i++)
 			vertices[i].Coords = transform.Apply(Quaternion::Rotate(vertices[i].Coords, rotation.x, rotation.y, rotation.z));
-	
-		RendererData::Indices[RendererData::IndexCounter++] = 0 + RendererData::VertexCounter;
-		RendererData::Indices[RendererData::IndexCounter++] = 1 + RendererData::VertexCounter;
-		RendererData::Indices[RendererData::IndexCounter++] = 2 + RendererData::VertexCounter;
 	
 		for (const auto& vertex : vertices)
 		{
@@ -227,15 +210,9 @@ namespace Tomato
 
 		ins->m_VertexArray->Bind();
 
-		//ins->m_IndexBuffer->Bind();
-		//ins->m_IndexBuffer->SetData(RendererData::Indices, RendererData::IndexCounter);
-		//ins->m_IndexBuffer->Unbind();
-
-		//glDrawElements(GL_TRIANGLES, RendererData::IndexCounter, GL_UNSIGNED_INT, nullptr);
 		glDrawArrays(GL_TRIANGLES, 0, RendererData::VertexCounter);
 
 		RendererData::VertexCounter = 0;
-		RendererData::IndexCounter = 0;
 		RendererData::TextureSlotsCounter = 0;
 
 		VertexArray::Unbind();
