@@ -22,6 +22,8 @@ namespace Tomato
 	App::App()
 		:isRunning(true)
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
+
 		TOMATO_ASSERT(!s_Instance, "App already instantiated!");
 		s_Instance = this;
 

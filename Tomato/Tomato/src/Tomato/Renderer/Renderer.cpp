@@ -62,6 +62,8 @@ namespace Tomato
 
 	void Renderer::Begin()
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
+
 		const auto& window = App::GetWindow();
 
 		bool renderWindow = GUI::IsRenderWindowShown();
@@ -88,6 +90,7 @@ namespace Tomato
 
 	void Renderer::End()
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
 		Flush();
 
 		s_Instance->m_Shader->Use(false);
@@ -108,9 +111,7 @@ namespace Tomato
 	void Renderer::Draw(const Triangle& obj, std::shared_ptr<Texture> texture, const Transform& transform)
 	{
 		auto& vertices = obj.GetVertices();
-		auto indices = obj.GetIndices();
-		if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber ||
-			RendererData::IndexCounter + indices.size() >= RendererData::MaxIndexNumber)
+		if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber)
 			Flush();
 
 		Float texIndex = -1.0f;
@@ -128,11 +129,6 @@ namespace Tomato
 				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
 				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
 			}
-		}
-
-		for (const auto& index : indices)
-		{
-			RendererData::Indices[RendererData::IndexCounter++] = index + RendererData::VertexCounter;
 		}
 
 		for (auto& vertex : vertices)
@@ -210,6 +206,8 @@ namespace Tomato
 
 	void Renderer::Flush()
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
+
 		auto& ins = s_Instance;
 
 		for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
@@ -229,11 +227,12 @@ namespace Tomato
 
 		ins->m_VertexArray->Bind();
 
-		ins->m_IndexBuffer->Bind();
-		ins->m_IndexBuffer->SetData(RendererData::Indices, RendererData::IndexCounter);
-		ins->m_IndexBuffer->Unbind();
+		//ins->m_IndexBuffer->Bind();
+		//ins->m_IndexBuffer->SetData(RendererData::Indices, RendererData::IndexCounter);
+		//ins->m_IndexBuffer->Unbind();
 
-		glDrawElements(GL_TRIANGLES, RendererData::IndexCounter, GL_UNSIGNED_INT, nullptr);
+		//glDrawElements(GL_TRIANGLES, RendererData::IndexCounter, GL_UNSIGNED_INT, nullptr);
+		glDrawArrays(GL_TRIANGLES, 0, RendererData::VertexCounter);
 
 		RendererData::VertexCounter = 0;
 		RendererData::IndexCounter = 0;

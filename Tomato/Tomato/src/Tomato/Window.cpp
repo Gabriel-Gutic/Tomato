@@ -22,6 +22,8 @@ namespace Tomato
 				false
 			}), m_Window(nullptr)
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
+
 		/* Initialize the library */
 		TOMATO_ASSERT(glfwInit(), "Failed to initialize GLFW!");
 

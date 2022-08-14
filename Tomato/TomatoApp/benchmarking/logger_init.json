@@ -1,0 +1,15 @@
+{
+  "otherData": {},
+  "traceEvents": 
+  [
+    {
+      "cat": "Logger Initialization",
+      "name": "void __cdecl Tomato::Logger::Init(void)",
+      "dur": 369,
+      "pid": 0,
+      "tid": 0,
+      "ts": 0,
+      "ph": "X"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ namespace Tomato
 	std::shared_ptr<spdlog::logger> Logger::s_Client = nullptr;
 	void Logger::Init()
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
 		s_Core = spdlog::stdout_color_mt("Tomato");
 		s_Client = spdlog::stdout_color_mt("Client");
 	}

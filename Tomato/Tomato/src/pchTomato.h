@@ -36,5 +36,6 @@
 #include "Tomato/Core/DateTime/DateTime.h"
 #include "Tomato/Core/Maths/Maths.h"
 #include "Tomato/Core/Timer/Timer.h"
+#include "Tomato/Core/Timer/Benchmarker.h"
 #include "Tomato/Core/FileManager/File.h"
 
