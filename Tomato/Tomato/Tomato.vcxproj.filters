@@ -195,6 +195,7 @@
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
     <ClInclude Include="src\Tomato\Object\2D\Polygon.h" />
+    <ClInclude Include="src\Tomato\ImGuiLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">

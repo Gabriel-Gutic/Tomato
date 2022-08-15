@@ -31,7 +31,7 @@ namespace Tomato
 	{
 	public:
 		Camera(const Float3& position = { 0.0f, 0.0f, 3.0f }, const Float3& target = {0.0f, 0.0f, 0.0f});
-		~Camera();
+		~Camera() = default;
 
 		Mat4 GetView(bool reverseY = false) const;
 		Mat4 GetProjection() const;

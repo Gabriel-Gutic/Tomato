@@ -15,11 +15,6 @@ namespace Tomato
 			delete layer;
 	}
 
-	std::unique_ptr<Camera>& Scene::GetCamera()
-	{
-		return m_Camera;
-	}
-
 	const std::unique_ptr<Camera>& Scene::GetCamera() const
 	{
 		return m_Camera;

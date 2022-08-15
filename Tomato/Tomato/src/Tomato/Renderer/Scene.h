@@ -11,7 +11,6 @@ namespace Tomato
 		Scene();
 		~Scene();
 
-		std::unique_ptr<Camera>& GetCamera();
 		const std::unique_ptr<Camera>& GetCamera() const;
 
 		std::vector<Layer*>& GetLayers();

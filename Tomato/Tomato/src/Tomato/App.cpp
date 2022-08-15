@@ -32,8 +32,6 @@ namespace Tomato
 		Renderer::Initialize();
 
 		GUI::Initialize();
-
-		m_SceneList.push_back(std::make_unique<Scene>());
 	}
 
 	App::~App()
@@ -56,7 +54,12 @@ namespace Tomato
 
 				TOMATO_PRINT(e.ToString());
 
-				for (auto& layer : m_SceneList[0]->GetLayers())
+				for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
+				{
+					layer->OnEvent(e);
+				}
+
+				for (auto& layer : GetCurrentScene()->GetLayers())
 				{
 					layer->OnEvent(e);
 				}
@@ -67,7 +70,12 @@ namespace Tomato
 
 			Renderer::Begin();
 
-			for (auto& layer : m_SceneList[0]->GetLayers())
+			for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
+			{
+				layer->OnUpdate();
+			}
+
+			for (auto& layer : GetCurrentScene()->GetLayers())
 			{
 				layer->OnUpdate();
 			}
@@ -76,7 +84,12 @@ namespace Tomato
 
 			GUI::Begin();
 			
-			for (auto& layer : m_SceneList[0]->GetLayers())
+			for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
+			{
+				layer->OnGUI();
+			}
+
+			for (auto& layer : GetCurrentScene()->GetLayers())
 			{
 				layer->OnGUI();
 			}
@@ -94,14 +107,60 @@ namespace Tomato
 		s_Instance->m_EventQueue.push(event);
 	}
 
-	void App::PushLayer(Layer* layer)
+	const std::unique_ptr<Scene>& App::CreateScene(std::string_view name)
 	{
-		s_Instance->m_SceneList[0]->GetLayers().push_back(layer);
+		auto& ins = s_Instance;
+		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) == ins->m_SceneMap.end(), "Scene {0} already exist!", name.data());
+		ins->m_SceneMap[name.data()] = std::make_unique<Scene>();
+		if (ins->m_SceneMap.size() == 1)
+			SetCurrentScene(name);
+		return ins->m_SceneMap[name.data()];
 	}
 
-	void App::PopLayer()
+	void App::RemoveScene(std::string_view name)
 	{
-		s_Instance->m_SceneList[0]->GetLayers().pop_back();
+		auto& ins = s_Instance;
+		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) == ins->m_SceneMap.end(), "Scene {0} already exist!", name.data());
+		ins->m_SceneMap.erase(name.data());
+	}
+
+	const std::unique_ptr<Scene>& App::GetScene(std::string_view name)
+	{
+		auto& ins = s_Instance;
+		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", name.data());
+		return ins->m_SceneMap[name.data()];
+	}
+
+	const std::unique_ptr<Scene>& App::SetCurrentScene(std::string_view name)
+	{
+		auto& ins = s_Instance;
+		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", name.data());
+		ins->m_CurrentSceneName = name;
+		return ins->m_SceneMap[name.data()];
+	}
+
+	const std::unique_ptr<Scene>& App::GetCurrentScene()
+	{
+		return s_Instance->m_SceneMap[s_Instance->m_CurrentSceneName];
+	}
+
+	const std::string& App::GetCurrentSceneName()
+	{
+		return s_Instance->m_CurrentSceneName;
+	}
+
+	void App::PushImGuiLayer(std::string_view name, ImGuiLayer* layer)
+	{
+		auto& ins = s_Instance;
+		TOMATO_ASSERT(ins->m_ImGuiLayers.find(name.data()) == ins->m_ImGuiLayers.end(), "ImGuiLayer '{0}' already exist!", name.data());
+		s_Instance->m_ImGuiLayers[name.data()] = layer;
+	}
+
+	void App::RemoveImGuiLayer(std::string_view name)
+	{
+		auto& ins = s_Instance;
+		TOMATO_ASSERT(ins->m_ImGuiLayers.find(name.data()) != ins->m_ImGuiLayers.end(), "ImGuiLayer '{0}' doesn't exist!", name.data());
+		s_Instance->m_ImGuiLayers.erase(name.data());
 	}
 
 	std::unique_ptr<Window>& App::GetWindow()
@@ -109,14 +168,14 @@ namespace Tomato
 		return s_Instance->m_Window;
 	}
 
-	std::vector<std::unique_ptr<Scene>>& App::GetScenes()
+	std::unordered_map<std::string, std::unique_ptr<Scene>>& App::GetScenes()
 	{
-		return s_Instance->m_SceneList;
+		return s_Instance->m_SceneMap;
 	}
 
-	std::unique_ptr<Camera>& App::GetCurrentCamera()
+	const std::unique_ptr<Camera>& App::GetCurrentCamera()
 	{
-		return s_Instance->m_SceneList[0]->GetCamera();
+		return s_Instance->m_SceneMap[s_Instance->m_CurrentSceneName]->GetCamera();
 	}
 
 	void App::Exit()

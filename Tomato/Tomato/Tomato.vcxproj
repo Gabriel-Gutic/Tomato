@@ -116,6 +116,7 @@
     <ClInclude Include="src\Tomato\Event\MouseEvent.h" />
     <ClInclude Include="src\Tomato\Event\WindowEvent.h" />
     <ClInclude Include="src\Tomato\GUI\GUI.h" />
+    <ClInclude Include="src\Tomato\ImGuiLayer.h" />
     <ClInclude Include="src\Tomato\Layer.h" />
     <ClInclude Include="src\Tomato\Object\2D\Circle.h" />
     <ClInclude Include="src\Tomato\Object\2D\Polygon.h" />

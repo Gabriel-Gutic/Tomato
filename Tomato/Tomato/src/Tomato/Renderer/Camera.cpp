@@ -12,11 +12,6 @@ namespace Tomato
 		SetPosition(position);
 	}
 
-	Camera::~Camera()
-	{
-
-	}
-
 	Mat4 Camera::GetView(bool reverseY) const
 	{
 		Float3 target = Quaternion::Rotate(m_Target - m_Transform.Position, -1 * m_Transform.Rotation);
