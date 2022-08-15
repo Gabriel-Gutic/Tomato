@@ -79,4 +79,14 @@ namespace Tomato
 		m_OrthographicProjection.Near = _near;
 		m_OrthographicProjection.Far = _far;
 	}
+
+	void Camera::SetTarget(const Float3& target)
+	{
+		m_Target = target;
+	}
+
+	const Float3& Camera::GetTarget() const
+	{
+		return m_Target;
+	}
 }
