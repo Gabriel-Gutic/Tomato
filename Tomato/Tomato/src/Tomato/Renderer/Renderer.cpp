@@ -35,7 +35,6 @@ namespace Tomato
 		s_Instance = new Renderer();
 
 		s_Instance->m_Shader = std::make_unique<Shader>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
-		s_Instance->m_CircleShader = std::make_unique<Shader>("assets/Shaders/Circle_VertexShader.glsl", "assets/Shaders/Circle_FragmentShader.glsl");
 		
 		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber);
 
@@ -196,26 +195,7 @@ namespace Tomato
 
 	void Renderer::Draw(const Circle& circle, std::shared_ptr<Texture> texture, const Transform& transform)
 	{
-		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber)
-			Flush();
-
-		const auto& center = circle.GetCenter();
-		const auto& radius = circle.GetRadius();
-		const auto& rotation = circle.GetRotation();
-
-		std::array<Vertex, 3> vertices;
-
-		vertices[0].Coords = Float3(center.x, center.y + 2 * radius, center.z);
-		vertices[1].Coords = Float3(center.x + sqrtf(3) * radius, center.y - radius, center.z);
-		vertices[2].Coords = Float3(center.x - sqrtf(3) * radius, center.y - radius, center.z);
-		
-		for (UInt i = 0; i < 3; i++)
-			vertices[i].Coords = transform.Apply(Quaternion::Rotate(vertices[i].Coords, rotation.x, rotation.y, rotation.z));
-	
-		for (const auto& vertex : vertices)
-		{
-			RendererData::Vertices[RendererData::VertexCounter++] = vertex;
-		}
+		Renderer::Draw(circle.GetPolygon(), texture, transform);
 	}
 
 	void Renderer::Flush()

@@ -27,7 +27,7 @@ public:
 
 		//Circle
 		m_Circle1 = std::make_shared<Tomato::Circle>();
-		m_Circle1->SetRadius(0.7f);
+		m_Circle1->SetRadius(1.0f);
 
 		for (Tomato::UInt i = 0; i < 1000; i++)
 		{
@@ -46,25 +46,25 @@ public:
 	{
 		Tomato::App::GetCurrentCamera()->SetRotation(m_CameraRotation);
 		
-		Tomato::Renderer::Draw(*m_Triangle1, m_Textures["triangle"]);
-
-		m_Cube1->SetRotation(Tomato::Float3(m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f));
-		auto& sides = m_Cube1->GetSides();
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::Top], m_Textures["grass_top"], m_Cube1->GetTransform());
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::Bottom], m_Textures["grass_bottom"], m_Cube1->GetTransform());
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::West], m_Textures["grass_side"], m_Cube1->GetTransform());
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::East], m_Textures["grass_side"], m_Cube1->GetTransform());
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::North], m_Textures["grass_side"], m_Cube1->GetTransform());
-		Tomato::Renderer::Draw(sides[Tomato::CubeSide::South], m_Textures["grass_side"], m_Cube1->GetTransform());
-
-		m_Quad1->SetColor(m_TriangleColor.abc);
-		m_Quad1->SetAlpha(m_TriangleColor.d);
-		Tomato::Renderer::Draw(*m_Quad1);
-
-		//Tomato::Renderer::Draw(*m_Circle1);
-
-		for (Tomato::UInt i = 0; i < 1000; i++)
-			Tomato::Renderer::Draw(*m_Triangles[i]);
+		//Tomato::Renderer::Draw(*m_Triangle1, m_Textures["triangle"]);
+		//
+		//m_Cube1->SetRotation(Tomato::Float3(m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f, m_Timer.GetMilliseconds() / 10.0f));
+		//auto& sides = m_Cube1->GetSides();
+		//Tomato::Renderer::Draw(sides[Tomato::CubeSide::Top], m_Textures["grass_top"], m_Cube1->GetTransform());
+		//Tomato::Renderer::Draw(sides[Tomato::CubeSide::Bottom], m_Textures["grass_bottom"], m_Cube1->GetTransform());
+		//Tomato::Renderer::Draw(sides[Tomato::CubeSide::West], m_Textures["grass_side"], m_Cube1->GetTransform());
+		//Tomato::Renderer::Draw(sides[Tomato::CubeSide::East], m_Textures["grass_side"], m_Cube1->GetTransform());
+		//Tomato::Renderer::Draw(sides[Tomato::CubeSide::North], m_Textures["grass_side"], m_Cube1->GetTransform());
+		//Tomato::Renderer::Draw(sides[Tomato::CubeSide::South], m_Textures["grass_side"], m_Cube1->GetTransform());
+		//
+		//m_Quad1->SetColor(m_TriangleColor.abc);
+		//m_Quad1->SetAlpha(m_TriangleColor.d);
+		//Tomato::Renderer::Draw(*m_Quad1);
+		//
+		Tomato::Renderer::Draw(*m_Circle1);
+		//
+		//for (Tomato::UInt i = 0; i < 1000; i++)
+		//	Tomato::Renderer::Draw(*m_Triangles[i]);
 
 		Tomato::Renderer::Draw(*m_Polygon);
 
@@ -108,6 +108,10 @@ public:
 		{
 			m_Polygon->SetNumberOfSides(m_PolygonNOS);
 		}
+		if (ImGui::SliderFloat("Circle Smoothness", &m_CircleSmoothness, 0.2f, 1.0f))
+		{
+			m_Circle1->SetSmoothness(m_CircleSmoothness);
+		}
 
 		ImGui::End();
 	}
@@ -118,6 +122,7 @@ private:
 	Tomato::Float3 m_CameraRotation;
 	Tomato::Float4 m_TriangleColor;
 	Tomato::Int m_PolygonNOS = 6;
+	Tomato::Float m_CircleSmoothness = 0.5f;
 
 	std::vector<std::unique_ptr<Tomato::Triangle>> m_Triangles;
 

@@ -12,7 +12,7 @@ namespace Tomato
 	void Polygon::SetNumberOfSides(UInt numberOfSides)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
-		TOMATO_ASSERT(m_NumberOfSides >= 3, "You can't create a polygon with {0} sides", m_NumberOfSides);
+		TOMATO_ASSERT(numberOfSides >= 3, "You can't create a polygon with {0} sides", m_NumberOfSides);
 		m_NumberOfSides = numberOfSides;
 		Float angle = 360.0f / static_cast<Float>(numberOfSides);
 		

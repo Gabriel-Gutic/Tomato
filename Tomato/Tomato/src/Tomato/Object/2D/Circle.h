@@ -1,6 +1,7 @@
 #pragma once
 #include "Object/Object.h"
 #include "Object/Transform.h"
+#include "Polygon.h"
 
 
 namespace Tomato
@@ -8,7 +9,7 @@ namespace Tomato
 	class Circle : public Object
 	{
 	public:
-		Circle(const Float3& center = Float3(), Float radius = 1.0f);
+		Circle(const Float3& center = Float3(), Float radius = 0.5f, Float smoothness = 0.5f);
 		~Circle() = default;
 
 		void SetRotation(const Float3& rotation);
@@ -17,9 +18,12 @@ namespace Tomato
 		const Float3& GetCenter() const;
 		void SetRadius(Float radius);
 		Float GetRadius() const;
+		void SetSmoothness(Float smoothness);
+		Float GetSmoothness() const;
+
+		const Polygon& GetPolygon() const;
 	private:
-		Float3 m_Center;
-		Float m_Radius;
-		Float3 m_Rotation;
+		Float m_Smoothness;
+		Polygon m_Polygon;
 	};
 }

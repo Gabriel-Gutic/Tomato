@@ -35,7 +35,6 @@ namespace Tomato
 		static void Flush();
 	private:
 		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<Shader> m_CircleShader;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;
 		std::unique_ptr<FrameBuffer> m_FrameBuffer;

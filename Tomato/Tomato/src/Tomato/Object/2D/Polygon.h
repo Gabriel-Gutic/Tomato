@@ -9,7 +9,7 @@ namespace Tomato
 	class Polygon : public Object, public TransformInterface
 	{
 	public:
-		Polygon(UInt numberOfSides);
+		Polygon(UInt numberOfSides = 6);
 		virtual ~Polygon() = default;
 
 		void SetNumberOfSides(UInt numberOfSides);
