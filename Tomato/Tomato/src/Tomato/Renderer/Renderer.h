@@ -6,6 +6,7 @@
 #include "Renderer/Texture/Texture.h"
 #include "Object/2D/Triangle.h"
 #include "Object/2D/Quad.h"
+#include "Object/2D/Polygon.h"
 #include "Object/2D/Circle.h"
 
 
@@ -28,6 +29,7 @@ namespace Tomato
 
 		static void Draw(const Triangle& obj, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
 		static void Draw(const Quad& obj, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
+		static void Draw(const Polygon& polygon, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
 		static void Draw(const Circle& circle, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
 	private:
 		static void Flush();

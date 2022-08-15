@@ -14,6 +14,7 @@ public:
 		
 		m_Quad1 = std::make_shared<Tomato::Quad>();
 		m_Cube1 = std::make_shared<Tomato::Cube>();
+		m_Polygon = std::make_shared<Tomato::Polygon>(m_PolygonNOS);
 
 		m_Textures["grass_top"] = Tomato::Texture::Create("assets/images/grass_top.jpg");
 		m_Textures["grass_side"] = Tomato::Texture::Create("assets/images/grass_side.png");
@@ -22,6 +23,7 @@ public:
 		m_Triangle1->SetPosition(Tomato::Float3(1.0f, 0.0f, 0.0f));
 		m_Quad1->SetPosition(Tomato::Float3(-3.0f, -1.0f, 0.0f));
 		m_Cube1->SetPosition(Tomato::Float3(3.0f, 1.0f, 0.0f));
+		m_Polygon->SetPosition(Tomato::Float3(3.0f, 3.0f, 0.0f));
 
 		//Circle
 		m_Circle1 = std::make_shared<Tomato::Circle>();
@@ -64,6 +66,8 @@ public:
 		for (Tomato::UInt i = 0; i < 1000; i++)
 			Tomato::Renderer::Draw(*m_Triangles[i]);
 
+		Tomato::Renderer::Draw(*m_Polygon);
+
 		const auto& camera = Tomato::App::GetCurrentCamera();
 		const auto& window = Tomato::App::GetWindow();
 
@@ -97,9 +101,13 @@ public:
 	virtual void OnGUI() override
 	{
 		ImGui::Begin("First ImGui Window");
-		
+
 		ImGui::SliderFloat3("Camera Rotation", &m_CameraRotation[0], -90.0f, 90.0f);
-		ImGui::ColorPicker4("Triangle Color", &m_TriangleColor[0]);
+		ImGui::ColorPicker4("Quad Color", &m_TriangleColor[0]);
+		if (ImGui::SliderInt("Polygon NOS", &m_PolygonNOS, 3, 100))
+		{
+			m_Polygon->SetNumberOfSides(m_PolygonNOS);
+		}
 
 		ImGui::End();
 	}
@@ -109,6 +117,7 @@ private:
 	Tomato::Timer m_Timer;
 	Tomato::Float3 m_CameraRotation;
 	Tomato::Float4 m_TriangleColor;
+	Tomato::Int m_PolygonNOS = 6;
 
 	std::vector<std::unique_ptr<Tomato::Triangle>> m_Triangles;
 
@@ -116,6 +125,7 @@ private:
 
 	std::shared_ptr<Tomato::Triangle> m_Triangle1;
 	std::shared_ptr<Tomato::Quad> m_Quad1;
+	std::shared_ptr<Tomato::Polygon> m_Polygon;
 	std::shared_ptr<Tomato::Cube> m_Cube1;
 	std::shared_ptr<Tomato::Circle> m_Circle1;
 };

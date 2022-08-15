@@ -163,6 +163,37 @@ namespace Tomato
 		}
 	}
 
+	void Renderer::Draw(const Polygon& polygon, std::shared_ptr<Texture> texture, const Transform& transform)
+	{
+		auto& vertices = polygon.GetVertices();
+		auto indices = polygon.GetIndices();
+		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
+			Flush();
+
+		Float texIndex = -1.0f;
+		if (texture)
+		{
+			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
+			{
+				if (texture == RendererData::TextureSlots[i])
+					texIndex = static_cast<Float>(texIndex);
+			}
+			if (texIndex == -1.0f)
+			{
+				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
+					Flush();
+				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
+				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
+			}
+		}
+
+		for (const auto& index : indices)
+		{
+			Float3 coords = transform.Apply(polygon.TransformCoords(vertices[index].Coords));
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertices[index].Color, texIndex, vertices[index].TexCoords);
+		}
+	}
+
 	void Renderer::Draw(const Circle& circle, std::shared_ptr<Texture> texture, const Transform& transform)
 	{
 		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber)
