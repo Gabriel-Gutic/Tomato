@@ -1,12 +1,13 @@
 #pragma once
 #include "Renderer/Buffer/Vertex.h"
 #include "Object/Transform.h"
+#include "Object/Color.h"
 #include "Object/Object.h"
 
 
 namespace Tomato
 {
-	class Polygon : public Object, public TransformInterface
+	class Polygon : public Object, public TransformInterface, public ColorInterface
 	{
 	public:
 		Polygon(UInt numberOfSides = 6);

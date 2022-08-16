@@ -1,12 +1,13 @@
 #pragma once
 #include "Object/Object.h"
 #include "Object/Transform.h"
+#include "Object/Color.h"
 #include "Polygon.h"
 
 
 namespace Tomato
 {
-	class Circle : public Object
+	class Circle : public Object, public ColorInterface
 	{
 	public:
 		Circle(const Float3& center = Float3(), Float radius = 0.5f, Float smoothness = 0.5f);

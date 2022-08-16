@@ -15,6 +15,10 @@ namespace Tomato
 		m_Polygon = Polygon(static_cast<UInt>(100 * m_Smoothness));
 		m_Polygon.SetPosition(center);
 		m_Polygon.SetScale(Float3(2 * radius, 2 * radius, 0.0f));
+	
+		SetCallback([this](const Color& color) {
+			m_Polygon.SetColor(color);
+		});
 	}
 
 	void Circle::SetRotation(const Float3& rotation)

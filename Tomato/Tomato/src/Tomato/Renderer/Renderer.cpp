@@ -237,7 +237,7 @@ namespace Tomato
 		for (const auto& index : indices)
 		{
 			Float3 coords = transform.Apply(polygon.TransformCoords(vertices[index].Coords));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertices[index].Color, texIndex, vertices[index].TexCoords);
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, polygon.GetRGBA(), texIndex, vertices[index].TexCoords);
 		}
 	}
 

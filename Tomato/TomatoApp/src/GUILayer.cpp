@@ -48,7 +48,7 @@ void GUILayer::OnGUI()
 
 	for (const auto& [name, scene] : scene_map)
 		scenes.push_back(name.c_str());
-	if (ImGui::Combo("Scene", &m_CurrentSceneIndex, scenes.data(), scenes.size()));
+	if (ImGui::Combo("Scene", &m_CurrentSceneIndex, scenes.data(), scenes.size()))
 	{
 		Tomato::App::SetCurrentScene(scenes[m_CurrentSceneIndex]);
 	}

@@ -197,6 +197,7 @@
     <ClInclude Include="src\Tomato\Object\2D\Polygon.h" />
     <ClInclude Include="src\Tomato\ImGuiLayer.h" />
     <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h" />
+    <ClInclude Include="src\Tomato\Object\Color.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -310,5 +311,6 @@
     <ClCompile Include="src\pchTomato.cpp" />
     <ClCompile Include="src\Tomato\Object\2D\Polygon.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Texture\Tilemap.cpp" />
+    <ClCompile Include="src\Tomato\Object\Color.cpp" />
   </ItemGroup>
 </Project>
