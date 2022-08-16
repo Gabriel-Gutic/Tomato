@@ -17,21 +17,23 @@ void GUILayer::OnUpdate()
 
 	const auto& window = Tomato::App::GetWindow();
 
-	camera->SetPerspectiveProjection(m_FOV, window->GetAspectRatio(), 0.1f, 100.0f);
-	//camera->SetOrthographicProjection(-window->GetAspectRatio(), window->GetAspectRatio(), -1.0f, 1.0f, 0.1f, 100.0f);
+	if (m_CurrentCameraProjection == 0)
+		camera->SetOrthographicProjection(-window->GetAspectRatio() * m_CameraOrthoSize, window->GetAspectRatio() * m_CameraOrthoSize, -m_CameraOrthoSize, m_CameraOrthoSize, 0.1f, 100.0f);
+	else 
+		camera->SetPerspectiveProjection(m_CameraFOV, window->GetAspectRatio(), 0.1f, 100.0f);
 
 	if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
-		camera->MoveX(-m_Speed);
+		camera->MoveX(-m_CameraSpeed);
 	if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
-		camera->MoveX(m_Speed);
+		camera->MoveX(m_CameraSpeed);
 	if (Tomato::Input::Keyboard(TOMATO_KEY_UP))
-		camera->MoveY(m_Speed);
+		camera->MoveY(m_CameraSpeed);
 	if (Tomato::Input::Keyboard(TOMATO_KEY_DOWN))
-		camera->MoveY(-m_Speed);
+		camera->MoveY(-m_CameraSpeed);
 	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_8))
-		camera->MoveZ(-m_Speed);
+		camera->MoveZ(-m_CameraSpeed);
 	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_2))
-		camera->MoveZ(m_Speed);
+		camera->MoveZ(m_CameraSpeed);
 }
 
 void GUILayer::OnGUI()
@@ -50,6 +52,10 @@ void GUILayer::OnGUI()
 	{
 		Tomato::App::SetCurrentScene(scenes[m_CurrentSceneIndex]);
 	}
+
+	std::array<const char*, 2> projs = { "Orthographic", "Perspective" };
+	ImGui::Combo("Camera Projection", &m_CurrentCameraProjection, projs.data(), projs.size());
+
 	ImGui::SliderFloat3("Camera Rotation", &m_CameraRotation[0], -90.0f, 90.0f);
 	ImGui::ColorPicker4("Background Color", &m_BackgroundColor[0]);
 
@@ -62,6 +68,9 @@ void GUILayer::OnEvent(const Tomato::Event& e)
 	{
 		auto ev = Tomato::Event::Cast<Tomato::WheelEvent>(e);
 
-		m_FOV += (Tomato::Float)ev.GetValue();
+		if (m_CurrentCameraProjection == 1)
+			m_CameraFOV += (Tomato::Float)ev.GetValue();
+		else
+			m_CameraOrthoSize += m_CameraSpeed * (Tomato::Float)ev.GetValue();
 	}
 }

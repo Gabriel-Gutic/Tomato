@@ -5,7 +5,7 @@
     {
       "cat": "Logger Initialization",
       "name": "void __cdecl Tomato::Logger::Init(void)",
-      "dur": 702,
+      "dur": 779,
       "pid": 0,
       "tid": 0,
       "ts": 0,

@@ -6,7 +6,7 @@ namespace Tomato
 {
 	enum class ProjectionType
 	{
-		Orthographic, Perspective
+		Orthographic = 0, Perspective = 1
 	};
 
 	struct PerspectiveProjection

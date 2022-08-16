@@ -5,60 +5,60 @@
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::Window::Window(class std::basic_string_view<char,struct std::char_traits<char> >,int,int)",
-      "dur": 530692,
+      "dur": 919702,
       "pid": 0,
       "tid": 0,
-      "ts": 702,
+      "ts": 779,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::App::App(void)",
-      "dur": 546717,
+      "dur": 956423,
       "pid": 0,
       "tid": 0,
-      "ts": 531394,
+      "ts": 920481,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "void __cdecl Tomato::Polygon::SetNumberOfSides(unsigned int)",
-      "dur": 55,
+      "dur": 66,
       "pid": 0,
       "tid": 0,
-      "ts": 1078111,
+      "ts": 1876904,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "void __cdecl Tomato::Polygon::SetNumberOfSides(unsigned int)",
-      "dur": 3,
+      "dur": 6,
       "pid": 0,
       "tid": 0,
-      "ts": 1078166,
+      "ts": 1876970,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "void __cdecl Tomato::Polygon::SetNumberOfSides(unsigned int)",
-      "dur": 9,
+      "dur": 10,
       "pid": 0,
       "tid": 0,
-      "ts": 1078169,
+      "ts": 1876976,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "class Tomato::App *__cdecl Tomato::App::Create(void)",
-      "dur": 729830,
+      "dur": 1131999,
       "pid": 0,
       "tid": 0,
-      "ts": 1078178,
+      "ts": 1876986,
       "ph": "X"
     }
   ]
