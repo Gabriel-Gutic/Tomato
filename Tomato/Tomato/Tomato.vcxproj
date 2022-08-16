@@ -125,6 +125,7 @@
     <ClInclude Include="src\Tomato\Object\3D\Cube.h" />
     <ClInclude Include="src\Tomato\Object\Object.h" />
     <ClInclude Include="src\Tomato\Object\Transform.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\FrameBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\IndexBuffer.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Texture\Texture.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Texture\Tilemap.cpp" />
     <ClCompile Include="src\Tomato\Window.cpp" />
     <ClCompile Include="src\pchTomato.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

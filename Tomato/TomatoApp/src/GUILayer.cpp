@@ -1,6 +1,7 @@
 #include "GUILayer.h"
 
 GUILayer::GUILayer()
+	:m_BackgroundColor(Tomato::Float4(1.0f, 0.0f, 0.0f, 1.0f))
 {
 	Tomato::App::GetCurrentCamera()->MoveZ(1.0f);
 	Tomato::GUI::ShowDockspace();
@@ -45,8 +46,7 @@ void GUILayer::OnGUI()
 
 	for (const auto& [name, scene] : scene_map)
 		scenes.push_back(name.c_str());
-
-	if (ImGui::ListBox("Scene", &m_CurrentSceneIndex, scenes.data(), scenes.size()));
+	if (ImGui::Combo("Scene", &m_CurrentSceneIndex, scenes.data(), scenes.size()));
 	{
 		Tomato::App::SetCurrentScene(scenes[m_CurrentSceneIndex]);
 	}

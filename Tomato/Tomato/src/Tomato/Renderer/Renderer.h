@@ -4,6 +4,7 @@
 #include "Renderer/Buffer/VertexBuffer.h"
 #include "Renderer/Buffer/FrameBuffer.h"
 #include "Renderer/Texture/Texture.h"
+#include "Renderer/Texture/Tilemap.h"
 #include "Object/2D/Triangle.h"
 #include "Object/2D/Quad.h"
 #include "Object/2D/Polygon.h"
@@ -30,7 +31,8 @@ namespace Tomato
 		static void SetBackgroundColor(const Float4& color);
 
 		static void Draw(const Triangle& obj, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
-		static void Draw(const Quad& obj, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
+		static void Draw(const Quad& quad, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
+		static void Draw(const Quad& quad, std::shared_ptr<Tilemap> tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Transform& transform = Transform());
 		static void Draw(const Polygon& polygon, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
 		static void Draw(const Circle& circle, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
 	private:

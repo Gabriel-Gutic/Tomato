@@ -23,6 +23,7 @@ namespace Tomato
 	}
 
 	Texture::Texture(UInt width, UInt height)
+		:m_Width(width), m_Height(height)
 	{
 		Setup();
 
@@ -35,8 +36,11 @@ namespace Tomato
 		Setup();
 
 		std::unique_ptr<Image> image = std::make_unique<Image>(path);
-	
-		glTexImage2D(GL_TEXTURE_2D, 0, image->GetFormat(), image->GetWidth(), image->GetHeight(), 0, image->GetFormat(), GL_UNSIGNED_BYTE, image->GetData());
+		
+		m_Width = image->GetWidth();
+		m_Height = image->GetHeight();
+
+		glTexImage2D(GL_TEXTURE_2D, 0, image->GetFormat(), m_Width, m_Height, 0, image->GetFormat(), GL_UNSIGNED_BYTE, image->GetData());
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
@@ -57,9 +61,21 @@ namespace Tomato
 
 	void Texture::Reset(UInt width, UInt height)
 	{
+		m_Width = width;
+		m_Height = height;
 		Bind();
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
 		glGenerateMipmap(GL_TEXTURE_2D); // do i need this?
+	}
+
+	UInt Texture::GetWidth() const
+	{
+		return m_Width;
+	}
+
+	UInt Texture::GetHeight() const
+	{
+		return m_Height;
 	}
 
 	UInt Texture::GetID() const

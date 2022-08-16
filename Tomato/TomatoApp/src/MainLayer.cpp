@@ -6,26 +6,29 @@ MainLayer::MainLayer()
 	m_Triangle1 = std::make_shared<Tomato::Triangle>();
 	m_Textures["triangle"] = Tomato::Texture::Create("assets/images/night.jpg");
 
-	m_Quad1 = std::make_shared<Tomato::Quad>();
 	m_Polygon = std::make_shared<Tomato::Polygon>(m_PolygonNOS);
 
 	m_Triangle1->SetPosition(Tomato::Float3(1.0f, -1.0f, 0.0f));
-	m_Quad1->SetPosition(Tomato::Float3(-2.0f, -1.0f, 0.0f));
 	m_Polygon->SetPosition(Tomato::Float3(2.0f, 2.0f, 0.0f));
 
 	//Circle
 	m_Circle1 = std::make_shared<Tomato::Circle>();
 	m_Circle1->SetRadius(1.0f);
+
+	//Tilemap
+	m_Quad1 = std::make_shared<Tomato::Quad>();
+	m_Quad1->SetPosition(Tomato::Float3(-2.0f, -1.0f, 0.0f));
+
+	m_Tilemap = std::make_shared<Tomato::Tilemap>("assets/images/Terrain (32x32).png", 32, 32);
 }
 
 void MainLayer::OnUpdate()
 {
-
 	Tomato::Renderer::Draw(*m_Triangle1, m_Textures["triangle"]);
 
-	m_Quad1->SetColor(m_TriangleColor.abc);
-	m_Quad1->SetAlpha(m_TriangleColor.d);
-	Tomato::Renderer::Draw(*m_Quad1);
+	//m_Circle1->SetColor(m_TriangleColor.abc);
+	//m_Circle1->SetAlpha(m_TriangleColor.d);
+	Tomato::Renderer::Draw(*m_Quad1, m_Tilemap, 1, 1, 3, 3);
 
 	Tomato::Renderer::Draw(*m_Circle1);
 

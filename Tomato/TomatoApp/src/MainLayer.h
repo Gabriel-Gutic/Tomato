@@ -16,6 +16,7 @@ private:
 	Tomato::Float m_CircleSmoothness = 0.5f;
 
 	std::unordered_map<std::string, std::shared_ptr<Tomato::Texture>> m_Textures;
+	std::shared_ptr<Tomato::Tilemap> m_Tilemap;
 
 	std::shared_ptr<Tomato::Triangle> m_Triangle1;
 	std::shared_ptr<Tomato::Quad> m_Quad1;

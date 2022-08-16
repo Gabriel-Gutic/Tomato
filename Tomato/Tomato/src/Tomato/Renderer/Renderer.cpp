@@ -136,6 +136,49 @@ namespace Tomato
 		}
 	}
 
+	void Renderer::Draw(const Quad& quad, std::shared_ptr<Tilemap> tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Transform& transform)
+	{
+		auto& vertices = quad.GetVertices();
+		auto indices = quad.GetIndices();
+		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
+			Flush();
+
+		Float texIndex = -1.0f;
+		if (tilemap->GetTexture())
+		{
+			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
+			{
+				if (tilemap->GetTexture() == RendererData::TextureSlots[i])
+					texIndex = static_cast<Float>(texIndex);
+			}
+			if (texIndex == -1.0f)
+			{
+				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
+					Flush();
+				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
+				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = tilemap->GetTexture();
+			}
+		}
+
+		for (const auto& index : indices)
+		{
+			const auto& vertex = vertices[index];
+			Float3 coords = transform.Apply(quad.TransformCoords(vertex.Coords));
+			Float2 texCoords;
+			Float2 tl = Float2(row * tilemap->GetTileWidth(), 1.0 - col * tilemap->GetTileHeight());
+			if (vertex.TexCoords == Float2(0.0f, 1.0f))
+				texCoords = tl;
+			else if (vertex.TexCoords == Float2(1.0f, 1.0f))
+				texCoords = Float2(tl.x + colspan * tilemap->GetTileWidth(), tl.y);
+			else if (vertex.TexCoords == Float2(0.0f, 0.0f))
+				texCoords = Float2(tl.x, tl.y - rowspan * tilemap->GetTileHeight());
+			else if (vertex.TexCoords == Float2(1.0f, 0.0f))
+				texCoords = Float2(tl.x + colspan * tilemap->GetTileWidth(), tl.y - rowspan * tilemap->GetTileHeight());
+
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, vertex.Color, texIndex, texCoords);
+		}
+	}
+
 	void Renderer::Draw(const Quad& obj, std::shared_ptr<Texture> texture, const Transform& transform)
 	{
 		auto& vertices = obj.GetVertices();
