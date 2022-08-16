@@ -48,7 +48,7 @@ namespace Tomato
 	{
 		// Translate * Rotate * Scale
 		Float3 new_coords = Quaternion::Rotate(vector, Rotation);
-		new_coords = (Math::Scale(Scale) * Math::Translate(Position) * Float4(new_coords, 1.0f)).xyz;
+		new_coords = (Math::Translate(Position) * Math::Scale(Scale) * Float4(new_coords, 1.0f)).xyz;
 
 		return new_coords;
 	}

@@ -92,6 +92,7 @@
     <ClCompile Include="src\MainLayer.cpp" />
     <ClCompile Include="src\TrianglesLayer.cpp" />
     <ClCompile Include="src\TDLayer.cpp" />
+    <ClCompile Include="src\TilemapLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tomato\Tomato.vcxproj">
@@ -103,6 +104,7 @@
     <ClInclude Include="src\MainLayer.h" />
     <ClInclude Include="src\TrianglesLayer.h" />
     <ClInclude Include="src\TDLayer.h" />
+    <ClInclude Include="src\TilemapLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
