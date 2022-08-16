@@ -17,5 +17,6 @@ private:
 	Tomato::Float m_Speed = 0.2f;
 	Tomato::Float m_FOV = 45.0f;
 	Tomato::Float3 m_CameraRotation;
+	Tomato::Float4 m_BackgroundColor;
 };
 

@@ -124,10 +124,15 @@ namespace Tomato
 		glfwTerminate();
 	}
 
-	void Window::Clear(float r, float g, float b) const
+	void Window::Clear(float r, float g, float b, float a) const
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(r, g, b, 1.0f);
+		glClearColor(r, g, b, a);
+	}
+
+	void Window::Clear(const Float4& color) const
+	{
+		Clear(color.a, color.b, color.c, color.w);
 	}
 
 	void Window::Swap()

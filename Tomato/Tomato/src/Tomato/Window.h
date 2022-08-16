@@ -17,7 +17,8 @@ namespace Tomato
 		Window(std::string_view title = "Tomato Window", int width = 1280, int height = 720);
 		~Window();
 
-		void Clear(float r, float g, float b) const;
+		void Clear(float r, float g, float b, float a) const;
+		void Clear(const Float4& color) const;
 		void Swap();
 		void* Get();
 

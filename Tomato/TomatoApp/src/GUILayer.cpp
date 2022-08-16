@@ -9,6 +9,8 @@ GUILayer::GUILayer()
 
 void GUILayer::OnUpdate()
 {
+	Tomato::Renderer::SetBackgroundColor(m_BackgroundColor);
+
 	const auto& camera = Tomato::App::GetCurrentCamera();
 	camera->SetRotation(m_CameraRotation);
 
@@ -49,6 +51,7 @@ void GUILayer::OnGUI()
 		Tomato::App::SetCurrentScene(scenes[m_CurrentSceneIndex]);
 	}
 	ImGui::SliderFloat3("Camera Rotation", &m_CameraRotation[0], -90.0f, 90.0f);
+	ImGui::ColorPicker4("Background Color", &m_BackgroundColor[0]);
 
 	ImGui::End();
 }

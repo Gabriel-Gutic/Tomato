@@ -70,7 +70,7 @@ namespace Tomato
 			s_Instance->m_FrameBuffer->Unbind();
 		}
 
-		window->Clear(1.0f, 0.0f, 0.0f);
+		window->Clear(s_Instance->m_BackgroundColor);
 
 		s_Instance->m_Shader->Use(true);
 
@@ -99,6 +99,11 @@ namespace Tomato
 	const std::unique_ptr<FrameBuffer>& Renderer::GetFrameBuffer()
 	{
 		return s_Instance->m_FrameBuffer;
+	}
+
+	void Renderer::SetBackgroundColor(const Float4& color)
+	{
+		s_Instance->m_BackgroundColor = color;
 	}
 
 	void Renderer::Draw(const Triangle& obj, std::shared_ptr<Texture> texture, const Transform& transform)

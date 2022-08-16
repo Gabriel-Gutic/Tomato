@@ -1,4 +1,3 @@
-#include "Tomato.h"
 #include "TrianglesLayer.h"
 #include "TDLayer.h"
 #include "GUILayer.h"
