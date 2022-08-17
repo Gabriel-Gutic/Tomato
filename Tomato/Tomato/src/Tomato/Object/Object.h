@@ -1,6 +1,4 @@
 #pragma once
-#include "Transform.h"
-#include "Renderer/Buffer/Vertex.h"
 
 
 namespace Tomato
@@ -9,12 +7,15 @@ namespace Tomato
 	{
 	public:
 		Object() = default;
-		Object(std::string_view name);
 		virtual ~Object() = default;
 
-		void SetName(std::string_view name);
-		const std::string& GetName() const;
-	protected:
-		std::string m_Name;
+		template <typename T>
+		std::shared_ptr<T> Cast();
 	};
+
+	template<typename T>
+	inline std::shared_ptr<T> Object::Cast()
+	{
+		return std::shared_ptr<T>(this);
+	}
 }

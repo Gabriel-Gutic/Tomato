@@ -87,24 +87,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\GUILayer.h" />
+    <ClInclude Include="src\MainLayer.h" />
+    <ClInclude Include="src\TDLayer.h" />
+    <ClInclude Include="src\TilemapLayer.h" />
+    <ClInclude Include="src\TrianglesLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\GUILayer.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MainLayer.cpp" />
-    <ClCompile Include="src\TrianglesLayer.cpp" />
     <ClCompile Include="src\TDLayer.cpp" />
     <ClCompile Include="src\TilemapLayer.cpp" />
+    <ClCompile Include="src\TrianglesLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tomato\Tomato.vcxproj">
       <Project>{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\GUILayer.h" />
-    <ClInclude Include="src\MainLayer.h" />
-    <ClInclude Include="src\TrianglesLayer.h" />
-    <ClInclude Include="src\TDLayer.h" />
-    <ClInclude Include="src\TilemapLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,6 +30,21 @@ namespace Tomato
 		return m_LayerStack;
 	}
 
+	std::shared_ptr<Object>& Scene::PushObject(std::string_view name, const std::shared_ptr<Object>& obj)
+	{
+		const char* c_name = name.data();
+		TOMATO_ASSERT(m_Objects.find(c_name) == m_Objects.end(), "Object '{0}' already exist!", c_name);
+		m_Objects[c_name] = obj;
+		return m_Objects[c_name];
+	}
+
+	void Scene::PopObject(std::string_view name)
+	{
+		const char* c_name = name.data();
+		TOMATO_ASSERT(m_Objects.find(c_name) != m_Objects.end(), "Object '{0}' doesn't exist!", c_name);
+		m_Objects.erase(c_name);
+	}
+
 	void Scene::PushLayer(Layer* layer)
 	{
 		m_LayerStack.push_back(layer);

@@ -18,8 +18,5 @@ private:
 	std::unordered_map<std::string, std::shared_ptr<Tomato::Texture>> m_Textures;
 	std::shared_ptr<Tomato::Tilemap> m_Tilemap;
 
-	std::shared_ptr<Tomato::Triangle> m_Triangle;
-	std::shared_ptr<Tomato::Quad> m_Quad;
-	std::shared_ptr<Tomato::Polygon> m_Polygon;
-	std::shared_ptr<Tomato::Circle> m_Circle;
+	std::unique_ptr<Tomato::Scene>& m_Scene;
 };

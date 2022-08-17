@@ -133,10 +133,16 @@
     <ClInclude Include="src\Tomato\GUI\GUI.h">
       <Filter>Tomato\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\ImGuiLayer.h">
+      <Filter>Tomato</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Layer.h">
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Object\2D\Circle.h">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Object\2D\Polygon.h">
       <Filter>Tomato\Object\2D</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Object\2D\Quad.h">
@@ -147,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="src\Tomato\Object\3D\Cube.h">
       <Filter>Tomato\Object\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Object\Color.h">
+      <Filter>Tomato\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Object\Object.h">
       <Filter>Tomato\Object</Filter>
@@ -190,14 +199,13 @@
     <ClInclude Include="src\Tomato\Renderer\Texture\Texture.h">
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h">
+      <Filter>Tomato\Renderer\Texture</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Window.h">
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Object\2D\Polygon.h" />
-    <ClInclude Include="src\Tomato\ImGuiLayer.h" />
-    <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h" />
-    <ClInclude Include="src\Tomato\Object\Color.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\App.cpp">
@@ -254,6 +262,9 @@
     <ClCompile Include="src\Tomato\Object\2D\Circle.cpp">
       <Filter>Tomato\Object\2D</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Object\2D\Polygon.cpp">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Object\2D\Quad.cpp">
       <Filter>Tomato\Object\2D</Filter>
     </ClCompile>
@@ -263,7 +274,7 @@
     <ClCompile Include="src\Tomato\Object\3D\Cube.cpp">
       <Filter>Tomato\Object\3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Object\Object.cpp">
+    <ClCompile Include="src\Tomato\Object\Color.cpp">
       <Filter>Tomato\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Object\Transform.cpp">
@@ -305,12 +316,12 @@
     <ClCompile Include="src\Tomato\Renderer\Texture\Texture.cpp">
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Texture\Tilemap.cpp">
+      <Filter>Tomato\Renderer\Texture</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Window.cpp">
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\Tomato\Object\2D\Polygon.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Texture\Tilemap.cpp" />
-    <ClCompile Include="src\Tomato\Object\Color.cpp" />
   </ItemGroup>
 </Project>

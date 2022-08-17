@@ -58,7 +58,7 @@
       <PrecompiledHeaderFile>pchTomato.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATO_PLATFORM_WINDOWS;DEBUG;TOMATO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -75,7 +75,7 @@
       <PrecompiledHeaderFile>pchTomato.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATO_PLATFORM_WINDOWS;RELEASE;TOMATO_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -126,7 +126,6 @@
     <ClInclude Include="src\Tomato\Object\Color.h" />
     <ClInclude Include="src\Tomato\Object\Object.h" />
     <ClInclude Include="src\Tomato\Object\Transform.h" />
-    <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\FrameBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\IndexBuffer.h" />
@@ -139,6 +138,7 @@
     <ClInclude Include="src\Tomato\Renderer\Shader.h" />
     <ClInclude Include="src\Tomato\Renderer\Texture\Image.h" />
     <ClInclude Include="src\Tomato\Renderer\Texture\Texture.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h" />
     <ClInclude Include="src\Tomato\Window.h" />
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
@@ -166,7 +166,6 @@
     <ClCompile Include="src\Tomato\Object\2D\Triangle.cpp" />
     <ClCompile Include="src\Tomato\Object\3D\Cube.cpp" />
     <ClCompile Include="src\Tomato\Object\Color.cpp" />
-    <ClCompile Include="src\Tomato\Object\Object.cpp" />
     <ClCompile Include="src\Tomato\Object\Transform.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\FrameBuffer.cpp" />
@@ -195,6 +194,9 @@
     </ProjectReference>
     <ProjectReference Include="dependencies\ImGui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="dependencies\yaml-cpp\yaml-cpp.vcxproj">
+      <Project>{88F1A057-74BE-FB62-9DD7-E90A890331F1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

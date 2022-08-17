@@ -1,7 +1,7 @@
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
-    staticruntime "off"
+	cppdialect "C++17"
 
 	targetdir (bin_dir)
 	objdir (bin_int_dir)
@@ -32,7 +32,7 @@ project "ImGui"
 
 	filter "system:windows"
 		systemversion "latest"
-		staticruntime "On"
+		staticruntime "on"
 
 	filter "configurations:Debug"
         defines "IMGUI_DEBUG"

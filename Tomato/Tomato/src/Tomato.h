@@ -12,6 +12,7 @@
 
 //Renderer
 #include "Tomato/Renderer/Renderer.h"
+#include "Tomato/Renderer/Scene.h"
 #include "Tomato/Renderer/Texture/Texture.h"
 #include "Tomato/Renderer/Texture/Tilemap.h"
 

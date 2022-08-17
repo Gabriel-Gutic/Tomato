@@ -15,7 +15,7 @@ class TilemapLayer : public Tomato::Layer
 {
 public:
 	TilemapLayer();
-	~TilemapLayer() = default;
+	~TilemapLayer() override = default;
 
 	virtual void OnUpdate() override;
 	static void SetTilePosition(Tile& tile, Tomato::Int i, Tomato::Int j);

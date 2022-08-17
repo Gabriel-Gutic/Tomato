@@ -2,11 +2,13 @@ dependencies = {}
 dependencies["GLFW"] = "dependencies/GLFW/include"
 dependencies["Glad"] = "dependencies/Glad/include"
 dependencies["ImGui"] = "dependencies/ImGui"
+dependencies["yaml-cpp"] = "dependencies/yaml-cpp"
 
 group "Dependencies"
 	include "dependencies/GLFW"
 	include "dependencies/Glad"
 	include "dependencies/ImGui"
+	include "dependencies/yaml-cpp"
 group ""
 
 project "Tomato"
@@ -37,6 +39,7 @@ project "Tomato"
 		dependencies["Glad"],
 		dependencies["ImGui"],
 		dependencies["ImGui"] .. "/imgui",
+		dependencies["yaml-cpp"] .. "/include",
 	}
 
 	links 
@@ -44,6 +47,7 @@ project "Tomato"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"yaml-cpp",
 	}
 
 	filter "system:windows"
