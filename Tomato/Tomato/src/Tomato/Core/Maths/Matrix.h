@@ -35,6 +35,9 @@ namespace Tomato
 		friend Matrix<T, ROWS, COLS> operator*(const T scalar, const Matrix<T, ROWS, COLS>& mat);
 		template <typename T, size_t ROWS, size_t COLS>
 		friend Matrix<T, ROWS, COLS> operator*(const Matrix<T, ROWS, COLS>& mat, const T scalar);
+	
+		template <typename T, size_t ROWS, size_t COLS>
+		friend std::ostream& operator<<(std::ostream& os, const Matrix<T, ROWS, COLS>& A);
 	private: 
 		static void Diagonally(Matrix<T, ROWS, COLS>& A, UInt n = 0);
 	protected:
@@ -210,6 +213,13 @@ namespace Tomato
 	Matrix<T, ROWS, COLS> operator*(const Matrix<T, ROWS, COLS>& mat, const T scalar)
 	{
 		return scalar * mat;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	std::ostream& operator<<(std::ostream& os, const Matrix<T, ROWS, COLS>& A)
+	{
+		os << A.ToString();
+		return os;
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>

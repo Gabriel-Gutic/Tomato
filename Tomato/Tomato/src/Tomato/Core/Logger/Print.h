@@ -164,7 +164,7 @@ namespace Tomato
 #define TOMATO_ERROR(...)			Tomato::Logger::GetCore()->error(__VA_ARGS__)
 #define TOMATO_WARNING(...)			Tomato::Logger::GetCore()->warn(__VA_ARGS__)
 #define TOMATO_TRACE(...)			Tomato::Logger::GetCore()->trace(__VA_ARGS__)
-#define TOMATO_ASSERT(x, ...)	    if (!(x)) { ERROR(__VA_ARGS__); __debugbreak(); }
+#define TOMATO_ASSERT(x, ...)	    if (!(x)) { TOMATO_ERROR(__VA_ARGS__); __debugbreak(); }
 
 #else
 

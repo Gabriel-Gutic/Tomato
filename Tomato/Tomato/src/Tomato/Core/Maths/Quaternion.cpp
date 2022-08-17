@@ -113,5 +113,11 @@ namespace Tomato
 		return scalar * q;
 	}
 
+	std::ostream& operator<<(std::ostream& os, const Quaternion& q)
+	{
+		os << q.ToString();
+		return os;
+	}
+
 
 }

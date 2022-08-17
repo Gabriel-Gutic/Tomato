@@ -27,6 +27,8 @@ namespace Tomato
 		static Float3 Rotate(const Float3& p, Float angle, const Float3& axis);
 		static Float3 Rotate(const Float3& p, Float pitch, Float yaw, Float roll);
 		static Float3 Rotate(const Float3& p, const Float3& angles);
+	
+		friend std::ostream& operator<<(std::ostream& os, const Quaternion& q);
 	private:
 		Float m_Scalar;
 		Float3 m_Vector;
