@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Tomato.h" />
-    <ClInclude Include="src\Tomato\App.h">
+    <ClInclude Include="src\Tomato\Core\App\App.h">
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\DateTime\Date.h">
@@ -139,10 +139,10 @@
     <ClInclude Include="src\Tomato\GUI\GUI.h">
       <Filter>Tomato\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\ImGuiLayer.h">
+    <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h">
       <Filter>Tomato</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Layer.h">
+    <ClInclude Include="src\Tomato\Core\App\Layer.h">
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Object\2D\Circle.h">
@@ -208,13 +208,14 @@
     <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h">
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Window.h">
+    <ClInclude Include="src\Tomato\Core\App\Window.h">
       <Filter>Tomato</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\Tomato\Core\Core.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Tomato\App.cpp">
+    <ClCompile Include="src\Tomato\Core\App\App.cpp">
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Core\DateTime\Date.cpp">
@@ -256,7 +257,7 @@
     <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp">
       <Filter>Tomato\Core\Timer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\EntryPoint.cpp">
+    <ClCompile Include="src\Tomato\Core\App\EntryPoint.cpp">
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Event\Event.cpp">
@@ -328,9 +329,10 @@
     <ClCompile Include="src\Tomato\Renderer\Texture\Tilemap.cpp">
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Window.cpp">
+    <ClCompile Include="src\Tomato\Core\App\Window.cpp">
       <Filter>Tomato</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\Tomato\Object\Object.cpp" />
   </ItemGroup>
 </Project>

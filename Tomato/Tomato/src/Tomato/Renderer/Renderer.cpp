@@ -4,7 +4,7 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "App.h"
+#include "Core/App/App.h"
 #include "GUI/GUI.h"
 
 

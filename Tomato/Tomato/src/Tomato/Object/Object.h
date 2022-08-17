@@ -9,8 +9,12 @@ namespace Tomato
 		Object() = default;
 		virtual ~Object() = default;
 
+		virtual std::string ToString() const;
+
 		template <typename T>
 		std::shared_ptr<T> Cast();
+
+		friend std::ostream& operator<<(std::ostream& os, const Object& obj);
 	};
 
 	template<typename T>

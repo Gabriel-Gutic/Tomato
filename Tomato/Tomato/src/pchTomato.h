@@ -27,7 +27,6 @@
 #include <variant>
 #include <any>
 
-
 // C++20
 #include <format>
 
@@ -35,10 +34,5 @@
 #include <yaml-cpp/yaml.h>
 
 //Tomato
-#include "Tomato/Core/Logger/Print.h"
-#include "Tomato/Core/DateTime/DateTime.h"
-#include "Tomato/Core/Maths/Maths.h"
-#include "Tomato/Core/Timer/Timer.h"
-#include "Tomato/Core/Timer/Benchmarker.h"
-#include "Tomato/Core/FileManager/File.h"
+#include "Tomato/Core/Core.h"
 
