@@ -43,8 +43,6 @@ void GUILayer::OnGUI()
 	const auto& scene_map = Tomato::App::GetScenes();
 	std::vector<const char*> scenes;
 	scenes.reserve(scene_map.size());
-	auto& current_scene = Tomato::App::GetCurrentSceneName();
-	PRINT(current_scene);
 
 	for (const auto& [name, scene] : scene_map)
 		scenes.push_back(name.c_str());

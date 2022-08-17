@@ -9,6 +9,7 @@
 #include "Tomato/Event/Input.h"
 #include "Tomato/Core/Maths/Maths.h"
 #include "Tomato/Core/Timer/Timer.h"
+#include "Tomato/Core/Serializer/Serializer.h"
 
 //Renderer
 #include "Tomato/Renderer/Renderer.h"

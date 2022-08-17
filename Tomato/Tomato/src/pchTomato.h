@@ -31,6 +31,8 @@
 // C++20
 #include <format>
 
+//yaml-cpp
+#include <yaml-cpp/yaml.h>
 
 //Tomato
 #include "Tomato/Core/Logger/Print.h"

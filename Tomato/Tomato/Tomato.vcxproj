@@ -58,7 +58,7 @@
       <PrecompiledHeaderFile>pchTomato.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATO_PLATFORM_WINDOWS;DEBUG;TOMATO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -75,7 +75,7 @@
       <PrecompiledHeaderFile>pchTomato.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATO_PLATFORM_WINDOWS;RELEASE;TOMATO_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -105,6 +105,7 @@
     <ClInclude Include="src\Tomato\Core\Maths\Quaternion.h" />
     <ClInclude Include="src\Tomato\Core\Maths\UInt.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Vec.h" />
+    <ClInclude Include="src\Tomato\Core\Serializer\Serializer.h" />
     <ClInclude Include="src\Tomato\Core\Timer\Benchmarker.h" />
     <ClInclude Include="src\Tomato\Core\Timer\Timer.h" />
     <ClInclude Include="src\Tomato\Event\Event.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="src\Tomato\Core\Maths\Math.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Quaternion.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp" />
+    <ClCompile Include="src\Tomato\Core\Serializer\Serializer.cpp" />
     <ClCompile Include="src\Tomato\Core\Timer\Benchmarker.cpp" />
     <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp" />
     <ClCompile Include="src\Tomato\EntryPoint.cpp" />

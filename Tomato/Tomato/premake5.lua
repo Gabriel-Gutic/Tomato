@@ -39,7 +39,7 @@ project "Tomato"
 		dependencies["Glad"],
 		dependencies["ImGui"],
 		dependencies["ImGui"] .. "/imgui",
-		dependencies["yaml-cpp"] .. "/include",
+		dependencies["yaml-cpp"] .. "/yaml-cpp/include",
 	}
 
 	links 

@@ -19,6 +19,9 @@
     <Filter Include="Tomato\Core\Maths">
       <UniqueIdentifier>{FD572E2F-696E-2CC5-B2E5-B7E61E3BFD4C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Core\Serializer">
+      <UniqueIdentifier>{3ABF6E57-26B9-97A9-0F26-2EBAFBBEFD15}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato\Core\Timer">
       <UniqueIdentifier>{6148B12F-CD5E-AFC5-16D6-3AE7822B804D}</UniqueIdentifier>
     </Filter>
@@ -99,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\Maths\Vec.h">
       <Filter>Tomato\Core\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Serializer\Serializer.h">
+      <Filter>Tomato\Core\Serializer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\Timer\Benchmarker.h">
       <Filter>Tomato\Core\Timer</Filter>
@@ -240,6 +246,9 @@
     </ClCompile>
     <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp">
       <Filter>Tomato\Core\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\Serializer\Serializer.cpp">
+      <Filter>Tomato\Core\Serializer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Core\Timer\Benchmarker.cpp">
       <Filter>Tomato\Core\Timer</Filter>
