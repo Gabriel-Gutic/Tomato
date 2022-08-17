@@ -6,9 +6,3 @@
 [submodule "stb_image"]
 	path = Tomato/Tomato/dependencies/stb_image/stb_image
 	url = https://github.com/nothings/stb.git
-[submodule "Tomato/Tomato/dependencies/yaml-cpp"]
-	path = Tomato/Tomato/dependencies/yaml-cpp
-	url = https://github.com/jbeder/yaml-cpp.git
-[submodule "Tomato/Tomato/dependencies/yaml-cpp/yaml-cpp"]
-	path = Tomato/Tomato/dependencies/yaml-cpp/yaml-cpp
-	url = https://github.com/jbeder/yaml-cpp.git
