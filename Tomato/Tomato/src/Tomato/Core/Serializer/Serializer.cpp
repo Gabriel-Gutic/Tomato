@@ -8,7 +8,7 @@ namespace Tomato
 		:m_FilePath(filePath)
 	{
 		TOMATO_ASSERT(File::Exist(m_FilePath), "File {0} doesn't exist!", m_FilePath);
-		m_Data = YAML::Load(m_FilePath);
+		m_Data = YAML::LoadFile(m_FilePath);
 	}
 
 	Serializer::~Serializer()

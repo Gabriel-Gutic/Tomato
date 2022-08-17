@@ -10,3 +10,10 @@ namespace Tomato
 	Vec3h(Int)
 	Vec4h(Int)
 }
+
+namespace YAML
+{
+	Vec2Node(Int)
+	Vec3Node(Int)
+	Vec4Node(Int)
+}

@@ -1,9 +1,12 @@
 #include "MainLayer.h"
 
+
 MainLayer::MainLayer()
 	:m_CircleColor(Tomato::Float4(1.0f, 1.0f, 1.0f, 1.0f)),
 	m_Scene(Tomato::App::GetScenes()["Main Scene"])
 {
+	Tomato::Serializer s("serialization/config.yaml");
+
 	m_Scene->PushObject("triangle", std::make_shared<Tomato::Triangle>());
 	auto triangle = m_Scene->GetObject<Tomato::Triangle>("triangle");
 	triangle->SetPosition(Tomato::Float3(1.0f, -1.0f, 0.0f));

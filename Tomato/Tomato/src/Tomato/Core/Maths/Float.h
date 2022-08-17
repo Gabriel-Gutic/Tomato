@@ -14,3 +14,14 @@ namespace Tomato
 	Vec3h(Double)
 	Vec4h(Double)
 }
+
+
+namespace YAML
+{
+	Vec2Node(Float)
+	Vec3Node(Float)
+	Vec4Node(Float)
+	Vec2Node(Double)
+	Vec3Node(Double)
+	Vec4Node(Double)
+}
