@@ -96,6 +96,11 @@ namespace Tomato
 			
 			GUI::End();
 
+			for (auto& serializer : m_Serializers)
+			{
+				serializer->Serialize();
+			}
+
 			m_Window->Swap();
 		}
 
@@ -147,6 +152,14 @@ namespace Tomato
 	const std::string& App::GetCurrentSceneName()
 	{
 		return s_Instance->m_CurrentSceneName;
+	}
+
+	void App::InitSceneSerializer(std::string_view sceneName, std::string_view filePath)
+	{
+		auto& ins = s_Instance;
+		TOMATO_ASSERT(ins->m_SceneMap.find(sceneName.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", sceneName.data());
+		ins->m_Serializers.push_back(std::make_unique<SceneSerializer>(sceneName, filePath));
+		ins->m_Serializers.back()->Deserialize();
 	}
 
 	void App::PushImGuiLayer(std::string_view name, ImGuiLayer* layer)

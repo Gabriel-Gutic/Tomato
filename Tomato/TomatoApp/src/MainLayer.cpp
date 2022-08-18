@@ -5,7 +5,7 @@ MainLayer::MainLayer()
 	:m_CircleColor(Tomato::Float4(1.0f, 1.0f, 1.0f, 1.0f)),
 	m_Scene(Tomato::App::GetScenes()["Main Scene"])
 {
-	Tomato::Serializer s("serialization/config.yaml");
+	Tomato::SceneSerializer s("Main Scene", "serialization/MainScene.yaml");
 
 	m_Scene->PushObject("triangle", std::make_shared<Tomato::Triangle>());
 	auto triangle = m_Scene->GetObject<Tomato::Triangle>("triangle");

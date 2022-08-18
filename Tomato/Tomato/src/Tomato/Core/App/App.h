@@ -3,7 +3,8 @@
 #include "Window.h"
 #include "ImGuiLayer.h"
 
-#include "Renderer/Scene.h"
+#include "Renderer/Scene/Scene.h"
+#include "Renderer/Scene/SceneSerializer.h"
 #include "Renderer/Buffer/FrameBuffer.h"
 
 
@@ -31,7 +32,8 @@ namespace Tomato
 		static const std::unique_ptr<Scene>& SetCurrentScene(std::string_view name);
 		static const std::unique_ptr<Scene>& GetCurrentScene();
 		static const std::string& GetCurrentSceneName();
-	
+		static void InitSceneSerializer(std::string_view sceneName, std::string_view  filePath);
+
 		static void PushImGuiLayer(std::string_view name, ImGuiLayer* layer);
 		static void RemoveImGuiLayer(std::string_view name);
 	private:
@@ -40,6 +42,7 @@ namespace Tomato
 
 		std::unique_ptr<Window> m_Window;
 		std::unordered_map<std::string, std::unique_ptr<Scene>> m_SceneMap;
+		std::vector<std::unique_ptr<Serializer>> m_Serializers;
 		std::string m_CurrentSceneName;
 
 		std::unordered_map<std::string, ImGuiLayer*> m_ImGuiLayers;

@@ -1,0 +1,14 @@
+quad:
+  Transform:
+    Position:
+      - -2
+      - -1
+      - 0
+    Scale:
+      - 1
+      - 1
+      - 1
+    Rotation:
+      - 0
+      - 0
+      - 0

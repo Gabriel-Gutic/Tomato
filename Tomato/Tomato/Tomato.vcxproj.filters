@@ -193,7 +193,7 @@
     <ClInclude Include="src\Tomato\Renderer\Renderer.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Scene.h">
+    <ClInclude Include="src\Tomato\Renderer\Scene\Scene.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Shader.h">
@@ -213,6 +213,9 @@
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
     <ClInclude Include="src\Tomato\Core\Core.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\SceneSerializer.h" />
+    <ClInclude Include="src\Tomato\Object\2D\Object2D.h" />
+    <ClInclude Include="src\Tomato\Object\3D\Object3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
@@ -314,7 +317,7 @@
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Renderer\Scene.cpp">
+    <ClCompile Include="src\Tomato\Renderer\Scene\Scene.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp">
@@ -334,5 +337,6 @@
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
     <ClCompile Include="src\Tomato\Object\Object.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\SceneSerializer.cpp" />
   </ItemGroup>
 </Project>

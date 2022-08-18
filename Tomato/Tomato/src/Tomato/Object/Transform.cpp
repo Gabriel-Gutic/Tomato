@@ -34,6 +34,11 @@ namespace Tomato
 		return m_Transform.Rotation;
 	}
 
+	void TransformInterface::SetTransform(const Transform& tran)
+	{
+		m_Transform = tran;
+	}
+
 	const Transform& TransformInterface::GetTransform() const
 	{
 		return m_Transform;

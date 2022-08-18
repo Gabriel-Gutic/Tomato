@@ -7,4 +7,5 @@
 #include "Timer/Timer.h"
 #include "Timer/Benchmarker.h"
 #include "FileManager/File.h"
+#include "Serializer/Serializer.h"
 

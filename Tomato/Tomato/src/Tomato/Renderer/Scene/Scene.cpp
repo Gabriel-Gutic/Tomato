@@ -45,6 +45,16 @@ namespace Tomato
 		m_Objects.erase(c_name);
 	}
 
+	std::map<std::string, std::shared_ptr<Object>>& Scene::GetObjects()
+	{
+		return m_Objects;
+	}
+
+	const std::map<std::string, std::shared_ptr<Object>>& Scene::GetObjects() const
+	{
+		return m_Objects;
+	}
+
 	void Scene::PushLayer(Layer* layer)
 	{
 		m_LayerStack.push_back(layer);

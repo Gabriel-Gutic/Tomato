@@ -29,9 +29,34 @@ namespace Tomato
 		const Float3& GetScale() const;
 		const Float3& GetRotation() const;
 
-		const Transform& GetTransform() const; 
+		void SetTransform(const Transform& tran);
+		const Transform& GetTransform() const;
 		virtual Float3 TransformCoords(const Float3& vector) const;
 	protected:
 		Transform m_Transform;
+	};
+}
+
+
+namespace YAML
+{
+	template<>
+	struct convert<Tomato::Transform> {
+		static Node encode(const Tomato::Transform& tran) {
+			Node node;
+			node["Position"] = tran.Position;
+			node["Scale"] = tran.Scale;
+			node["Rotation"] = tran.Rotation;
+			return node;
+		}
+		static bool decode(const Node& node, Tomato::Transform& tran) {
+			if (!node.IsMap() || node.size() != 3) {
+				return false;
+			}
+			tran.Position = node["Position"].as<Tomato::Float3>();
+			tran.Scale = node["Scale"].as<Tomato::Float3>();
+			tran.Rotation = node["Rotation"].as<Tomato::Float3>();
+			return true;
+		}
 	};
 }

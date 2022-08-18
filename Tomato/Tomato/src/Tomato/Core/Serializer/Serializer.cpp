@@ -7,7 +7,10 @@ namespace Tomato
 	Serializer::Serializer(std::string_view filePath)
 		:m_FilePath(filePath)
 	{
-		TOMATO_ASSERT(File::Exist(m_FilePath), "File {0} doesn't exist!", m_FilePath);
+		if (!File::Exist(m_FilePath))
+		{
+			File file = File(m_FilePath, FileType::Write);
+		}
 		m_Data = YAML::LoadFile(m_FilePath);
 	}
 

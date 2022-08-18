@@ -121,10 +121,12 @@
     <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h" />
     <ClInclude Include="src\Tomato\Core\App\Layer.h" />
     <ClInclude Include="src\Tomato\Object\2D\Circle.h" />
+    <ClInclude Include="src\Tomato\Object\2D\Object2D.h" />
     <ClInclude Include="src\Tomato\Object\2D\Polygon.h" />
     <ClInclude Include="src\Tomato\Object\2D\Quad.h" />
     <ClInclude Include="src\Tomato\Object\2D\Triangle.h" />
     <ClInclude Include="src\Tomato\Object\3D\Cube.h" />
+    <ClInclude Include="src\Tomato\Object\3D\Object3D.h" />
     <ClInclude Include="src\Tomato\Object\Color.h" />
     <ClInclude Include="src\Tomato\Object\Object.h" />
     <ClInclude Include="src\Tomato\Object\Transform.h" />
@@ -136,7 +138,8 @@
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Camera.h" />
     <ClInclude Include="src\Tomato\Renderer\Renderer.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Scene.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Tomato\Renderer\Shader.h" />
     <ClInclude Include="src\Tomato\Renderer\Texture\Image.h" />
     <ClInclude Include="src\Tomato\Renderer\Texture\Texture.h" />
@@ -179,7 +182,8 @@
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Camera.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Scene.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Scene.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Texture\Texture.cpp" />
