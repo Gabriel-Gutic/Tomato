@@ -35,8 +35,14 @@ namespace Tomato
 	}
 
 	ColorInterface::ColorInterface()
-		:m_Callback([](const Color&){})
 	{
+		m_Callback = [](const Color&) {/*Default Callback*/};
+	}
+
+	ColorInterface::ColorInterface(const ColorInterface& ci)
+	{
+		m_Callback = ci.m_Callback;
+		m_Color = ci.m_Color;
 	}
 
 	void ColorInterface::SetColor(const Color& color)

@@ -18,3 +18,24 @@ namespace Tomato
 		virtual std::vector<UInt> GetIndices() const;
 	};
 }
+
+
+namespace YAML
+{
+	template<>
+	struct convert<Tomato::Triangle> {
+		static Node encode(const Tomato::Triangle& triangle) {
+			Node node;
+			node["Transform"] = triangle.GetTransform();
+			return node;
+		}
+		static bool decode(const Node& node, Tomato::Triangle& triangle) {
+			if (!node.IsMap()) {
+				return false;
+			}
+
+			triangle.SetTransform(node["Transform"].as<Tomato::Transform>());
+			return true;
+		}
+	};
+}

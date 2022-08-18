@@ -20,6 +20,7 @@ namespace Tomato
 		void PopObject(std::string_view name);
 		template <typename T>
 		std::shared_ptr<T> GetObject(std::string_view name);
+		bool Contains(std::string_view name) const;
 		
 		std::map<std::string, std::shared_ptr<Object>>& GetObjects();
 		const std::map<std::string, std::shared_ptr<Object>>& GetObjects() const;

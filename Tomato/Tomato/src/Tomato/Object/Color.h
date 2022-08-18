@@ -38,6 +38,7 @@ namespace Tomato
 	{
 	public:
 		ColorInterface();
+		ColorInterface(const ColorInterface& ci);
 		virtual ~ColorInterface() = default;
 
 		void SetColor(const Color& color);

@@ -24,3 +24,24 @@ namespace Tomato
 		std::vector<Vertex> m_Vertices;
 	};
 }
+
+
+namespace YAML
+{
+	template<>
+	struct convert<Tomato::Polygon> {
+		static Node encode(const Tomato::Polygon& poly) {
+			Node node;
+			node["Transform"] = poly.GetTransform();
+			return node;
+		}
+		static bool decode(const Node& node, Tomato::Polygon& poly) {
+			if (!node.IsMap()) {
+				return false;
+			}
+
+			poly.SetTransform(node["Transform"].as<Tomato::Transform>());
+			return true;
+		}
+	};
+}

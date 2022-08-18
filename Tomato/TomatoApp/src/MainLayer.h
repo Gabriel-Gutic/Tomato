@@ -15,6 +15,8 @@ private:
 	Tomato::Int m_PolygonNOS = 6;
 	Tomato::Float m_CircleSmoothness = 0.5f;
 
+	Tomato::Float3 m_QuadPosition;
+
 	std::unordered_map<std::string, std::shared_ptr<Tomato::Texture>> m_Textures;
 	std::shared_ptr<Tomato::Tilemap> m_Tilemap;
 

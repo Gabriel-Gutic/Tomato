@@ -1,14 +1,49 @@
-quad:
-  Transform:
-    Position:
-      - -2
-      - -1
-      - 0
-    Scale:
-      - 1
-      - 1
-      - 1
-    Rotation:
-      - 0
-      - 0
-      - 0
+Objects:
+  quad:
+    Type: Quad
+    Data:
+      Transform:
+        Position:
+          - -1.39199996
+          - 0.986999989
+          - -1.45000005
+        Scale:
+          - 1
+          - 1
+          - 1
+        Rotation:
+          - 0
+          - 0
+          - 0
+  poly:
+    Type: Polygon
+    Data:
+      Transform:
+        Position:
+          - -1
+          - -1
+          - 0
+        Scale:
+          - 1
+          - 1
+          - 1
+        Rotation:
+          - 0
+          - 0
+          - 0
+  triangle:
+    Type: Triangle
+    Data:
+      Transform:
+        Position:
+          - 1
+          - 1
+          - 0
+        Scale:
+          - 1
+          - 1
+          - 1
+        Rotation:
+          - 0
+          - 0
+          - 0

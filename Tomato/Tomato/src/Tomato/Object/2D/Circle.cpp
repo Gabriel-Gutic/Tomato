@@ -72,6 +72,11 @@ namespace Tomato
 		return m_Smoothness;
 	}
 
+	void Circle::SetTransform(const Transform& tran)
+	{
+		m_Polygon.SetTransform(tran);
+	}
+
 	const Polygon& Circle::GetPolygon() const
 	{
 		return m_Polygon;

@@ -45,6 +45,11 @@ namespace Tomato
 		m_Objects.erase(c_name);
 	}
 
+	bool Scene::Contains(std::string_view name) const
+	{
+		return m_Objects.find(name.data()) != m_Objects.end();
+	}
+
 	std::map<std::string, std::shared_ptr<Object>>& Scene::GetObjects()
 	{
 		return m_Objects;

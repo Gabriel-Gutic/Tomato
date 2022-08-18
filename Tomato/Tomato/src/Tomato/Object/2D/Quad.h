@@ -18,21 +18,21 @@ namespace Tomato
 
 namespace YAML
 {
-	template<>											
-		struct convert<Tomato::Quad> {
-			static Node encode(const Tomato::Quad& quad) {
-				Node node;	
-				node["Transform"] = quad.GetTransform();
-				return node;
+	template<>
+	struct convert<Tomato::Quad> {
+		static Node encode(const Tomato::Quad& quad) {
+			Node node;
+			node["Transform"] = quad.GetTransform();
+			return node;
+		}
+		static bool decode(const Node& node, Tomato::Quad& quad) {
+			if (!node.IsMap()) {
+				return false;
 			}
-			static bool decode(const Node& node, Tomato::Quad& quad) {
-				if (!node.IsMap()) {
-					return false;
-				}
-				
-				quad.SetTransform(node["Transform"].as<Tomato::Transform>());
-				return true;							
-			}																	
+
+			quad.SetTransform(node["Transform"].as<Tomato::Transform>());
+			return true;
+		}
 	};
 }
 

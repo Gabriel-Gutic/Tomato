@@ -5,23 +5,19 @@ MainLayer::MainLayer()
 	:m_CircleColor(Tomato::Float4(1.0f, 1.0f, 1.0f, 1.0f)),
 	m_Scene(Tomato::App::GetScenes()["Main Scene"])
 {
-	Tomato::SceneSerializer s("Main Scene", "serialization/MainScene.yaml");
+	if (!m_Scene->Contains("triangle"))
+		m_Scene->PushObject("triangle", std::make_shared<Tomato::Triangle>());
 
-	m_Scene->PushObject("triangle", std::make_shared<Tomato::Triangle>());
-	auto triangle = m_Scene->GetObject<Tomato::Triangle>("triangle");
-	triangle->SetPosition(Tomato::Float3(1.0f, -1.0f, 0.0f));
-
-	m_Scene->PushObject("quad", std::make_shared<Tomato::Quad>());
+	if (!m_Scene->Contains("quad"))
+		m_Scene->PushObject("quad", std::make_shared<Tomato::Quad>());
 	auto quad = m_Scene->GetObject<Tomato::Quad>("quad");
-	quad->SetPosition(Tomato::Float3(-2.0f, -1.0f, 0.0f));
+	m_QuadPosition = quad->GetPosition();
 
-	m_Scene->PushObject("poly", std::make_shared<Tomato::Polygon>(m_PolygonNOS));
-	auto poly = m_Scene->GetObject<Tomato::Polygon>("poly");
-	poly->SetPosition(Tomato::Float3(2.0f, 2.0f, 0.0f));
+	if (!m_Scene->Contains("poly"))
+		m_Scene->PushObject("poly", std::make_shared<Tomato::Polygon>(m_PolygonNOS));
 
-	m_Scene->PushObject("circle", std::make_shared<Tomato::Circle>());
-	auto circle = m_Scene->GetObject<Tomato::Circle>("circle");
-	circle->SetRadius(1.0f);
+	if (!m_Scene->Contains("circle"))
+		m_Scene->PushObject("circle", std::make_shared<Tomato::Circle>());
 
 	m_Textures["triangle"] = Tomato::Texture::Create("assets/images/night.jpg");
 	m_Tilemap = std::make_shared<Tomato::Tilemap>("assets/images/Terrain (32x32).png", 32, 32);
@@ -51,6 +47,10 @@ void MainLayer::OnGUI()
 	if (ImGui::SliderFloat("Circle Smoothness", &m_CircleSmoothness, 0.2f, 1.0f))
 	{
 		m_Scene->GetObject<Tomato::Circle>("circle")->SetSmoothness(m_CircleSmoothness);
+	}
+	if (ImGui::SliderFloat3("Quad Position", &m_QuadPosition[0], -2.0f, 2.0f))
+	{
+		m_Scene->GetObject<Tomato::Quad>("quad")->SetPosition(m_QuadPosition);
 	}
 	ImGui::End();
 }

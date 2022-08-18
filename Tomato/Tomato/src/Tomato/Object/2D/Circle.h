@@ -21,6 +21,7 @@ namespace Tomato
 		Float GetRadius() const;
 		void SetSmoothness(Float smoothness);
 		Float GetSmoothness() const;
+		void SetTransform(const Transform& tran);
 
 		const Polygon& GetPolygon() const;
 	private:
