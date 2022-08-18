@@ -1,6 +1,8 @@
 #include "pchTomato.h"
 #include "Transform.h"
 
+#include <imgui/imgui.h>
+
 
 namespace Tomato
 {
@@ -61,6 +63,16 @@ namespace Tomato
 		new_coords = (Math::Translate(Position) * Math::Scale(Scale) * Float4(new_coords, 1.0f)).xyz;
 
 		return new_coords;
+	}
+
+	void Transform::GUI(std::string_view headerName)
+	{
+		if (ImGui::CollapsingHeader(headerName.data()))
+		{
+			ImGui::DragFloat3("Position", Position.ToPtr());
+			ImGui::DragFloat3("Scale", Scale.ToPtr());
+			ImGui::DragFloat3("Rotation", Rotation.ToPtr());
+		}
 	}
 }
 

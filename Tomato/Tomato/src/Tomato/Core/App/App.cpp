@@ -83,7 +83,7 @@ namespace Tomato
 			Renderer::End();
 
 			GUI::Begin();
-			
+
 			for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
 			{
 				layer->OnGUI();

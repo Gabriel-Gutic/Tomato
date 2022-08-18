@@ -14,6 +14,7 @@ namespace Tomato
 		{}
 
 		Float3 Apply(const Float3& vector) const;
+		void GUI(std::string_view headerName);
 	};
 
 	class TransformInterface

@@ -61,6 +61,9 @@ namespace Tomato::GUI
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+		//bool demo = true;
+		//ImGui::ShowDemoWindow(&demo);
+
         if (Data::IsDockspaceShown)
         {
             Dockspace();

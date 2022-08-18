@@ -47,6 +47,13 @@ void MainLayer::OnGUI()
 		m_Scene->GetObject<Tomato::Circle>("circle")->SetSmoothness(m_CircleSmoothness);
 	}
 
-	ImGui::SliderFloat3("Quad Position", m_Scene->GetObject<Tomato::Quad>("quad")->GetTransform().Position.ToPtr(), -2.0f, 2.0f);
+	for (const auto& [name, obj] : m_Scene->GetObjects())
+	{
+		if (auto tran = obj->Cast<Tomato::TransformInterface>())
+		{
+			tran->GetTransform().GUI(name + " Transform");
+		}
+	}
+
 	ImGui::End();
 }

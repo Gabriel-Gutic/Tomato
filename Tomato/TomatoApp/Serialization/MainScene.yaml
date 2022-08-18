@@ -1,12 +1,12 @@
 Objects:
-  quad:
-    Type: Quad
+  circle:
+    Type: Circle
     Data:
       Transform:
         Position:
-          - -2
-          - 0.834999979
-          - -1.10000002
+          - 2
+          - -1
+          - 0
         Scale:
           - 1
           - 1
@@ -15,13 +15,19 @@ Objects:
           - 0
           - 0
           - 0
+      Smoothness: 0.5
+      Color:
+        Red: 0.751681864
+        Green: 0.763157904
+        Blue: 0
+        Alpha: 1
   poly:
     Type: Polygon
     Data:
       Transform:
         Position:
-          - -1
-          - -1
+          - -2
+          - 0
           - 0
         Scale:
           - 1
@@ -31,12 +37,28 @@ Objects:
           - 0
           - 0
           - 0
-      Sides: 9
+      Sides: 6
       Color:
         Red: 1
         Green: 1
         Blue: 1
         Alpha: 1
+  quad:
+    Type: Quad
+    Data:
+      Transform:
+        Position:
+          - 0
+          - 0
+          - 0
+        Scale:
+          - 1
+          - 1
+          - 1
+        Rotation:
+          - 0
+          - 0
+          - 0
   triangle:
     Type: Triangle
     Data:
@@ -53,25 +75,3 @@ Objects:
           - 0
           - 0
           - 0
-  circle:
-    Type: Circle
-    Data:
-      Transform:
-        Position:
-          - 0
-          - 0
-          - 0
-        Scale:
-          - 1
-          - 1
-          - 1
-        Rotation:
-          - 0
-          - 0
-          - 0
-      Smoothness: 0.30399999
-      Color:
-        Red: 0.170953646
-        Green: 0.710526347
-        Blue: 0
-        Alpha: 1
