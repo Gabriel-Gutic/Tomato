@@ -38,6 +38,8 @@ namespace Tomato
 	
 		template <typename T, size_t ROWS, size_t COLS>
 		friend std::ostream& operator<<(std::ostream& os, const Matrix<T, ROWS, COLS>& A);
+	
+		T* ToPtr() const;
 	private: 
 		static void Diagonally(Matrix<T, ROWS, COLS>& A, UInt n = 0);
 	protected:
@@ -220,6 +222,12 @@ namespace Tomato
 	{
 		os << A.ToString();
 		return os;
+	}
+
+	template<typename T, size_t ROWS, size_t COLS>
+	inline T* Matrix<T, ROWS, COLS>::ToPtr() const
+	{
+		return &m_Data[0][0];
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>

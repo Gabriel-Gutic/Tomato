@@ -1,54 +1,21 @@
 #include "pchTomato.h"
 #include "Circle.h"
+#include "Polygon.h"
 
 
 namespace Tomato
 {
-	Circle::Circle(const Float3& center, Float radius, Float smoothness)
-		:m_Smoothness(smoothness)
+	Circle::Circle(Float smoothness)
 	{
-		if (m_Smoothness < 0.2f)
-			m_Smoothness = 0.2f;
-		if (m_Smoothness > 1.0f)
-			m_Smoothness = 1.0f;
-
-		m_Polygon = Polygon(static_cast<UInt>(100 * m_Smoothness));
-		m_Polygon.SetPosition(center);
-		m_Polygon.SetScale(Float3(2 * radius, 2 * radius, 0.0f));
-	
-		SetCallback([this](const Color& color) {
-			m_Polygon.SetColor(color);
-		});
+		SetSmoothness(smoothness);
 	}
 
-	void Circle::SetRotation(const Float3& rotation)
+	Circle::Circle(const Circle& other)
 	{
-		m_Polygon.SetRotation(rotation);
-	}
-
-	const Float3& Circle::GetRotation() const
-	{
-		return m_Polygon.GetRotation();
-	}
-
-	void Circle::SetCenter(const Float3& center)
-	{
-		m_Polygon.SetPosition(center);
-	}
-
-	const Float3& Circle::GetCenter() const
-	{
-		return m_Polygon.GetPosition();
-	}
-
-	void Circle::SetRadius(Float radius)
-	{
-		m_Polygon.SetScale(Float3(2 * radius, 2 * radius, 0.0f));
-	}
-
-	Float Circle::GetRadius() const
-	{
-		return m_Polygon.GetScale()[0] / 2.0f;
+		m_Transform = other.m_Transform;
+		m_Color = other.m_Color;
+		m_Vertices = other.m_Vertices;
+		m_Smoothness = other.m_Smoothness;
 	}
 
 	void Circle::SetSmoothness(Float smoothness)
@@ -59,12 +26,17 @@ namespace Tomato
 		if (m_Smoothness > 1.0f)
 			m_Smoothness = 1.0f;
 
-		const Float3 center = GetCenter();
-		Float radius = GetRadius();
+		TOMATO_BENCHMARKING_FUNCTION();
 
-		m_Polygon = Polygon(static_cast<UInt>(100 * m_Smoothness));
-		m_Polygon.SetPosition(center);
-		m_Polygon.SetScale(Float3(2 * radius, 2 * radius, 0.0f));
+		UInt nr = static_cast<UInt>(m_Smoothness * static_cast<Float>(c_SmoothnessMultiply));
+
+		m_Vertices.resize(nr + 1);
+
+		auto vec = Polygon::GenerateCoords(nr);
+		for (UInt i = 0; i <= nr; i++)
+		{
+			m_Vertices[i].Coords.xy = vec[i];
+		}
 	}
 
 	Float Circle::GetSmoothness() const
@@ -72,13 +44,34 @@ namespace Tomato
 		return m_Smoothness;
 	}
 
-	void Circle::SetTransform(const Transform& tran)
+	std::vector<Vertex> Circle::GetVertices()
 	{
-		m_Polygon.SetTransform(tran);
+		return m_Vertices;
 	}
 
-	const Polygon& Circle::GetPolygon() const
+	const std::vector<Vertex>& Circle::GetVertices() const
 	{
-		return m_Polygon;
+		return m_Vertices;
+	}
+
+	std::vector<UInt> Circle::GetIndices() const
+	{
+		TOMATO_BENCHMARKING_FUNCTION();
+
+		UInt nr = static_cast<UInt>(m_Smoothness * c_SmoothnessMultiply);
+
+		std::vector<UInt> indices;
+		indices.reserve(3 * nr);
+		for (UInt i = 0; i < nr; i++)
+		{
+			indices.push_back(0);
+			indices.push_back(i + 1);
+			if (i + 2 > nr)
+				indices.push_back(1);
+			else
+				indices.push_back(i + 2);
+		}
+
+		return indices;
 	}
 }

@@ -30,6 +30,7 @@ namespace Tomato
 		const Float3& GetRotation() const;
 
 		void SetTransform(const Transform& tran);
+		Transform& GetTransform();
 		const Transform& GetTransform() const;
 		virtual Float3 TransformCoords(const Float3& vector) const;
 	protected:

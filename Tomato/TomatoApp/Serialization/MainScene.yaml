@@ -4,9 +4,9 @@ Objects:
     Data:
       Transform:
         Position:
-          - -1.39199996
-          - 0.986999989
-          - -1.45000005
+          - -2
+          - 0.834999979
+          - -1.10000002
         Scale:
           - 1
           - 1
@@ -31,6 +31,12 @@ Objects:
           - 0
           - 0
           - 0
+      Sides: 9
+      Color:
+        Red: 1
+        Green: 1
+        Blue: 1
+        Alpha: 1
   triangle:
     Type: Triangle
     Data:
@@ -47,3 +53,25 @@ Objects:
           - 0
           - 0
           - 0
+  circle:
+    Type: Circle
+    Data:
+      Transform:
+        Position:
+          - 0
+          - 0
+          - 0
+        Scale:
+          - 1
+          - 1
+          - 1
+        Rotation:
+          - 0
+          - 0
+          - 0
+      Smoothness: 0.30399999
+      Color:
+        Red: 0.170953646
+        Green: 0.710526347
+        Blue: 0
+        Alpha: 1

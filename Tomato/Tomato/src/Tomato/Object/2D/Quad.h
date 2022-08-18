@@ -29,8 +29,8 @@ namespace YAML
 			if (!node.IsMap()) {
 				return false;
 			}
-
-			quad.SetTransform(node["Transform"].as<Tomato::Transform>());
+			if (node["Transform"])
+				quad.SetTransform(node["Transform"].as<Tomato::Transform>());
 			return true;
 		}
 	};

@@ -5,60 +5,110 @@
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::Window::Window(class std::basic_string_view<char,struct std::char_traits<char> >,int,int)",
-      "dur": 640192,
+      "dur": 437810,
       "pid": 0,
       "tid": 0,
-      "ts": 918,
+      "ts": 1968,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::App::App(void)",
-      "dur": 646230,
+      "dur": 442007,
       "pid": 0,
       "tid": 0,
-      "ts": 641110,
+      "ts": 439778,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "class std::vector<class Tomato::Float2,class std::allocator<class Tomato::Float2> > __cdecl Tomato::Polygon::GenerateCoords(unsigned int)",
+      "dur": 24,
+      "pid": 0,
+      "tid": 0,
+      "ts": 881785,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "void __cdecl Tomato::Polygon::SetNumberOfSides(unsigned int)",
-      "dur": 17,
+      "dur": 67,
       "pid": 0,
       "tid": 0,
-      "ts": 1287340,
+      "ts": 881809,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
-      "name": "void __cdecl Tomato::Polygon::SetNumberOfSides(unsigned int)",
+      "name": "class std::vector<class Tomato::Float2,class std::allocator<class Tomato::Float2> > __cdecl Tomato::Polygon::GenerateCoords(unsigned int)",
       "dur": 5,
       "pid": 0,
       "tid": 0,
-      "ts": 1287357,
+      "ts": 881876,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "void __cdecl Tomato::Polygon::SetNumberOfSides(unsigned int)",
-      "dur": 10,
+      "dur": 32,
       "pid": 0,
       "tid": 0,
-      "ts": 1287362,
+      "ts": 881881,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "class std::vector<class Tomato::Float2,class std::allocator<class Tomato::Float2> > __cdecl Tomato::Polygon::GenerateCoords(unsigned int)",
+      "dur": 11,
+      "pid": 0,
+      "tid": 0,
+      "ts": 881913,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "void __cdecl Tomato::Circle::SetSmoothness(float)",
+      "dur": 40,
+      "pid": 0,
+      "tid": 0,
+      "ts": 881924,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "class std::vector<class Tomato::Float2,class std::allocator<class Tomato::Float2> > __cdecl Tomato::Polygon::GenerateCoords(unsigned int)",
+      "dur": 11,
+      "pid": 0,
+      "tid": 0,
+      "ts": 881964,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "void __cdecl Tomato::Circle::SetSmoothness(float)",
+      "dur": 35,
+      "pid": 0,
+      "tid": 0,
+      "ts": 881975,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "class Tomato::App *__cdecl Tomato::App::Create(void)",
-      "dur": 838344,
+      "dur": 632642,
       "pid": 0,
       "tid": 0,
-      "ts": 1287372,
+      "ts": 882010,
       "ph": "X"
     }
   ]

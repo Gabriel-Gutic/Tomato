@@ -34,51 +34,53 @@ namespace Tomato
 		return *this;
 	}
 
+	Float* Color::ToPtr()
+	{
+		return rgba.ToPtr();
+	}
+
 	ColorInterface::ColorInterface()
 	{
-		m_Callback = [](const Color&) {/*Default Callback*/};
 	}
 
 	ColorInterface::ColorInterface(const ColorInterface& ci)
 	{
-		m_Callback = ci.m_Callback;
 		m_Color = ci.m_Color;
 	}
 
 	void ColorInterface::SetColor(const Color& color)
 	{
 		m_Color = color;
-		m_Callback(m_Color);
 	}
 
 	void ColorInterface::SetRGB(const Float3& rgb)
 	{
 		m_Color.rgb = rgb;
-		m_Callback(m_Color);
 	}
 
 	void ColorInterface::SetRed(Float red)
 	{
 		m_Color.Red = red;
-		m_Callback(m_Color);
 	}
 
 	void ColorInterface::SetGreen(Float green)
 	{
 		m_Color.Green = green;
-		m_Callback(m_Color);
 	}
 
 	void ColorInterface::SetBlue(Float blue)
 	{
 		m_Color.Blue = blue;
-		m_Callback(m_Color);
 	}
 
 	void ColorInterface::SetAlpha(Float alpha)
 	{
 		m_Color.Alpha = alpha;
-		m_Callback(m_Color);
+	}
+
+	Color& ColorInterface::GetColor()
+	{
+		return m_Color;
 	}
 
 	const Color& ColorInterface::GetColor() const
@@ -115,11 +117,4 @@ namespace Tomato
 	{
 		return m_Color.Alpha;
 	}
-
-	void ColorInterface::SetCallback(const std::function<void(const Color&)>& func)
-	{
-		m_Callback = func;
-	}
-
-
 }

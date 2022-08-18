@@ -19,6 +19,8 @@ namespace Tomato
 		std::vector<Vertex> GetVertices();
 		const std::vector<Vertex>& GetVertices() const;
 		std::vector<UInt> GetIndices() const;
+
+		static std::vector<Float2> GenerateCoords(UInt numberOfSides);
 	protected:
 		UInt m_NumberOfSides;
 		std::vector<Vertex> m_Vertices;
@@ -33,6 +35,8 @@ namespace YAML
 		static Node encode(const Tomato::Polygon& poly) {
 			Node node;
 			node["Transform"] = poly.GetTransform();
+			node["Sides"] = poly.GetNumberOfSides();
+			node["Color"] = poly.GetColor();
 			return node;
 		}
 		static bool decode(const Node& node, Tomato::Polygon& poly) {
@@ -40,7 +44,12 @@ namespace YAML
 				return false;
 			}
 
-			poly.SetTransform(node["Transform"].as<Tomato::Transform>());
+			if (node["Transform"])
+				poly.SetTransform(node["Transform"].as<Tomato::Transform>());
+			if (node["Sides"])
+				poly.SetNumberOfSides(node["Sides"].as<Tomato::UInt>());
+			if (node["Color"])
+				poly.SetColor(node["Color"].as<Tomato::Color>());
 			return true;
 		}
 	};

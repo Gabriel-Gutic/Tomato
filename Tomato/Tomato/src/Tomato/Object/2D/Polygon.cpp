@@ -12,25 +12,14 @@ namespace Tomato
 	void Polygon::SetNumberOfSides(UInt numberOfSides)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
-		TOMATO_ASSERT(numberOfSides >= 3, "You can't create a polygon with {0} sides", m_NumberOfSides);
 		m_NumberOfSides = numberOfSides;
-		Float angle = 360.0f / static_cast<Float>(numberOfSides);
-		
-		m_Vertices.clear();
-		m_Vertices.reserve(numberOfSides + 1);
 
-		m_Vertices.emplace_back(Float3());
-		m_Vertices.emplace_back(Float3(0.0f, 0.5f, 0.0f));
+		m_Vertices.resize(numberOfSides + 1);
 
-		Float radius = 0.5f;
-		Float3 center = Float3();
-		Float t = acosf((m_Vertices[1].Coords.x - center.x) / radius);
-
-		for (UInt i = 1; i < numberOfSides; i++)
+		auto vec = GenerateCoords(numberOfSides);
+		for (UInt i = 0; i <= numberOfSides; i++)
 		{
-			Float3 coords = Float3(center.x + radius * cosf(t - Math::Radians(angle)), center.y + radius * sinf(t - Math::Radians(angle)), 0.0f);
-			m_Vertices.emplace_back(coords);
-			t -= Math::Radians(angle);
+			m_Vertices[i].Coords.xy = vec[i];
 		}
 	}
 	 
@@ -66,6 +55,31 @@ namespace Tomato
 		}
 
 		return indices;
+	}
+
+	std::vector<Float2> Polygon::GenerateCoords(UInt numberOfSides)
+	{
+		TOMATO_BENCHMARKING_FUNCTION();
+		TOMATO_ASSERT(numberOfSides >= 3, "You can't create a polygon with {0} sides", numberOfSides);
+		Float angle = 360.0f / static_cast<Float>(numberOfSides);
+
+		std::vector<Float2> vec;
+		vec.reserve(numberOfSides + 1);
+
+		vec.emplace_back();
+		vec.emplace_back(0.0f, 0.5f);
+
+		Float radius = 0.5f;
+		Float2 center = Float2();
+		Float t = acosf((vec[1].x - center.x) / radius);
+
+		for (UInt i = 1; i < numberOfSides; i++)
+		{
+			vec.emplace_back(center.x + radius * cosf(t - Math::Radians(angle)), center.y + radius * sinf(t - Math::Radians(angle)));
+			t -= Math::Radians(angle);
+		}
+
+		return vec;
 	}
 
 }

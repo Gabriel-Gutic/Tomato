@@ -32,6 +32,8 @@ namespace Tomato
 		~Color() = default;
 
 		Color& operator=(const Color& other);
+
+		Float* ToPtr();
 	};
 
 	class ColorInterface
@@ -48,6 +50,7 @@ namespace Tomato
 		void SetBlue(Float blue);
 		void SetAlpha(Float alpha);
 
+		Color& GetColor();
 		const Color& GetColor() const;
 		const Float4& GetRGBA() const;
 		const Float3& GetRGB() const;
@@ -55,10 +58,37 @@ namespace Tomato
 		Float GetGreen() const;
 		Float GetBlue() const;
 		Float GetAlpha() const;
-
-		void SetCallback(const std::function<void(const Color&)>& func);
 	protected:
-		std::function<void(const Color&)> m_Callback;
 		Color m_Color;
+	};
+}
+
+
+namespace YAML
+{
+	template<>
+	struct convert<Tomato::Color> {
+		static Node encode(const Tomato::Color& color) {
+			Node node;
+			node["Red"] = color.Red;
+			node["Green"] = color.Green;
+			node["Blue"] = color.Blue;
+			node["Alpha"] = color.Alpha;
+			return node;
+		}
+		static bool decode(const Node& node, Tomato::Color& color) {
+			if (!node.IsMap()) {
+				return false;
+			}
+			if (node["Red"])
+				color.Red = node["Red"].as<Tomato::Float>();
+			if (node["Green"])
+				color.Green = node["Green"].as<Tomato::Float>();
+			if (node["Blue"])
+				color.Blue = node["Blue"].as<Tomato::Float>();
+			if (node["Alpha"])
+				color.Alpha = node["Alpha"].as<Tomato::Float>();
+			return true;
+		}
 	};
 }

@@ -31,11 +31,11 @@ namespace Tomato
 				m_Data["Objects"][name]["Type"] = "Polygon";
 				m_Data["Objects"][name]["Data"] = *poly;
 			}
-			//else if (auto circle = Object::Cast<Circle>(obj))
-			//{
-			//	m_Data["Objects"][name]["Type"] = "Circle";
-			//	m_Data["Objects"][name]["Data"] = *circle;
-			//}
+			else if (auto circle = Object::Cast<Circle>(obj))
+			{
+				m_Data["Objects"][name]["Type"] = "Circle";
+				m_Data["Objects"][name]["Data"] = *circle;
+			}
 		}
 	}
 
@@ -63,11 +63,11 @@ namespace Tomato
 				Polygon poly = it->second["Data"].as<Polygon>();
 				App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Polygon>(poly));
 			}
-			//else if (type == "Circle")
-			//{
-			//	Circle circle = it->second["Data"].as<Circle>();
-			//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Circle>(circle));
-			//}
+			else if (type == "Circle")
+			{
+				Circle circle = it->second["Data"].as<Circle>();
+				App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Circle>(circle));
+			}
 		}
 	}
 }

@@ -39,6 +39,11 @@ namespace Tomato
 		m_Transform = tran;
 	}
 
+	Transform& TransformInterface::GetTransform()
+	{
+		return m_Transform;
+	}
+
 	const Transform& TransformInterface::GetTransform() const
 	{
 		return m_Transform;

@@ -36,6 +36,8 @@ public:																			\
 	friend Type##2 operator*(Type dot, const Type##2& f2);						\
 																				\
 	friend std::ostream& operator<<(std::ostream& os, const Type##2 & f2);		\
+																				\
+	Type* ToPtr();																\
 };
 
 
@@ -119,6 +121,11 @@ std::ostream& operator<<(std::ostream& os, const Type##2 & f2)					\
 {																				\
 	os << f2.ToString();														\
 	return os;																	\
+}																				\
+																				\
+Type* Type##2::ToPtr()															\
+{																				\
+	return &x;																	\
 }
 					
 
@@ -167,6 +174,8 @@ std::ostream& operator<<(std::ostream& os, const Type##2 & f2)					\
 		friend Type##3 operator*(Type dot, const Type##3 & f3);					\
 																				\
 		friend std::ostream& operator<<(std::ostream& os, const Type##3& f3);	\
+																				\
+		Type* ToPtr();															\
 	};
 
 
@@ -271,6 +280,11 @@ std::ostream& operator<<(std::ostream& os, const Type##3& f3)					\
 {																				\
 	os << f3.ToString();														\
 	return os;																	\
+}																				\
+																				\
+Type* Type##3::ToPtr()															\
+{																				\
+	return &x;																	\
 }
 
 
@@ -326,6 +340,8 @@ std::ostream& operator<<(std::ostream& os, const Type##3& f3)					\
 		friend Type##4 operator*(Type dot, const Type##4 & f3);					\
 																				\
 		friend std::ostream& operator<<(std::ostream& os, const Type##4& f4);	\
+																				\
+		Type* ToPtr();															\
 	};
 
 
@@ -429,6 +445,11 @@ std::ostream& operator<<(std::ostream& os, const Type##4& f4)					\
 {																				\
 	os << f4.ToString();														\
 	return os;																	\
+}																				\
+																				\
+Type* Type##4::ToPtr()															\
+{																				\
+	return &x;																	\
 }
 
 
