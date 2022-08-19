@@ -69,9 +69,9 @@ namespace Tomato
 	{
 		if (ImGui::CollapsingHeader(headerName.data()))
 		{
-			ImGui::DragFloat3("Position", Position.ToPtr());
-			ImGui::DragFloat3("Scale", Scale.ToPtr());
-			ImGui::DragFloat3("Rotation", Rotation.ToPtr());
+			ImGui::DragFloat3("Position", Position.ToPtr(), 0.1f);
+			ImGui::DragFloat3("Scale", Scale.ToPtr(), 0.1f);
+			ImGui::DragFloat3("Rotation", Rotation.ToPtr(), 0.1f);
 		}
 	}
 }

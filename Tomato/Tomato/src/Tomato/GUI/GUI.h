@@ -22,4 +22,6 @@ namespace Tomato::GUI
 	void HideRenderWindow();
 	void RenderWindow();
 	bool IsRenderWindowShown();
+
+	void SetDarkThemeColors();
 }
