@@ -23,7 +23,7 @@ namespace  Tomato
 			// Guard self assignment
 			if (this == &other)
 				return *this;
-			
+
 			Coords = other.Coords;
 			Color = other.Color;
 			TexIndex = other.TexIndex;
@@ -34,57 +34,4 @@ namespace  Tomato
 
 		std::string ToString() const;
 	};
-
-	template <size_t COUNT>
-	class VertexInterface
-	{
-	public:
-		const std::array<Vertex, COUNT>& GetVertices() const;
-		std::array<Vertex, COUNT>& GetVertices();
-
-		void SetTexture(Float textureID);
-		void SetColor(const Float3& color);
-		void SetAlpha(Float alpha);
-	protected:
-		std::array<Vertex, COUNT> m_Vertices;
-	};
-
-	template<size_t COUNT>
-	inline const std::array<Vertex, COUNT>& VertexInterface<COUNT>::GetVertices() const
-	{
-		return m_Vertices;
-	}
-
-	template<size_t COUNT>
-	inline std::array<Vertex, COUNT>& VertexInterface<COUNT>::GetVertices()
-	{
-		return m_Vertices;
-	}
-
-	template<size_t COUNT>
-	inline void VertexInterface<COUNT>::SetTexture(Float texIndex)
-	{
-		for (auto& vertex : m_Vertices)
-		{
-			vertex.TexIndex = texIndex;
-		}
-	}
-
-	template<size_t COUNT>
-	inline void VertexInterface<COUNT>::SetColor(const Float3& color)
-	{
-		for (auto& vertex : m_Vertices)
-		{
-			vertex.Color.xyz = color;
-		}
-	}
-
-	template<size_t COUNT>
-	inline void VertexInterface<COUNT>::SetAlpha(Float alpha)
-	{
-		for (auto& vertex : m_Vertices)
-		{
-			vertex.Color.w = alpha;
-		}
-	}
 }

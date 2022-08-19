@@ -4,21 +4,21 @@ Objects:
     Data:
       Transform:
         Position:
-          - -1
+          - 1.89999998
           - -1
           - 0
         Scale:
           - 1
-          - 1
-          - 1
+          - 1.60000002
+          - 0.300000012
         Rotation:
           - 0
           - 0
           - 0
-      Smoothness: 0.5
+      Smoothness: 0.500999987
       Color:
-        Red: 0.751681864
-        Green: 0.763157904
+        Red: 0.602961719
+        Green: 0.612167299
         Blue: 0
         Alpha: 1
   poly:
@@ -31,13 +31,13 @@ Objects:
           - 0
         Scale:
           - 1
-          - 1
-          - 1
+          - 1.60000002
+          - 0.300000012
         Rotation:
           - 0
           - 0
           - 0
-      Sides: 6
+      Sides: 10
       Color:
         Red: 1
         Green: 1
@@ -64,8 +64,8 @@ Objects:
     Data:
       Transform:
         Position:
-          - 1
-          - 1
+          - 1.20000005
+          - 0.899999976
           - 0
         Scale:
           - 1
@@ -73,5 +73,5 @@ Objects:
           - 1
         Rotation:
           - 0
-          - 0
+          - 89
           - 0

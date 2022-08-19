@@ -28,8 +28,8 @@ namespace Tomato::GUI
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-        //const char* fontPath = "assets/fonts/Roboto/Roboto-Regular.ttf";
-        //io.Fonts->AddFontFromFileTTF(fontPath, 16.0f);
+        const char* fontPath = "assets/Fonts/Roboto/Roboto-Regular.ttf";
+        io.Fonts->AddFontFromFileTTF(fontPath, 16.0f);
 
         // Setup Platform/Renderer bindings
         auto window = static_cast<GLFWwindow*>(App::GetWindow()->Get());
