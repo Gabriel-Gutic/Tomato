@@ -5,6 +5,7 @@
 #include "Renderer/Buffer/FrameBuffer.h"
 #include "Renderer/Texture/Texture.h"
 #include "Renderer/Texture/Tilemap.h"
+#include "Component/Transform.h"
 #include "Object/2D/Triangle.h"
 #include "Object/2D/Quad.h"
 #include "Object/2D/Polygon.h"

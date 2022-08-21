@@ -1,11 +1,15 @@
 #include "pchTomato.h"
 #include "Triangle.h"
+#include "Component/Transform.h"
+#include "Component/Color.h"
 
 
 namespace Tomato
 {
 	Triangle::Triangle()
 	{
+		AddComponent(std::make_shared<Transform>());
+		AddComponent(std::make_shared<Color>());
 	}
 
 	const std::array<std::pair<Float2, Float2>, 3> Triangle::Vertices = {

@@ -37,7 +37,7 @@ void MainLayer::OnUpdate()
 void MainLayer::OnGUI()
 {
 	ImGui::Begin("Main Layer Menu");
-	ImGui::ColorPicker4("Circle Color", m_Scene->GetObject<Tomato::Circle>("circle")->GetColor().ToPtr());
+	ImGui::ColorPicker4("Circle Color", m_Scene->GetObject<Tomato::Circle>("circle")->GetComponent<Tomato::Color>()->ToPtr());
 	if (ImGui::SliderInt("Polygon NOS", &m_PolygonNOS, 3, 100))
 	{
 		m_Scene->GetObject<Tomato::Polygon>("poly")->SetNumberOfSides(m_PolygonNOS);
@@ -47,12 +47,9 @@ void MainLayer::OnGUI()
 		m_Scene->GetObject<Tomato::Circle>("circle")->SetSmoothness(m_CircleSmoothness);
 	}
 
-	for (const auto& [name, obj] : m_Scene->GetObjects())
+	if (m_Scene->GetObjects()["quad"]->HasComponent<Tomato::Transform>())
 	{
-		if (auto tran = obj->Cast<Tomato::TransformInterface>())
-		{
-			tran->GetTransform().GUI(name + " Transform");
-		}
+		m_Scene->GetObjects()["quad"]->GetComponent<Tomato::Transform>()->ToImGui();
 	}
 
 	ImGui::End();

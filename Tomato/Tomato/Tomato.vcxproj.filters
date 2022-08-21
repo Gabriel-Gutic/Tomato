@@ -160,13 +160,13 @@
     <ClInclude Include="src\Tomato\Object\3D\Cube.h">
       <Filter>Tomato\Object\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Object\Color.h">
+    <ClInclude Include="src\Tomato\Component\Color.h">
       <Filter>Tomato\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Object\Object.h">
       <Filter>Tomato\Object</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Object\Transform.h">
+    <ClInclude Include="src\Tomato\Component\Transform.h">
       <Filter>Tomato\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h">
@@ -216,6 +216,7 @@
     <ClInclude Include="src\Tomato\Renderer\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Tomato\Object\2D\Object2D.h" />
     <ClInclude Include="src\Tomato\Object\3D\Object3D.h" />
+    <ClInclude Include="src\Tomato\Component\Component.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
@@ -287,10 +288,10 @@
     <ClCompile Include="src\Tomato\Object\3D\Cube.cpp">
       <Filter>Tomato\Object\3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Object\Color.cpp">
+    <ClCompile Include="src\Tomato\Component\Color.cpp">
       <Filter>Tomato\Object</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Object\Transform.cpp">
+    <ClCompile Include="src\Tomato\Component\Transform.cpp">
       <Filter>Tomato\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp">

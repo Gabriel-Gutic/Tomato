@@ -12,31 +12,49 @@ namespace Tomato
 	{
 	}
 
+	void SceneSerializer::SerializeObject(YAML::Emitter& out, const std::shared_ptr<Object>& object)
+	{
+		out << YAML::BeginMap;
+		out << YAML::Key << "Type" << YAML::Value;
+		if (auto triangle = Object::Cast<Triangle>(object))
+		{
+			out << "Triangle";
+			//out << YAML::Key << "Transform" << YAML::Value << triangle->GetTransform();
+		}
+		else if (auto quad = Object::Cast<Quad>(object))
+		{
+
+		}
+		else if (auto poly = Object::Cast<Polygon>(object))
+		{
+
+		}
+		else if (auto circle = Object::Cast<Circle>(object))
+		{
+
+		}
+
+		out << YAML::EndMap;
+	}
+
 	void SceneSerializer::Serialize()
 	{
+		YAML::Emitter out;
+
+		out << YAML::BeginMap;
+		out << YAML::Key << "Scene" << YAML::Value << m_SceneName;
+		out << YAML::Key << "Objects" << YAML::Value << YAML::BeginSeq;
 		for (const auto& [name, obj] : App::GetScenes()[m_SceneName]->GetObjects())
 		{
-			if (auto triangle = Object::Cast<Triangle>(obj))
-			{
-				m_Data["Objects"][name]["Type"] = "Triangle";
-				m_Data["Objects"][name]["Data"] = *triangle;
-			}
-			else if (auto quad = Object::Cast<Quad>(obj))
-			{
-				m_Data["Objects"][name]["Type"] = "Quad";
-				m_Data["Objects"][name]["Data"] = *quad;
-			}
-			else if (auto poly = Object::Cast<Polygon>(obj))
-			{
-				m_Data["Objects"][name]["Type"] = "Polygon";
-				m_Data["Objects"][name]["Data"] = *poly;
-			}
-			else if (auto circle = Object::Cast<Circle>(obj))
-			{
-				m_Data["Objects"][name]["Type"] = "Circle";
-				m_Data["Objects"][name]["Data"] = *circle;
-			}
+			if (!obj)
+				continue;
+			SerializeObject(out, obj);
 		}
+		out << YAML::EndSeq;
+		out << YAML::EndMap;
+
+		std::ofstream output(m_FilePath.c_str());
+		output << out.c_str();
 	}
 
 	void SceneSerializer::Deserialize()
@@ -48,26 +66,26 @@ namespace Tomato
 			std::string name = it->first.as<std::string>();
 			std::string type = it->second["Type"].as<std::string>();
 
-			if (type == "Quad")
-			{
-				Quad quad = it->second["Data"].as<Quad>();
-				App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Quad>(quad));
-			}
-			else if (type == "Triangle")
-			{
-				Triangle triangle = it->second["Data"].as<Triangle>();
-				App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Triangle>(triangle));
-			}
-			else if (type == "Polygon")
-			{
-				Polygon poly = it->second["Data"].as<Polygon>();
-				App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Polygon>(poly));
-			}
-			else if (type == "Circle")
-			{
-				Circle circle = it->second["Data"].as<Circle>();
-				App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Circle>(circle));
-			}
+			//if (type == "Quad")
+			//{
+			//	Quad quad = it->second["Data"].as<Quad>();
+			//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Quad>(quad));
+			//}
+			//else if (type == "Triangle")
+			//{
+			//	Triangle triangle = it->second["Data"].as<Triangle>();
+			//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Triangle>(triangle));
+			//}
+			//else if (type == "Polygon")
+			//{
+			//	Polygon poly = it->second["Data"].as<Polygon>();
+			//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Polygon>(poly));
+			//}
+			//else if (type == "Circle")
+			//{
+			//	Circle circle = it->second["Data"].as<Circle>();
+			//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Circle>(circle));
+			//}
 		}
 	}
 }

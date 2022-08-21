@@ -1,19 +1,22 @@
 #include "pchTomato.h"
 #include "Circle.h"
 #include "Polygon.h"
+#include "Component/Transform.h"
+#include "Component/Color.h"
 
 
 namespace Tomato
 {
 	Circle::Circle(Float smoothness)
 	{
+		AddComponent(std::make_shared<Transform>());
+		AddComponent(std::make_shared<Color>());
 		SetSmoothness(smoothness);
 	}
 
 	Circle::Circle(const Circle& other)
 	{
-		m_Transform = other.m_Transform;
-		m_Color = other.m_Color;
+		m_Components = other.m_Components;
 		m_Vertices = other.m_Vertices;
 		m_Smoothness = other.m_Smoothness;
 	}

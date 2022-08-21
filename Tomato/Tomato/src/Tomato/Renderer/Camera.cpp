@@ -2,6 +2,7 @@
 #include "Camera.h"
 
 #include "Core/App/App.h"
+#include "Component/Transform.h"
 
 
 namespace Tomato
@@ -9,14 +10,15 @@ namespace Tomato
 	Camera::Camera(const Float3& position, const Float3& target)
 		:m_Target(target)
 	{
-		SetPosition(position);
+		m_Components.push_back(std::make_shared<Transform>());
+		this->GetComponent<Transform>()->SetPosition(position);
 	}
 
 	Mat4 Camera::GetView(bool reverseY) const
 	{
-		Float3 target = Quaternion::Rotate(m_Target - m_Transform.Position, -1 * m_Transform.Rotation);
+		Float3 target = Quaternion::Rotate(m_Target - this->GetComponent<Transform>()->GetPosition(), -1 * this->GetComponent<Transform>()->GetRotation());
 
-		Mat4 view = Math::LookAt(m_Transform.Position, target);
+		Mat4 view = Math::LookAt(this->GetComponent<Transform>()->GetPosition(), target);
 		if (reverseY)
 		{
 			Mat4 reverse(1.0f);
@@ -40,17 +42,17 @@ namespace Tomato
 
 	void Camera::MoveX(Float dist)
 	{
-		m_Transform.Position.x += dist;
+		this->GetComponent<Transform>()->GetPosition().x += dist;
 	}
 
 	void Camera::MoveY(Float dist)
 	{
-		m_Transform.Position.y += dist;
+		this->GetComponent<Transform>()->GetPosition().y += dist;
 	}
 
 	void Camera::MoveZ(Float dist)
 	{
-		m_Transform.Position.z += dist;
+		this->GetComponent<Transform>()->GetPosition().z += dist;
 	}
 
 	void Camera::SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far)

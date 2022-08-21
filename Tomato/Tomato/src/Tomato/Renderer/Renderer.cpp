@@ -7,6 +7,8 @@
 #include "Core/App/App.h"
 #include "GUI/GUI.h"
 
+#include "Component/Color.h"
+
 
 namespace Tomato
 {
@@ -131,8 +133,8 @@ namespace Tomato
 
 		for (auto& vertex : vertices)
 		{
-			Float3 coords = transform.Apply(triangle.TransformCoords(Float3(vertex.first, 0.0f)));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, triangle.GetRGBA(), texIndex, vertex.second);
+			Float3 coords = transform.Apply(triangle.GetComponent<Transform>()->Apply(Float3(vertex.first, 0.0f)));
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, triangle.GetComponent<Color>()->GetRGBA(), texIndex, vertex.second);
 		}
 	}
 
@@ -163,7 +165,7 @@ namespace Tomato
 		for (const auto& index : indices)
 		{
 			const auto& vertex = vertices[index];
-			Float3 coords = transform.Apply(quad.TransformCoords(Float3(vertex.first, 0.0f)));
+			Float3 coords = transform.Apply(quad.GetComponent<Transform>()->Apply(Float3(vertex.first, 0.0f)));
 			Float2 texCoords = vertex.second;
 			Float2 tl = Float2(row * tilemap->GetTileWidth(), 1.0 - col * tilemap->GetTileHeight());
 			if (texCoords == Float2(0.0f, 1.0f))
@@ -175,7 +177,7 @@ namespace Tomato
 			else if (texCoords == Float2(1.0f, 0.0f))
 				texCoords = Float2(tl.x + colspan * tilemap->GetTileWidth(), tl.y - rowspan * tilemap->GetTileHeight());
 
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, quad.GetRGBA(), texIndex, texCoords);
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, quad.GetComponent<Color>()->GetRGBA(), texIndex, texCoords);
 		}
 	}
 
@@ -205,8 +207,8 @@ namespace Tomato
 
 		for (const auto& index : indices)
 		{
-			Float3 coords = transform.Apply(quad.TransformCoords(Float3(vertices[index].first, 0.0f)));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, quad.GetRGBA(), texIndex, vertices[index].second);
+			Float3 coords = transform.Apply(quad.GetComponent<Transform>()->Apply(Float3(vertices[index].first, 0.0f)));
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, quad.GetComponent<Color>()->GetRGBA(), texIndex, vertices[index].second);
 		}
 	}
 
@@ -236,8 +238,8 @@ namespace Tomato
 
 		for (const auto& index : indices)
 		{
-			Float3 coords = transform.Apply(polygon.TransformCoords(vertices[index].Coords));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, polygon.GetRGBA(), texIndex, vertices[index].TexCoords);
+			Float3 coords = transform.Apply(polygon.GetComponent<Transform>()->Apply(vertices[index].Coords));
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, polygon.GetComponent<Color>()->GetRGBA(), texIndex, vertices[index].TexCoords);
 		}
 	}
 
@@ -267,8 +269,8 @@ namespace Tomato
 
 		for (const auto& index : indices)
 		{
-			Float3 coords = transform.Apply(circle.TransformCoords(vertices[index].Coords));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, circle.GetRGBA(), texIndex, vertices[index].TexCoords);
+			Float3 coords = transform.Apply(circle.GetComponent<Transform>()->Apply(vertices[index].Coords));
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, circle.GetComponent<Color>()->GetRGBA(), texIndex, vertices[index].TexCoords);
 		}
 	}
 

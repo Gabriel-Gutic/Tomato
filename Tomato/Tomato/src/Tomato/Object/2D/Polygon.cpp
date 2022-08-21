@@ -1,11 +1,15 @@
 #include "pchTomato.h"
 #include "Polygon.h"
+#include "Component/Transform.h"
+#include "Component/Color.h"
 
 
 namespace Tomato
 {
 	Polygon::Polygon(UInt numberOfSides)
 	{
+		AddComponent(std::make_shared<Transform>());
+		AddComponent(std::make_shared<Color>());
 		SetNumberOfSides(numberOfSides);
 	}
 

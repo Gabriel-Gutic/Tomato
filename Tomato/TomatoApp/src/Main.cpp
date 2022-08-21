@@ -11,7 +11,7 @@ public:
 	TomatoApp()
 	{
 		auto& main_scene = CreateScene("Main Scene");
-		InitSceneSerializer("Main Scene", "Serialization/MainScene.yaml");
+		//InitSceneSerializer("Main Scene", "Serialization/MainScene.yaml");
 		main_scene->PushLayer(new MainLayer());
 
 		auto& triangles_scene = CreateScene("Triangles Scene");

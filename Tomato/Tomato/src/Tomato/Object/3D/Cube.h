@@ -9,7 +9,7 @@ namespace Tomato
 		Bottom, Top, North, South, East, West
 	};
 
-	class Cube : public TransformInterface
+	class Cube : public Object
 	{
 	public:
 		Cube();

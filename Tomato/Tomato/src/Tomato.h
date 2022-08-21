@@ -23,5 +23,9 @@
 #include "Tomato/Object/2D/Circle.h"
 #include "Tomato/Object/3D/Cube.h"
 
+// Component
+#include "Tomato/Component/Transform.h"
+#include "Tomato/Component/Color.h"
+
 //ImGui
 #include <imgui/imgui.h>

@@ -14,6 +14,11 @@ namespace Tomato
 		os << obj.ToString();
 		return os;
 	}
+
+	void Object::AddComponent(const std::shared_ptr<Component>& comp)
+	{
+		m_Components.push_back(comp);
+	}
 }
 
 

@@ -1,11 +1,14 @@
 #include "pchTomato.h"
 #include "Quad.h"
-
+#include "Component/Transform.h"
+#include "Component/Color.h"
 
 namespace Tomato
 {
     Quad::Quad()
     {
+		AddComponent(std::make_shared<Transform>());
+		AddComponent(std::make_shared<Color>());
     }
 
 	const std::array<std::pair<Float2, Float2>, 4> Quad::Vertices = {
