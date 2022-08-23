@@ -52,7 +52,7 @@ namespace Tomato
 	template<typename T>
 	inline bool Registry::Has(const UUID& uuid) const
 	{
-		return m_Buffer.get<T>(static_cast<entt::entity>(uuid.Get()));
+		return m_Buffer.all_of<T>(static_cast<entt::entity>(uuid.Get()));
 	}
 
 	template<typename T>
