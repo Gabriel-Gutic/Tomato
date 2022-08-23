@@ -1,5 +1,5 @@
 #pragma once
-#include "Object/Object.h"
+#include "Scene/Entity.h"
 
 
 namespace Tomato
@@ -27,7 +27,7 @@ namespace Tomato
 		Float Far;
 	};
 
-	class Camera : public Object
+	class Camera : public Entity
 	{
 	public:
 		Camera(const Float3& position = { 0.0f, 0.0f, 3.0f }, const Float3& target = {0.0f, 0.0f, 0.0f});

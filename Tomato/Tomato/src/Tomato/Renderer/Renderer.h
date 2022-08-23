@@ -31,11 +31,11 @@ namespace Tomato
 
 		static void SetBackgroundColor(const Float4& color);
 
-		static void Draw(const Triangle& obj, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
-		static void Draw(const Quad& quad, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
-		static void Draw(const Quad& quad, std::shared_ptr<Tilemap> tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Transform& transform = Transform());
-		static void Draw(const Polygon& polygon, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
-		static void Draw(const Circle& circle, std::shared_ptr<Texture> texture = nullptr, const Transform& transform = Transform());
+		static void Draw(const Triangle& obj, std::shared_ptr<Texture> texture = nullptr, const Mat4& transform = Mat4(1.0f));
+		static void Draw(const Quad& quad, std::shared_ptr<Texture> texture = nullptr, const Mat4& transform = Mat4(1.0f));
+		static void Draw(const Quad& quad, std::shared_ptr<Tilemap> tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform = Mat4(1.0f));
+		static void Draw(const Polygon& polygon, std::shared_ptr<Texture> texture = nullptr, const Mat4& transform = Mat4(1.0f));
+		static void Draw(const Circle& circle, std::shared_ptr<Texture> texture = nullptr, const Mat4& transform = Mat4(1.0f));
 	private:
 		static void Flush();
 	private:

@@ -1,11 +1,11 @@
 #pragma once
 #include "Renderer/Buffer/Vertex.h"
-#include "Object/Object.h"
+#include "Renderer/Scene/Entity.h"
 
 
 namespace Tomato
 {
-	class Circle : public Object
+	class Circle : public Entity
 	{
 	public:
 		Circle(Float smoothness = 0.5f);

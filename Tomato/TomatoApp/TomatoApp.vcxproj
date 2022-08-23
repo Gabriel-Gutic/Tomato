@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATOAPP_PLATFORM_WINDOWS;DEBUG;TOMATOAPP_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\Tomato\src;..\Tomato\src\Tomato;..\Tomato\dependencies\spdlog\include;..\Tomato\dependencies\ImGui;..\Tomato\dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\Tomato\src;..\Tomato\src\Tomato;..\Tomato\dependencies\spdlog\include;..\Tomato\dependencies\entt\src;..\Tomato\dependencies\ImGui;..\Tomato\dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -75,7 +75,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATOAPP_PLATFORM_WINDOWS;RELEASE;TOMATOAPP_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\Tomato\src;..\Tomato\src\Tomato;..\Tomato\dependencies\spdlog\include;..\Tomato\dependencies\ImGui;..\Tomato\dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\Tomato\src;..\Tomato\src\Tomato;..\Tomato\dependencies\spdlog\include;..\Tomato\dependencies\entt\src;..\Tomato\dependencies\ImGui;..\Tomato\dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>

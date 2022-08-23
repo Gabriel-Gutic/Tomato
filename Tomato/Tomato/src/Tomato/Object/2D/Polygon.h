@@ -1,11 +1,11 @@
 #pragma once
 #include "Renderer/Buffer/Vertex.h"
-#include "Object/Object.h"
+#include "Renderer/Scene/Entity.h"
 
 
 namespace Tomato
 {
-	class Polygon : public Object
+	class Polygon : public Entity
 	{
 	public:
 		Polygon(UInt numberOfSides = 6);

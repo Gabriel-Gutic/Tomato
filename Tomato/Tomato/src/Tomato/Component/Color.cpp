@@ -40,77 +40,12 @@ namespace Tomato
 	{
 		if (ImGui::CollapsingHeader("Color"))
 		{
-			ImGui::ColorPicker4("", rgba.ToPtr(), 0.1f);
+			ImGui::ColorPicker4("", rgba.ToPtr());
 		}
-	}
-
-	std::string Color::GetType() const
-	{
-		return "Color";
 	}
 
 	Float* Color::ToPtr()
 	{
 		return rgba.ToPtr();
-	}
-
-	void Color::SetRGBA(const Float4& rgba)
-	{
-		this->rgba = rgba;
-	}
-
-	void Color::SetRGB(const Float3& rgb)
-	{
-		this->rgb = rgb;
-	}
-
-	void Color::SetRed(Float red)
-	{
-		this->Red = red;
-	}
-
-	void Color::SetGreen(Float green)
-	{
-		this->Green = green;
-	}
-
-	void Color::SetBlue(Float blue)
-	{
-		this->Blue = blue;
-	}
-
-	void Color::SetAlpha(Float alpha)
-	{
-		this->Alpha = alpha;
-	}
-
-	const Float4& Color::GetRGBA() const
-	{
-		return this->rgba;
-	}
-
-	const Float3& Color::GetRGB() const
-	{
-		return this->rgb;
-	}
-
-	Float Color::GetRed() const
-	{
-		return this->Red;
-	}
-
-	Float Color::GetGreen() const
-	{
-		return this->Green;
-	}
-
-	Float Color::GetBlue() const
-	{
-		return this->Blue;
-	}
-
-	Float Color::GetAlpha() const
-	{
-		return this->Alpha;
 	}
 }

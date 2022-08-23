@@ -108,8 +108,9 @@ namespace Tomato
 		s_Instance->m_BackgroundColor = color;
 	}
 
-	void Renderer::Draw(const Triangle& triangle, std::shared_ptr<Texture> texture, const Transform& transform)
+	void Renderer::Draw(const Triangle& triangle, std::shared_ptr<Texture> texture, const Mat4& transform)
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
 		auto vertices = Triangle::Vertices;
 		if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber)
 			Flush();
@@ -131,15 +132,18 @@ namespace Tomato
 			}
 		}
 
+		Mat4 tran = triangle.GetComponent<Transform>().Get();
+		Float4 color = triangle.GetComponent<Color>().rgba;
 		for (auto& vertex : vertices)
 		{
-			Float3 coords = transform.Apply(triangle.GetComponent<Transform>()->Apply(Float3(vertex.first, 0.0f)));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, triangle.GetComponent<Color>()->GetRGBA(), texIndex, vertex.second);
+			Float3 coords = (transform * tran * Float4(vertex.first, Float2(0.0f, 1.0f))).xyz;
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, vertex.second);
 		}
 	}
 
-	void Renderer::Draw(const Quad& quad, std::shared_ptr<Tilemap> tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Transform& transform)
+	void Renderer::Draw(const Quad& quad, std::shared_ptr<Tilemap> tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform)
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
 		auto vertices = quad.Vertices;
 		auto indices = quad.Indices;
 		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
@@ -162,10 +166,12 @@ namespace Tomato
 			}
 		}
 
+		Mat4 tran = quad.GetComponent<Transform>().Get();
+		Float4 color = quad.GetComponent<Color>().rgba;
 		for (const auto& index : indices)
 		{
 			const auto& vertex = vertices[index];
-			Float3 coords = transform.Apply(quad.GetComponent<Transform>()->Apply(Float3(vertex.first, 0.0f)));
+			Float3 coords = (transform * tran * Float4(vertex.first, Float2(0.0f, 1.0f))).xyz;
 			Float2 texCoords = vertex.second;
 			Float2 tl = Float2(row * tilemap->GetTileWidth(), 1.0 - col * tilemap->GetTileHeight());
 			if (texCoords == Float2(0.0f, 1.0f))
@@ -177,12 +183,13 @@ namespace Tomato
 			else if (texCoords == Float2(1.0f, 0.0f))
 				texCoords = Float2(tl.x + colspan * tilemap->GetTileWidth(), tl.y - rowspan * tilemap->GetTileHeight());
 
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, quad.GetComponent<Color>()->GetRGBA(), texIndex, texCoords);
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, texCoords);
 		}
 	}
 
-	void Renderer::Draw(const Quad& quad, std::shared_ptr<Texture> texture, const Transform& transform)
+	void Renderer::Draw(const Quad& quad, std::shared_ptr<Texture> texture, const Mat4& transform)
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
 		auto vertices = quad.Vertices;
 		auto indices = quad.Indices;
 		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
@@ -205,15 +212,18 @@ namespace Tomato
 			}
 		}
 
+		Mat4 tran = quad.GetComponent<Transform>().Get();
+		Float4 color = quad.GetComponent<Color>().rgba;
 		for (const auto& index : indices)
 		{
-			Float3 coords = transform.Apply(quad.GetComponent<Transform>()->Apply(Float3(vertices[index].first, 0.0f)));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, quad.GetComponent<Color>()->GetRGBA(), texIndex, vertices[index].second);
+			Float3 coords = (transform * tran * Float4(vertices[index].first, Float2(0.0f, 1.0f))).xyz;
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, vertices[index].second);
 		}
 	}
 
-	void Renderer::Draw(const Polygon& polygon, std::shared_ptr<Texture> texture, const Transform& transform)
+	void Renderer::Draw(const Polygon& polygon, std::shared_ptr<Texture> texture, const Mat4& transform)
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
 		auto& vertices = polygon.GetVertices();
 		auto indices = polygon.GetIndices();
 		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
@@ -236,15 +246,18 @@ namespace Tomato
 			}
 		}
 
+		Mat4 tran = polygon.GetComponent<Transform>().Get();
+		Float4 color = polygon.GetComponent<Color>().rgba;
 		for (const auto& index : indices)
 		{
-			Float3 coords = transform.Apply(polygon.GetComponent<Transform>()->Apply(vertices[index].Coords));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, polygon.GetComponent<Color>()->GetRGBA(), texIndex, vertices[index].TexCoords);
+			Float3 coords = (transform * tran * Float4(vertices[index].Coords, 1.0f)).xyz;
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, vertices[index].TexCoords);
 		}
 	}
 
-	void Renderer::Draw(const Circle& circle, std::shared_ptr<Texture> texture, const Transform& transform)
+	void Renderer::Draw(const Circle& circle, std::shared_ptr<Texture> texture, const Mat4& transform)
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
 		auto& vertices = circle.GetVertices();
 		auto indices = circle.GetIndices();
 		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
@@ -267,10 +280,12 @@ namespace Tomato
 			}
 		}
 
+		Mat4 tran = circle.GetComponent<Transform>().Get();
+		Float4 color = circle.GetComponent<Color>().rgba;
 		for (const auto& index : indices)
 		{
-			Float3 coords = transform.Apply(circle.GetComponent<Transform>()->Apply(vertices[index].Coords));
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, circle.GetComponent<Color>()->GetRGBA(), texIndex, vertices[index].TexCoords);
+			Float3 coords = (transform * tran * Float4(vertices[index].Coords, 1.0f)).xyz;
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, vertices[index].TexCoords);
 		}
 	}
 

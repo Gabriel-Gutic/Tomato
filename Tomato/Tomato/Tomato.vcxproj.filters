@@ -4,8 +4,14 @@
     <Filter Include="Tomato">
       <UniqueIdentifier>{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Component">
+      <UniqueIdentifier>{7B66FA58-675F-19AB-9091-FE2F7CE9F8B6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato\Core">
       <UniqueIdentifier>{D13E2174-3DF4-9969-C6E8-9340329D906D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\Core\App">
+      <UniqueIdentifier>{8128710D-EDB3-DED1-F6C4-61C662CF3AD2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tomato\Core\DateTime">
       <UniqueIdentifier>{CDBA17EA-B949-A1B3-6268-B5AE4ED6B159}</UniqueIdentifier>
@@ -46,14 +52,41 @@
     <Filter Include="Tomato\Renderer\Buffer">
       <UniqueIdentifier>{A86B2110-9465-4A62-7DD2-E072696BB0CE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Renderer\Scene">
+      <UniqueIdentifier>{FC9A8FA4-6807-4B9F-31FB-E2FC9D266D07}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato\Renderer\Texture">
       <UniqueIdentifier>{FF46E259-6B7E-2AF1-7488-8E14E03E51EA}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Tomato.h" />
+    <ClInclude Include="src\Tomato\Component\Color.h">
+      <Filter>Tomato\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Component\Registry.h">
+      <Filter>Tomato\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Component\Transform.h">
+      <Filter>Tomato\Component</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Core\App\App.h">
-      <Filter>Tomato</Filter>
+      <Filter>Tomato\Core\App</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h">
+      <Filter>Tomato\Core\App</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\App\Layer.h">
+      <Filter>Tomato\Core\App</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\App\UUID.h">
+      <Filter>Tomato\Core\App</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\App\Window.h">
+      <Filter>Tomato\Core\App</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Core\Core.h">
+      <Filter>Tomato\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Core\DateTime\Date.h">
       <Filter>Tomato\Core\DateTime</Filter>
@@ -139,13 +172,10 @@
     <ClInclude Include="src\Tomato\GUI\GUI.h">
       <Filter>Tomato\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h">
-      <Filter>Tomato</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Core\App\Layer.h">
-      <Filter>Tomato</Filter>
-    </ClInclude>
     <ClInclude Include="src\Tomato\Object\2D\Circle.h">
+      <Filter>Tomato\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Object\2D\Object2D.h">
       <Filter>Tomato\Object\2D</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Object\2D\Polygon.h">
@@ -160,13 +190,10 @@
     <ClInclude Include="src\Tomato\Object\3D\Cube.h">
       <Filter>Tomato\Object\3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Component\Color.h">
-      <Filter>Tomato\Object</Filter>
+    <ClInclude Include="src\Tomato\Object\3D\Object3D.h">
+      <Filter>Tomato\Object\3D</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Object\Object.h">
-      <Filter>Tomato\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Component\Transform.h">
       <Filter>Tomato\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h">
@@ -193,8 +220,14 @@
     <ClInclude Include="src\Tomato\Renderer\Renderer.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Scene\Entity.h">
+      <Filter>Tomato\Renderer\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Scene\Scene.h">
-      <Filter>Tomato\Renderer</Filter>
+      <Filter>Tomato\Renderer\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Scene\SceneSerializer.h">
+      <Filter>Tomato\Renderer\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Shader.h">
       <Filter>Tomato\Renderer</Filter>
@@ -208,19 +241,29 @@
     <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h">
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Core\App\Window.h">
-      <Filter>Tomato</Filter>
-    </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Core\Core.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene\SceneSerializer.h" />
-    <ClInclude Include="src\Tomato\Object\2D\Object2D.h" />
-    <ClInclude Include="src\Tomato\Object\3D\Object3D.h" />
-    <ClInclude Include="src\Tomato\Component\Component.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Tomato\Component\Color.cpp">
+      <Filter>Tomato\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Component\Registry.cpp">
+      <Filter>Tomato\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Component\Transform.cpp">
+      <Filter>Tomato\Component</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
-      <Filter>Tomato</Filter>
+      <Filter>Tomato\Core\App</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\App\EntryPoint.cpp">
+      <Filter>Tomato\Core\App</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\App\UUID.cpp">
+      <Filter>Tomato\Core\App</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\App\Window.cpp">
+      <Filter>Tomato\Core\App</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Core\DateTime\Date.cpp">
       <Filter>Tomato\Core\DateTime</Filter>
@@ -261,9 +304,6 @@
     <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp">
       <Filter>Tomato\Core\Timer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Core\App\EntryPoint.cpp">
-      <Filter>Tomato</Filter>
-    </ClCompile>
     <ClCompile Include="src\Tomato\Event\Event.cpp">
       <Filter>Tomato\Event</Filter>
     </ClCompile>
@@ -288,10 +328,7 @@
     <ClCompile Include="src\Tomato\Object\3D\Cube.cpp">
       <Filter>Tomato\Object\3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Component\Color.cpp">
-      <Filter>Tomato\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Component\Transform.cpp">
+    <ClCompile Include="src\Tomato\Object\Object.cpp">
       <Filter>Tomato\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp">
@@ -318,8 +355,14 @@
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Scene\Entity.cpp">
+      <Filter>Tomato\Renderer\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Scene\Scene.cpp">
-      <Filter>Tomato\Renderer</Filter>
+      <Filter>Tomato\Renderer\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Scene\SceneSerializer.cpp">
+      <Filter>Tomato\Renderer\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp">
       <Filter>Tomato\Renderer</Filter>
@@ -333,11 +376,6 @@
     <ClCompile Include="src\Tomato\Renderer\Texture\Tilemap.cpp">
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Core\App\Window.cpp">
-      <Filter>Tomato</Filter>
-    </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\Tomato\Object\Object.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Scene\SceneSerializer.cpp" />
   </ItemGroup>
 </Project>

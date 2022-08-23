@@ -4,6 +4,9 @@
 #include "Core/App/App.h"
 #include "Object/2D/Object2D.h"
 
+#include "Component/Transform.h"
+#include "Component/Color.h"
+
 
 namespace Tomato
 {
@@ -15,24 +18,11 @@ namespace Tomato
 	void SceneSerializer::SerializeObject(YAML::Emitter& out, const std::shared_ptr<Object>& object)
 	{
 		out << YAML::BeginMap;
-		out << YAML::Key << "Type" << YAML::Value;
-		if (auto triangle = Object::Cast<Triangle>(object))
-		{
-			out << "Triangle";
-			//out << YAML::Key << "Transform" << YAML::Value << triangle->GetTransform();
-		}
-		else if (auto quad = Object::Cast<Quad>(object))
-		{
-
-		}
-		else if (auto poly = Object::Cast<Polygon>(object))
-		{
-
-		}
-		else if (auto circle = Object::Cast<Circle>(object))
-		{
-
-		}
+		
+		//if (object->HasComponent<Transform>())
+		//{
+		//
+		//}
 
 		out << YAML::EndMap;
 	}
@@ -44,12 +34,12 @@ namespace Tomato
 		out << YAML::BeginMap;
 		out << YAML::Key << "Scene" << YAML::Value << m_SceneName;
 		out << YAML::Key << "Objects" << YAML::Value << YAML::BeginSeq;
-		for (const auto& [name, obj] : App::GetScenes()[m_SceneName]->GetObjects())
-		{
-			if (!obj)
-				continue;
-			SerializeObject(out, obj);
-		}
+		//for (const auto& [name, obj] : App::GetScenes()[m_SceneName]->GetObjects())
+		//{
+		//	if (!obj)
+		//		continue;
+		//	SerializeObject(out, obj);
+		//}
 		out << YAML::EndSeq;
 		out << YAML::EndMap;
 

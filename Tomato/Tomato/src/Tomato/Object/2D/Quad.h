@@ -1,11 +1,11 @@
 #pragma once
-#include "Object/Object.h"
 #include "Renderer/Buffer/Vertex.h"
+#include "Renderer/Scene/Entity.h"
 
 
 namespace Tomato
 {
-	class Quad : public Object
+	class Quad : public Entity
 	{
 	public:
 		Quad();

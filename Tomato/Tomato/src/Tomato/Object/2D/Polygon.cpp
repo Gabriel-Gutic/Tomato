@@ -8,8 +8,6 @@ namespace Tomato
 {
 	Polygon::Polygon(UInt numberOfSides)
 	{
-		AddComponent(std::make_shared<Transform>());
-		AddComponent(std::make_shared<Color>());
 		SetNumberOfSides(numberOfSides);
 	}
 

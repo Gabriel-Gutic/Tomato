@@ -19,6 +19,7 @@ project "TomatoApp"
 		sln .. "Tomato/src",
 		sln .. "Tomato/src/Tomato",
 		sln .. "Tomato/dependencies/spdlog/include",
+		sln .. "Tomato/dependencies/entt/src",
 		sln .. "Tomato/dependencies/ImGui",
 		sln .. "Tomato/dependencies/yaml-cpp/yaml-cpp/include",
 	}

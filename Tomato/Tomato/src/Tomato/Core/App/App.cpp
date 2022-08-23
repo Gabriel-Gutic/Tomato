@@ -14,6 +14,7 @@
 #include "Renderer/Camera.h"
 
 #include "Renderer/Renderer.h"
+#include "Component/Registry.h"
 
 
 namespace Tomato
@@ -32,11 +33,14 @@ namespace Tomato
 		Renderer::Initialize();
 
 		GUI::Initialize();
+
+		Registry::Initialize();
 	}
 
 	App::~App()
 	{
 		GUI::Terminate();
+		Registry::Terminate();
 	}
 
 	Int App::Run()

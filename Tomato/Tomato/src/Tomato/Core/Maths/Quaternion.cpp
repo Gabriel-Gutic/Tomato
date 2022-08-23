@@ -66,23 +66,49 @@ namespace Tomato
 		return *this * other.Reciprocal();
 	}
 
-	Float3 Quaternion::Rotate(const Float3& p, const Float3& angles)
+	Quaternion Quaternion::Rotation(const Float3& angles)
 	{
-		return Rotate(p, angles.x, angles.y, angles.z);
+		return Rotation(angles.x, angles.y, angles.z);
 	}
 
-	Float3 Quaternion::Rotate(const Float3& p, Float angle, const Float3& axis)
+	Float4 Quaternion::ToFloat4() const
+	{
+		return Float4(m_Scalar, m_Vector);
+	}
+
+	Mat4 Quaternion::ToMat4() const
+	{
+		Mat4 m(1.0f);
+
+		Float x, y, z, s;
+		x = m_Vector.x;
+		y = m_Vector.y;
+		z = m_Vector.z;
+		s = m_Scalar;
+
+		m[0][0] = 1 - 2 * y * y - 2 * z * z;
+		m[0][1] = 2 * x * y - 2 * s * z;
+		m[0][2] = 2 * x * z + 2 * s * y;
+		m[1][0] = 2 * x * y + 2 * s * z;
+		m[1][1] = 1 - 2 * x * x - 2 * z * z;
+		m[1][2] = 2 * y * z - 2 * s * x;
+		m[2][0] = 2 * x * z - 2 * s * y;
+		m[2][1] = 2 * y * z + 2 * s * x;
+		m[2][2] = 1 - 2 * x * x - 2 * y * y;
+
+		return m;
+	}
+
+	Quaternion Quaternion::Rotation(Float angle, const Float3& axis)
 	{
 		Float cosine = cosf(Math::Radians(angle) / 2.0f);
 		Float sine = sinf(Math::Radians(angle) / 2.0f);
 		Quaternion q(cosine, sine * Math::Normalize(axis));
 
-		Quaternion _p(0.0f, p);
-
-		return (q * _p * q.Reciprocal()).m_Vector;
+		return q;
 	}
 
-	Float3 Quaternion::Rotate(const Float3& p, Float roll, Float pitch, Float yaw)
+	Quaternion Quaternion::Rotation(Float roll, Float pitch, Float yaw)
 	{
 		Float cr = cosf(Math::Radians(roll) / 2.0f);
 		Float sr = sinf(Math::Radians(roll) / 2.0f);
@@ -98,9 +124,7 @@ namespace Tomato
 			cr * cp * sy - sr * sp * cy
 		);
 
-		Quaternion _p(0.0f, p);
-
-		return (q * _p * q.Reciprocal()).m_Vector;
+		return q;
 	}
 
 	Quaternion operator*(Float scalar, const Quaternion& q)
@@ -118,6 +142,4 @@ namespace Tomato
 		os << q.ToString();
 		return os;
 	}
-
-
 }

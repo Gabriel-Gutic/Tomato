@@ -24,10 +24,13 @@ namespace Tomato
 		friend Quaternion operator*(Float scalar, const Quaternion& q);
 		friend Quaternion operator*(const Quaternion& q, Float scalar);
 	
-		static Float3 Rotate(const Float3& p, Float angle, const Float3& axis);
-		static Float3 Rotate(const Float3& p, Float pitch, Float yaw, Float roll);
-		static Float3 Rotate(const Float3& p, const Float3& angles);
+		static Quaternion Rotation(Float angle, const Float3& axis);
+		static Quaternion Rotation(Float pitch, Float yaw, Float roll);
+		static Quaternion Rotation(const Float3& angles);
 	
+		Float4  ToFloat4() const;
+		Mat4 ToMat4() const;
+
 		friend std::ostream& operator<<(std::ostream& os, const Quaternion& q);
 	private:
 		Float m_Scalar;

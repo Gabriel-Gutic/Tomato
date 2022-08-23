@@ -5,20 +5,110 @@
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::Window::Window(class std::basic_string_view<char,struct std::char_traits<char> >,int,int)",
-      "dur": 1000966,
+      "dur": 416849,
       "pid": 0,
       "tid": 0,
-      "ts": 556,
+      "ts": 1219,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::App::App(void)",
-      "dur": 1009128,
+      "dur": 421918,
       "pid": 0,
       "tid": 0,
-      "ts": 1001522,
+      "ts": 418068,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 20,
+      "pid": 0,
+      "tid": 0,
+      "ts": 839986,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 6,
+      "pid": 0,
+      "tid": 0,
+      "ts": 840006,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 732,
+      "pid": 0,
+      "tid": 0,
+      "ts": 840012,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 4,
+      "pid": 0,
+      "tid": 0,
+      "ts": 840744,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 439,
+      "pid": 0,
+      "tid": 0,
+      "ts": 840748,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "class std::vector<class Tomato::Float2,class std::allocator<class Tomato::Float2> > __cdecl Tomato::Polygon::GenerateCoords(unsigned int)",
+      "dur": 37,
+      "pid": 0,
+      "tid": 0,
+      "ts": 841187,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "void __cdecl Tomato::Polygon::SetNumberOfSides(unsigned int)",
+      "dur": 78,
+      "pid": 0,
+      "tid": 0,
+      "ts": 841224,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 3,
+      "pid": 0,
+      "tid": 0,
+      "ts": 841302,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 427,
+      "pid": 0,
+      "tid": 0,
+      "ts": 841305,
       "ph": "X"
     }
     ,
@@ -28,47 +118,327 @@
       "dur": 11,
       "pid": 0,
       "tid": 0,
-      "ts": 2010650,
-      "ph": "X"
-    }
-    ,
-    {
-      "cat": "App Initialization",
-      "name": "void __cdecl Tomato::Polygon::SetNumberOfSides(unsigned int)",
-      "dur": 49,
-      "pid": 0,
-      "tid": 0,
-      "ts": 2010661,
-      "ph": "X"
-    }
-    ,
-    {
-      "cat": "App Initialization",
-      "name": "class std::vector<class Tomato::Float2,class std::allocator<class Tomato::Float2> > __cdecl Tomato::Polygon::GenerateCoords(unsigned int)",
-      "dur": 49,
-      "pid": 0,
-      "tid": 0,
-      "ts": 2010710,
+      "ts": 841732,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "void __cdecl Tomato::Circle::SetSmoothness(float)",
-      "dur": 108,
+      "dur": 40,
       "pid": 0,
       "tid": 0,
-      "ts": 2010759,
+      "ts": 841743,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 2,
+      "pid": 0,
+      "tid": 0,
+      "ts": 841783,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 385,
+      "pid": 0,
+      "tid": 0,
+      "ts": 841785,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 25,
+      "pid": 0,
+      "tid": 0,
+      "ts": 842170,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 4,
+      "pid": 0,
+      "tid": 0,
+      "ts": 842195,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 3,
+      "pid": 0,
+      "tid": 0,
+      "ts": 842199,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 1213,
+      "pid": 0,
+      "tid": 0,
+      "ts": 842202,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 9,
+      "pid": 0,
+      "tid": 0,
+      "ts": 843415,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 844,
+      "pid": 0,
+      "tid": 0,
+      "ts": 843424,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 4,
+      "pid": 0,
+      "tid": 0,
+      "ts": 844268,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 624,
+      "pid": 0,
+      "tid": 0,
+      "ts": 844272,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 3,
+      "pid": 0,
+      "tid": 0,
+      "ts": 844896,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 811,
+      "pid": 0,
+      "tid": 0,
+      "ts": 844899,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 10,
+      "pid": 0,
+      "tid": 0,
+      "ts": 845710,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 851,
+      "pid": 0,
+      "tid": 0,
+      "ts": 845720,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 3,
+      "pid": 0,
+      "tid": 0,
+      "ts": 846571,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Color &__cdecl Tomato::Registry::Add<struct Tomato::Color>(const class Tomato::UUID &)",
+      "dur": 564,
+      "pid": 0,
+      "tid": 0,
+      "ts": 846574,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 4,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847138,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 8,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847142,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Get<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 2,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847150,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 15,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847152,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Get<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 2,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847167,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 2,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847169,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Get<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 2,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847171,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 2,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847173,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Get<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 1,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847175,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 9,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847176,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Get<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 2,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847185,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Add<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 3,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847187,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Get<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 2,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847190,
+      "ph": "X"
+    }
+    ,
+    {
+      "cat": "App Initialization",
+      "name": "struct Tomato::Transform &__cdecl Tomato::Registry::Get<struct Tomato::Transform>(const class Tomato::UUID &)",
+      "dur": 1,
+      "pid": 0,
+      "tid": 0,
+      "ts": 847192,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "class Tomato::App *__cdecl Tomato::App::Create(void)",
-      "dur": 1189471,
+      "dur": 550273,
       "pid": 0,
       "tid": 0,
-      "ts": 2010867,
+      "ts": 847193,
       "ph": "X"
     }
   ]

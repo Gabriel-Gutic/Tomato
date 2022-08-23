@@ -8,58 +8,56 @@ namespace Tomato
 {
 	Cube::Cube()
 	{
-		AddComponent(std::make_shared<Transform>());
-		AddComponent(std::make_shared<Color>());
 		//Bottom
 		{
 			m_Sides[CubeSide::Bottom] = Quad();
-			auto& tran = *m_Sides[CubeSide::Bottom].GetComponent<Transform>();
-			tran.SetRotation(Float3(90.0f, 0.0f, 0.0f));
-			tran.SetPosition(Float3(0.0f, -0.5f, 0.0f));
-			m_Sides[CubeSide::Bottom].GetComponent<Color>()->SetRGBA(Float4(1.0f, 0.5f, 0.5f, 1.0f));
+			auto& tran = m_Sides[CubeSide::Bottom].AddComponent<Transform>();
+			tran.Rotation = Float3(90.0f, 0.0f, 0.0f);
+			tran.Position = Float3(0.0f, -0.5f, 0.0f);
+			m_Sides[CubeSide::Bottom].AddComponent<Color>().rgba = Float4(1.0f, 0.5f, 0.5f, 1.0f);
 		}
 
 		//Top
 		{
 			m_Sides[CubeSide::Top] = Quad();
-			auto& tran = *m_Sides[CubeSide::Top].GetComponent<Transform>();
-			tran.SetRotation(Float3(90.0f, 0.0f, 0.0f));
-			tran.SetPosition(Float3( 0.0f, 0.5f, 0.0f));
-			m_Sides[CubeSide::Top].GetComponent<Color>()->SetRGBA(Float4(1.0f, 1.0f, 0.5f, 1.0f));
+			auto& tran = m_Sides[CubeSide::Top].AddComponent<Transform>();
+			tran.Rotation = Float3(90.0f, 0.0f, 0.0f);
+			tran.Position = Float3( 0.0f, 0.5f, 0.0f);
+			m_Sides[CubeSide::Top].AddComponent<Color>().rgba = Float4(1.0f, 1.0f, 0.5f, 1.0f);
 		}
 		
 		//East
 		{
 			m_Sides[CubeSide::East] = Quad();
-			auto& tran = *m_Sides[CubeSide::East].GetComponent<Transform>();
-			tran.SetRotation(Float3(0.0f, 90.0f, 0.0f));
-			tran.SetPosition(Float3(0.5f, 0.0f, 0.0f));
-			m_Sides[CubeSide::East].GetComponent<Color>()->SetRGBA(Float4(0.0f, 0.0f, 1.0f, 1.0f));
+			auto& tran = m_Sides[CubeSide::East].AddComponent<Transform>();
+			tran.Rotation = Float3(0.0f, 90.0f, 0.0f);
+			tran.Position = Float3(0.5f,  0.0f, 0.0f);
+			m_Sides[CubeSide::East].AddComponent<Color>().rgba = Float4(0.0f, 0.0f, 1.0f, 1.0f);
 		}
 
 		//West
 		{
 			m_Sides[CubeSide::West] = Quad();
-			auto& tran = *m_Sides[CubeSide::West].GetComponent<Transform>();
-			tran.SetRotation(Float3(0.0f, 90.0f, 0.0f));
-			tran.SetPosition(Float3(-0.5f, 0.0f, 0.0f));
-			m_Sides[CubeSide::West].GetComponent<Color>()->SetRGBA(Float4(0.0f, 1.0f, 0.0f, 1.0f));
+			auto& tran = m_Sides[CubeSide::West].AddComponent<Transform>();
+			tran.Rotation = Float3(0.0f, 90.0f, 0.0f);
+			tran.Position = Float3(-0.5f, 0.0f, 0.0f);
+			m_Sides[CubeSide::West].AddComponent<Color>().rgba = Float4(0.0f, 1.0f, 0.0f, 1.0f);
 		}
 
 		//North
 		{
 			m_Sides[CubeSide::North] = Quad();
-			auto& tran = *m_Sides[CubeSide::North].GetComponent<Transform>();
-			tran.SetPosition(Float3(0.0f, 0.0f, -0.5f));
-			m_Sides[CubeSide::North].GetComponent<Color>()->SetRGBA(Float4(1.0f, 0.0f, 1.0f, 1.0f));
+			auto& tran = m_Sides[CubeSide::North].AddComponent<Transform>();
+			tran.Position = Float3(0.0f, 0.0f, -0.5f);
+			m_Sides[CubeSide::North].AddComponent<Color>().rgba = Float4(1.0f, 0.0f, 1.0f, 1.0f);
 		}
 
 		//South
 		{
 			m_Sides[CubeSide::South] = Quad();
-			auto& tran = *m_Sides[CubeSide::South].GetComponent<Transform>();
-			tran.SetPosition(Float3(0.0f, 0.0f, 0.5f));
-			m_Sides[CubeSide::South].GetComponent<Color>()->SetRGBA(Float4(1.0f, 1.0f, 0.0f, 1.0f));
+			auto& tran = m_Sides[CubeSide::South].AddComponent<Transform>();
+			tran.Position = Float3(0.0f, 0.0f, 0.5f);
+			m_Sides[CubeSide::South].AddComponent<Color>().rgba = Float4(1.0f, 1.0f, 0.0f, 1.0f);
 		}
 	}
 
