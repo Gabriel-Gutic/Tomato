@@ -9,6 +9,3 @@
 [submodule "Tomato/Tomato/dependencies/yaml-cpp/yaml-cpp"]
 	path = Tomato/Tomato/dependencies/yaml-cpp/yaml-cpp
 	url = https://github.com/TheCherno/yaml-cpp.git
-[submodule "Tomato/Tomato/dependencies/entt/entt"]
-	path = Tomato/Tomato/dependencies/entt/entt
-	url = https://github.com/skypjack/entt.git
