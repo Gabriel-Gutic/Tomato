@@ -14,7 +14,7 @@
 *.userprefs
 
 # User-specific dirs/files
-Tomato/TomatoApp/benchmarking/*
+Tomato/TomatoApp/benchmarking
 
 # Mono auto generated files
 mono_crash.*
