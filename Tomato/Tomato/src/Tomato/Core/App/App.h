@@ -33,6 +33,7 @@ namespace Tomato
 		static const std::unique_ptr<Scene>& SetCurrentScene(std::string_view name);
 		static const std::unique_ptr<Scene>& GetCurrentScene();
 		static const std::string& GetCurrentSceneName();
+		static void SetSceneName(std::string_view old_name, std::string_view new_name);
 		static void InitSceneSerializer(std::string_view sceneName, std::string_view  filePath);
 
 		static void PushImGuiLayer(std::string_view name, ImGuiLayer* layer);

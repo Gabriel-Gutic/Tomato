@@ -14,7 +14,6 @@
 #include "Renderer/Camera.h"
 
 #include "Renderer/Renderer.h"
-#include "Component/Registry.h"
 
 
 namespace Tomato
@@ -165,6 +164,16 @@ namespace Tomato
 	const std::string& App::GetCurrentSceneName()
 	{
 		return s_Instance->m_CurrentSceneName;
+	}
+
+	void App::SetSceneName(std::string_view old_name, std::string_view new_name)
+	{
+		auto& ins = s_Instance;
+		TOMATO_ASSERT(ins->m_SceneMap.find(old_name.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", old_name.data());
+	
+		auto nodeHandler = ins->m_SceneMap.extract(old_name.data());
+		nodeHandler.key() = new_name.data();
+		ins->m_SceneMap.insert(std::move(nodeHandler));
 	}
 
 	void App::InitSceneSerializer(std::string_view sceneName, std::string_view filePath)

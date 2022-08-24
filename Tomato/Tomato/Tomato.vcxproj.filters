@@ -4,9 +4,6 @@
     <Filter Include="Tomato">
       <UniqueIdentifier>{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tomato\Component">
-      <UniqueIdentifier>{7B66FA58-675F-19AB-9091-FE2F7CE9F8B6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tomato\Core">
       <UniqueIdentifier>{D13E2174-3DF4-9969-C6E8-9340329D906D}</UniqueIdentifier>
     </Filter>
@@ -61,15 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Tomato.h" />
-    <ClInclude Include="src\Tomato\Component\Color.h">
-      <Filter>Tomato\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Component\Registry.h">
-      <Filter>Tomato\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Component\Transform.h">
-      <Filter>Tomato\Component</Filter>
-    </ClInclude>
     <ClInclude Include="src\Tomato\Core\App\App.h">
       <Filter>Tomato\Core\App</Filter>
     </ClInclude>
@@ -172,28 +160,7 @@
     <ClInclude Include="src\Tomato\GUI\GUI.h">
       <Filter>Tomato\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Object\2D\Circle.h">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Object\2D\Object2D.h">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Object\2D\Polygon.h">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Object\2D\Quad.h">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Object\2D\Triangle.h">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Object\3D\Cube.h">
-      <Filter>Tomato\Object\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Object\3D\Object3D.h">
-      <Filter>Tomato\Object\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Object\Object.h">
+    <ClInclude Include="src\Tomato\Core\App\Object.h">
       <Filter>Tomato\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h">
@@ -242,17 +209,12 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\Component.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Registry.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\RendererComponent.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Tomato\Component\Color.cpp">
-      <Filter>Tomato\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Component\Registry.cpp">
-      <Filter>Tomato\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Component\Transform.cpp">
-      <Filter>Tomato\Component</Filter>
-    </ClCompile>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
       <Filter>Tomato\Core\App</Filter>
     </ClCompile>
@@ -313,22 +275,7 @@
     <ClCompile Include="src\Tomato\GUI\GUI.cpp">
       <Filter>Tomato\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Object\2D\Circle.cpp">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Object\2D\Polygon.cpp">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Object\2D\Quad.cpp">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Object\2D\Triangle.cpp">
-      <Filter>Tomato\Object\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Object\3D\Cube.cpp">
-      <Filter>Tomato\Object\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Tomato\Object\Object.cpp">
+    <ClCompile Include="src\Tomato\Core\App\Object.cpp">
       <Filter>Tomato\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp">
@@ -377,5 +324,8 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Registry.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Component\RendererComponent.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Component\TransformComponent.cpp" />
   </ItemGroup>
 </Project>

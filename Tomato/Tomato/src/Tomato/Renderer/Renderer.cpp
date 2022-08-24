@@ -7,8 +7,6 @@
 #include "Core/App/App.h"
 #include "GUI/GUI.h"
 
-#include "Component/Color.h"
-
 
 namespace Tomato
 {
@@ -110,185 +108,160 @@ namespace Tomato
 		s_Instance->m_BackgroundColor = color;
 	}
 
-	void Renderer::Draw(const Triangle& triangle, std::shared_ptr<Texture> texture, const Mat4& transform)
+	void Renderer::DrawTriangle(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
-		auto vertices = Triangle::Vertices;
-		if (RendererData::VertexCounter + vertices.size() >= RendererData::MaxVertexNumber)
+		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber)
 			Flush();
 
-		Float texIndex = -1.0f;
-		if (texture)
-		{
-			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
-			{
-				if (texture == RendererData::TextureSlots[i])
-					texIndex = static_cast<Float>(texIndex);
-			}
-			if (texIndex == -1.0f)
-			{
-				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
-					Flush();
-				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
-				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
-			}
-		}
+		auto& rend = entity.GetComponent<Component::Renderer>();
+		Float texIndex = GetTextureIndex(texture);
 
-		Mat4 tran = triangle.GetComponent<Transform>().Get();
-		Float4 color = triangle.GetComponent<Color>().rgba;
-		for (auto& vertex : vertices)
+		Vertex v1;
+		v1.Coords = Float3(0.0f, -0.5f + sqrtf(3) / 2.0f, 0.0f);
+		v1.Color = rend.Color;
+		v1.TexCoords = Float2(0.5f, 1.0f);
+		v1.TexIndex = texIndex;
+
+		Vertex v2;
+		v2.Coords = Float3(-0.5f, -0.5f, 0.0f);
+		v2.Color = rend.Color;
+		v2.TexCoords = Float2(0.0f, 0.0f);
+		v2.TexIndex = texIndex;
+
+		Vertex v3;
+		v3.Coords = Float3(0.5f, -0.5f, 0.0f);
+		v3.Color = rend.Color;
+		v3.TexCoords = Float2(1.0f, 0.0f);
+		v3.TexIndex = texIndex;
+
+		if (entity.HasComponent<Component::Transform>())
 		{
-			Float3 coords = (transform * tran * Float4(vertex.first, Float2(0.0f, 1.0f))).xyz;
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, vertex.second);
+			auto tran = entity.GetComponent<Component::Transform>().Get();
+
+			v1.Coords = (tran * Float4(v1.Coords, 1.0f)).xyz;
+			v2.Coords = (tran * Float4(v2.Coords, 1.0f)).xyz;
+			v3.Coords = (tran * Float4(v3.Coords, 1.0f)).xyz;
 		}
+		RendererData::Vertices[RendererData::VertexCounter++] = v1;
+		RendererData::Vertices[RendererData::VertexCounter++] = v2;
+		RendererData::Vertices[RendererData::VertexCounter++] = v3;
 	}
 
-	void Renderer::Draw(const Quad& quad, std::shared_ptr<Tilemap> tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform)
+	void Renderer::DrawQuad(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
-		auto vertices = quad.Vertices;
-		auto indices = quad.Indices;
+		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
+			Flush();
+
+		auto& rend = entity.GetComponent<Component::Renderer>();
+		Float texIndex = GetTextureIndex(texture);
+
+		std::array<Vertex, 4> vertices;
+
+		
+		vertices[0].Coords = Float3(-0.5f, 0.5f, 0.0f);
+		vertices[0].Color = rend.Color;
+		vertices[0].TexCoords = Float2(0.0f, 1.0f);
+		vertices[0].TexIndex = texIndex;
+
+		vertices[1].Coords = Float3(-0.5f, -0.5f, 0.0f);
+		vertices[1].Color = rend.Color;
+		vertices[1].TexCoords = Float2(0.0f, 0.0f);
+		vertices[1].TexIndex = texIndex;
+
+		vertices[2].Coords = Float3(0.5f, -0.5f, 0.0f);
+		vertices[2].Color = rend.Color;
+		vertices[2].TexCoords = Float2(1.0f, 0.0f);
+		vertices[2].TexIndex = texIndex;
+
+		vertices[3].Coords = Float3(0.5f, 0.5f, 0.0f);
+		vertices[3].Color = rend.Color;
+		vertices[3].TexCoords = Float2(1.0f, 1.0f);
+		vertices[3].TexIndex = texIndex;
+
+		if (entity.HasComponent<Component::Transform>())
+		{
+			auto tran = entity.GetComponent<Component::Transform>().Get();
+
+			for (auto& vertex : vertices)
+				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
+		}
+		std::array<UInt, 6> indices = { 0, 1, 2, 1, 2, 3 };
+		for (const auto& index : indices)
+			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
+	}
+
+	void Renderer::DrawQuad(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform)
+	{
+		TOMATO_BENCHMARKING_FUNCTION();
+		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
+			Flush();
+
+		auto& rend = entity.GetComponent<Component::Renderer>();
+		Float texIndex = GetTextureIndex(tilemap->GetTexture());
+
+		std::array<Vertex, 4> vertices;
+		vertices[0].Coords = Float3(-0.5f, -0.5f, 0.0f);
+		vertices[1].Coords = Float3(-0.5f,  0.5f, 0.0f);
+		vertices[2].Coords = Float3( 0.5f, -0.5f, 0.0f);
+		vertices[3].Coords = Float3( 0.5f,  0.5f, 0.0f);
+
+		auto texCoords = tilemap->GetTexCoords(row, col, rowspan, colspan);
+		for (UInt i = 0; i < 4; i++)
+		{
+			vertices[i].Color = rend.Color;
+			vertices[i].TexCoords = texCoords[i];
+			vertices[i].TexIndex = texIndex;
+		}
+		
+		if (entity.HasComponent<Component::Transform>())
+		{
+			auto tran = entity.GetComponent<Component::Transform>().Get();
+
+			for (auto& vertex : vertices)
+				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
+		}
+		std::array<UInt, 6> indices = { 0, 1, 2, 1, 2, 3 };
+		for (const auto& index : indices)
+			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
+	}
+
+	void Renderer::DrawPolygon(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
+	{
+		const UInt nr = 6;
+		std::vector<UInt> indices = Math::GeneratePolygonIndices(nr);
+		TOMATO_BENCHMARKING_FUNCTION();
 		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
 			Flush();
 
-		Float texIndex = -1.0f;
-		if (tilemap->GetTexture())
+		auto& rend = entity.GetComponent<Component::Renderer>();
+		Float texIndex = GetTextureIndex(texture);
+
+		std::vector<Float2> coords = Math::GeneratePolygonCoords(nr);
+		std::array<Vertex, nr + 1> vertices;
+
+		for (UInt i = 0; i <= nr; i++)
 		{
-			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
-			{
-				if (tilemap->GetTexture() == RendererData::TextureSlots[i])
-					texIndex = static_cast<Float>(texIndex);
-			}
-			if (texIndex == -1.0f)
-			{
-				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
-					Flush();
-				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
-				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = tilemap->GetTexture();
-			}
+			vertices[i].Coords.xy = coords[i];
+			vertices[i].Color = rend.Color;
+			vertices[i].TexCoords = Float2();
+			vertices[i].TexIndex = texIndex;
 		}
 
-		Mat4 tran = quad.GetComponent<Transform>().Get();
-		Float4 color = quad.GetComponent<Color>().rgba;
+		if (entity.HasComponent<Component::Transform>())
+		{
+			auto tran = entity.GetComponent<Component::Transform>().Get();
+
+			for (auto& vertex : vertices)
+				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
+		}
 		for (const auto& index : indices)
-		{
-			const auto& vertex = vertices[index];
-			Float3 coords = (transform * tran * Float4(vertex.first, Float2(0.0f, 1.0f))).xyz;
-			Float2 texCoords = vertex.second;
-			Float2 tl = Float2(row * tilemap->GetTileWidth(), 1.0 - col * tilemap->GetTileHeight());
-			if (texCoords == Float2(0.0f, 1.0f))
-				texCoords = tl;
-			else if (texCoords == Float2(1.0f, 1.0f))
-				texCoords = Float2(tl.x + colspan * tilemap->GetTileWidth(), tl.y);
-			else if (texCoords == Float2(0.0f, 0.0f))
-				texCoords = Float2(tl.x, tl.y - rowspan * tilemap->GetTileHeight());
-			else if (texCoords == Float2(1.0f, 0.0f))
-				texCoords = Float2(tl.x + colspan * tilemap->GetTileWidth(), tl.y - rowspan * tilemap->GetTileHeight());
-
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, texCoords);
-		}
+			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
 	}
 
-	void Renderer::Draw(const Quad& quad, std::shared_ptr<Texture> texture, const Mat4& transform)
+	void Renderer::DrawCircle(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
 	{
-		TOMATO_BENCHMARKING_FUNCTION();
-		auto vertices = quad.Vertices;
-		auto indices = quad.Indices;
-		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
-			Flush();
-
-		Float texIndex = -1.0f;
-		if (texture)
-		{
-			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
-			{
-				if (texture == RendererData::TextureSlots[i])
-					texIndex = static_cast<Float>(texIndex);
-			}
-			if (texIndex == -1.0f)
-			{
-				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
-					Flush();
-				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
-				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
-			}
-		}
-
-		Mat4 tran = quad.GetComponent<Transform>().Get();
-		Float4 color = quad.GetComponent<Color>().rgba;
-		for (const auto& index : indices)
-		{
-			Float3 coords = (transform * tran * Float4(vertices[index].first, Float2(0.0f, 1.0f))).xyz;
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, vertices[index].second);
-		}
-	}
-
-	void Renderer::Draw(const Polygon& polygon, std::shared_ptr<Texture> texture, const Mat4& transform)
-	{
-		TOMATO_BENCHMARKING_FUNCTION();
-		auto& vertices = polygon.GetVertices();
-		auto indices = polygon.GetIndices();
-		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
-			Flush();
-
-		Float texIndex = -1.0f;
-		if (texture)
-		{
-			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
-			{
-				if (texture == RendererData::TextureSlots[i])
-					texIndex = static_cast<Float>(texIndex);
-			}
-			if (texIndex == -1.0f)
-			{
-				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
-					Flush();
-				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
-				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
-			}
-		}
-
-		Mat4 tran = polygon.GetComponent<Transform>().Get();
-		Float4 color = polygon.GetComponent<Color>().rgba;
-		for (const auto& index : indices)
-		{
-			Float3 coords = (transform * tran * Float4(vertices[index].Coords, 1.0f)).xyz;
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, vertices[index].TexCoords);
-		}
-	}
-
-	void Renderer::Draw(const Circle& circle, std::shared_ptr<Texture> texture, const Mat4& transform)
-	{
-		TOMATO_BENCHMARKING_FUNCTION();
-		auto& vertices = circle.GetVertices();
-		auto indices = circle.GetIndices();
-		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
-			Flush();
-
-		Float texIndex = -1.0f;
-		if (texture)
-		{
-			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
-			{
-				if (texture == RendererData::TextureSlots[i])
-					texIndex = static_cast<Float>(texIndex);
-			}
-			if (texIndex == -1.0f)
-			{
-				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
-					Flush();
-				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
-				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
-			}
-		}
-
-		Mat4 tran = circle.GetComponent<Transform>().Get();
-		Float4 color = circle.GetComponent<Color>().rgba;
-		for (const auto& index : indices)
-		{
-			Float3 coords = (transform * tran * Float4(vertices[index].Coords, 1.0f)).xyz;
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, color, texIndex, vertices[index].TexCoords);
-		}
 	}
 
 	void Renderer::Flush()
@@ -321,5 +294,26 @@ namespace Tomato
 		RendererData::TextureSlotsCounter = 0;
 
 		VertexArray::Unbind();
+	}
+
+	Float Renderer::GetTextureIndex(const std::shared_ptr<Texture>& texture)
+	{
+		Float texIndex = -1.0f;
+		if (texture)
+		{
+			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
+			{
+				if (texture == RendererData::TextureSlots[i])
+					texIndex = static_cast<Float>(texIndex);
+			}
+			if (texIndex == -1.0f)
+			{
+				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
+					Flush();
+				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
+				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
+			}
+		}
+		return texIndex;
 	}
 }

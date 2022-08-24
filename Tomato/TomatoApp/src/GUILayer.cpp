@@ -13,7 +13,7 @@ void GUILayer::OnUpdate()
 	Tomato::Renderer::SetBackgroundColor(m_BackgroundColor);
 
 	const auto& camera = Tomato::App::GetCurrentCamera();
-	camera->GetComponent<Tomato::Transform>().Rotation = m_CameraRotation;
+	camera->GetComponent<Tomato::Component::Transform>().Rotation = m_CameraRotation;
 
 	const auto& window = Tomato::App::GetWindow();
 

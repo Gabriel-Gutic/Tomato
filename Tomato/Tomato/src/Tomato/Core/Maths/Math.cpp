@@ -81,6 +81,50 @@ namespace Tomato
 		return value ? "True" : "False";
 	}
 
+	std::vector<Float2> Math::GeneratePolygonCoords(UInt numberOfSides)
+	{
+		TOMATO_BENCHMARKING_FUNCTION();
+		TOMATO_ASSERT(numberOfSides >= 3, "You can't create a polygon with {0} sides", numberOfSides);
+		Float angle = 360.0f / static_cast<Float>(numberOfSides);
+
+		std::vector<Float2> vec;
+		vec.reserve(numberOfSides + 1);
+
+		vec.emplace_back();
+		vec.emplace_back(0.0f, 0.5f);
+
+		Float radius = 0.5f;
+		Float2 center = Float2();
+		Float t = acosf((vec[1].x - center.x) / radius);
+
+		for (UInt i = 1; i < numberOfSides; i++)
+		{
+			vec.emplace_back(center.x + radius * cosf(t - Math::Radians(angle)), center.y + radius * sinf(t - Math::Radians(angle)));
+			t -= Math::Radians(angle);
+		}
+
+		return vec;
+	}
+
+	std::vector<UInt> Math::GeneratePolygonIndices(UInt numberOfSides)
+	{
+		TOMATO_BENCHMARKING_FUNCTION();
+
+		std::vector<UInt> indices;
+		indices.reserve(3 * numberOfSides);
+		for (UInt i = 0; i < numberOfSides; i++)
+		{
+			indices.push_back(0);
+			indices.push_back(i + 1);
+			if (i + 2 > numberOfSides)
+				indices.push_back(1);
+			else
+				indices.push_back(i + 2);
+		}
+
+		return indices;
+	}
+
 	Int Math::RandomInt(Int a, Int b)
 	{
 		std::random_device rd;

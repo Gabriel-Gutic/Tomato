@@ -1,24 +1,5 @@
 Scene: Main Scene
-Objects:
-  circle:
-    Transform:
-      Position:
-        - 0
-        - 0
-        - 0
-      Scale:
-        - 1
-        - 1
-        - 1
-      Rotation:
-        - 0
-        - 0
-        - 0
-    Color:
-      Red: 0.184062093
-      Green: 0.181101546
-      Blue: 0.511210799
-      Alpha: 1
+Entities:
   poly:
     Transform:
       Position:
@@ -33,30 +14,34 @@ Objects:
         - 0
         - 0
         - 0
-    Color:
-      Red: 1
-      Green: 1
-      Blue: 1
-      Alpha: 1
+    Renderer:
+      Sprite: None
+      Color:
+        - 1
+        - 1
+        - 1
+        - 1
   quad:
     Transform:
       Position:
-        - 0
+        - 1.79999995
         - 0
         - 0
       Scale:
         - 1
         - 1
-        - 1
+        - -8.60000038
       Rotation:
         - 0
+        - 23.2999992
         - 0
-        - 0
-    Color:
-      Red: 1
-      Green: 1
-      Blue: 1
-      Alpha: 1
+    Renderer:
+      Sprite: None
+      Color:
+        - 1
+        - 1
+        - 1
+        - 1
   triangle:
     Transform:
       Position:
@@ -71,8 +56,10 @@ Objects:
         - 0
         - 0
         - 0
-    Color:
-      Red: 1
-      Green: 1
-      Blue: 1
-      Alpha: 1
+    Renderer:
+      Sprite: None
+      Color:
+        - 1
+        - 1
+        - 1
+        - 1

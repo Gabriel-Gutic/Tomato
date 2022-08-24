@@ -30,4 +30,16 @@ namespace Tomato
 	{
 		return m_Texture;
 	}
+
+	//(0, 0); (0, 1); (1, 0); (1, 1) 
+	std::array<Float2, 4> Tilemap::GetTexCoords(UInt row, UInt col, UInt rowspan, UInt colspan)
+	{
+		Float2 tl = Float2(row * this->GetTileWidth(), 1.0 - col * this->GetTileHeight());
+		std::array<Float2, 4> arr;
+		arr[0] = Float2(tl.x, tl.y - rowspan * this->GetTileHeight());
+		arr[1] = tl;
+		arr[2] = Float2(tl.x + colspan * this->GetTileWidth(), tl.y - rowspan * this->GetTileHeight());
+		arr[3] = Float2(tl.x + colspan * this->GetTileWidth(), tl.y);
+		return arr;
+	}
 }

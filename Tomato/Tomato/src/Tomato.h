@@ -12,20 +12,11 @@
 //Renderer
 #include "Tomato/Renderer/Renderer.h"
 #include "Tomato/Renderer/Scene/Scene.h"
+#include "Tomato/Renderer/Scene/Component/Component.h"
+#include "Tomato/Core/Serializer/Serializer.h"
 #include "Tomato/Renderer/Scene/SceneSerializer.h"
 #include "Tomato/Renderer/Texture/Texture.h"
 #include "Tomato/Renderer/Texture/Tilemap.h"
-
-// Object
-#include "Tomato/Object/2D/Triangle.h"
-#include "Tomato/Object/2D/Quad.h"
-#include "Tomato/Object/2D/Polygon.h"
-#include "Tomato/Object/2D/Circle.h"
-#include "Tomato/Object/3D/Cube.h"
-
-// Component
-#include "Tomato/Component/Transform.h"
-#include "Tomato/Component/Color.h"
 
 //ImGui
 #include <imgui/imgui.h>

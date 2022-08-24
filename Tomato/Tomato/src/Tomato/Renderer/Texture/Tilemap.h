@@ -14,6 +14,8 @@ namespace Tomato
 		Float GetTileHeight() const;
 
 		std::shared_ptr<Texture> GetTexture() const;
+
+		std::array<Float2, 4> GetTexCoords(UInt row, UInt col, UInt rowspan, UInt colspan);
 	private:
 		std::shared_ptr<Texture> m_Texture;
 		UInt m_RawTileWidth, m_RawTileHeight;

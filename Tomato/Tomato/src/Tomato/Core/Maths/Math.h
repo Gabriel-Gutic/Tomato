@@ -19,6 +19,9 @@ namespace Tomato::Math
 	std::string ToString(Double number, UInt precision = 2);
 	std::string ToString(Bool value);
 
+	std::vector<Float2> GeneratePolygonCoords(UInt numberOfSides);
+	std::vector<UInt> GeneratePolygonIndices(UInt numberOfSides);
+
 	//Generate random int value on the closed interval [a, b]
 	Int RandomInt(Int a, Int b);
 	//Generate random floating-point value on the interval [a, b)

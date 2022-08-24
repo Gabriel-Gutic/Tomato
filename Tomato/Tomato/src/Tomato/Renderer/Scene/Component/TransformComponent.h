@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace Tomato
+namespace Tomato::Component
 {
 	struct Transform
 	{

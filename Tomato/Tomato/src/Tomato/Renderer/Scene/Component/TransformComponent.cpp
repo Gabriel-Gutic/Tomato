@@ -1,10 +1,10 @@
 #include "pchTomato.h"
-#include "Transform.h"
+#include "TransformComponent.h"
 
 #include <imgui/imgui.h>
 
 
-namespace Tomato
+namespace Tomato::Component
 {
 	Transform::Transform(const Float3& position, const Float3& scale, const Float3& rotation)
 		:Position(position), Scale(scale), Rotation(rotation)

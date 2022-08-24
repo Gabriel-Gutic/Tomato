@@ -33,13 +33,13 @@ namespace Tomato
 	template<typename T>
 	inline T& Registry::Add(const UUID& uuid)
 	{
-		return m_Buffer.get_or_emplace<T>(uuid.Get());
+		return m_Buffer.emplace_or_replace<T>(uuid.Get());
 	}
 
 	template<typename T, class ...Args>
 	inline T& Registry::Add(const UUID& uuid, Args && ...args)
 	{
-		return m_Buffer.get_or_emplace<T>(uuid.Get(), args);
+		return m_Buffer.emplace_or_replace<T>(uuid.Get(), std::forward<Args>(args)...);
 	}
 
 	template<typename T>

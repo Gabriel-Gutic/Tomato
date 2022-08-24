@@ -11,7 +11,7 @@ public:
 	virtual void OnUpdate() override;
 private:
 	std::unordered_map<std::string, std::shared_ptr<Tomato::Texture>> m_Textures;
-	std::shared_ptr<Tomato::Cube> m_Cube;
+	//std::shared_ptr<Tomato::Cube> m_Cube;
 	Tomato::Timer m_Timer;
 };
 

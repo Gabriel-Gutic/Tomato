@@ -3,7 +3,7 @@
 
 struct Tile
 {
-	Tomato::Quad Quad;
+	Tomato::Entity Quad;
 	Tomato::UInt Row, Col;
 	Tomato::UInt Rowspan = 1, Colspan;
 

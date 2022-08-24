@@ -2,10 +2,8 @@
 #include "SceneSerializer.h"
 
 #include "Core/App/App.h"
-#include "Object/2D/Object2D.h"
 
-#include "Component/Transform.h"
-#include "Component/Color.h"
+#include "Component/Component.h"
 
 
 namespace Tomato
@@ -19,31 +17,27 @@ namespace Tomato
 	{
 		out << YAML::BeginMap;
 		
-		if (entity->HasComponent<Transform>())
+		if (entity->HasComponent<Component::Transform>())
 		{
-			auto& tran = entity->GetComponent<Transform>();
+			auto& tran = entity->GetComponent<Component::Transform>();
 			out << YAML::Key << "Transform"
 				<< YAML::Value << YAML::BeginMap
-				<< YAML::Key << "Position" << YAML::Value << YAML::BeginSeq
-				<< tran.Position.x << tran.Position.y << tran.Position.z
-				<< YAML::EndSeq
-				<< YAML::Key << "Scale" << YAML::Value << YAML::BeginSeq
-				<< tran.Scale.x << tran.Scale.y << tran.Scale.z
-				<< YAML::EndSeq
-				<< YAML::Key << "Rotation" << YAML::Value << YAML::BeginSeq
-				<< tran.Rotation.x << tran.Rotation.y << tran.Rotation.z
-				<< YAML::EndSeq
-				<< YAML::EndMap;
+				<< YAML::Key << "Position" << YAML::Value;
+			EncodeFloat3(out, tran.Position);
+			out << YAML::Key << "Scale" << YAML::Value;
+			EncodeFloat3(out, tran.Scale);
+			out << YAML::Key << "Rotation" << YAML::Value;
+			EncodeFloat3(out, tran.Rotation);
+			out	<< YAML::EndMap;
 		}
-		if (entity->HasComponent<Color>())
+		if (entity->HasComponent<Component::Renderer>())
 		{
-			auto& color = entity->GetComponent<Color>();
-			out << YAML::Key << "Color" << YAML::Value << YAML::BeginMap
-				<< YAML::Key << "Red" << YAML::Value << color.Red
-				<< YAML::Key << "Green" << YAML::Value << color.Green
-				<< YAML::Key << "Blue" << YAML::Value << color.Blue
-				<< YAML::Key << "Alpha" << YAML::Value << color.Alpha
-				<< YAML::EndMap;
+			auto& render = entity->GetComponent<Component::Renderer>();
+			out << YAML::Key << "Renderer" << YAML::Value << YAML::BeginMap
+				<< YAML::Key << "Sprite" << YAML::Value << render.Sprite
+				<< YAML::Key << "Color" << YAML::Value;
+			EncodeFloat4(out, render.Color);
+			out << YAML::EndMap;
 		}
 
 		out << YAML::EndMap;
@@ -55,7 +49,7 @@ namespace Tomato
 
 		out << YAML::BeginMap;
 		out << YAML::Key << "Scene" << YAML::Value << m_SceneName;
-		out << YAML::Key << "Objects" << YAML::Value << YAML::BeginMap;
+		out << YAML::Key << "Entities" << YAML::Value << YAML::BeginMap;
 		for (const auto& [name, entity] : App::GetScenes()[m_SceneName]->GetEntities())
 		{
 			if (!entity)
@@ -75,31 +69,50 @@ namespace Tomato
 	{
 		TOMATO_PRINT("Deserialization for scene '{0}'", m_SceneName);
 
-		//for (YAML::const_iterator it = m_Data["Objects"].begin(); it != m_Data["Objects"].end(); ++it)
-		//{
-		//	std::string name = it->first.as<std::string>();
-		//	std::string type = it->second["Type"].as<std::string>();
+		YAML::Node data = YAML::LoadFile(m_FilePath);
 
-		//	//if (type == "Quad")
-		//	//{
-		//	//	Quad quad = it->second["Data"].as<Quad>();
-		//	//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Quad>(quad));
-		//	//}
-		//	//else if (type == "Triangle")
-		//	//{
-		//	//	Triangle triangle = it->second["Data"].as<Triangle>();
-		//	//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Triangle>(triangle));
-		//	//}
-		//	//else if (type == "Polygon")
-		//	//{
-		//	//	Polygon poly = it->second["Data"].as<Polygon>();
-		//	//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Polygon>(poly));
-		//	//}
-		//	//else if (type == "Circle")
-		//	//{
-		//	//	Circle circle = it->second["Data"].as<Circle>();
-		//	//	App::GetScenes()[m_SceneName]->PushObject(name, std::make_shared<Circle>(circle));
-		//	//}
-		//}
+		if (!data["Scene"])
+		{
+			TOMATO_PRINT("Failed to deserialize scene '{0}'", m_SceneName);
+			return;
+		}
+
+		std::string new_name = data["Scene"].as<std::string>();
+		if (m_SceneName != new_name)
+		{
+			App::SetSceneName(m_SceneName, new_name);
+			m_SceneName = new_name;
+		}
+
+		auto entities = data["Entities"];
+
+		if (entities)
+		{
+			for (const auto& entity : entities)
+			{
+				std::string name = entity.first.as<std::string>();
+				auto& ent = App::GetScenes()[m_SceneName]->PushEntity(name, std::make_shared<Entity>());
+				auto entity_data = entity.second;
+				
+				if (entity_data)
+				{
+					for (const auto& comp : entity_data)
+					{
+						std::string name_c = comp.first.as<std::string>();
+						if (name_c == "Transform")
+						{
+							auto tran = DecodeTransform(comp.second);
+							TOMATO_PRINT(tran.Position.ToString());
+							ent->AddComponent<Component::Transform>(tran.Position, tran.Scale, tran.Rotation);
+						}
+						else if (name_c == "Renderer")
+						{
+							auto rend = DecodeRenderer(comp.second);
+							ent->AddComponent<Component::Renderer>(rend.Sprite, rend.Color);
+						}
+					}
+				}
+			}
+		}
 	}
 }

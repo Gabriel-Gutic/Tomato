@@ -5,11 +5,7 @@
 #include "Renderer/Buffer/FrameBuffer.h"
 #include "Renderer/Texture/Texture.h"
 #include "Renderer/Texture/Tilemap.h"
-#include "Component/Transform.h"
-#include "Object/2D/Triangle.h"
-#include "Object/2D/Quad.h"
-#include "Object/2D/Polygon.h"
-#include "Object/2D/Circle.h"
+#include "Scene/Entity.h"
 
 
 namespace Tomato
@@ -32,13 +28,15 @@ namespace Tomato
 
 		static void SetBackgroundColor(const Float4& color);
 
-		static void Draw(const Triangle& obj, std::shared_ptr<Texture> texture = nullptr, const Mat4& transform = Mat4(1.0f));
-		static void Draw(const Quad& quad, std::shared_ptr<Texture> texture = nullptr, const Mat4& transform = Mat4(1.0f));
-		static void Draw(const Quad& quad, std::shared_ptr<Tilemap> tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform = Mat4(1.0f));
-		static void Draw(const Polygon& polygon, std::shared_ptr<Texture> texture = nullptr, const Mat4& transform = Mat4(1.0f));
-		static void Draw(const Circle& circle, std::shared_ptr<Texture> texture = nullptr, const Mat4& transform = Mat4(1.0f));
+		static void DrawTriangle(const Entity& entity, const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
+		static void DrawQuad(const Entity& entity,     const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
+		static void DrawQuad(const Entity& entity,     const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform = Mat4(1.0f));
+		static void DrawPolygon(const Entity& entity,  const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
+		static void DrawCircle(const Entity& entity,   const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
 	private:
 		static void Flush();
+
+		static Float GetTextureIndex(const std::shared_ptr<Texture>& texture);
 	private:
 		std::unique_ptr<Shader> m_Shader;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;

@@ -1,7 +1,8 @@
 #pragma once
-#include "Object/Object.h"
+#include "Core/App/Object.h"
 #include "Core/App/UUID.h"
-#include "Component/Registry.h"
+
+#include "Registry.h"
 
 
 namespace Tomato
@@ -19,8 +20,8 @@ namespace Tomato
 
 		template <typename T>
 		bool HasComponent() const;
-		template <typename T>
-		T& AddComponent() const;
+		template <typename T, class... Args>
+		T& AddComponent(Args&& ... args) const;
 		template <typename T>
 		T& GetComponent();
 		template <typename T>
@@ -35,10 +36,10 @@ namespace Tomato
 		return Registry::Get()->Has<T>(m_UUID);
 	}
 
-	template<typename T>
-	inline T& Entity::AddComponent() const
+	template<typename T, class ... Args>
+	inline T& Entity::AddComponent(Args&& ... args) const
 	{
-		return  Registry::Get()->Add<T>(m_UUID);
+		return  Registry::Get()->Add<T>(m_UUID, std::forward<Args>(args)...);
 	}
 
 	template<typename T>
