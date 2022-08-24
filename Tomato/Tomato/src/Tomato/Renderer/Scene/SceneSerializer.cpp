@@ -30,6 +30,7 @@ namespace Tomato
 			EncodeFloat3(out, tran.Rotation);
 			out	<< YAML::EndMap;
 		}
+
 		if (entity->HasComponent<Component::Renderer>())
 		{
 			auto& render = entity->GetComponent<Component::Renderer>();

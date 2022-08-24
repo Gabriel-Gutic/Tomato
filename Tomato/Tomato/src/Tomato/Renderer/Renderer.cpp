@@ -143,6 +143,10 @@ namespace Tomato
 			v2.Coords = (tran * Float4(v2.Coords, 1.0f)).xyz;
 			v3.Coords = (tran * Float4(v3.Coords, 1.0f)).xyz;
 		}
+		v1.Coords = (transform * Float4(v1.Coords, 1.0f)).xyz;
+		v2.Coords = (transform * Float4(v2.Coords, 1.0f)).xyz;
+		v3.Coords = (transform * Float4(v3.Coords, 1.0f)).xyz;
+
 		RendererData::Vertices[RendererData::VertexCounter++] = v1;
 		RendererData::Vertices[RendererData::VertexCounter++] = v2;
 		RendererData::Vertices[RendererData::VertexCounter++] = v3;
@@ -187,6 +191,8 @@ namespace Tomato
 			for (auto& vertex : vertices)
 				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
 		}
+		for (auto& vertex : vertices)
+			vertex.Coords = (transform * Float4(vertex.Coords, 1.0f)).xyz;
 		std::array<UInt, 6> indices = { 0, 1, 2, 1, 2, 3 };
 		for (const auto& index : indices)
 			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
@@ -222,6 +228,9 @@ namespace Tomato
 			for (auto& vertex : vertices)
 				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
 		}
+		for (auto& vertex : vertices)
+			vertex.Coords = (transform * Float4(vertex.Coords, 1.0f)).xyz;
+
 		std::array<UInt, 6> indices = { 0, 1, 2, 1, 2, 3 };
 		for (const auto& index : indices)
 			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
@@ -256,6 +265,9 @@ namespace Tomato
 			for (auto& vertex : vertices)
 				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
 		}
+		for (auto& vertex : vertices)
+			vertex.Coords = (transform * Float4(vertex.Coords, 1.0f)).xyz;
+
 		for (const auto& index : indices)
 			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
 	}
