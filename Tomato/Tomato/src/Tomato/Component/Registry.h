@@ -33,28 +33,24 @@ namespace Tomato
 	template<typename T>
 	inline T& Registry::Add(const UUID& uuid)
 	{
-		TOMATO_BENCHMARKING_FUNCTION();
 		return m_Buffer.get_or_emplace<T>(uuid.Get());
 	}
 
 	template<typename T, class ...Args>
 	inline T& Registry::Add(const UUID& uuid, Args && ...args)
 	{
-		TOMATO_BENCHMARKING_FUNCTION();
 		return m_Buffer.get_or_emplace<T>(uuid.Get(), args);
 	}
 
 	template<typename T>
 	inline bool Registry::Has(const UUID& uuid) const
 	{
-		TOMATO_BENCHMARKING_FUNCTION();
 		return m_Buffer.all_of<T>(uuid.Get());
 	}
 
 	template<typename T>
 	inline T& Registry::Get(const UUID& uuid)
 	{
-		TOMATO_BENCHMARKING_FUNCTION();
 		if (Has<T>(uuid))
 			return m_Buffer.get_or_emplace<T>(uuid.Get());
 		TOMATO_ASSERT(0, "Component doesn't exit!");
