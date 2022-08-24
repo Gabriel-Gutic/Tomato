@@ -30,8 +30,9 @@
 // C++20
 #include <format>
 
-//yaml-cpp
+//dependencies
 #include <yaml-cpp/yaml.h>
+#include <entt/entt.hpp>
 
 //Tomato
 #include "Tomato/Core/Core.h"

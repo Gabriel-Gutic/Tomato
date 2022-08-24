@@ -41,6 +41,7 @@ namespace Tomato
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(window);
+		glfwSwapInterval(m_Data.VSync);
 		glfwSetWindowUserPointer(window, &m_Data);
 
 		TOMATO_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");

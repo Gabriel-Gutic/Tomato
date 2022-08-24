@@ -24,6 +24,8 @@ MainLayer::MainLayer()
 	
 	m_Textures["triangle"] = Tomato::Texture::Create("assets/images/night.jpg");
 	m_Tilemap = std::make_shared<Tomato::Tilemap>("assets/images/Terrain (32x32).png", 32, 32);
+
+	Tomato::App::GetWindow()->SetVSync(false);
 }
 
 void MainLayer::OnUpdate()

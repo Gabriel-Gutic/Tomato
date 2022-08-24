@@ -21,7 +21,7 @@ namespace Tomato
 {
 	App* App::s_Instance = nullptr;
 	App::App()
-		:isRunning(true)
+		:isRunning(true), m_FPS(0), m_FrameCounter(0)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 
@@ -47,6 +47,15 @@ namespace Tomato
 	{
 		while (isRunning)
 		{
+			m_FrameCounter++;
+
+			if (m_FrameTimer.GetSeconds() >= 1.0)
+			{
+				m_FPS = m_FrameCounter;
+				m_FrameCounter = 0;
+				m_FrameTimer.start();
+			}
+
 			while (!m_EventQueue.empty())
 			{
 				const auto& e = *m_EventQueue.front();
@@ -193,6 +202,11 @@ namespace Tomato
 	const std::unique_ptr<Camera>& App::GetCurrentCamera()
 	{
 		return s_Instance->m_SceneMap[s_Instance->m_CurrentSceneName]->GetCamera();
+	}
+
+	UInt App::GetFPS()
+	{
+		return s_Instance->m_FPS;
 	}
 
 	void App::Exit()

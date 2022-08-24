@@ -15,14 +15,14 @@ namespace Tomato
 	{
 	}
 
-	void SceneSerializer::SerializeObject(YAML::Emitter& out, const std::shared_ptr<Object>& object)
+	void SceneSerializer::SerializeEntity(YAML::Emitter& out, const std::shared_ptr<Entity>& entity)
 	{
 		out << YAML::BeginMap;
 		
-		//if (object->HasComponent<Transform>())
-		//{
-		//
-		//}
+		if (entity->HasComponent<Transform>())
+		{
+			
+		}
 
 		out << YAML::EndMap;
 	}

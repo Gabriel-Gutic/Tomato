@@ -172,14 +172,14 @@ namespace Tomato
 #define ERROR(...)	
 #define WARNING(...)
 #define TRACE(...)	
-#define ASSERT(x, ...)
+#define ASSERT(x, ...)  if (!(x)){}
 
 
 #define TOMATO_PRINT(...)	
 #define TOMATO_ERROR(...)	
 #define TOMATO_WARNING(...)	
 #define TOMATO_TRACE(...)	
-#define TOMATO_ASSERT(x, ...)
+#define TOMATO_ASSERT(x, ...)  if (!(x)){}
 
 
 #endif // DEBUG

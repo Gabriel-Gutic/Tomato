@@ -24,6 +24,7 @@ namespace Tomato
 		static std::unique_ptr<Window>& GetWindow();
 		static std::unordered_map<std::string, std::unique_ptr<Scene>>& GetScenes();
 		static const std::unique_ptr<Camera>& GetCurrentCamera();
+		static UInt GetFPS();
 
 		static void PushEvent(Event* event);
 		static const std::unique_ptr<Scene>& CreateScene(std::string_view name);
@@ -37,6 +38,9 @@ namespace Tomato
 		static void PushImGuiLayer(std::string_view name, ImGuiLayer* layer);
 		static void RemoveImGuiLayer(std::string_view name);
 	private:
+		UInt m_FPS;
+		UInt m_FrameCounter;
+		Timer m_FrameTimer;
 		bool isRunning;
 		std::queue<Event*> m_EventQueue;
 

@@ -1,8 +1,6 @@
 #pragma once
 #include "Core/App/UUID.h"
 
-#include <entt/entt.hpp>
-
 
 namespace Tomato
 {
@@ -27,7 +25,7 @@ namespace Tomato
 
 		static Registry* Get();
 	private:
-		entt::registry m_Buffer;
+		entt::basic_registry<uint64_t> m_Buffer;
 	
 		static Registry* s_Instance;
 	};
@@ -36,23 +34,21 @@ namespace Tomato
 	inline T& Registry::Add(const UUID& uuid)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
-		m_Buffer.emplace<T>(static_cast<entt::entity>(uuid.Get()));
-		return m_Buffer.get<T>(static_cast<entt::entity>(uuid.Get()));
+		return m_Buffer.get_or_emplace<T>(uuid.Get());
 	}
 
 	template<typename T, class ...Args>
 	inline T& Registry::Add(const UUID& uuid, Args && ...args)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
-		if (!Has<T>(static_cast<entt::entity>(uuid.Get())))
-			m_Buffer.emplace<T>(static_cast<entt::entity>(uuid.Get()), args);
-		return m_Buffer.get<T>(static_cast<entt::entity>(uuid.Get()));
+		return m_Buffer.get_or_emplace<T>(uuid.Get(), args);
 	}
 
 	template<typename T>
 	inline bool Registry::Has(const UUID& uuid) const
 	{
-		return m_Buffer.all_of<T>(static_cast<entt::entity>(uuid.Get()));
+		TOMATO_BENCHMARKING_FUNCTION();
+		return m_Buffer.all_of<T>(uuid.Get());
 	}
 
 	template<typename T>
@@ -60,7 +56,8 @@ namespace Tomato
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 		if (Has<T>(uuid))
-			return m_Buffer.get<T>(static_cast<entt::entity>(uuid.Get()));
+			return m_Buffer.get_or_emplace<T>(uuid.Get());
 		TOMATO_ASSERT(0, "Component doesn't exit!");
+		return Add<T>(uuid);
 	}
 }

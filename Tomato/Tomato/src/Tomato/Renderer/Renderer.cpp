@@ -76,11 +76,8 @@ namespace Tomato
 
 		s_Instance->m_Shader->Use(true);
 
-		s_Instance->m_Projection = App::GetCurrentCamera()->GetProjection();
-		s_Instance->m_View = App::GetCurrentCamera()->GetView(renderWindow);
-		
-		s_Instance->m_Shader->SetMat4("u_Projection", s_Instance->m_Projection);
-		s_Instance->m_Shader->SetMat4("u_View", s_Instance->m_View);
+		s_Instance->m_Shader->SetMat4("u_Projection", App::GetCurrentCamera()->GetProjection());
+		s_Instance->m_Shader->SetMat4("u_View", App::GetCurrentCamera()->GetView(renderWindow));
 	}
 
 	void Renderer::End()
@@ -101,6 +98,11 @@ namespace Tomato
 	const std::unique_ptr<FrameBuffer>& Renderer::GetFrameBuffer()
 	{
 		return s_Instance->m_FrameBuffer;
+	}
+
+	UInt Renderer::GetNumberOfVertices()
+	{
+		return s_Instance->m_LastNumberOfVertices;
 	}
 
 	void Renderer::SetBackgroundColor(const Float4& color)
@@ -314,6 +316,7 @@ namespace Tomato
 
 		glDrawArrays(GL_TRIANGLES, 0, RendererData::VertexCounter);
 
+		ins->m_LastNumberOfVertices = RendererData::VertexCounter;
 		RendererData::VertexCounter = 0;
 		RendererData::TextureSlotsCounter = 0;
 

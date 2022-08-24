@@ -38,8 +38,14 @@ void GUILayer::OnUpdate()
 
 void GUILayer::OnGUI()
 {
-	ImGui::Begin("ImGui Window");
+	ImGui::Begin("Status");
+	std::string fps = "FPS: " + Tomato::Math::ToString(Tomato::App::GetFPS());
+	ImGui::Text(fps.c_str());
+	std::string vertices = "Vertices: " + Tomato::Math::ToString(Tomato::Renderer::GetNumberOfVertices());
+	ImGui::Text(vertices.c_str());
+	ImGui::End();
 
+	ImGui::Begin("ImGui Window");
 	const auto& scene_map = Tomato::App::GetScenes();
 	std::vector<const char*> scenes;
 	scenes.reserve(scene_map.size());
