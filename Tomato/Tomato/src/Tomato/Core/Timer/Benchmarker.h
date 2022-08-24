@@ -21,7 +21,9 @@ namespace Tomato
 	};
 }
 
+#ifdef DEBUG 
 #define TOMATO_BENCHMARKING
+#endif
 #ifdef TOMATO_BENCHMARKING
 
 #define TOMATO_BENCHMARKING_START_SESSION(x, y) Tomato::Benchmarker::StartSession(x, y)
