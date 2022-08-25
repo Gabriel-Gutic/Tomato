@@ -28,10 +28,10 @@ MainLayer::MainLayer()
 	m_Textures["triangle"] = Tomato::Texture::Create("assets/images/night.jpg");
 	m_Tilemap = std::make_shared<Tomato::Tilemap>("assets/images/Terrain (32x32).png", 32, 32);
 
-	Tomato::App::GetWindow()->SetVSync(false);
+	Tomato::App::GetWindow()->SetVSync(true);
 }
 
-void MainLayer::OnUpdate()
+void MainLayer::OnUpdate(Tomato::Float dt)
 {
 	Tomato::Renderer::DrawTriangle(*m_Scene->GetEntity("triangle"), m_Textures["triangle"]);
 	//Tomato::Renderer::Draw(*m_Scene->GetEntity("circle"));

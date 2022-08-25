@@ -8,7 +8,7 @@ public:
 	MainLayer();
 	~MainLayer() = default;
 
-	virtual void OnUpdate() override;
+	virtual void OnUpdate(Tomato::Float dt) override;
 	virtual void OnGUI() override;
 private:
 	Tomato::Int m_PolygonNOS = 6;

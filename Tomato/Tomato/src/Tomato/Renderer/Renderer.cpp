@@ -74,10 +74,7 @@ namespace Tomato
 
 		s_Instance->m_Shader->Use(true);
 
-		auto& camera = App::GetCurrentCamera()->GetComponent<Component::Camera>();
-		auto& tran = App::GetCurrentCamera()->GetComponent<Component::Transform>();
-		s_Instance->m_Shader->SetMat4("u_Projection", camera.GetProjection());
-		s_Instance->m_Shader->SetMat4("u_View", camera.GetView(tran, renderWindow));
+		s_Instance->m_Shader->SetMat4("u_PV", App::GetCurrentScene()->GetProjectionView(renderWindow));
 	}
 
 	void Renderer::End()

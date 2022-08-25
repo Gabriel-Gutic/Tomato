@@ -7,7 +7,7 @@ GUILayer::GUILayer()
 	Tomato::GUI::ShowRenderWindow();
 }
 
-void GUILayer::OnUpdate()
+void GUILayer::OnUpdate(Tomato::Float dt)
 {
 	Tomato::Renderer::SetBackgroundColor(m_BackgroundColor);
 
@@ -22,18 +22,19 @@ void GUILayer::OnUpdate()
 	else 
 		camera.SetPerspectiveProjection(m_CameraFOV, window->GetAspectRatio(), 0.1f, 100.0f);
 
+	Tomato::Float cameraSpeed = m_CameraSpeed * dt;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
-		tran.Position.x -= m_CameraSpeed;
+		tran.Position.x -= cameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
-		tran.Position.x += m_CameraSpeed;
+		tran.Position.x += cameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_UP))
-		tran.Position.y += m_CameraSpeed;
+		tran.Position.y += cameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_DOWN))
-		tran.Position.y -= m_CameraSpeed;
+		tran.Position.y -= cameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_8))
-		tran.Position.z += m_CameraSpeed;
+		tran.Position.z += cameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_2))
-		tran.Position.z -= m_CameraSpeed;
+		tran.Position.z -= cameraSpeed;
 }
 
 void GUILayer::OnGUI()

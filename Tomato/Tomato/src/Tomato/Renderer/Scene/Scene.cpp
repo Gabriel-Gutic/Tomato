@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 #include "Component/Component.h"
+#include "Core/App/App.h"
 
 
 namespace Tomato
@@ -23,6 +24,14 @@ namespace Tomato
 	const std::unique_ptr<Entity>& Scene::GetCamera() const
 	{
 		return m_Camera;
+	}
+
+	Mat4 Scene::GetProjectionView(bool viewReversed) const
+	{
+		auto& camera = m_Camera->GetComponent<Component::Camera>();
+		auto& tran = m_Camera->GetComponent<Component::Transform>();
+
+		return camera.GetView(tran, viewReversed) * camera.GetProjection();
 	}
 
 	std::vector<Layer*>& Scene::GetLayers()

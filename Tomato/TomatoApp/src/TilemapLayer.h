@@ -17,7 +17,7 @@ public:
 	TilemapLayer();
 	~TilemapLayer() override = default;
 
-	virtual void OnUpdate() override;
+	virtual void OnUpdate(Tomato::Float dt) override;
 	static void SetTilePosition(Tile& tile, Tomato::Int i, Tomato::Int j);
 private:
 	std::vector<Tile> m_Tiles;

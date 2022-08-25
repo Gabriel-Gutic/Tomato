@@ -25,6 +25,7 @@ namespace Tomato
 		static std::unordered_map<std::string, std::unique_ptr<Scene>>& GetScenes();
 		static const std::unique_ptr<Entity>& GetCurrentCamera();
 		static UInt GetFPS();
+		static Float GetDeltaTime();
 
 		static void PushEvent(Event* event);
 		static const std::unique_ptr<Scene>& CreateScene(std::string_view name);
@@ -40,6 +41,7 @@ namespace Tomato
 		static void RemoveImGuiLayer(std::string_view name);
 	private:
 		UInt m_FPS;
+		Float m_DeltaTime;
 		UInt m_FrameCounter;
 		Timer m_FrameTimer;
 		bool isRunning;

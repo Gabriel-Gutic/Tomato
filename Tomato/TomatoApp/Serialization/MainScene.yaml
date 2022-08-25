@@ -6,7 +6,7 @@ MainCamera:
       - 0
       - 0
     Perspective:
-      FOV: 45
+      FOV: 40
       AspectRatio: 1.90287411
       Near: 0.100000001
       Far: 100
@@ -19,9 +19,9 @@ MainCamera:
       Far: 0
   Transform:
     Position:
-      - 0
-      - 0
-      - 3
+      - 0.539304435
+      - -0.115485221
+      - 2.62705064
     Scale:
       - 1
       - 1
@@ -55,7 +55,7 @@ Entities:
   quad:
     Transform:
       Position:
-        - 1.29999995
+        - 1.10000002
         - 0
         - 0
       Scale:

@@ -52,6 +52,9 @@ namespace Tomato
 				m_FPS = m_FrameCounter;
 				m_FrameCounter = 0;
 				m_FrameTimer.start();
+
+				if (s_Instance->m_FPS != 0)
+					s_Instance->m_DeltaTime = 1.0f / static_cast<Float>(s_Instance->m_FPS);
 			}
 
 			while (!m_EventQueue.empty())
@@ -83,12 +86,12 @@ namespace Tomato
 
 			for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
 			{
-				layer->OnUpdate();
+				layer->OnUpdate(m_DeltaTime);
 			}
 
 			for (auto& layer : GetCurrentScene()->GetLayers())
 			{
-				layer->OnUpdate();
+				layer->OnUpdate(m_DeltaTime);
 			}
 
 			Renderer::End();
@@ -215,6 +218,11 @@ namespace Tomato
 	UInt App::GetFPS()
 	{
 		return s_Instance->m_FPS;
+	}
+
+	Float App::GetDeltaTime()
+	{
+		return s_Instance->m_DeltaTime;
 	}
 
 	void App::Exit()

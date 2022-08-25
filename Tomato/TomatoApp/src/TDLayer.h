@@ -8,7 +8,7 @@ public:
 	TDLayer();
 	~TDLayer() = default;
 
-	virtual void OnUpdate() override;
+	virtual void OnUpdate(Tomato::Float dt) override;
 private:
 	std::unordered_map<std::string, std::shared_ptr<Tomato::Texture>> m_Textures;
 	//std::shared_ptr<Tomato::Cube> m_Cube;

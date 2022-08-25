@@ -11,7 +11,7 @@ TrianglesLayer::TrianglesLayer()
 	}
 }
 
-void TrianglesLayer::OnUpdate()
+void TrianglesLayer::OnUpdate(Tomato::Float dt)
 {
 	for (Tomato::UInt i = 0; i < m_TriangleCounter; i++)
 	{
