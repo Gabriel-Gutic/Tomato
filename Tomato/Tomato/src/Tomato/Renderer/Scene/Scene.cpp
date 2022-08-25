@@ -26,7 +26,7 @@ namespace Tomato
 		return m_Camera;
 	}
 
-	Mat4 Scene::GetProjectionView(bool viewReversed) const
+	Mat4 Scene::GetViewProjection(bool viewReversed) const
 	{
 		auto& camera = m_Camera->GetComponent<Component::Camera>();
 		auto& tran = m_Camera->GetComponent<Component::Transform>();
@@ -48,9 +48,7 @@ namespace Tomato
 	{
 		const char* c_name = name.data();
 		TOMATO_ASSERT(m_Entities.find(c_name) != m_Entities.end(), "Entity '{0}' doesn't exist!", c_name);
-		auto ptr = std::dynamic_pointer_cast<Entity>(m_Entities[c_name]);
-		TOMATO_ASSERT(ptr, "Dynamic pointer cast failed!");
-		return ptr;
+		return m_Entities[c_name];
 	}
 
 	std::shared_ptr<Entity>& Scene::PushEntity(std::string_view name, const std::shared_ptr<Entity>& entity)

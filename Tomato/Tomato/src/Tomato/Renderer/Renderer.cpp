@@ -46,6 +46,8 @@ namespace Tomato
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 		s_Instance->m_FrameBuffer = std::make_unique<FrameBuffer>();
+
+		s_Instance->m_VP = Mat4(1.0f);
 	}
 
 	void Renderer::Terminate()
@@ -74,7 +76,8 @@ namespace Tomato
 
 		s_Instance->m_Shader->Use(true);
 
-		s_Instance->m_Shader->SetMat4("u_PV", App::GetCurrentScene()->GetProjectionView(renderWindow));
+		s_Instance->m_VP = App::GetCurrentScene()->GetViewProjection(renderWindow);
+		s_Instance->m_Shader->SetMat4("u_VP", s_Instance->m_VP);
 	}
 
 	void Renderer::End()
@@ -100,6 +103,11 @@ namespace Tomato
 	UInt Renderer::GetNumberOfVertices()
 	{
 		return s_Instance->m_LastNumberOfVertices;
+	}
+
+	const Mat4& Renderer::GetViewProjection()
+	{
+		return s_Instance->m_VP;
 	}
 
 	void Renderer::SetBackgroundColor(const Float4& color)

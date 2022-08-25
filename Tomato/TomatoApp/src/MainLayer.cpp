@@ -33,6 +33,8 @@ MainLayer::MainLayer()
 
 void MainLayer::OnUpdate(Tomato::Float dt)
 {
+	TOMATO_PRINT(Tomato::Input::MouseWorldCoords().ToString());
+
 	Tomato::Renderer::DrawTriangle(*m_Scene->GetEntity("triangle"), m_Textures["triangle"]);
 	//Tomato::Renderer::Draw(*m_Scene->GetEntity("circle"));
 	Tomato::Renderer::DrawQuad(*m_Scene->GetEntity("quad"), m_Tilemap, 1, 1, 3, 3);
@@ -41,7 +43,7 @@ void MainLayer::OnUpdate(Tomato::Float dt)
 
 void MainLayer::OnGUI()
 {
-	ImGui::Begin("Main Layer Menu");
+	//ImGui::Begin("Main Layer Menu");
 	//ImGui::ColorPicker4("Circle Color", m_Scene->GetEntity<Tomato::Circle>("circle")->GetComponent<Tomato::Color>().ToPtr());
 	/*if (ImGui::SliderInt("Polygon NOS", &m_PolygonNOS, 3, 100))
 	{
@@ -52,10 +54,5 @@ void MainLayer::OnGUI()
 		m_Scene->GetEntity<Tomato::Circle>("circle")->SetSmoothness(m_CircleSmoothness);
 	}*/
 
-	if (m_Scene->GetEntities()["quad"]->HasComponent<Tomato::Component::Transform>())
-	{
-		m_Scene->GetEntities()["quad"]->GetComponent<Tomato::Component::Transform>().ToImGui();
-	}
-
-	ImGui::End();
+	//ImGui::End();
 }

@@ -25,6 +25,7 @@ namespace Tomato
 		static Renderer* Get();
 		static const std::unique_ptr<FrameBuffer>& GetFrameBuffer();
 		static UInt GetNumberOfVertices();
+		static const Mat4& GetViewProjection();
 
 		static void SetBackgroundColor(const Float4& color);
 
@@ -43,9 +44,9 @@ namespace Tomato
 		std::unique_ptr<VertexArray> m_VertexArray;
 		std::unique_ptr<FrameBuffer> m_FrameBuffer;
 
-
 		Float4 m_BackgroundColor;
 		UInt m_LastNumberOfVertices;
+		Mat4 m_VP;
 
 		static Renderer* s_Instance;
 	};

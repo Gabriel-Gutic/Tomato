@@ -65,6 +65,48 @@ void GUILayer::OnGUI()
 	ImGui::ColorPicker4("Background Color", &m_BackgroundColor[0]);
 
 	ImGui::End();
+
+	auto& entities = Tomato::App::GetCurrentScene()->GetEntities();
+	if (entities.size() > 0)
+	{
+		ImGui::Begin("Scene Hierarchy");
+
+		static Tomato::UInt currentEntity = 0;
+		if (currentEntity >= entities.size())
+			currentEntity = 0;
+
+		std::vector<std::string> entity_names;
+		entity_names.resize(entities.size());
+
+		Tomato::UInt i = 0;
+		for (const auto& [name, entity] : entities)
+		{
+			entity_names[i++] = name;
+		}
+
+		if (ImGui::BeginCombo("##", entity_names[currentEntity].c_str()))
+		{
+			for (Tomato::UInt i = 0; i < entity_names.size(); i++)
+			{
+				bool is_selected = (entity_names[currentEntity] == entity_names[i]);
+				if (ImGui::Selectable(entity_names[i].c_str(), is_selected))
+					currentEntity = i;
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
+
+		ImGui::End();
+
+		ImGui::Begin("Entity");
+		ImGui::Text(entity_names[currentEntity].c_str());
+		if (Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->HasComponent<Tomato::Component::Transform>())
+		{
+			Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->GetComponent<Tomato::Component::Transform>().ToImGui();
+		}
+		ImGui::End();
+	}
 }
 
 void GUILayer::OnEvent(const Tomato::Event& e)

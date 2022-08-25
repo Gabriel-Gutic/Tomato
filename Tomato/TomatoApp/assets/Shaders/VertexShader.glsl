@@ -4,7 +4,7 @@ layout (location = 1) in vec4 inColor;
 layout (location = 2) in float inTexIndex;
 layout (location = 3) in vec2 inTexCoords;
 
-uniform mat4 u_PV;
+uniform mat4 u_VP;
 
 out vec4 Color;
 out float TexIndex;
@@ -16,5 +16,5 @@ void main()
 	Color = inColor;
 	TexIndex = inTexIndex;
 	TexCoords = inTexCoords;
-	gl_Position = u_PV * vec4(inCoords, 1.0f);
+	gl_Position = u_VP * vec4(inCoords, 1.0f);
 }
