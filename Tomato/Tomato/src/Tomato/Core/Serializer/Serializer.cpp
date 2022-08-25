@@ -73,6 +73,7 @@ namespace Tomato
 		EncodeFloat3(out, tran.Scale);
 		out << YAML::Key << "Rotation" << YAML::Value;
 		EncodeFloat3(out, tran.Rotation);
+		out << YAML::EndMap;
 	}
 
 	void Serializer::EncodeRenderer(YAML::Emitter& out, const Component::Renderer& rend)
@@ -83,6 +84,29 @@ namespace Tomato
 		EncodeFloat4(out, rend.Color);
 	}
 
+	void Serializer::EncodeCamera(YAML::Emitter& out, const Component::Camera& cam)
+	{
+		out << YAML::Key << "Camera" << YAML::Value << YAML::BeginMap;
+		out << YAML::Key << "Target" << YAML::Value;
+		EncodeFloat3(out, cam.Target);
+
+		out << YAML::Key << "Perspective" << YAML::Value << YAML::BeginMap
+			<< YAML::Key << "FOV" << YAML::Value << cam.Perspective.FOV
+			<< YAML::Key << "AspectRatio" << YAML::Value << cam.Perspective.AspectRatio
+			<< YAML::Key << "Near" << YAML::Value << cam.Perspective.Near
+			<< YAML::Key << "Far" << YAML::Value << cam.Perspective.Far
+			<< YAML::EndMap;
+		out << YAML::Key << "Ortho" << YAML::Value << YAML::BeginMap
+			<< YAML::Key << "Left" << YAML::Value << cam.Ortho.Left
+			<< YAML::Key << "Right" << YAML::Value << cam.Ortho.Right
+			<< YAML::Key << "Bottom" << YAML::Value << cam.Ortho.Bottom
+			<< YAML::Key << "Top" << YAML::Value << cam.Ortho.Top
+			<< YAML::Key << "Near" << YAML::Value << cam.Ortho.Near
+			<< YAML::Key << "Far" << YAML::Value << cam.Ortho.Far
+			<< YAML::EndMap;
+		out << YAML::EndMap;
+	}
+
 	Component::Transform Serializer::DecodeTransform(const YAML::Node& node)
 	{
 		if (!node.IsMap())
@@ -90,13 +114,13 @@ namespace Tomato
 			TOMATO_ERROR("Invalid Node");
 		}
 		Component::Transform tran;
-		auto pos = node["Position"];
+		auto& pos = node["Position"];
 		if (pos)
 			tran.Position = DecodeFloat3(pos);
-		auto scale = node["Scale"];
+		auto& scale = node["Scale"];
 		if (scale)
 			tran.Scale = DecodeFloat3(scale);
-		auto rot = node["Rotation"];
+		auto& rot = node["Rotation"];
 		if (rot)
 			tran.Rotation = DecodeFloat3(rot);
 		
@@ -111,13 +135,66 @@ namespace Tomato
 		}
 		Component::Renderer rend;
 
-		auto sprite = node["Sprite"];
+		auto& sprite = node["Sprite"];
 		if (sprite)
 			rend.Sprite = sprite.as<std::string>();
-		auto color = node["Color"];
+		auto& color = node["Color"];
 		if (color)
 			rend.Color = DecodeFloat4(color);
 
 		return rend;
+	}
+
+	Component::Camera Serializer::DecodeCamera(const YAML::Node& node)
+	{
+		if (!node.IsMap())
+		{
+			TOMATO_ERROR("Invalid Node");
+		}
+		Component::Camera cam;
+
+		auto& target = node["Target"];
+		if (target)
+			cam.Target = DecodeFloat3(target);
+		auto& perspective = node["Perspective"];
+		if (perspective)
+		{
+			auto& FOV = perspective["FOV"];
+			if (FOV)
+				cam.Perspective.FOV = FOV.as<Float>();
+			auto& AspectRatio = perspective["AspectRatio"];
+			if (AspectRatio)
+				cam.Perspective.AspectRatio = AspectRatio.as<Float>();
+			auto& Near = perspective["Near"];
+			if (Near)
+				cam.Perspective.Near = Near.as<Float>();
+			auto& Far = perspective["Far"];
+			if (Far)
+				cam.Perspective.Far = Far.as<Float>();
+		}
+
+		auto& ortho = node["Ortho"];
+		if (ortho)
+		{
+			auto& Left = ortho["Left"];
+			if (Left)
+				cam.Ortho.Left = Left.as<Float>();
+			auto& Right = ortho["Right"];
+			if (Right)
+				cam.Ortho.Right = Right.as<Float>();
+			auto& Top = ortho["Top"];
+			if (Top)
+				cam.Ortho.Top = Top.as<Float>();
+			auto& Bottom = ortho["Bottom"];
+			if (Bottom)
+				cam.Ortho.Bottom = Bottom.as<Float>();
+			auto& Near = ortho["Near"];
+			if (Near)
+				cam.Ortho.Near = Near.as<Float>();
+			auto& Far = ortho["Far"];
+			if (Far)
+				cam.Ortho.Far = Far.as<Float>();
+		}
+		return cam;
 	}
 }

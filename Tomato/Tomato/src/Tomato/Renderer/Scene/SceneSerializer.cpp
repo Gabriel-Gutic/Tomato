@@ -50,6 +50,11 @@ namespace Tomato
 
 		out << YAML::BeginMap;
 		out << YAML::Key << "Scene" << YAML::Value << m_SceneName;
+		out << YAML::Key << "MainCamera" << YAML::Value << YAML::BeginMap;
+		EncodeCamera(out, App::GetScenes()[m_SceneName]->GetCamera()->GetComponent<Component::Camera>());
+		EncodeTransform(out, App::GetScenes()[m_SceneName]->GetCamera()->GetComponent<Component::Transform>());
+		out << YAML::EndMap;
+
 		out << YAML::Key << "Entities" << YAML::Value << YAML::BeginMap;
 		for (const auto& [name, entity] : App::GetScenes()[m_SceneName]->GetEntities())
 		{
@@ -85,7 +90,22 @@ namespace Tomato
 			m_SceneName = new_name;
 		}
 
-		auto entities = data["Entities"];
+		const auto& mainCamera = data["MainCamera"];
+		if (mainCamera)
+		{
+			auto& cam = App::GetScene(m_SceneName)->GetCamera();
+
+			auto& camera = cam->GetComponent<Component::Camera>();
+			auto& tran = cam->GetComponent<Component::Transform>();
+
+			if (mainCamera["Camera"])
+				camera = DecodeCamera(mainCamera["Camera"]);
+
+			if (mainCamera["Transform"])
+				tran = DecodeTransform(mainCamera["Transform"]);
+		}
+
+		const auto& entities = data["Entities"];
 
 		if (entities)
 		{
@@ -93,7 +113,7 @@ namespace Tomato
 			{
 				std::string name = entity.first.as<std::string>();
 				auto& ent = App::GetScenes()[m_SceneName]->PushEntity(name, std::make_shared<Entity>());
-				auto entity_data = entity.second;
+				auto& entity_data = entity.second;
 				
 				if (entity_data)
 				{

@@ -23,7 +23,7 @@ namespace Tomato
 
 		static std::unique_ptr<Window>& GetWindow();
 		static std::unordered_map<std::string, std::unique_ptr<Scene>>& GetScenes();
-		static const std::unique_ptr<Camera>& GetCurrentCamera();
+		static const std::unique_ptr<Entity>& GetCurrentCamera();
 		static UInt GetFPS();
 
 		static void PushEvent(Event* event);

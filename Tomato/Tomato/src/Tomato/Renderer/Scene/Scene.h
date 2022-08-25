@@ -1,5 +1,4 @@
 #pragma once
-#include "Renderer/Camera.h"
 #include "Core/App/Layer.h"
 #include "Entity.h"
 
@@ -12,7 +11,7 @@ namespace Tomato
 		Scene();
 		~Scene();
 
-		const std::unique_ptr<Camera>& GetCamera() const;
+		const std::unique_ptr<Entity>& GetCamera() const;
 
 		std::vector<Layer*>& GetLayers();
 		const std::vector<Layer*>& GetLayers() const;
@@ -29,7 +28,7 @@ namespace Tomato
 		void PopLayer();
 	private:
 		std::vector<Layer*> m_LayerStack;
-		std::unique_ptr<Camera> m_Camera;
+		std::unique_ptr<Entity> m_Camera;
 
 		std::map<std::string, std::shared_ptr<Entity>> m_Entities;
 	};

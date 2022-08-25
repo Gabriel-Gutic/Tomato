@@ -11,7 +11,6 @@
 #include "Renderer/Buffer/IndexBuffer.h"
 #include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Texture/Texture.h"
-#include "Renderer/Camera.h"
 
 #include "Renderer/Renderer.h"
 
@@ -208,7 +207,7 @@ namespace Tomato
 		return s_Instance->m_SceneMap;
 	}
 
-	const std::unique_ptr<Camera>& App::GetCurrentCamera()
+	const std::unique_ptr<Entity>& App::GetCurrentCamera()
 	{
 		return s_Instance->m_SceneMap[s_Instance->m_CurrentSceneName]->GetCamera();
 	}

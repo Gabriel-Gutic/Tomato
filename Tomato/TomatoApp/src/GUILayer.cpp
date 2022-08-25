@@ -3,7 +3,6 @@
 GUILayer::GUILayer()
 	:m_BackgroundColor(Tomato::Float4(1.0f, 0.0f, 0.0f, 1.0f))
 {
-	Tomato::App::GetCurrentCamera()->MoveZ(1.0f);
 	Tomato::GUI::ShowDockspace();
 	Tomato::GUI::ShowRenderWindow();
 }
@@ -12,28 +11,29 @@ void GUILayer::OnUpdate()
 {
 	Tomato::Renderer::SetBackgroundColor(m_BackgroundColor);
 
-	const auto& camera = Tomato::App::GetCurrentCamera();
-	camera->GetComponent<Tomato::Component::Transform>().Rotation = m_CameraRotation;
+	auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::Component::Camera>();
+	auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::Component::Transform>();
+	tran.Rotation = m_CameraRotation;
 
 	const auto& window = Tomato::App::GetWindow();
 
 	if (m_CurrentCameraProjection == 0)
-		camera->SetOrthographicProjection(-window->GetAspectRatio() * m_CameraOrthoSize, window->GetAspectRatio() * m_CameraOrthoSize, -m_CameraOrthoSize, m_CameraOrthoSize, 0.1f, 100.0f);
+		camera.SetOrthographicProjection(-window->GetAspectRatio() * m_CameraOrthoSize, window->GetAspectRatio() * m_CameraOrthoSize, -m_CameraOrthoSize, m_CameraOrthoSize, 0.1f, 100.0f);
 	else 
-		camera->SetPerspectiveProjection(m_CameraFOV, window->GetAspectRatio(), 0.1f, 100.0f);
+		camera.SetPerspectiveProjection(m_CameraFOV, window->GetAspectRatio(), 0.1f, 100.0f);
 
 	if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
-		camera->MoveX(-m_CameraSpeed);
+		tran.Position.x -= m_CameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
-		camera->MoveX(m_CameraSpeed);
+		tran.Position.x += m_CameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_UP))
-		camera->MoveY(m_CameraSpeed);
+		tran.Position.y += m_CameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_DOWN))
-		camera->MoveY(-m_CameraSpeed);
+		tran.Position.y -= m_CameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_8))
-		camera->MoveZ(-m_CameraSpeed);
+		tran.Position.z += m_CameraSpeed;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_2))
-		camera->MoveZ(m_CameraSpeed);
+		tran.Position.z -= m_CameraSpeed;
 }
 
 void GUILayer::OnGUI()

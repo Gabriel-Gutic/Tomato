@@ -74,8 +74,10 @@ namespace Tomato
 
 		s_Instance->m_Shader->Use(true);
 
-		s_Instance->m_Shader->SetMat4("u_Projection", App::GetCurrentCamera()->GetProjection());
-		s_Instance->m_Shader->SetMat4("u_View", App::GetCurrentCamera()->GetView(renderWindow));
+		auto& camera = App::GetCurrentCamera()->GetComponent<Component::Camera>();
+		auto& tran = App::GetCurrentCamera()->GetComponent<Component::Transform>();
+		s_Instance->m_Shader->SetMat4("u_Projection", camera.GetProjection());
+		s_Instance->m_Shader->SetMat4("u_View", camera.GetView(tran, renderWindow));
 	}
 
 	void Renderer::End()
@@ -162,7 +164,6 @@ namespace Tomato
 		Float texIndex = GetTextureIndex(texture);
 
 		std::array<Vertex, 4> vertices;
-
 		
 		vertices[0].Coords = Float3(-0.5f, 0.5f, 0.0f);
 		vertices[0].Color = rend.Color;

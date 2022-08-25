@@ -181,9 +181,6 @@
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h">
       <Filter>Tomato\Renderer\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Camera.h">
-      <Filter>Tomato\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Renderer.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
@@ -213,6 +210,7 @@
     <ClInclude Include="src\Tomato\Renderer\Scene\Registry.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\RendererComponent.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\TransformComponent.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\CameraComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
@@ -296,9 +294,6 @@
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp">
       <Filter>Tomato\Renderer\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Renderer\Camera.cpp">
-      <Filter>Tomato\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
@@ -327,5 +322,6 @@
     <ClCompile Include="src\Tomato\Renderer\Scene\Registry.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\RendererComponent.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\TransformComponent.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Component\CameraComponent.cpp" />
   </ItemGroup>
 </Project>

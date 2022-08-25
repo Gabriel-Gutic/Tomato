@@ -8,7 +8,10 @@ namespace Tomato
 {
 	Scene::Scene()
 	{
-		m_Camera = std::make_unique<Camera>();
+		m_Camera = std::make_unique<Entity>();
+		m_Camera->AddComponent<Component::Camera>();
+		auto& tran = m_Camera->AddComponent<Component::Transform>();
+		tran.Position.z += 3;
 	}
 
 	Scene::~Scene()
@@ -17,7 +20,7 @@ namespace Tomato
 			delete layer;
 	}
 
-	const std::unique_ptr<Camera>& Scene::GetCamera() const
+	const std::unique_ptr<Entity>& Scene::GetCamera() const
 	{
 		return m_Camera;
 	}
