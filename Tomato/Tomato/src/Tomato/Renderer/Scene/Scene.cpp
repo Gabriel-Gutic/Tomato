@@ -55,7 +55,7 @@ namespace Tomato
 
 	std::shared_ptr<Entity>& Scene::PushEntity(std::string_view name, const std::shared_ptr<Entity>& entity)
 	{
-		entity->AddComponent<RendererComponent>();
+		entity->AddComponent<MeshRendererComponent>();
 		entity->AddComponent<TransformComponent>();
 		const char* c_name = name.data();
 		TOMATO_ASSERT(m_Entities.find(c_name) == m_Entities.end(), "Entity '{0}' already exist!", c_name);

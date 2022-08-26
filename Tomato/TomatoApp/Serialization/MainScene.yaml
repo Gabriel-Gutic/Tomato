@@ -11,17 +11,17 @@ MainCamera:
       Near: 0.100000001
       Far: 100
     Ortho:
-      Left: -24.7373638
-      Right: 24.7373638
-      Bottom: -13
-      Top: 13
+      Left: -2.69623184
+      Right: 2.69623184
+      Bottom: -1.41692603
+      Top: 1.41692603
       Near: 0.100000001
       Far: 100
   Transform:
     Position:
-      - 1.70001531
-      - -0.115485221
-      - 3.02222276
+      - 0
+      - 0
+      - 3
     Scale:
       - 1
       - 1
@@ -34,7 +34,7 @@ Entities:
   poly:
     Transform:
       Position:
-        - -1.29999995
+        - -1.5
         - 0
         - 0
       Scale:
@@ -48,15 +48,14 @@ Entities:
     Renderer:
       Sprite: Quad
       Color:
+        - 0.303797483
         - 1
+        - 0
         - 1
-        - 1
-        - 1
-    Int: 12
   quad:
     Transform:
       Position:
-        - 1.20000005
+        - 1.39999998
         - 0
         - 0
       Scale:
@@ -70,9 +69,9 @@ Entities:
     Renderer:
       Sprite: Quad
       Color:
-        - 1
-        - 1
-        - 1
+        - 0
+        - 0
+        - 0
         - 1
   triangle:
     Transform:

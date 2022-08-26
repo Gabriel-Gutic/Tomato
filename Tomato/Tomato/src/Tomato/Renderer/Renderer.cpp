@@ -121,7 +121,7 @@ namespace Tomato
 		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<RendererComponent>();
+		auto& rend = entity.GetComponent<MeshRendererComponent>();
 		Float texIndex = GetTextureIndex(texture);
 
 		Vertex v1;
@@ -165,7 +165,7 @@ namespace Tomato
 		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<RendererComponent>();
+		auto& rend = entity.GetComponent<MeshRendererComponent>();
 		Float texIndex = GetTextureIndex(texture);
 
 		std::array<Vertex, 4> vertices;
@@ -210,7 +210,7 @@ namespace Tomato
 		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<RendererComponent>();
+		auto& rend = entity.GetComponent<MeshRendererComponent>();
 		Float texIndex = GetTextureIndex(tilemap->GetTexture());
 
 		std::array<Vertex, 4> vertices;
@@ -245,18 +245,12 @@ namespace Tomato
 	void Renderer::DrawPolygon(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
 	{
 		Int nr = 6;
-		if (entity.HasComponent<IntComponent>())
-		{
-			nr = entity.GetComponent<IntComponent>().Value;
-			if (nr < 3) nr = 3;
-		}
-
 		std::vector<UInt> indices = Math::GeneratePolygonIndices(nr);
 		TOMATO_BENCHMARKING_FUNCTION();
 		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<RendererComponent>();
+		auto& rend = entity.GetComponent<MeshRendererComponent>();
 		Float texIndex = GetTextureIndex(texture);
 
 		std::vector<Float2> coords = Math::GeneratePolygonCoords(nr);

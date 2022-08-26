@@ -7,26 +7,25 @@ MainLayer::MainLayer()
 	if (!m_Scene->Contains("triangle"))
 	{
 		const auto & entity = m_Scene->PushEntity("triangle", std::make_shared<Tomato::Entity>());
-		entity->GetComponent<Tomato::RendererComponent>().Sprite = "Triangle";
+		entity->GetComponent<Tomato::MeshRendererComponent>().Sprite = "Triangle";
 	}
 
 	if (!m_Scene->Contains("quad"))
 	{
 		const auto& entity = m_Scene->PushEntity("quad", std::make_shared<Tomato::Entity>());
-		entity->GetComponent<Tomato::RendererComponent>().Sprite = "Quad";
+		entity->GetComponent<Tomato::MeshRendererComponent>().Sprite = "Quad";
 	}
 
 	if (!m_Scene->Contains("poly"))
 	{
 		const auto& entity = m_Scene->PushEntity("poly", std::make_shared<Tomato::Entity>());
-		entity->GetComponent<Tomato::RendererComponent>().Sprite = "Quad";
-		entity->AddComponent<Tomato::IntComponent>();
+		entity->GetComponent<Tomato::MeshRendererComponent>().Sprite = "Polygon";
 	}
 
 	//if (!m_Scene->Contains("circle"))
 	//	m_Scene->PushEntity("circle", std::make_shared<Tomato::Entity>());
 	
-	m_Textures["triangle"] = Tomato::Texture::Create("assets/images/night.jpg");
+	m_Textures["triangle"] = Tomato::Texture::Create("assets/images/bricks.jfif");
 	m_Tilemap = std::make_shared<Tomato::Tilemap>("assets/images/Terrain (32x32).png", 32, 32);
 
 	Tomato::App::GetWindow()->SetVSync(true);
@@ -44,13 +43,13 @@ void MainLayer::OnUpdate(Tomato::Float dt)
 
 void MainLayer::OnGUI()
 {
-	ImGui::Begin("Main Layer Menu");
+	//ImGui::Begin("Main Layer Menu");
 	//ImGui::ColorPicker4("Circle Color", m_Scene->GetEntity<Tomato::Circle>("circle")->GetComponent<Tomato::Color>().ToPtr());
-	if (ImGui::SliderInt("Polygon NOS", &m_Scene->GetEntity("poly")->GetComponent<Tomato::IntComponent>().Value, 3, 100));
+	//if (ImGui::SliderInt("Polygon NOS", &m_Scene->GetEntity("poly")->GetComponent<Tomato::IntComponent>().Value, 3, 100));
 	//if (ImGui::SliderFloat("Circle Smoothness", &m_CircleSmoothness, 0.2f, 1.0f))
 	//{
 	//	m_Scene->GetEntity<Tomato::Circle>("circle")->SetSmoothness(m_CircleSmoothness);
 	//}
 
-	ImGui::End();
+	//ImGui::End();
 }

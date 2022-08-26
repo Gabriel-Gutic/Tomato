@@ -31,26 +31,14 @@ namespace Tomato
 			out	<< YAML::EndMap;
 		}
 
-		if (entity->HasComponent<RendererComponent>())
+		if (entity->HasComponent<MeshRendererComponent>())
 		{
-			auto& render = entity->GetComponent<RendererComponent>();
+			auto& render = entity->GetComponent<MeshRendererComponent>();
 			out << YAML::Key << "Renderer" << YAML::Value << YAML::BeginMap
 				<< YAML::Key << "Sprite" << YAML::Value << render.Sprite
 				<< YAML::Key << "Color" << YAML::Value;
 			EncodeFloat4(out, render.Color);
 			out << YAML::EndMap;
-		}
-
-		if (entity->HasComponent<IntComponent>())
-		{
-			auto& i = entity->GetComponent<IntComponent>();
-			out << YAML::Key << "Int" << YAML::Value << i.Value;
-		}
-
-		if (entity->HasComponent<FloatComponent>())
-		{
-			auto& f = entity->GetComponent<FloatComponent>();
-			out << YAML::Key << "Float" << YAML::Value << f.Value;
 		}
 
 		out << YAML::EndMap;
@@ -140,17 +128,7 @@ namespace Tomato
 						else if (name_c == "Renderer")
 						{
 							auto rend = DecodeRenderer(comp.second);
-							ent->AddComponent<RendererComponent>(rend.Sprite, rend.Color);
-						}
-						else if (name_c == "Int")
-						{
-							Int value = comp.second.as<Int>();
-							ent->AddComponent<IntComponent>(value);
-						}
-						else if (name_c == "Float")
-						{
-							Float value = comp.second.as<Float>();
-							ent->AddComponent<FloatComponent>(value);
+							ent->AddComponent<MeshRendererComponent>(rend.Sprite, rend.Color);
 						}
 					}
 				}

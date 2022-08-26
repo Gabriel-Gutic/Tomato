@@ -13,7 +13,6 @@ void GUILayer::OnUpdate(Tomato::Float dt)
 
 	auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>();
 	auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
-	tran.Rotation = m_CameraRotation;
 
 	const auto& window = Tomato::App::GetWindow();
 
@@ -61,8 +60,10 @@ void GUILayer::OnGUI()
 	std::array<const char*, 2> projs = { "Orthographic", "Perspective" };
 	ImGui::Combo("Camera Projection", &m_CurrentCameraProjection, projs.data(), projs.size());
 
-	ImGui::SliderFloat3("Camera Rotation", &m_CameraRotation[0], -90.0f, 90.0f);
-	ImGui::ColorPicker4("Background Color", &m_BackgroundColor[0]);
+	auto& camera_tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
+	ImGui::DragFloat3("Camera Rotation", camera_tran.Rotation.ToPtr(), Tomato::App::GetDeltaTime() * 10.0f, -90.0f, 90.0f);
+	ImGui::DragFloat3("Camera Position", camera_tran.Position.ToPtr(), Tomato::App::GetDeltaTime(), -3.0f, 3.0f);
+	ImGui::ColorPicker4("Background Color", m_BackgroundColor.ToPtr());
 
 	ImGui::End();
 
@@ -104,6 +105,7 @@ void GUILayer::OnGUI()
 		if (Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->HasComponent<Tomato::TransformComponent>())
 		{
 			Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->GetComponent<Tomato::TransformComponent>().ToImGui();
+			Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->GetComponent<Tomato::MeshRendererComponent>().ToImGui();
 		}
 		ImGui::End();
 	}
@@ -116,8 +118,8 @@ void GUILayer::OnEvent(const Tomato::Event& e)
 		auto ev = Tomato::Event::Cast<Tomato::WheelEvent>(e);
 
 		if (m_CurrentCameraProjection == 1)
-			m_CameraFOV += (Tomato::Float)ev.GetValue();
+			m_CameraFOV += Tomato::App::GetDeltaTime() * m_CameraSpeed * 20.0f * (Tomato::Float)ev.GetValue();
 		else
-			m_CameraOrthoSize += m_CameraSpeed * (Tomato::Float)ev.GetValue();
+			m_CameraOrthoSize += Tomato::App::GetDeltaTime() * m_CameraSpeed * (Tomato::Float)ev.GetValue();
 	}
 }

@@ -76,7 +76,7 @@ namespace Tomato
 		out << YAML::EndMap;
 	}
 
-	void Serializer::EncodeRenderer(YAML::Emitter& out, const RendererComponent& rend)
+	void Serializer::EncodeRenderer(YAML::Emitter& out, const MeshRendererComponent& rend)
 	{
 		out << YAML::Key << "Renderer" << YAML::Value << YAML::BeginMap;
 		out << YAML::Key << "Sprite" << YAML::Value << rend.Sprite;
@@ -127,13 +127,13 @@ namespace Tomato
 		return tran;
 	}
 
-	RendererComponent Serializer::DecodeRenderer(const YAML::Node& node)
+	MeshRendererComponent Serializer::DecodeRenderer(const YAML::Node& node)
 	{
 		if (!node.IsMap())
 		{
 			TOMATO_ERROR("Invalid Node");
 		}
-		RendererComponent rend;
+		MeshRendererComponent rend;
 
 		auto& sprite = node["Sprite"];
 		if (sprite)
