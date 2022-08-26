@@ -143,7 +143,7 @@ namespace Tomato
 		ins->m_SceneMap.erase(name.data());
 	}
 
-	const std::unique_ptr<Scene>& App::GetScene(std::string_view name)
+	std::unique_ptr<Scene>& App::GetScene(std::string_view name)
 	{
 		auto& ins = s_Instance;
 		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", name.data());

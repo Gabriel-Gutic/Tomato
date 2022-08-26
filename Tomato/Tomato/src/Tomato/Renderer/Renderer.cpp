@@ -121,7 +121,7 @@ namespace Tomato
 		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<Component::Renderer>();
+		auto& rend = entity.GetComponent<RendererComponent>();
 		Float texIndex = GetTextureIndex(texture);
 
 		Vertex v1;
@@ -142,9 +142,9 @@ namespace Tomato
 		v3.TexCoords = Float2(1.0f, 0.0f);
 		v3.TexIndex = texIndex;
 
-		if (entity.HasComponent<Component::Transform>())
+		if (entity.HasComponent<TransformComponent>())
 		{
-			auto tran = entity.GetComponent<Component::Transform>().Get();
+			auto tran = entity.GetComponent<TransformComponent>().Get();
 
 			v1.Coords = (tran * Float4(v1.Coords, 1.0f)).xyz;
 			v2.Coords = (tran * Float4(v2.Coords, 1.0f)).xyz;
@@ -165,7 +165,7 @@ namespace Tomato
 		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<Component::Renderer>();
+		auto& rend = entity.GetComponent<RendererComponent>();
 		Float texIndex = GetTextureIndex(texture);
 
 		std::array<Vertex, 4> vertices;
@@ -190,9 +190,9 @@ namespace Tomato
 		vertices[3].TexCoords = Float2(1.0f, 1.0f);
 		vertices[3].TexIndex = texIndex;
 
-		if (entity.HasComponent<Component::Transform>())
+		if (entity.HasComponent<TransformComponent>())
 		{
-			auto tran = entity.GetComponent<Component::Transform>().Get();
+			auto tran = entity.GetComponent<TransformComponent>().Get();
 
 			for (auto& vertex : vertices)
 				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
@@ -210,7 +210,7 @@ namespace Tomato
 		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<Component::Renderer>();
+		auto& rend = entity.GetComponent<RendererComponent>();
 		Float texIndex = GetTextureIndex(tilemap->GetTexture());
 
 		std::array<Vertex, 4> vertices;
@@ -227,9 +227,9 @@ namespace Tomato
 			vertices[i].TexIndex = texIndex;
 		}
 		
-		if (entity.HasComponent<Component::Transform>())
+		if (entity.HasComponent<TransformComponent>())
 		{
-			auto tran = entity.GetComponent<Component::Transform>().Get();
+			auto tran = entity.GetComponent<TransformComponent>().Get();
 
 			for (auto& vertex : vertices)
 				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
@@ -244,17 +244,24 @@ namespace Tomato
 
 	void Renderer::DrawPolygon(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
 	{
-		const UInt nr = 6;
+		Int nr = 6;
+		if (entity.HasComponent<IntComponent>())
+		{
+			nr = entity.GetComponent<IntComponent>().Value;
+			if (nr < 3) nr = 3;
+		}
+
 		std::vector<UInt> indices = Math::GeneratePolygonIndices(nr);
 		TOMATO_BENCHMARKING_FUNCTION();
 		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<Component::Renderer>();
+		auto& rend = entity.GetComponent<RendererComponent>();
 		Float texIndex = GetTextureIndex(texture);
 
 		std::vector<Float2> coords = Math::GeneratePolygonCoords(nr);
-		std::array<Vertex, nr + 1> vertices;
+		std::vector<Vertex> vertices;
+		vertices.resize(nr + 1);
 
 		for (UInt i = 0; i <= nr; i++)
 		{
@@ -264,9 +271,9 @@ namespace Tomato
 			vertices[i].TexIndex = texIndex;
 		}
 
-		if (entity.HasComponent<Component::Transform>())
+		if (entity.HasComponent<TransformComponent>())
 		{
-			auto tran = entity.GetComponent<Component::Transform>().Get();
+			auto tran = entity.GetComponent<TransformComponent>().Get();
 
 			for (auto& vertex : vertices)
 				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;

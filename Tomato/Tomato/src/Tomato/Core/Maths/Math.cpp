@@ -238,7 +238,7 @@ namespace Tomato
 		return result;
 	}
 
-	Mat4 Math::Perspective(Float fov, Float aspect, Float _near, Float _far)
+	Mat4 Math::Perspective(const Float fov, const Float aspect, const Float _near, const Float _far)
 	{
 		Mat4 perspective = Mat4(0.0f);
 
@@ -253,7 +253,7 @@ namespace Tomato
 		return perspective;
 	}
 
-	Mat4 Math::Orthographic(Float left, Float right, Float bottom, Float top, Float _near, Float _far)
+	Mat4 Math::Orthographic(const Float left, const Float right, const Float bottom, const Float top, const Float _near, const Float _far)
 	{
 		Mat4 ortho(1.0f);
 

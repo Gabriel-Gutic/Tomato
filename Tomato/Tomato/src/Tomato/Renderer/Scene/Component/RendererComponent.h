@@ -1,13 +1,15 @@
 #pragma once
 
 
-namespace Tomato::Component
+namespace Tomato
 {
-	struct Renderer
+	struct RendererComponent
 	{
 		std::string Sprite;
 		Float4 Color;
 
-		Renderer(std::string_view sprite = "None", const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f));
+		RendererComponent(std::string_view sprite = "None", const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f));
+		RendererComponent(const RendererComponent&) = default;
+		~RendererComponent() = default;
 	};
 }

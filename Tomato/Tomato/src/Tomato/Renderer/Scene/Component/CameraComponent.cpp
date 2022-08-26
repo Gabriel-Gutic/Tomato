@@ -2,9 +2,9 @@
 #include "CameraComponent.h"
 
 
-namespace Tomato::Component
+namespace Tomato
 {
-	Mat4 Camera::GetView(const Component::Transform& transform, bool reverseY) const
+	Mat4 CameraComponent::GetView(const TransformComponent& transform, bool reverseY) const
 	{
 		Float4 pos = Float4(Target - transform.Position, 1.0f);
 		Float3 target = ((Quaternion::Rotation(-1 * transform.Rotation)).ToMat4() * pos).xyz;
@@ -19,7 +19,7 @@ namespace Tomato::Component
 		return view;
 	}
 
-	Mat4 Camera::GetProjection() const
+	Mat4 CameraComponent::GetProjection() const
 	{
 		switch (ProjectionType)
 		{
@@ -31,7 +31,7 @@ namespace Tomato::Component
 		return Mat4(1.0f);
 	}
 
-	void Camera::SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far)
+	void CameraComponent::SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far)
 	{
 		ProjectionType = ProjectionType::Perspective;
 
@@ -41,7 +41,7 @@ namespace Tomato::Component
 		Perspective.Far = _far;
 	}
 
-	void Camera::SetOrthographicProjection(Float left, Float right, Float bottom, Float top, Float _near, Float _far)
+	void CameraComponent::SetOrthographicProjection(Float left, Float right, Float bottom, Float top, Float _near, Float _far)
 	{
 		ProjectionType = ProjectionType::Orthographic;
 

@@ -20,12 +20,12 @@ namespace Tomato
 		static Float3 DecodeFloat3(const YAML::Node& node);
 		static Float4 DecodeFloat4(const YAML::Node& node);
 
-		static void EncodeTransform(YAML::Emitter& out, const Component::Transform& tran);
-		static void EncodeRenderer(YAML::Emitter& out, const Component::Renderer& rend);
-		static void EncodeCamera(YAML::Emitter& out, const Component::Camera& cam);
-		static Component::Transform DecodeTransform(const YAML::Node& node);
-		static Component::Renderer DecodeRenderer(const YAML::Node& node);
-		static Component::Camera DecodeCamera(const YAML::Node& node);
+		static void EncodeTransform(YAML::Emitter& out, const TransformComponent& tran);
+		static void EncodeRenderer(YAML::Emitter& out, const RendererComponent& rend);
+		static void EncodeCamera(YAML::Emitter& out, const CameraComponent& cam);
+		static TransformComponent DecodeTransform(const YAML::Node& node);
+		static RendererComponent DecodeRenderer(const YAML::Node& node);
+		static CameraComponent DecodeCamera(const YAML::Node& node);
 	protected:
 		std::string m_FilePath;
 	};

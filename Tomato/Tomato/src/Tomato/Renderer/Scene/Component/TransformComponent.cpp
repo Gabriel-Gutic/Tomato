@@ -4,13 +4,13 @@
 #include <imgui/imgui.h>
 
 
-namespace Tomato::Component
+namespace Tomato
 {
-	Transform::Transform(const Float3& position, const Float3& scale, const Float3& rotation)
+	TransformComponent::TransformComponent(const Float3& position, const Float3& scale, const Float3& rotation)
 		:Position(position), Scale(scale), Rotation(rotation)
 	{}
 
-	Mat4 Transform::Get() const
+	Mat4 TransformComponent::Get() const
 	{
 		// Translate * Scale * Rotate
 		Mat4 tran = Quaternion::Rotation(Rotation).ToMat4();
@@ -19,7 +19,7 @@ namespace Tomato::Component
 		return tran;
 	}
 
-	void Transform::ToImGui()
+	void TransformComponent::ToImGui()
 	{
 		if (ImGui::CollapsingHeader("Transform"))
 		{

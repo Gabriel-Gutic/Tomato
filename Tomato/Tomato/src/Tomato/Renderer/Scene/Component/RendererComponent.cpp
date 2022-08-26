@@ -1,9 +1,9 @@
 #include "pchTomato.h"
 #include "RendererComponent.h"
 
-namespace Tomato::Component
+namespace Tomato
 {
-	Renderer::Renderer(std::string_view sprite, const Float4& color)
+	RendererComponent::RendererComponent(std::string_view sprite, const Float4& color)
 		:Sprite(sprite), Color(color)
 	{
 

@@ -7,19 +7,19 @@ MainCamera:
       - 0
     Perspective:
       FOV: 45
-      AspectRatio: .nan
+      AspectRatio: 1.90287411
       Near: 0.100000001
       Far: 100
     Ortho:
-      Left: 0
-      Right: 0
-      Bottom: 0
-      Top: 0
-      Near: 0
-      Far: 0
+      Left: -24.7373638
+      Right: 24.7373638
+      Bottom: -13
+      Top: 13
+      Near: 0.100000001
+      Far: 100
   Transform:
     Position:
-      - 1.73862863
+      - 1.70001531
       - -0.115485221
       - 3.02222276
     Scale:
@@ -34,16 +34,16 @@ Entities:
   poly:
     Transform:
       Position:
-        - -1.70000005
+        - -1.29999995
         - 0
         - 0
       Scale:
         - 1
-        - 2
+        - 1
         - 1
       Rotation:
         - 0
-        - 1.70000005
+        - 0
         - 0
     Renderer:
       Sprite: Quad
@@ -52,6 +52,7 @@ Entities:
         - 1
         - 1
         - 1
+    Int: 12
   quad:
     Transform:
       Position:
@@ -64,7 +65,7 @@ Entities:
         - 1
       Rotation:
         - 0
-        - 53.4000015
+        - 0
         - 0
     Renderer:
       Sprite: Quad

@@ -10,8 +10,8 @@ namespace Tomato
 	Scene::Scene()
 	{
 		m_Camera = std::make_unique<Entity>();
-		m_Camera->AddComponent<Component::Camera>();
-		auto& tran = m_Camera->AddComponent<Component::Transform>();
+		m_Camera->AddComponent<CameraComponent>();
+		auto& tran = m_Camera->AddComponent<TransformComponent>();
 		tran.Position.z += 3;
 	}
 
@@ -28,8 +28,10 @@ namespace Tomato
 
 	Mat4 Scene::GetViewProjection(bool viewReversed) const
 	{
-		auto& camera = m_Camera->GetComponent<Component::Camera>();
-		auto& tran = m_Camera->GetComponent<Component::Transform>();
+		if (!m_Camera->HasComponent<CameraComponent>() || !m_Camera->HasComponent<TransformComponent>())
+			return Mat4(1.0f);
+		auto& camera = m_Camera->GetComponent<CameraComponent>();
+		auto& tran = m_Camera->GetComponent<TransformComponent>();
 
 		return camera.GetView(tran, viewReversed) * camera.GetProjection();
 	}
@@ -53,8 +55,8 @@ namespace Tomato
 
 	std::shared_ptr<Entity>& Scene::PushEntity(std::string_view name, const std::shared_ptr<Entity>& entity)
 	{
-		entity->AddComponent<Component::Renderer>();
-		entity->AddComponent<Component::Transform>();
+		entity->AddComponent<RendererComponent>();
+		entity->AddComponent<TransformComponent>();
 		const char* c_name = name.data();
 		TOMATO_ASSERT(m_Entities.find(c_name) == m_Entities.end(), "Entity '{0}' already exist!", c_name);
 		m_Entities[c_name] = entity;

@@ -17,9 +17,9 @@ namespace Tomato
 	{
 		out << YAML::BeginMap;
 		
-		if (entity->HasComponent<Component::Transform>())
+		if (entity->HasComponent<TransformComponent>())
 		{
-			auto& tran = entity->GetComponent<Component::Transform>();
+			auto& tran = entity->GetComponent<TransformComponent>();
 			out << YAML::Key << "Transform"
 				<< YAML::Value << YAML::BeginMap
 				<< YAML::Key << "Position" << YAML::Value;
@@ -31,14 +31,26 @@ namespace Tomato
 			out	<< YAML::EndMap;
 		}
 
-		if (entity->HasComponent<Component::Renderer>())
+		if (entity->HasComponent<RendererComponent>())
 		{
-			auto& render = entity->GetComponent<Component::Renderer>();
+			auto& render = entity->GetComponent<RendererComponent>();
 			out << YAML::Key << "Renderer" << YAML::Value << YAML::BeginMap
 				<< YAML::Key << "Sprite" << YAML::Value << render.Sprite
 				<< YAML::Key << "Color" << YAML::Value;
 			EncodeFloat4(out, render.Color);
 			out << YAML::EndMap;
+		}
+
+		if (entity->HasComponent<IntComponent>())
+		{
+			auto& i = entity->GetComponent<IntComponent>();
+			out << YAML::Key << "Int" << YAML::Value << i.Value;
+		}
+
+		if (entity->HasComponent<FloatComponent>())
+		{
+			auto& f = entity->GetComponent<FloatComponent>();
+			out << YAML::Key << "Float" << YAML::Value << f.Value;
 		}
 
 		out << YAML::EndMap;
@@ -51,12 +63,12 @@ namespace Tomato
 		out << YAML::BeginMap;
 		out << YAML::Key << "Scene" << YAML::Value << m_SceneName;
 		out << YAML::Key << "MainCamera" << YAML::Value << YAML::BeginMap;
-		EncodeCamera(out, App::GetScenes()[m_SceneName]->GetCamera()->GetComponent<Component::Camera>());
-		EncodeTransform(out, App::GetScenes()[m_SceneName]->GetCamera()->GetComponent<Component::Transform>());
+		EncodeCamera(out, App::GetScene(m_SceneName)->GetCamera()->GetComponent<CameraComponent>());
+		EncodeTransform(out, App::GetScene(m_SceneName)->GetCamera()->GetComponent<TransformComponent>());
 		out << YAML::EndMap;
 
 		out << YAML::Key << "Entities" << YAML::Value << YAML::BeginMap;
-		for (const auto& [name, entity] : App::GetScenes()[m_SceneName]->GetEntities())
+		for (const auto& [name, entity] : App::GetScene(m_SceneName)->GetEntities())
 		{
 			if (!entity)
 				continue;
@@ -95,8 +107,8 @@ namespace Tomato
 		{
 			auto& cam = App::GetScene(m_SceneName)->GetCamera();
 
-			auto& camera = cam->GetComponent<Component::Camera>();
-			auto& tran = cam->GetComponent<Component::Transform>();
+			auto& camera = cam->GetComponent<CameraComponent>();
+			auto& tran = cam->GetComponent<TransformComponent>();
 
 			if (mainCamera["Camera"])
 				camera = DecodeCamera(mainCamera["Camera"]);
@@ -123,13 +135,22 @@ namespace Tomato
 						if (name_c == "Transform")
 						{
 							auto tran = DecodeTransform(comp.second);
-							TOMATO_PRINT(tran.Position.ToString());
-							ent->AddComponent<Component::Transform>(tran.Position, tran.Scale, tran.Rotation);
+							ent->AddComponent<TransformComponent>(tran.Position, tran.Scale, tran.Rotation);
 						}
 						else if (name_c == "Renderer")
 						{
 							auto rend = DecodeRenderer(comp.second);
-							ent->AddComponent<Component::Renderer>(rend.Sprite, rend.Color);
+							ent->AddComponent<RendererComponent>(rend.Sprite, rend.Color);
+						}
+						else if (name_c == "Int")
+						{
+							Int value = comp.second.as<Int>();
+							ent->AddComponent<IntComponent>(value);
+						}
+						else if (name_c == "Float")
+						{
+							Float value = comp.second.as<Float>();
+							ent->AddComponent<FloatComponent>(value);
 						}
 					}
 				}

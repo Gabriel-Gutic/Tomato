@@ -2,24 +2,25 @@
 
 
 MainLayer::MainLayer()
-	:m_Scene(Tomato::App::GetScenes()["Main Scene"])
+	:m_Scene(Tomato::App::GetScene("Main Scene"))
 {
 	if (!m_Scene->Contains("triangle"))
 	{
 		const auto & entity = m_Scene->PushEntity("triangle", std::make_shared<Tomato::Entity>());
-		entity->GetComponent<Tomato::Component::Renderer>().Sprite = "Triangle";
+		entity->GetComponent<Tomato::RendererComponent>().Sprite = "Triangle";
 	}
 
 	if (!m_Scene->Contains("quad"))
 	{
 		const auto& entity = m_Scene->PushEntity("quad", std::make_shared<Tomato::Entity>());
-		entity->GetComponent<Tomato::Component::Renderer>().Sprite = "Quad";
+		entity->GetComponent<Tomato::RendererComponent>().Sprite = "Quad";
 	}
 
 	if (!m_Scene->Contains("poly"))
 	{
 		const auto& entity = m_Scene->PushEntity("poly", std::make_shared<Tomato::Entity>());
-		entity->GetComponent<Tomato::Component::Renderer>().Sprite = "Quad";
+		entity->GetComponent<Tomato::RendererComponent>().Sprite = "Quad";
+		entity->AddComponent<Tomato::IntComponent>();
 	}
 
 	//if (!m_Scene->Contains("circle"))
@@ -33,7 +34,7 @@ MainLayer::MainLayer()
 
 void MainLayer::OnUpdate(Tomato::Float dt)
 {
-	TOMATO_PRINT(Tomato::Input::MouseWorldCoords().ToString());
+	//TOMATO_PRINT(Tomato::Input::MouseWorldCoords().ToString());
 
 	Tomato::Renderer::DrawTriangle(*m_Scene->GetEntity("triangle"), m_Textures["triangle"]);
 	//Tomato::Renderer::Draw(*m_Scene->GetEntity("circle"));
@@ -43,16 +44,13 @@ void MainLayer::OnUpdate(Tomato::Float dt)
 
 void MainLayer::OnGUI()
 {
-	//ImGui::Begin("Main Layer Menu");
+	ImGui::Begin("Main Layer Menu");
 	//ImGui::ColorPicker4("Circle Color", m_Scene->GetEntity<Tomato::Circle>("circle")->GetComponent<Tomato::Color>().ToPtr());
-	/*if (ImGui::SliderInt("Polygon NOS", &m_PolygonNOS, 3, 100))
-	{
-		m_Scene->GetEntity<Tomato::Polygon>("poly")->SetNumberOfSides(m_PolygonNOS);
-	}
-	if (ImGui::SliderFloat("Circle Smoothness", &m_CircleSmoothness, 0.2f, 1.0f))
-	{
-		m_Scene->GetEntity<Tomato::Circle>("circle")->SetSmoothness(m_CircleSmoothness);
-	}*/
+	if (ImGui::SliderInt("Polygon NOS", &m_Scene->GetEntity("poly")->GetComponent<Tomato::IntComponent>().Value, 3, 100));
+	//if (ImGui::SliderFloat("Circle Smoothness", &m_CircleSmoothness, 0.2f, 1.0f))
+	//{
+	//	m_Scene->GetEntity<Tomato::Circle>("circle")->SetSmoothness(m_CircleSmoothness);
+	//}
 
-	//ImGui::End();
+	ImGui::End();
 }

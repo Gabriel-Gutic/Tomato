@@ -88,14 +88,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Tomato.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene\Component\CameraComponent.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene\Component\Component.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene\Registry.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene\Component\RendererComponent.h" />
-    <ClInclude Include="src\Tomato\Renderer\Scene\Component\TransformComponent.h" />
     <ClInclude Include="src\Tomato\Core\App\App.h" />
     <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h" />
     <ClInclude Include="src\Tomato\Core\App\Layer.h" />
+    <ClInclude Include="src\Tomato\Core\App\Object.h" />
     <ClInclude Include="src\Tomato\Core\App\UUID.h" />
     <ClInclude Include="src\Tomato\Core\App\Window.h" />
     <ClInclude Include="src\Tomato\Core\Core.h" />
@@ -127,7 +123,6 @@
     <ClInclude Include="src\Tomato\Event\MouseEvent.h" />
     <ClInclude Include="src\Tomato\Event\WindowEvent.h" />
     <ClInclude Include="src\Tomato\GUI\GUI.h" />
-    <ClInclude Include="src\Tomato\Core\App\Object.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\FrameBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\IndexBuffer.h" />
@@ -135,7 +130,14 @@
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexArray.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Renderer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\CameraComponent.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\Component.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\FloatComponent.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\IntComponent.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\RendererComponent.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\TransformComponent.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Entity.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Registry.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Scene.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Tomato\Renderer\Shader.h" />
@@ -145,12 +147,9 @@
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Tomato\Renderer\Scene\Component\CameraComponent.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Scene\Registry.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Scene\Component\RendererComponent.cpp" />
-    <ClCompile Include="src\Tomato\Renderer\Scene\Component\TransformComponent.cpp" />
     <ClCompile Include="src\Tomato\Core\App\App.cpp" />
     <ClCompile Include="src\Tomato\Core\App\EntryPoint.cpp" />
+    <ClCompile Include="src\Tomato\Core\App\Object.cpp" />
     <ClCompile Include="src\Tomato\Core\App\UUID.cpp" />
     <ClCompile Include="src\Tomato\Core\App\Window.cpp" />
     <ClCompile Include="src\Tomato\Core\DateTime\Date.cpp" />
@@ -169,7 +168,6 @@
     <ClCompile Include="src\Tomato\Event\Event.cpp" />
     <ClCompile Include="src\Tomato\Event\Input.cpp" />
     <ClCompile Include="src\Tomato\GUI\GUI.cpp" />
-    <ClCompile Include="src\Tomato\Core\App\Object.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\FrameBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\IndexBuffer.cpp" />
@@ -177,7 +175,11 @@
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Component\CameraComponent.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Component\RendererComponent.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Component\TransformComponent.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Entity.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Registry.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Scene.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp" />

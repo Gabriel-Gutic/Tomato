@@ -11,8 +11,8 @@ void GUILayer::OnUpdate(Tomato::Float dt)
 {
 	Tomato::Renderer::SetBackgroundColor(m_BackgroundColor);
 
-	auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::Component::Camera>();
-	auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::Component::Transform>();
+	auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>();
+	auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
 	tran.Rotation = m_CameraRotation;
 
 	const auto& window = Tomato::App::GetWindow();
@@ -101,9 +101,9 @@ void GUILayer::OnGUI()
 
 		ImGui::Begin("Entity");
 		ImGui::Text(entity_names[currentEntity].c_str());
-		if (Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->HasComponent<Tomato::Component::Transform>())
+		if (Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->HasComponent<Tomato::TransformComponent>())
 		{
-			Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->GetComponent<Tomato::Component::Transform>().ToImGui();
+			Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->GetComponent<Tomato::TransformComponent>().ToImGui();
 		}
 		ImGui::End();
 	}

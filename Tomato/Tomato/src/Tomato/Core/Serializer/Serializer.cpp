@@ -64,7 +64,7 @@ namespace Tomato
 		return Float4(node[0].as<Float>(), node[1].as<Float>(), node[2].as<Float>(), node[3].as<Float>());
 	}
 
-	void Serializer::EncodeTransform(YAML::Emitter& out, const Component::Transform& tran)
+	void Serializer::EncodeTransform(YAML::Emitter& out, const TransformComponent& tran)
 	{
 		out << YAML::Key << "Transform" << YAML::Value << YAML::BeginMap;
 		out << YAML::Key << "Position" << YAML::Value;
@@ -76,7 +76,7 @@ namespace Tomato
 		out << YAML::EndMap;
 	}
 
-	void Serializer::EncodeRenderer(YAML::Emitter& out, const Component::Renderer& rend)
+	void Serializer::EncodeRenderer(YAML::Emitter& out, const RendererComponent& rend)
 	{
 		out << YAML::Key << "Renderer" << YAML::Value << YAML::BeginMap;
 		out << YAML::Key << "Sprite" << YAML::Value << rend.Sprite;
@@ -84,7 +84,7 @@ namespace Tomato
 		EncodeFloat4(out, rend.Color);
 	}
 
-	void Serializer::EncodeCamera(YAML::Emitter& out, const Component::Camera& cam)
+	void Serializer::EncodeCamera(YAML::Emitter& out, const CameraComponent& cam)
 	{
 		out << YAML::Key << "Camera" << YAML::Value << YAML::BeginMap;
 		out << YAML::Key << "Target" << YAML::Value;
@@ -107,13 +107,13 @@ namespace Tomato
 		out << YAML::EndMap;
 	}
 
-	Component::Transform Serializer::DecodeTransform(const YAML::Node& node)
+	TransformComponent Serializer::DecodeTransform(const YAML::Node& node)
 	{
 		if (!node.IsMap())
 		{
 			TOMATO_ERROR("Invalid Node");
 		}
-		Component::Transform tran;
+		TransformComponent tran;
 		auto& pos = node["Position"];
 		if (pos)
 			tran.Position = DecodeFloat3(pos);
@@ -127,13 +127,13 @@ namespace Tomato
 		return tran;
 	}
 
-	Component::Renderer Serializer::DecodeRenderer(const YAML::Node& node)
+	RendererComponent Serializer::DecodeRenderer(const YAML::Node& node)
 	{
 		if (!node.IsMap())
 		{
 			TOMATO_ERROR("Invalid Node");
 		}
-		Component::Renderer rend;
+		RendererComponent rend;
 
 		auto& sprite = node["Sprite"];
 		if (sprite)
@@ -145,13 +145,13 @@ namespace Tomato
 		return rend;
 	}
 
-	Component::Camera Serializer::DecodeCamera(const YAML::Node& node)
+	CameraComponent Serializer::DecodeCamera(const YAML::Node& node)
 	{
 		if (!node.IsMap())
 		{
 			TOMATO_ERROR("Invalid Node");
 		}
-		Component::Camera cam;
+		CameraComponent cam;
 
 		auto& target = node["Target"];
 		if (target)

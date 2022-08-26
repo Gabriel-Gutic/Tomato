@@ -8,38 +8,36 @@ namespace Tomato
 		Orthographic = 0, Perspective = 1
 	};
 
-	namespace Component 
+	struct CameraComponent
 	{
-		struct Camera
+		ProjectionType ProjectionType;
+		struct
 		{
-			ProjectionType ProjectionType;
-			struct
-			{
-				Float FOV;
-				Float AspectRatio;
-				Float Near;
-				Float Far;
-			} Perspective;
-			struct
-			{
-				Float Left;
-				Float Right;
-				Float Bottom;
-				Float Top;
-				Float Near;
-				Float Far;
-			} Ortho;
-			Float3 Target;
+			Float FOV;
+			Float AspectRatio;
+			Float Near;
+			Float Far;
+		} Perspective;
 
-			Camera() = default;
-			~Camera() = default;
-			Camera(const Camera&) = default;
+		struct
+		{
+			Float Left;
+			Float Right;
+			Float Bottom;
+			Float Top;
+			Float Near;
+			Float Far;
+		} Ortho;
+		Float3 Target;
 
-			Mat4 GetView(const Component::Transform& transform, bool reverseY = false) const;
-			Mat4 GetProjection() const;
+		CameraComponent() = default;
+		~CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
 
-			void SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far);
-			void SetOrthographicProjection(Float left, Float right, Float bottom, Float top, Float _near, Float _far);
-		};
-	}
+		Mat4 GetView(const TransformComponent& transform, bool reverseY = false) const;
+		Mat4 GetProjection() const;
+
+		void SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far);
+		void SetOrthographicProjection(Float left, Float right, Float bottom, Float top, Float _near, Float _far);
+	};
 }

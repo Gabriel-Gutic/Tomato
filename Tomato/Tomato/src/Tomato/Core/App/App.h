@@ -30,7 +30,7 @@ namespace Tomato
 		static void PushEvent(Event* event);
 		static const std::unique_ptr<Scene>& CreateScene(std::string_view name);
 		static void RemoveScene(std::string_view name);
-		static const std::unique_ptr<Scene>& GetScene(std::string_view name);
+		static std::unique_ptr<Scene>& GetScene(std::string_view name);
 		static const std::unique_ptr<Scene>& SetCurrentScene(std::string_view name);
 		static const std::unique_ptr<Scene>& GetCurrentScene();
 		static const std::string& GetCurrentSceneName();

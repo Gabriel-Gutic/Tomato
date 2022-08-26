@@ -3,7 +3,7 @@
 
 TilemapLayer::TilemapLayer()
 {
-	Tomato::App::GetScenes()["Tilemap Scene"]->GetCamera()->GetComponent<Tomato::Component::Transform>().Position = Tomato::Float3(0.0f, 0.0f, 12.0f);
+	Tomato::App::GetScenes()["Tilemap Scene"]->GetCamera()->GetComponent<Tomato::TransformComponent>().Position = Tomato::Float3(0.0f, 0.0f, 12.0f);
 
 	m_Tilemap = std::make_shared<Tomato::Tilemap>("assets/images/TX Tileset Grass.png", 16, 16);
 
@@ -30,11 +30,11 @@ void TilemapLayer::SetTilePosition(Tile& tile, Tomato::Int i, Tomato::Int j)
 	Tomato::Float3 pos;
 	pos.x = (Tomato::Float)i + (Tomato::Float)tile.Rowspan / 2.0f;
 	pos.y = (Tomato::Float)j - (Tomato::Float)tile.Colspan / 2.0f;
-	tile.Quad.GetComponent<Tomato::Component::Transform>().Position = pos;
+	tile.Quad.GetComponent<Tomato::TransformComponent>().Position = pos;
 }
 
 Tile::Tile(Tomato::UInt row, Tomato::UInt col, Tomato::UInt rowspan, Tomato::UInt colspan)
 	:Row(row), Col(col), Rowspan(rowspan), Colspan(colspan)
 {
-	Quad.AddComponent<Tomato::Component::Transform>().Scale = Tomato::Float3((Tomato::Float)Rowspan, (Tomato::Float)Colspan, 1.0f);
+	Quad.AddComponent<Tomato::TransformComponent>().Scale = Tomato::Float3((Tomato::Float)Rowspan, (Tomato::Float)Colspan, 1.0f);
 }
