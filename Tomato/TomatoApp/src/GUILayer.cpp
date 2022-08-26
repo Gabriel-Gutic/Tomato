@@ -104,8 +104,11 @@ void GUILayer::OnGUI()
 		ImGui::Text(entity_names[currentEntity].c_str());
 		if (Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->HasComponent<Tomato::TransformComponent>())
 		{
-			Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->GetComponent<Tomato::TransformComponent>().ToImGui();
-			Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity])->GetComponent<Tomato::MeshRendererComponent>().ToImGui();
+			const auto& entity = Tomato::App::GetCurrentScene()->GetEntity(entity_names[currentEntity]);
+			if (entity->HasComponent<Tomato::TransformComponent>())
+				entity->GetComponent<Tomato::TransformComponent>().ToImGui();
+			if (entity->HasComponent<Tomato::MeshRendererComponent>())
+				entity->GetComponent<Tomato::MeshRendererComponent>().ToImGui();
 		}
 		ImGui::End();
 	}

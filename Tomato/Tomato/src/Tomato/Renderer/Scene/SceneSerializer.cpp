@@ -123,12 +123,12 @@ namespace Tomato
 						if (name_c == "Transform")
 						{
 							auto tran = DecodeTransform(comp.second);
-							ent->AddComponent<TransformComponent>(tran.Position, tran.Scale, tran.Rotation);
+							ent->ReplaceComponent<TransformComponent>(tran.Position, tran.Scale, tran.Rotation);
 						}
 						else if (name_c == "Renderer")
 						{
 							auto rend = DecodeRenderer(comp.second);
-							ent->AddComponent<MeshRendererComponent>(rend.Sprite, rend.Color);
+							ent->ReplaceComponent<MeshRendererComponent>(rend.Sprite, rend.Color);
 						}
 					}
 				}

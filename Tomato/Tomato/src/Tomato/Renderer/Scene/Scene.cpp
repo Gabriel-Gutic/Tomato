@@ -46,7 +46,7 @@ namespace Tomato
 		return m_LayerStack;
 	}
 
-	std::shared_ptr<Entity> Scene::GetEntity(std::string_view name)
+	const std::shared_ptr<Entity>& Scene::GetEntity(std::string_view name)
 	{
 		const char* c_name = name.data();
 		TOMATO_ASSERT(m_Entities.find(c_name) != m_Entities.end(), "Entity '{0}' doesn't exist!", c_name);

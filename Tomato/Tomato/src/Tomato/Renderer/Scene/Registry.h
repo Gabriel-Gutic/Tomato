@@ -15,9 +15,15 @@ namespace Tomato
 		static void Terminate();
 
 		template <typename T>
+		T& Add(const UUID& uuid, const T& comp);
+		template <typename T>
 		T& Add(const UUID& uuid);
 		template <typename T, class... Args>
 		T& Add(const UUID& uuid, Args&& ...args);
+		template <typename T, class... Args>
+		T& Replace(const UUID& uuid, const T& comp);
+		template <typename T, class... Args>
+		T& Replace(const UUID& uuid, Args&& ...args);
 		template <typename T>
 		bool Has(const UUID& uuid) const;
 		template <typename T>
@@ -31,15 +37,37 @@ namespace Tomato
 	};
 
 	template<typename T>
+	inline T& Registry::Add(const UUID& uuid, const T& comp)
+	{
+		auto& c = Add<T>(uuid);
+		c = comp;
+		return c;
+	}
+
+	template<typename T>
 	inline T& Registry::Add(const UUID& uuid)
 	{
-		return m_Buffer.emplace_or_replace<T>(uuid.Get());
+		return m_Buffer.emplace<T>(uuid.Get());
 	}
 
 	template<typename T, class ...Args>
 	inline T& Registry::Add(const UUID& uuid, Args && ...args)
 	{
-		return m_Buffer.emplace_or_replace<T>(uuid.Get(), std::forward<Args>(args)...);
+		return m_Buffer.emplace<T>(uuid.Get(), std::forward<Args>(args)...);
+	}
+
+	template<typename T, class ...Args>
+	inline T& Registry::Replace(const UUID& uuid, const T& comp)
+	{
+		auto& c =Get<T>(uuid.Get());
+		c = comp;
+		return c;
+	}
+
+	template<typename T, class ...Args>
+	inline T& Registry::Replace(const UUID& uuid, Args && ...args)
+	{
+		return m_Buffer.replace<T>(uuid.Get(), std::forward<Args>(args)...);
 	}
 
 	template<typename T>

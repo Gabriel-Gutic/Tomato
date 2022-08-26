@@ -23,6 +23,12 @@ namespace Tomato
 		template <typename T, class... Args>
 		T& AddComponent(Args&& ... args) const;
 		template <typename T>
+		T& AddComponent(const T& comp) const;
+		template <typename T, class... Args>
+		T& ReplaceComponent(Args&& ... args) const;
+		template <typename T>
+		T& ReplaceComponent(const T& comp) const;
+		template <typename T>
 		T& GetComponent();
 		template <typename T>
 		const T& GetComponent() const;
@@ -39,7 +45,25 @@ namespace Tomato
 	template<typename T, class ... Args>
 	inline T& Entity::AddComponent(Args&& ... args) const
 	{
-		return  Registry::Get()->Add<T>(m_UUID, std::forward<Args>(args)...);
+		return Registry::Get()->Add<T>(m_UUID, std::forward<Args>(args)...);
+	}
+
+	template<typename T>
+	inline T& Entity::AddComponent(const T& comp) const
+	{
+		return Registry::Get()->Add<T>(m_UUID, comp);
+	}
+
+	template<typename T, class ...Args>
+	inline T& Entity::ReplaceComponent(Args && ...args) const
+	{
+		return Registry::Get()->Replace<T>(m_UUID, std::forward<Args>(args)...);
+	}
+
+	template<typename T>
+	inline T& Entity::ReplaceComponent(const T& comp) const
+	{
+		return Registry::Get()->Replace<T>(m_UUID, comp);
 	}
 
 	template<typename T>

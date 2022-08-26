@@ -19,7 +19,7 @@ namespace Tomato
 
 		std::shared_ptr<Entity>& PushEntity(std::string_view name, const std::shared_ptr<Entity>& entity);
 		void PopEntity(std::string_view name);
-		std::shared_ptr<Entity> GetEntity(std::string_view name);
+		const std::shared_ptr<Entity>& GetEntity(std::string_view name);
 		bool Contains(std::string_view name) const;
 		
 		std::map<std::string, std::shared_ptr<Entity>>& GetEntities();
