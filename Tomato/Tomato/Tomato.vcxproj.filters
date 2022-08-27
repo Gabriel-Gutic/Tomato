@@ -218,6 +218,7 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\Tomato\Core\App\MenuBar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">

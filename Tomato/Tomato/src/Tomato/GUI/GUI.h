@@ -3,11 +3,6 @@
 
 namespace Tomato::GUI
 {
-	struct Data {
-		static bool IsDockspaceShown;
-		static bool IsRenderWindowShown;
-	};
-
 	void Initialize();
 	void Terminate();
 
@@ -23,5 +18,13 @@ namespace Tomato::GUI
 	void RenderWindow();
 	bool IsRenderWindowShown();
 
+	void ShowMainMenu();
+	void HideMainMenu();
+	bool IsMainMenuShown();
+
+	void ShowSecondMenu();
+	void HideSecondMenu();
+	bool IsSecondMenuShown();
+	
 	void SetDarkThemeColors();
 }

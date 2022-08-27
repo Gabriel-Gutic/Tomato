@@ -48,8 +48,6 @@ namespace Tomato
 
 		TOMATO_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
 	
-		//glViewport(0, 0, m_Data.Width, m_Data.Height);
-
 		SetIcon("assets/Logo/logo.png");
 
 		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {

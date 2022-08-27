@@ -3,6 +3,7 @@
 #include "GUILayer.h"
 #include "MainLayer.h"
 #include "TilemapLayer.h"
+#include "AppMenuBar.h"
 
 
 class TomatoApp : public Tomato::App
@@ -24,6 +25,8 @@ public:
 		tilemap_scene->PushLayer(new TilemapLayer());
 		
 		PushImGuiLayer("Main GUI Layer", new GUILayer());
+
+		SetMenuBar(new AppMenuBar());
 	}
 
 	~TomatoApp()

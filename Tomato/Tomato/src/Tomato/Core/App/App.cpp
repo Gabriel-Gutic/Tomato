@@ -19,7 +19,7 @@ namespace Tomato
 {
 	App* App::s_Instance = nullptr;
 	App::App()
-		:isRunning(true), m_FPS(0), m_FrameCounter(0)
+		:isRunning(true), m_FPS(0), m_FrameCounter(0), m_MenuBar(nullptr)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 
@@ -203,6 +203,18 @@ namespace Tomato
 	std::unique_ptr<Window>& App::GetWindow()
 	{
 		return s_Instance->m_Window;
+	}
+
+	void App::SetMenuBar(MenuBar* menuBar)
+	{
+		if (!menuBar)
+			s_Instance->m_MenuBar = nullptr;
+		s_Instance->m_MenuBar = std::unique_ptr<MenuBar>(menuBar);
+	}
+
+	const std::unique_ptr<MenuBar>& App::GetMenuBar()
+	{
+		return s_Instance->m_MenuBar;
 	}
 
 	std::unordered_map<std::string, std::unique_ptr<Scene>>& App::GetScenes()

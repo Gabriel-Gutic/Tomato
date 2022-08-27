@@ -91,6 +91,7 @@
     <ClInclude Include="src\Tomato\Core\App\App.h" />
     <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h" />
     <ClInclude Include="src\Tomato\Core\App\Layer.h" />
+    <ClInclude Include="src\Tomato\Core\App\MenuBar.h" />
     <ClInclude Include="src\Tomato\Core\App\Object.h" />
     <ClInclude Include="src\Tomato\Core\App\UUID.h" />
     <ClInclude Include="src\Tomato\Core\App\Window.h" />

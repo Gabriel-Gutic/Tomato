@@ -6,6 +6,7 @@
 #include "Renderer/Scene/Scene.h"
 #include "Renderer/Scene/SceneSerializer.h"
 #include "Renderer/Buffer/FrameBuffer.h"
+#include "MenuBar.h"
 
 
 namespace Tomato
@@ -22,6 +23,8 @@ namespace Tomato
 		static void Exit();
 
 		static std::unique_ptr<Window>& GetWindow();
+		static void SetMenuBar(MenuBar* menuBar);
+		static const std::unique_ptr<MenuBar>& GetMenuBar();
 		static std::unordered_map<std::string, std::unique_ptr<Scene>>& GetScenes();
 		static const std::unique_ptr<Entity>& GetCurrentCamera();
 		static UInt GetFPS();
@@ -48,6 +51,7 @@ namespace Tomato
 		std::queue<Event*> m_EventQueue;
 
 		std::unique_ptr<Window> m_Window;
+		std::unique_ptr<MenuBar> m_MenuBar;
 		std::unordered_map<std::string, std::unique_ptr<Scene>> m_SceneMap;
 		std::vector<std::unique_ptr<Serializer>> m_Serializers;
 		std::string m_CurrentSceneName;

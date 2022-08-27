@@ -13,8 +13,16 @@
 
 namespace Tomato::GUI
 {
+    struct Data {
+        static bool IsDockspaceShown;
+        static bool IsRenderWindowShown;
+        static bool IsMainMenuShown;
+        static bool IsSecondMenuShown;
+    };
 	bool Data::IsDockspaceShown = false;
 	bool Data::IsRenderWindowShown = false;
+    bool Data::IsMainMenuShown = false;
+    bool Data::IsSecondMenuShown = false;
 
     void Initialize()
     {
@@ -45,6 +53,8 @@ namespace Tomato::GUI
             style.WindowRounding = 0.0f;
             style.Colors[ImGuiCol_WindowBg].w = 1.0f;
         }
+
+        style.WindowBorderSize = 0.0f;
     }
 
     void Terminate()
@@ -61,9 +71,6 @@ namespace Tomato::GUI
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-		//bool demo = true;
-		//ImGui::ShowDemoWindow(&demo);
-
         if (Data::IsDockspaceShown)
         {
             Dockspace();
@@ -71,6 +78,9 @@ namespace Tomato::GUI
             if (Data::IsRenderWindowShown)
                 RenderWindow();
         }
+
+        bool demo = true;
+        ImGui::ShowDemoWindow(&demo);
     }
 
     void End()
@@ -104,9 +114,55 @@ namespace Tomato::GUI
 
     void GUI::Dockspace()
     {
+        Float menu_y = 0.0f;
         auto& window = App::GetWindow();
-        ImGui::SetNextWindowPos(ImVec2(window->GetX(), window->GetY()));
-        ImGui::SetNextWindowSize(ImVec2(window->GetWidth(), window->GetHeight()));
+
+        if (Data::IsMainMenuShown)
+        {
+            ImGui::SetNextWindowPos(ImVec2(window->GetX(), window->GetY()));
+            ImGui::SetNextWindowSize(ImVec2(window->GetWidth(), window->GetHeight()));
+            ImGui::Begin("MainMenuBar Backend", NULL,
+                ImGuiWindowFlags_NoDecoration |
+                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollWithMouse |
+                ImGuiWindowFlags_NoSavedSettings |
+                ImGuiWindowFlags_NoBringToFrontOnFocus |
+                ImGuiWindowFlags_MenuBar
+            );
+
+            if (ImGui::BeginMenuBar())
+            {
+                App::GetMenuBar()->MainMenu();
+                menu_y += ImGui::GetFrameHeight();
+                ImGui::EndMenuBar();
+            }
+
+            ImGui::End();
+        }
+
+        if (Data::IsSecondMenuShown)
+        {
+            ImGui::SetNextWindowPos(ImVec2(window->GetX(), window->GetY() + menu_y));
+            ImGui::SetNextWindowSize(ImVec2(window->GetWidth(), window->GetHeight() - menu_y));
+            ImGui::Begin("SecondMenuBar Backend", NULL,
+                ImGuiWindowFlags_NoDecoration |
+                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollWithMouse |
+                ImGuiWindowFlags_NoSavedSettings |
+                ImGuiWindowFlags_NoBringToFrontOnFocus |
+                ImGuiWindowFlags_MenuBar
+            );
+
+            if (ImGui::BeginMenuBar())
+            {
+                App::GetMenuBar()->SecondMenu();
+                menu_y += ImGui::GetFrameHeight();
+                ImGui::EndMenuBar();
+            }
+
+            ImGui::End();
+        }
+
+        ImGui::SetNextWindowPos(ImVec2(window->GetX(), window->GetY() + menu_y));
+        ImGui::SetNextWindowSize(ImVec2(window->GetWidth(), window->GetHeight() - menu_y));
         ImGui::Begin("DockSpace", NULL,
             ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_NoResize |
@@ -115,11 +171,10 @@ namespace Tomato::GUI
             ImGuiWindowFlags_NoScrollWithMouse
         );
 
-        // TODO: Menu
-
         // Declare Central dockspace
         auto dockspaceID = ImGui::GetID("HUB_DockSpace");
         ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_PassthruCentralNode/*|ImGuiDockNodeFlags_NoResize*/);
+
         ImGui::End();
     }
 
@@ -148,6 +203,36 @@ namespace Tomato::GUI
     bool IsRenderWindowShown()
     {
         return Data::IsRenderWindowShown;
+    }
+
+    void ShowMainMenu()
+    {
+        Data::IsMainMenuShown = true;
+    }
+
+    void HideMainMenu()
+    {
+        Data::IsMainMenuShown = false;
+    }
+
+    bool IsMainMenuShown()
+    {
+        return Data::IsMainMenuShown;
+    }
+
+    void ShowSecondMenu()
+    {
+        Data::IsSecondMenuShown = true;
+    }
+
+    void HideSecondMenu()
+    {
+        Data::IsSecondMenuShown = false;
+    }
+
+    bool IsSecondMenuShown()
+    {
+        return Data::IsSecondMenuShown;
     }
 
 	void GUI::SetDarkThemeColors()

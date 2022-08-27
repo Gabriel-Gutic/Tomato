@@ -23,22 +23,41 @@ void GUILayer::OnUpdate(Tomato::Float dt)
 
 	Tomato::Float cameraSpeed = m_CameraSpeed * dt;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
+	{
 		tran.Position.x -= cameraSpeed;
+		camera.Target.x -= 2 * cameraSpeed;
+	}
 	if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
+	{
 		tran.Position.x += cameraSpeed;
+		camera.Target.x += 2 * cameraSpeed;
+	}
 	if (Tomato::Input::Keyboard(TOMATO_KEY_UP))
+	{
 		tran.Position.y += cameraSpeed;
+		camera.Target.y += 2 * cameraSpeed;
+	}
 	if (Tomato::Input::Keyboard(TOMATO_KEY_DOWN))
+	{
 		tran.Position.y -= cameraSpeed;
+		camera.Target.y -= 2 * cameraSpeed;
+	}
 	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_8))
-		tran.Position.z += cameraSpeed;
-	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_2))
+	{
 		tran.Position.z -= cameraSpeed;
+		camera.Target.z -= 2 * cameraSpeed;
+	}
+	if (Tomato::Input::Keyboard(TOMATO_KEY_KP_2))
+	{
+		tran.Position.z += cameraSpeed;
+		camera.Target.z += 2 * cameraSpeed;
+	}
 }
 
 void GUILayer::OnGUI()
 {
 	ImGui::Begin("Status");
+
 	std::string fps = "FPS: " + Tomato::Math::ToString(Tomato::App::GetFPS());
 	ImGui::Text(fps.c_str());
 	std::string vertices = "Vertices: " + Tomato::Math::ToString(Tomato::Renderer::GetNumberOfVertices());
@@ -61,8 +80,10 @@ void GUILayer::OnGUI()
 	ImGui::Combo("Camera Projection", &m_CurrentCameraProjection, projs.data(), projs.size());
 
 	auto& camera_tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
+	auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>();
 	ImGui::DragFloat3("Camera Rotation", camera_tran.Rotation.ToPtr(), Tomato::App::GetDeltaTime() * 10.0f, -90.0f, 90.0f);
 	ImGui::DragFloat3("Camera Position", camera_tran.Position.ToPtr(), Tomato::App::GetDeltaTime(), -3.0f, 3.0f);
+	ImGui::DragFloat3("Camera Target", camera.Target.ToPtr(), Tomato::App::GetDeltaTime(), -10.0f, 10.0f);
 	ImGui::ColorPicker4("Background Color", m_BackgroundColor.ToPtr());
 
 	ImGui::End();
