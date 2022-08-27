@@ -9,6 +9,7 @@ namespace Tomato
 		Int Height;
 		Int NrChannels;
 		UChar* Data;
+		UInt Size;
 	};
 
 	class Image
@@ -18,6 +19,7 @@ namespace Tomato
 		~Image();
 
 		const UChar* GetData() const;
+		UInt GetBufferSize() const;
 		Int GetWidth() const;
 		Int GetHeight() const;
 		Int GetNrChannels() const;

@@ -129,6 +129,7 @@
     <ClInclude Include="src\Tomato\Renderer\Buffer\Vertex.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexArray.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Mesh.h" />
     <ClInclude Include="src\Tomato\Renderer\Renderer.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\CameraComponent.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\Component.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="src\Tomato\Renderer\Buffer\Vertex.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Mesh.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\CameraComponent.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\MeshRendererComponent.cpp" />

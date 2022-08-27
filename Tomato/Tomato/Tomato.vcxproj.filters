@@ -175,6 +175,9 @@
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h">
       <Filter>Tomato\Renderer\Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Mesh.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Renderer.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
@@ -297,6 +300,9 @@
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp">
       <Filter>Tomato\Renderer\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Mesh.cpp">
+      <Filter>Tomato\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp">
       <Filter>Tomato\Renderer</Filter>

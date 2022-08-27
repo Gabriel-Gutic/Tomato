@@ -18,6 +18,8 @@ namespace Tomato
 		m_RawData.Data = stbi_load(path.data(), &m_RawData.Width, &m_RawData.Height, &m_RawData.NrChannels, 0);
 	
 		TOMATO_ASSERT(m_RawData.Data, "Failed to load image from path: {0}", path);
+
+		m_RawData.Size = m_RawData.NrChannels * 4 * m_RawData.Width * m_RawData.Height;
 	}
 
 	Image::~Image()
@@ -28,6 +30,11 @@ namespace Tomato
 	const UChar* Image::GetData() const
 	{
 		return m_RawData.Data;
+	}
+
+	UInt Image::GetBufferSize() const
+	{
+		return m_RawData.Size;
 	}
 
 	Int Image::GetWidth() const

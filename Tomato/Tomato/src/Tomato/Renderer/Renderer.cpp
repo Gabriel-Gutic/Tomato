@@ -115,6 +115,28 @@ namespace Tomato
 		s_Instance->m_BackgroundColor = color;
 	}
 
+	void Renderer::Draw(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
+	{
+		if (!entity.HasComponent<MeshRendererComponent>())
+			return;
+
+		const auto& mesh = entity.GetComponent<MeshRendererComponent>();
+		if (RendererData::VertexCounter + mesh.Mesh.Indices.size() >= RendererData::MaxVertexNumber)
+			Flush();
+
+		Float texIndex = GetTextureIndex(texture);
+
+		for (UInt i = 0; i < mesh.Mesh.Indices.size(); i++)
+		{
+			UInt index = mesh.Mesh.Indices[i];
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(mesh.Mesh.Vertices[index], mesh.Color, texIndex, mesh.Mesh.TexCoords[index]);
+		}
+	}
+
+	void Renderer::Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform)
+	{
+	}
+
 	void Renderer::DrawTriangle(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();

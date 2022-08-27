@@ -29,6 +29,8 @@ namespace Tomato
 
 		static void SetBackgroundColor(const Float4& color);
 
+		static void Draw(const Entity& entity, const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
+		static void Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform = Mat4(1.0f));
 		static void DrawTriangle(const Entity& entity, const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
 		static void DrawQuad(const Entity& entity,     const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
 		static void DrawQuad(const Entity& entity,     const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform = Mat4(1.0f));

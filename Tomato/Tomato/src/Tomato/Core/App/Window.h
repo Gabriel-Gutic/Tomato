@@ -1,4 +1,5 @@
 #pragma once
+#include "Renderer/Texture/Image.h"
 
 
 namespace Tomato
@@ -39,6 +40,7 @@ namespace Tomato
 
 		void SetTitle(std::string_view title);
 		const std::string& GetTitle() const;
+		void SetIcon(std::string_view iconPath);
 
 		void SetVSync(bool vsync);
 		bool GetVSync() const;

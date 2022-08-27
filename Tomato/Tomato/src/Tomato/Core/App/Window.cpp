@@ -9,6 +9,8 @@
 #include "Event/MouseEvent.h"
 #include "Event/WindowEvent.h"
 
+#include <stb_image/stb_image.h>
+
 
 namespace Tomato
 {
@@ -47,6 +49,8 @@ namespace Tomato
 		TOMATO_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
 	
 		//glViewport(0, 0, m_Data.Width, m_Data.Height);
+
+		SetIcon("assets/Logo/logo.png");
 
 		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 			switch (action)
@@ -230,6 +234,16 @@ namespace Tomato
 	const std::string& Window::GetTitle() const
 	{
 		return m_Data.Title;
+	}
+
+	void Window::SetIcon(std::string_view iconPath)
+	{
+		TOMATO_ASSERT(File::Exist(iconPath), "Icon '{0}' not found!", iconPath.data());
+
+		GLFWimage images[1];
+		images[0].pixels = stbi_load(iconPath.data(), &images[0].width, &images[0].height, 0, 4); //rgba channels 
+		glfwSetWindowIcon((GLFWwindow*)m_Window, 1, images);
+		stbi_image_free(images[0].pixels);
 	}
 
 	void Window::SetVSync(bool vsync)
