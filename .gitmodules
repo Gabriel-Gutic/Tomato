@@ -12,3 +12,6 @@
 [submodule "Tomato/Tomato/dependencies/entt"]
 	path = Tomato/Tomato/dependencies/entt
 	url = https://github.com/skypjack/entt.git
+[submodule "Tomato/Tomato/dependencies/FreeType"]
+	path = Tomato/Tomato/dependencies/FreeType
+	url = https://github.com/ubawurinna/freetype-windows-binaries.git
