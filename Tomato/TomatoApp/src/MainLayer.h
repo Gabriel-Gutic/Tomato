@@ -1,5 +1,4 @@
 #pragma once
-#include "Tomato.h"
 
 
 class MainLayer : public Tomato::Layer
@@ -11,6 +10,8 @@ public:
 	virtual void OnUpdate(Tomato::Float dt) override;
 	virtual void OnGUI() override;
 private:
+	std::unique_ptr<Tomato::Font> m_Font;
+
 	Tomato::Int m_PolygonNOS = 6;
 	Tomato::Float m_CircleSmoothness = 0.5f;
 

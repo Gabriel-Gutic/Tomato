@@ -36,6 +36,7 @@ project "Tomato"
 		"dependencies/stb_image",
 		"dependencies/spdlog/include",
 		"dependencies/entt/src",
+		"dependencies/FreeType/include",
 		dependencies["GLFW"],
 		dependencies["Glad"],
 		dependencies["ImGui"],
@@ -49,6 +50,7 @@ project "Tomato"
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
+		"dependencies/FreeType/release static/vs2015-2022/win64/freetype.lib",
 	}
 
 	filter "system:windows"

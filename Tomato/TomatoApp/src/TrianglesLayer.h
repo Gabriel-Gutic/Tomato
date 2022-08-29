@@ -1,5 +1,4 @@
 #pragma once
-#include "Tomato.h"
 
 
 class TrianglesLayer : public Tomato::Layer

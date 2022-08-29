@@ -7,6 +7,7 @@ namespace Tomato
 	{
 		void Setup();
 	public:
+		Texture(UInt width, UInt height, UChar* data, int format);
 		Texture(UInt width, UInt height);
 		Texture(std::string_view path);
 		~Texture();

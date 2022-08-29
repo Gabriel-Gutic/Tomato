@@ -10,6 +10,8 @@ project "ImGui"
 	{
 		"imgui/*.cpp",
 		"imgui/*.h",
+		"imgui/misc/cpp/*.cpp",
+		"imgui/misc/cpp/*.h",
 		"imgui/backends/imgui_impl_glfw.h",
 		"imgui/backends/imgui_impl_glfw.cpp",
 		"imgui/backends/imgui_impl_opengl2.h",

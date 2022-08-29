@@ -58,7 +58,7 @@
       <PrecompiledHeaderFile>pchTomato.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATO_PLATFORM_WINDOWS;DEBUG;TOMATO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\entt\src;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\entt\src;dependencies\FreeType\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -68,6 +68,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>dependencies\FreeType\release static\vs2015-2022\win64\freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -75,7 +78,7 @@
       <PrecompiledHeaderFile>pchTomato.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>TOMATO_PLATFORM_WINDOWS;RELEASE;TOMATO_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\entt\src;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src\Tomato;dependencies\stb_image;dependencies\spdlog\include;dependencies\entt\src;dependencies\FreeType\include;dependencies\GLFW\include;dependencies\Glad\include;dependencies\ImGui;dependencies\ImGui\imgui;dependencies\yaml-cpp\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -85,6 +88,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>dependencies\FreeType\release static\vs2015-2022\win64\freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Tomato.h" />
@@ -135,12 +141,15 @@
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\CameraComponent.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\Component.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\MeshRendererComponent.h" />
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\TextMeshComponent.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\TransformComponent.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Entity.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Registry.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\Scene.h" />
     <ClInclude Include="src\Tomato\Renderer\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Tomato\Renderer\Shader.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Character.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Font.h" />
     <ClInclude Include="src\Tomato\Renderer\Texture\Image.h" />
     <ClInclude Include="src\Tomato\Renderer\Texture\Texture.h" />
     <ClInclude Include="src\Tomato\Renderer\Texture\Tilemap.h" />
@@ -178,12 +187,14 @@
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\CameraComponent.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\MeshRendererComponent.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Scene\Component\TextMeshComponent.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\TransformComponent.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Entity.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Registry.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\Scene.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Texture\Font.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Texture\Texture.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Texture\Tilemap.cpp" />

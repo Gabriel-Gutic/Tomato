@@ -3,9 +3,10 @@
 in vec4 Color;
 in float TexIndex;
 in vec2 TexCoords;
+in float Type;
+
 out vec4 FragColor;
 
-uniform vec2 u_WindowSize;
 uniform sampler2D u_Textures[32];
 
 void main()
@@ -15,7 +16,21 @@ void main()
 	else 
 	{
 		int index = int(TexIndex + 0.1f);
-		FragColor = texture(u_Textures[index], TexCoords);
+		int type = int(Type + 0.1f);
+
+		if (type == 0)
+		{
+			FragColor = texture(u_Textures[index], TexCoords);
+		}
+		else if (type == 1)
+		{
+			vec4 sampled = vec4(1.0, 1.0, 1.0, texture(u_Textures[index], TexCoords).r);
+			FragColor = Color * sampled;
+		}
+		else 
+		{
+			FragColor = Color;
+		}
 	}
 }
 

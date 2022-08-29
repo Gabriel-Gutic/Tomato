@@ -2,40 +2,40 @@ Scene: Main Scene
 MainCamera:
   Camera:
     Target:
-      - 0.660678864
-      - 0.56773138
-      - 1.32427716
+      - 1.76584113
+      - 0.708518028
+      - 1.40513515
     Perspective:
-      FOV: 45
+      FOV: 52.7266464
       AspectRatio: 1.90287411
       Near: 0.100000001
       Far: 100
     Ortho:
-      Left: -2.69623184
-      Right: 2.69623184
-      Bottom: -1.41692603
-      Top: 1.41692603
+      Left: -1.90287411
+      Right: 1.90287411
+      Bottom: -1
+      Top: 1
       Near: 0.100000001
       Far: 100
   Transform:
     Position:
-      - 0.330339432
-      - 0.28386569
-      - 3.66214585
+      - 0.882920563
+      - 0.354259014
+      - 3.70256853
     Scale:
       - 1
       - 1
       - 1
     Rotation:
-      - 1.03600001
-      - -2.99300003
+      - 0
+      - 0
       - 0
 Entities:
   poly:
     Transform:
       Position:
-        - -1.5
-        - 0
+        - -1.29999995
+        - 0.200000003
         - 0
       Scale:
         - 1
@@ -69,9 +69,9 @@ Entities:
     Renderer:
       Sprite: Quad
       Color:
-        - 0
-        - 0
-        - 0
+        - 1
+        - 1
+        - 1
         - 1
   triangle:
     Transform:

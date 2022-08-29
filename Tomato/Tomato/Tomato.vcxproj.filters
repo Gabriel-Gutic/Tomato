@@ -61,6 +61,9 @@
     <ClInclude Include="src\Tomato\Core\App\Layer.h">
       <Filter>Tomato\Core\App</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Core\App\MenuBar.h">
+      <Filter>Tomato\Core\App</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Core\App\Object.h">
       <Filter>Tomato\Core\App</Filter>
     </ClInclude>
@@ -190,6 +193,9 @@
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\MeshRendererComponent.h">
       <Filter>Tomato\Renderer\Scene\Component</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Scene\Component\TextMeshComponent.h">
+      <Filter>Tomato\Renderer\Scene\Component</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\TransformComponent.h">
       <Filter>Tomato\Renderer\Scene\Component</Filter>
     </ClInclude>
@@ -218,7 +224,8 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\Tomato\Core\App\MenuBar.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Font.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Character.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
@@ -314,6 +321,9 @@
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\MeshRendererComponent.cpp">
       <Filter>Tomato\Renderer\Scene\Component</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Scene\Component\TextMeshComponent.cpp">
+      <Filter>Tomato\Renderer\Scene\Component</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\TransformComponent.cpp">
       <Filter>Tomato\Renderer\Scene\Component</Filter>
     </ClCompile>
@@ -342,5 +352,6 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Texture\Font.cpp" />
   </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+#include "pchTomatoApp.h"
 #include "GUILayer.h"
 
 GUILayer::GUILayer()
@@ -18,7 +19,7 @@ void GUILayer::OnUpdate(Tomato::Float dt)
 
 	if (m_CurrentCameraProjection == 0)
 		camera.SetOrthographicProjection(-window->GetAspectRatio() * m_CameraOrthoSize, window->GetAspectRatio() * m_CameraOrthoSize, -m_CameraOrthoSize, m_CameraOrthoSize, 0.1f, 100.0f);
-	else 
+	else
 		camera.SetPerspectiveProjection(m_CameraFOV, window->GetAspectRatio(), 0.1f, 100.0f);
 
 	Tomato::Float cameraSpeed = m_CameraSpeed * dt;

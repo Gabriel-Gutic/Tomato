@@ -1,5 +1,4 @@
 #pragma once
-#include "Tomato.h"
 
 
 class GUILayer : public Tomato::ImGuiLayer
@@ -20,4 +19,3 @@ private:
 	Tomato::Float m_CameraFOV = 45.0f;
 	Tomato::Float4 m_BackgroundColor;
 };
-

@@ -7,6 +7,9 @@ project "TomatoApp"
 	targetdir (bin_dir)
 	objdir (bin_int_dir)
 
+	pchheader("pchTomatoApp.h")
+	pchsource("src/pchTomatoApp.cpp")
+
 	files 
 	{
 		"src/**.cpp",

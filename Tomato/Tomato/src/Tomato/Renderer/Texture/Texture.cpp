@@ -22,6 +22,15 @@ namespace Tomato
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
+	Texture::Texture(UInt width, UInt height, UChar* data, int format)
+		:m_Width(width), m_Height(height)
+	{
+		Setup();
+
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+
 	Texture::Texture(UInt width, UInt height)
 		:m_Width(width), m_Height(height)
 	{

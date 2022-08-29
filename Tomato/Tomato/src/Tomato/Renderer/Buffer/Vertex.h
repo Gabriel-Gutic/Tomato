@@ -10,9 +10,14 @@ namespace  Tomato
 		Float4 Color;
 		Float TexIndex;
 		Float2 TexCoords;
+		/*
+		Type 0 -> Default Drawing;
+		Type 1 -> Text Drawing;
+		*/
+		Float Type;
 
-		Vertex(const Float3& coords = Float3(0.0f, 0.0f, 0.0f), const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f), Float texIndex = -1.0f, const Float2& texCoords = Float2(0.0f, 0.0f))
-			:Coords(coords), Color(color), TexIndex(texIndex), TexCoords(texCoords)
+		Vertex(const Float3& coords = Float3(0.0f, 0.0f, 0.0f), const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f), Float texIndex = -1.0f, const Float2& texCoords = Float2(0.0f, 0.0f), Float type = 0.0f)
+			:Coords(coords), Color(color), TexIndex(texIndex), TexCoords(texCoords), Type(type)
 		{}
 
 		Vertex(const Vertex&);
@@ -28,6 +33,7 @@ namespace  Tomato
 			Color = other.Color;
 			TexIndex = other.TexIndex;
 			TexCoords = other.TexCoords;
+			Type = other.Type;
 
 			return *this;
 		}
