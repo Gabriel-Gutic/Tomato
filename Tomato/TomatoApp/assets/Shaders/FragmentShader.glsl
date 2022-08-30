@@ -24,7 +24,10 @@ void main()
 		}
 		else if (type == 1)
 		{
-			vec4 sampled = vec4(1.0, 1.0, 1.0, texture(u_Textures[index], TexCoords).r);
+			float r = texture(u_Textures[index], TexCoords).r;
+			//if (r < 0.1)
+			//	discard;
+			vec4 sampled = vec4(1.0, 1.0, 1.0, r);
 			FragColor = Color * sampled;
 		}
 		else 

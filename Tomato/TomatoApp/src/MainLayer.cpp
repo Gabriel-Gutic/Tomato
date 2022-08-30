@@ -5,7 +5,7 @@
 MainLayer::MainLayer()
 	:m_Scene(Tomato::App::GetScene("Main Scene"))
 {
-	m_Font = std::make_unique<Tomato::Font>("assets/Fonts/OpenSans/OpenSans/OpenSans-Regular.ttf");
+	m_Font = std::make_unique<Tomato::Font>("assets/Fonts/OpenSans/OpenSans/OpenSans-Bold.ttf");
 
 	if (!m_Scene->Contains("triangle"))
 	{
@@ -38,7 +38,7 @@ void MainLayer::OnUpdate(Tomato::Float dt)
 {
 	//TOMATO_PRINT(Tomato::Input::MouseWorldCoords().ToString());
 
-	Tomato::Renderer::DrawText("Tomato", *m_Font);
+	Tomato::Renderer::DrawText("0123456789abcdefghijklmnopqrstuvwxyz", *m_Font);
 	Tomato::Renderer::DrawTriangle(*m_Scene->GetEntity("triangle"), m_Textures["triangle"]);
 	//Tomato::Renderer::Draw(*m_Scene->GetEntity("circle"));
 	Tomato::Renderer::DrawQuad(*m_Scene->GetEntity("quad"), m_Tilemap, 1, 1, 3, 3);

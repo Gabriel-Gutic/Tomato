@@ -39,10 +39,11 @@ namespace Tomato
 		s_Instance->m_VertexArray = std::make_unique<VertexArray>();
 
 		glEnable(GL_BLEND);
-		glEnable(GL_DEPTH_TEST);
-
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+		
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_TEXTURE_2D);
+
 		s_Instance->m_FrameBuffer = std::make_unique<FrameBuffer>();
 
 		s_Instance->m_VP = Mat4(1.0f);
@@ -313,12 +314,10 @@ namespace Tomato
 		Float scale = 0.01f;
 
 		// iterate through all characters
-		std::string_view::const_iterator c;
 		Float x = 0.0f;
-		for (c = text.begin(); c != text.end(); c++)
+		for (const auto& c : text)
 		{
-			Char chr = *c;
-			auto& ch = font[chr];
+			auto& ch = font[c];
 
 			Float xpos = x + ch.Bearing.x * scale;
 			Float ypos = - (ch.Size.y - ch.Bearing.y) * scale;
@@ -348,7 +347,7 @@ namespace Tomato
 			RendererData::Vertices[RendererData::VertexCounter++] = Vertex((transform * coords[3]).xyz, color, texIndex, Float2(0.0f, 0.0f), 1.0f);
 			RendererData::Vertices[RendererData::VertexCounter++] = Vertex((transform * coords[4]).xyz, color, texIndex, Float2(1.0f, 1.0f), 1.0f);
 			RendererData::Vertices[RendererData::VertexCounter++] = Vertex((transform * coords[5]).xyz, color, texIndex, Float2(1.0f, 0.0f), 1.0f);
-		
+
 			x += (ch.Advance >> 6) * scale;
 		}
 
