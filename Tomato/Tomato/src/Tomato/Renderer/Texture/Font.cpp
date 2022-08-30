@@ -17,7 +17,7 @@ namespace Tomato
 		FT_Face face;
 		TOMATO_ASSERT(!FT_New_Face(ft, filePath.data(), 0, &face), "ERROR::FREETYPE: Failed to load font");
 
-		FT_Set_Pixel_Sizes(face, 0, 48);
+		FT_Set_Pixel_Sizes(face, 0, 72);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
 
@@ -33,8 +33,8 @@ namespace Tomato
             m_Chars[c].Texture = std::make_shared<Texture>(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer, GL_RED);
             
             // now store character for later use
-            m_Chars[c].Size = UInt2(face->glyph->bitmap.width, face->glyph->bitmap.rows);
-            m_Chars[c].Bearing = UInt2(face->glyph->bitmap_left, face->glyph->bitmap_top);
+            m_Chars[c].Size = Int2(face->glyph->bitmap.width, face->glyph->bitmap.rows);
+            m_Chars[c].Bearing = Int2(face->glyph->bitmap_left, face->glyph->bitmap_top);
             m_Chars[c].Advance = face->glyph->advance.x;
         }
 
