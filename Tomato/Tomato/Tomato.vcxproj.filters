@@ -214,12 +214,6 @@
     <ClInclude Include="src\Tomato\Renderer\Shader.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Texture\Character.h">
-      <Filter>Tomato\Renderer\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tomato\Renderer\Texture\Font.h">
-      <Filter>Tomato\Renderer\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Texture\Image.h">
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
@@ -230,6 +224,8 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Font.h" />
+    <ClInclude Include="src\Tomato\Renderer\Texture\Character.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
@@ -346,9 +342,6 @@
     <ClCompile Include="src\Tomato\Renderer\Shader.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tomato\Renderer\Texture\Font.cpp">
-      <Filter>Tomato\Renderer\Texture</Filter>
-    </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Texture\Image.cpp">
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
@@ -359,5 +352,6 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Texture\Font.cpp" />
   </ItemGroup>
 </Project>
