@@ -47,6 +47,7 @@ namespace Tomato
 		Float m_DeltaTime;
 		UInt m_FrameCounter;
 		Timer m_FrameTimer;
+		Timer m_SerializerTimer;
 		bool isRunning;
 		std::queue<Event*> m_EventQueue;
 

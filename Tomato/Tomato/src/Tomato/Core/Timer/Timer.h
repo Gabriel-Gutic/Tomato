@@ -18,7 +18,7 @@ namespace Tomato
 		std::string MillisecondsToString(UInt precision = 2) const;
 		std::string SecondsToString(UInt precision = 2) const;
 		
-		static void Wait(Double ms);
+		static void Wait(ULong ms);
 	private:
 		Bool isStopped;
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_Start;

@@ -76,12 +76,31 @@ namespace Tomato
 		out << YAML::EndMap;
 	}
 
-	void Serializer::EncodeRenderer(YAML::Emitter& out, const MeshRendererComponent& rend)
+	void Serializer::EncodeMeshRenderer(YAML::Emitter& out, const MeshRendererComponent& rend)
 	{
-		out << YAML::Key << "Renderer" << YAML::Value << YAML::BeginMap;
+		out << YAML::Key << "MeshRenderer" << YAML::Value << YAML::BeginMap;
 		out << YAML::Key << "Sprite" << YAML::Value << rend.Sprite;
 		out << YAML::Key << "Color" << YAML::Value;
 		EncodeFloat4(out, rend.Color);
+		out << YAML::Key << "Vertices" << YAML::Value << YAML::BeginSeq;
+		for (const auto& vertex : rend.mesh.Vertices)
+		{
+			EncodeFloat3(out, vertex);
+		}
+		out << YAML::EndSeq;
+		out << YAML::Key << "Indices" << YAML::Value << YAML::BeginSeq;
+		for (const auto& index : rend.mesh.Indices)
+		{
+			out << index;
+		}
+		out << YAML::EndSeq;
+		out << YAML::Key << "TexCoords" << YAML::Value << YAML::BeginSeq;
+		for (const auto& texCoords : rend.mesh.TexCoords)
+		{
+			EncodeFloat2(out, texCoords);
+		}
+		out << YAML::EndSeq;
+		out << YAML::EndMap;
 	}
 
 	void Serializer::EncodeCamera(YAML::Emitter& out, const CameraComponent& cam)
@@ -127,7 +146,7 @@ namespace Tomato
 		return tran;
 	}
 
-	MeshRendererComponent Serializer::DecodeRenderer(const YAML::Node& node)
+	MeshRendererComponent Serializer::DecodeMeshRenderer(const YAML::Node& node)
 	{
 		if (!node.IsMap())
 		{
@@ -141,7 +160,27 @@ namespace Tomato
 		auto& color = node["Color"];
 		if (color)
 			rend.Color = DecodeFloat4(color);
-
+		auto& vertices = node["Vertices"];
+		if (vertices)
+		{
+			for (YAML::const_iterator it = vertices.begin(); it != vertices.end(); ++it) {
+				rend.mesh.Vertices.push_back(DecodeFloat3(*it));
+			}
+		}
+		auto& indices = node["Indices"];
+		if (indices)
+		{
+			for (YAML::const_iterator it = indices.begin(); it != indices.end(); ++it) {
+				rend.mesh.Indices.push_back(it->as<UInt>());
+			}
+		}
+		auto& texCoords = node["TexCoords"];
+		if (texCoords)
+		{
+			for (YAML::const_iterator it = texCoords.begin(); it != texCoords.end(); ++it) {
+				rend.mesh.TexCoords.push_back(DecodeFloat2(*it));
+			}
+		}
 		return rend;
 	}
 

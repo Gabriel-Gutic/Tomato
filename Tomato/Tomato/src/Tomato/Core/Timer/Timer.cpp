@@ -1,7 +1,11 @@
 #include "pchTomato.h"
 #include "Timer.h"
-#include "Timer.h"
-#include "Timer.h"
+
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 
 
 namespace Tomato
@@ -21,11 +25,9 @@ namespace Tomato
 		m_Start = std::chrono::high_resolution_clock::now();
 	}
 
-	void Timer::Wait(Double ms)
+	void Timer::Wait(ULong ms)
 	{
-		Timer t;
-
-		while (t.GetMilliseconds() < ms);
+		Sleep(static_cast<unsigned long>(ms));
 	}
 
 	ULong Timer::GetMicroseconds() const

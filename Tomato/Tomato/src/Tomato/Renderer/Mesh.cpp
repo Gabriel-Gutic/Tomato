@@ -44,7 +44,7 @@ namespace Tomato
 		mesh.Vertices.reserve(sides + 1);
 
 		mesh.Vertices.emplace_back();
-		mesh.Vertices.emplace_back(0.0f, 0.5f);
+		mesh.Vertices.emplace_back(0.0f, 0.5f, 0.0f);
 
 		Float radius = 0.5f;
 		Float2 center = Float2();
@@ -52,7 +52,7 @@ namespace Tomato
 
 		for (UInt i = 1; i < sides; i++)
 		{
-			mesh.Vertices.emplace_back(center.x + radius * cosf(t - Math::Radians(angle)), center.y + radius * sinf(t - Math::Radians(angle)));
+			mesh.Vertices.emplace_back(center.x + radius * cosf(t - Math::Radians(angle)), center.y + radius * sinf(t - Math::Radians(angle)), 0.0f);
 			t -= Math::Radians(angle);
 		}
 
@@ -66,6 +66,8 @@ namespace Tomato
 			else
 				mesh.Indices.push_back(i + 2);
 		}
+
+		mesh.TexCoords.resize(sides + 1);
 
 		return mesh;
 	}

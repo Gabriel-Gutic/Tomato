@@ -110,9 +110,13 @@ namespace Tomato
 			
 			GUI::End();
 
-			for (auto& serializer : m_Serializers)
+			if (m_SerializerTimer.GetSeconds() > 2)
 			{
-				serializer->Serialize();
+				for (auto& serializer : m_Serializers)
+				{
+					serializer->Serialize();
+				}
+				m_SerializerTimer.start();
 			}
 
 			m_Window->Swap();

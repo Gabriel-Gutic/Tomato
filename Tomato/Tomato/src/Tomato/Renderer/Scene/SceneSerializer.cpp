@@ -20,25 +20,13 @@ namespace Tomato
 		if (entity->HasComponent<TransformComponent>())
 		{
 			auto& tran = entity->GetComponent<TransformComponent>();
-			out << YAML::Key << "Transform"
-				<< YAML::Value << YAML::BeginMap
-				<< YAML::Key << "Position" << YAML::Value;
-			EncodeFloat3(out, tran.Position);
-			out << YAML::Key << "Scale" << YAML::Value;
-			EncodeFloat3(out, tran.Scale);
-			out << YAML::Key << "Rotation" << YAML::Value;
-			EncodeFloat3(out, tran.Rotation);
-			out	<< YAML::EndMap;
+			EncodeTransform(out, tran);
 		}
 
 		if (entity->HasComponent<MeshRendererComponent>())
 		{
 			auto& render = entity->GetComponent<MeshRendererComponent>();
-			out << YAML::Key << "Renderer" << YAML::Value << YAML::BeginMap
-				<< YAML::Key << "Sprite" << YAML::Value << render.Sprite
-				<< YAML::Key << "Color" << YAML::Value;
-			EncodeFloat4(out, render.Color);
-			out << YAML::EndMap;
+			EncodeMeshRenderer(out, render);
 		}
 
 		out << YAML::EndMap;
@@ -112,6 +100,7 @@ namespace Tomato
 			for (const auto& entity : entities)
 			{
 				std::string name = entity.first.as<std::string>();
+				TOMATO_PRINT(name);
 				auto& ent = App::GetScenes()[m_SceneName]->PushEntity(name, std::make_shared<Entity>());
 				auto& entity_data = entity.second;
 				
@@ -125,10 +114,10 @@ namespace Tomato
 							auto tran = DecodeTransform(comp.second);
 							ent->ReplaceComponent<TransformComponent>(tran.Position, tran.Scale, tran.Rotation);
 						}
-						else if (name_c == "Renderer")
+						else if (name_c == "MeshRenderer")
 						{
-							auto rend = DecodeRenderer(comp.second);
-							ent->ReplaceComponent<MeshRendererComponent>(rend.Sprite, rend.Color);
+							auto rend = DecodeMeshRenderer(comp.second);
+							ent->ReplaceComponent<MeshRendererComponent>(rend.Sprite, rend.Color, rend.mesh);
 						}
 					}
 				}

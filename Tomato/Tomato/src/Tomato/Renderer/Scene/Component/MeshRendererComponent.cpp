@@ -6,8 +6,8 @@
 
 namespace Tomato
 {
-	MeshRendererComponent::MeshRendererComponent(std::string_view sprite, const Float4& color)
-		:Sprite(sprite), Color(color)
+	MeshRendererComponent::MeshRendererComponent(std::string_view sprite, const Float4& color, const Mesh& mesh)
+		:Sprite(sprite), Color(color), mesh(mesh)
 	{
 
 	}

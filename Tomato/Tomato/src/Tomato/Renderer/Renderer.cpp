@@ -119,109 +119,31 @@ namespace Tomato
 			return;
 
 		const auto& mesh = entity.GetComponent<MeshRendererComponent>();
-		if (RendererData::VertexCounter + mesh.Mesh.Indices.size() >= RendererData::MaxVertexNumber)
+		if (RendererData::VertexCounter + mesh.mesh.Indices.size() >= RendererData::MaxVertexNumber)
 			Flush();
 
 		Float texIndex = GetTextureIndex(texture);
 
-		for (UInt i = 0; i < mesh.Mesh.Indices.size(); i++)
+		bool hasTransform = false;
+		Mat4 tran(1.0f);
+		if (entity.HasComponent<TransformComponent>())
 		{
-			UInt index = mesh.Mesh.Indices[i];
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(mesh.Mesh.Vertices[index], mesh.Color, texIndex, mesh.Mesh.TexCoords[index]);
+			hasTransform = true;
+			tran = entity.GetComponent<TransformComponent>().Get();
+		}
+
+		for (UInt i = 0; i < mesh.mesh.Indices.size(); i++)
+		{
+			UInt index = mesh.mesh.Indices[i];
+			auto coords = mesh.mesh.Vertices[index];
+			if (hasTransform)
+				coords = (transform * tran * Float4(coords, 1.0f)).xyz;
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, mesh.Color, texIndex, mesh.mesh.TexCoords[index]);
 		}
 	}
 
 	void Renderer::Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform)
 	{
-	}
-
-	void Renderer::DrawTriangle(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
-	{
-		TOMATO_BENCHMARKING_FUNCTION();
-		if (RendererData::VertexCounter + 3 >= RendererData::MaxVertexNumber)
-			Flush();
-
-		auto& rend = entity.GetComponent<MeshRendererComponent>();
-		Float texIndex = GetTextureIndex(texture);
-
-		Vertex v1;
-		v1.Coords = Float3(0.0f, -0.5f + sqrtf(3) / 2.0f, 0.0f);
-		v1.Color = rend.Color;
-		v1.TexCoords = Float2(0.5f, 1.0f);
-		v1.TexIndex = texIndex;
-
-		Vertex v2;
-		v2.Coords = Float3(-0.5f, -0.5f, 0.0f);
-		v2.Color = rend.Color;
-		v2.TexCoords = Float2(0.0f, 0.0f);
-		v2.TexIndex = texIndex;
-
-		Vertex v3;
-		v3.Coords = Float3(0.5f, -0.5f, 0.0f);
-		v3.Color = rend.Color;
-		v3.TexCoords = Float2(1.0f, 0.0f);
-		v3.TexIndex = texIndex;
-
-		if (entity.HasComponent<TransformComponent>())
-		{
-			auto tran = entity.GetComponent<TransformComponent>().Get();
-
-			v1.Coords = (tran * Float4(v1.Coords, 1.0f)).xyz;
-			v2.Coords = (tran * Float4(v2.Coords, 1.0f)).xyz;
-			v3.Coords = (tran * Float4(v3.Coords, 1.0f)).xyz;
-		}
-		v1.Coords = (transform * Float4(v1.Coords, 1.0f)).xyz;
-		v2.Coords = (transform * Float4(v2.Coords, 1.0f)).xyz;
-		v3.Coords = (transform * Float4(v3.Coords, 1.0f)).xyz;
-
-		RendererData::Vertices[RendererData::VertexCounter++] = v1;
-		RendererData::Vertices[RendererData::VertexCounter++] = v2;
-		RendererData::Vertices[RendererData::VertexCounter++] = v3;
-	}
-
-	void Renderer::DrawQuad(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
-	{
-		TOMATO_BENCHMARKING_FUNCTION();
-		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
-			Flush();
-
-		auto& rend = entity.GetComponent<MeshRendererComponent>();
-		Float texIndex = GetTextureIndex(texture);
-
-		std::array<Vertex, 4> vertices;
-		
-		vertices[0].Coords = Float3(-0.5f, 0.5f, 0.0f);
-		vertices[0].Color = rend.Color;
-		vertices[0].TexCoords = Float2(0.0f, 1.0f);
-		vertices[0].TexIndex = texIndex;
-
-		vertices[1].Coords = Float3(-0.5f, -0.5f, 0.0f);
-		vertices[1].Color = rend.Color;
-		vertices[1].TexCoords = Float2(0.0f, 0.0f);
-		vertices[1].TexIndex = texIndex;
-
-		vertices[2].Coords = Float3(0.5f, -0.5f, 0.0f);
-		vertices[2].Color = rend.Color;
-		vertices[2].TexCoords = Float2(1.0f, 0.0f);
-		vertices[2].TexIndex = texIndex;
-
-		vertices[3].Coords = Float3(0.5f, 0.5f, 0.0f);
-		vertices[3].Color = rend.Color;
-		vertices[3].TexCoords = Float2(1.0f, 1.0f);
-		vertices[3].TexIndex = texIndex;
-
-		if (entity.HasComponent<TransformComponent>())
-		{
-			auto tran = entity.GetComponent<TransformComponent>().Get();
-
-			for (auto& vertex : vertices)
-				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
-		}
-		for (auto& vertex : vertices)
-			vertex.Coords = (transform * Float4(vertex.Coords, 1.0f)).xyz;
-		std::array<UInt, 6> indices = { 0, 1, 2, 1, 2, 3 };
-		for (const auto& index : indices)
-			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
 	}
 
 	void Renderer::DrawQuad(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform)
@@ -262,47 +184,6 @@ namespace Tomato
 			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
 	}
 
-	void Renderer::DrawPolygon(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
-	{
-		Int nr = 6;
-		std::vector<UInt> indices = Math::GeneratePolygonIndices(nr);
-		TOMATO_BENCHMARKING_FUNCTION();
-		if (RendererData::VertexCounter + indices.size() >= RendererData::MaxVertexNumber)
-			Flush();
-
-		auto& rend = entity.GetComponent<MeshRendererComponent>();
-		Float texIndex = GetTextureIndex(texture);
-
-		std::vector<Float2> coords = Math::GeneratePolygonCoords(nr);
-		std::vector<Vertex> vertices;
-		vertices.resize(nr + 1);
-
-		for (UInt i = 0; i <= nr; i++)
-		{
-			vertices[i].Coords.xy = coords[i];
-			vertices[i].Color = rend.Color;
-			vertices[i].TexCoords = Float2();
-			vertices[i].TexIndex = texIndex;
-		}
-
-		if (entity.HasComponent<TransformComponent>())
-		{
-			auto tran = entity.GetComponent<TransformComponent>().Get();
-
-			for (auto& vertex : vertices)
-				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
-		}
-		for (auto& vertex : vertices)
-			vertex.Coords = (transform * Float4(vertex.Coords, 1.0f)).xyz;
-
-		for (const auto& index : indices)
-			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
-	}
-
-	void Renderer::DrawCircle(const Entity& entity, const std::shared_ptr<Texture>& texture, const Mat4& transform)
-	{
-	}
-
 	void Renderer::DrawText(std::string_view text, const Font& font, const Mat4& transform)
 	{
 		auto& ins = s_Instance;
@@ -313,12 +194,10 @@ namespace Tomato
 		Float scale = 0.01f;
 
 		// iterate through all characters
-		std::string_view::const_iterator c;
 		Float x = 0.0f;
-		for (c = text.begin(); c != text.end(); c++)
+		for (const auto c : text)
 		{
-			Char chr = *c;
-			auto& ch = font[chr];
+			auto& ch = font[c];
 
 			Float xpos = x + ch.Bearing.x * scale;
 			Float ypos = - (ch.Size.y - ch.Bearing.y) * scale;
