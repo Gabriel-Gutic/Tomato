@@ -7,7 +7,7 @@ namespace Tomato
 	{
 	public:
 		std::vector<Float3> Vertices;
-		std::vector<UInt> Indices;
+		std::vector<unsigned int> Indices;
 		std::vector<Float2> TexCoords;
 
 		Mesh() = default;
@@ -19,7 +19,7 @@ namespace Tomato
 
 		static Mesh TriangleMesh();
 		static Mesh QuadMesh();
-		static Mesh PolygonMesh(Int sides);
-		static Mesh CircleMesh(Float smoothness);
+		static Mesh PolygonMesh(int sides);
+		static Mesh CircleMesh(float smoothness);
 	};
 }

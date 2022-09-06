@@ -6,7 +6,7 @@
 
 namespace Tomato
 {
-	VertexBuffer::VertexBuffer(UInt mvn)
+	VertexBuffer::VertexBuffer(unsigned int mvn)
 		:Buffer()
 	{
 		this->Bind();
@@ -23,9 +23,9 @@ namespace Tomato
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 	}
 
-	void VertexBuffer::SetRawData(const Vertex* data, UInt size) const
+	void VertexBuffer::SetRawData(const Vertex* data, unsigned int size) const
 	{
-		glBufferSubData(GL_ARRAY_BUFFER, 0, size, (const Float*)(data));
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, (const float*)(data));
 	}
 }
 

@@ -5,11 +5,11 @@ namespace Tomato
 {
 	struct RawImageData
 	{
-		Int Width;
-		Int Height;
-		Int NrChannels;
-		UChar* Data;
-		UInt Size;
+		int Width;
+		int Height;
+		int NrChannels;
+		unsigned char* Data;
+		unsigned int Size;
 	};
 
 	class Image
@@ -18,12 +18,12 @@ namespace Tomato
 		Image(std::string_view path);
 		~Image();
 
-		const UChar* GetData() const;
-		UInt GetBufferSize() const;
-		Int GetWidth() const;
-		Int GetHeight() const;
-		Int GetNrChannels() const;
-		Int GetFormat() const;
+		const unsigned char* GetData() const;
+		unsigned int GetBufferSize() const;
+		int GetWidth() const;
+		int GetHeight() const;
+		int GetNrChannels() const;
+		int GetFormat() const;
 	private:
 		RawImageData m_RawData;
 	};

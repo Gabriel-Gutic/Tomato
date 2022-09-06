@@ -21,8 +21,8 @@ namespace Tomato
 		void Open();
 		void Close();
 
-		void Seek(UInt pos) const;
-		Bool EndOfFile() const;
+		void Seek(unsigned int pos) const;
+		bool EndOfFile() const;
 		std::string Read();
 		std::string ReadLine();
 		std::vector<std::string> ReadLines();
@@ -37,7 +37,7 @@ namespace Tomato
 	private:
 		std::string m_Path;
 		FileType m_Type;
-		Bool isClosed;
+		bool isClosed;
 		std::unique_ptr<std::fstream> m_Buffer;
 	};
 }

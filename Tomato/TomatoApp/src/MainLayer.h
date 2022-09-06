@@ -7,13 +7,13 @@ public:
 	MainLayer();
 	~MainLayer() = default;
 
-	virtual void OnUpdate(Tomato::Float dt) override;
+	virtual void OnUpdate(float dt) override;
 	virtual void OnGUI() override;
 private:
 	std::unique_ptr<Tomato::Font> m_Font;
 
-	Tomato::Int m_PolygonNOS = 6;
-	Tomato::Float m_CircleSmoothness = 0.5f;
+	int m_PolygonNOS = 6;
+	float m_CircleSmoothness = 0.5f;
 
 	std::unordered_map<std::string, std::shared_ptr<Tomato::Texture>> m_Textures;
 	std::shared_ptr<Tomato::Tilemap> m_Tilemap;

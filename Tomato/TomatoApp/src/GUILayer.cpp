@@ -8,7 +8,7 @@ GUILayer::GUILayer()
 	Tomato::GUI::ShowRenderWindow();
 }
 
-void GUILayer::OnUpdate(Tomato::Float dt)
+void GUILayer::OnUpdate(float dt)
 {
 	Tomato::Renderer::SetBackgroundColor(m_BackgroundColor);
 
@@ -22,7 +22,7 @@ void GUILayer::OnUpdate(Tomato::Float dt)
 	else
 		camera.SetPerspectiveProjection(m_CameraFOV, window->GetAspectRatio(), 0.1f, 100.0f);
 
-	Tomato::Float cameraSpeed = m_CameraSpeed * dt;
+	float cameraSpeed = m_CameraSpeed * dt;
 	if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
 	{
 		tran.Position.x -= cameraSpeed;
@@ -94,14 +94,14 @@ void GUILayer::OnGUI()
 	{
 		ImGui::Begin("Scene Hierarchy");
 
-		static Tomato::UInt currentEntity = 0;
+		static unsigned int currentEntity = 0;
 		if (currentEntity >= entities.size())
 			currentEntity = 0;
 
 		std::vector<std::string> entity_names;
 		entity_names.resize(entities.size());
 
-		Tomato::UInt i = 0;
+		unsigned int i = 0;
 		for (const auto& [name, entity] : entities)
 		{
 			entity_names[i++] = name;
@@ -109,7 +109,7 @@ void GUILayer::OnGUI()
 
 		if (ImGui::BeginCombo("##", entity_names[currentEntity].c_str()))
 		{
-			for (Tomato::UInt i = 0; i < entity_names.size(); i++)
+			for (i = 0; i < entity_names.size(); i++)
 			{
 				bool is_selected = (entity_names[currentEntity] == entity_names[i]);
 				if (ImGui::Selectable(entity_names[i].c_str(), is_selected))
@@ -143,8 +143,8 @@ void GUILayer::OnEvent(const Tomato::Event& e)
 		auto ev = Tomato::Event::Cast<Tomato::WheelEvent>(e);
 
 		if (m_CurrentCameraProjection == 1)
-			m_CameraFOV += Tomato::App::GetDeltaTime() * m_CameraSpeed * 20.0f * (Tomato::Float)ev.GetValue();
+			m_CameraFOV += Tomato::App::GetDeltaTime() * m_CameraSpeed * 20.0f * (float)ev.GetValue();
 		else
-			m_CameraOrthoSize += Tomato::App::GetDeltaTime() * m_CameraSpeed * (Tomato::Float)ev.GetValue();
+			m_CameraOrthoSize += Tomato::App::GetDeltaTime() * m_CameraSpeed * (float)ev.GetValue();
 	}
 }

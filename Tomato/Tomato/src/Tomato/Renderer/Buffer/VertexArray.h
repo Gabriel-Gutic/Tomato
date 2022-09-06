@@ -12,6 +12,6 @@ namespace Tomato
 		void Bind();
 		static void Unbind();
 	private:
-		UInt m_RendererID;
+		unsigned int m_RendererID;
 	};
 }

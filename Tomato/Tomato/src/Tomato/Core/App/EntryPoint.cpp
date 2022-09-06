@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 	}
 	else
 	{
-		TOMATO_ERROR("App was not startup properly");
+		TOMATO_ERROR("App was not startup properly!");
 	}
 
 	return result;

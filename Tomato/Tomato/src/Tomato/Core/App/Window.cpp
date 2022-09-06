@@ -186,9 +186,9 @@ namespace Tomato
 		m_Data.Height = height;
 	}
 
-	Float Window::GetAspectRatio() const
+	float Window::GetAspectRatio() const
 	{
-		return (Float)m_Data.Width / (Float)m_Data.Height;
+		return static_cast<float>(m_Data.Width) / static_cast<float>(m_Data.Height);
 	}
 
 	int Window::GetX() const

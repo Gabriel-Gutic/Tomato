@@ -27,32 +27,32 @@ namespace Tomato
 		stbi_image_free(m_RawData.Data);
 	}
 
-	const UChar* Image::GetData() const
+	const unsigned char* Image::GetData() const
 	{
 		return m_RawData.Data;
 	}
 
-	UInt Image::GetBufferSize() const
+	unsigned int Image::GetBufferSize() const
 	{
 		return m_RawData.Size;
 	}
 
-	Int Image::GetWidth() const
+	int Image::GetWidth() const
 	{
 		return m_RawData.Width;
 	}
 
-	Int Image::GetHeight() const
+	int Image::GetHeight() const
 	{
 		return m_RawData.Height;
 	}
 
-	Int Image::GetNrChannels() const
+	int Image::GetNrChannels() const
 	{
 		return m_RawData.NrChannels;
 	}
 
-	Int Image::GetFormat() const
+	int Image::GetFormat() const
 	{
 		switch (m_RawData.NrChannels)
 		{

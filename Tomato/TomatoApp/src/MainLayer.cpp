@@ -44,7 +44,7 @@ MainLayer::MainLayer()
 	Tomato::App::GetWindow()->SetVSync(true);
 }
 
-void MainLayer::OnUpdate(Tomato::Float dt)
+void MainLayer::OnUpdate(float dt)
 {
 	//TOMATO_PRINT(Tomato::Input::MouseWorldCoords().ToString());
 

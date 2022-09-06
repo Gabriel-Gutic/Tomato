@@ -8,7 +8,7 @@ namespace Tomato
 	{
 		std::vector<Float3> result;
 		result.resize(Indices.size());
-		for (UInt i = 0; i < Indices.size(); i++)
+		for (unsigned int i = 0; i < Indices.size(); i++)
 		{
 			result[i] = Vertices[Indices[i]];
 		}
@@ -34,10 +34,10 @@ namespace Tomato
 		return mesh;
 	}
 
-	Mesh Mesh::PolygonMesh(Int sides)
+	Mesh Mesh::PolygonMesh(int sides)
 	{
 		TOMATO_ASSERT(sides >= 3, "You can't create a polygon with {0} sides", sides);
-		Float angle = 360.0f / static_cast<Float>(sides);
+		float angle = 360.0f / static_cast<float>(sides);
 
 		Mesh mesh;
 
@@ -46,18 +46,18 @@ namespace Tomato
 		mesh.Vertices.emplace_back();
 		mesh.Vertices.emplace_back(0.0f, 0.5f, 0.0f);
 
-		Float radius = 0.5f;
+		float radius = 0.5f;
 		Float2 center = Float2();
-		Float t = acosf((mesh.Vertices[1].x - center.x) / radius);
+		float t = acosf((mesh.Vertices[1].x - center.x) / radius);
 
-		for (UInt i = 1; i < sides; i++)
+		for (unsigned int i = 1; i < sides; i++)
 		{
 			mesh.Vertices.emplace_back(center.x + radius * cosf(t - Math::Radians(angle)), center.y + radius * sinf(t - Math::Radians(angle)), 0.0f);
 			t -= Math::Radians(angle);
 		}
 
 		mesh.Indices.reserve(3 * sides);
-		for (UInt i = 0; i < sides; i++)
+		for (unsigned int i = 0; i < sides; i++)
 		{
 			mesh.Indices.push_back(0);
 			mesh.Indices.push_back(i + 1);
@@ -72,12 +72,12 @@ namespace Tomato
 		return mesh;
 	}
 
-	Mesh Mesh::CircleMesh(Float smoothness)
+	Mesh Mesh::CircleMesh(float smoothness)
 	{
 		if (smoothness < 0.2f)
 			smoothness = 0.2f;
 		else if (smoothness > 1.0f)
 			smoothness = 1.0f;
-		return PolygonMesh(static_cast<UInt>(smoothness * 100));
+		return PolygonMesh(static_cast<unsigned int>(smoothness * 100));
 	}
 }

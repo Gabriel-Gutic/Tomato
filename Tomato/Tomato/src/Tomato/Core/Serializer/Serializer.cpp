@@ -39,7 +39,7 @@ namespace Tomato
 			return Float2();
 		}
 
-		return Float2(node[0].as<Float>(), node[1].as<Float>());
+		return Float2(node[0].as<float>(), node[1].as<float>());
 	}
 
 	Float3 Serializer::DecodeFloat3(const YAML::Node& node)
@@ -50,7 +50,7 @@ namespace Tomato
 			return Float3();
 		}
 
-		return Float3(node[0].as<Float>(), node[1].as<Float>(), node[2].as<Float>());
+		return Float3(node[0].as<float>(), node[1].as<float>(), node[2].as<float>());
 	}
 
 	Float4 Serializer::DecodeFloat4(const YAML::Node& node)
@@ -61,7 +61,7 @@ namespace Tomato
 			return Float4();
 		}
 
-		return Float4(node[0].as<Float>(), node[1].as<Float>(), node[2].as<Float>(), node[3].as<Float>());
+		return Float4(node[0].as<float>(), node[1].as<float>(), node[2].as<float>(), node[3].as<float>());
 	}
 
 	void Serializer::EncodeTransform(YAML::Emitter& out, const TransformComponent& tran)
@@ -171,7 +171,7 @@ namespace Tomato
 		if (indices)
 		{
 			for (YAML::const_iterator it = indices.begin(); it != indices.end(); ++it) {
-				rend.mesh.Indices.push_back(it->as<UInt>());
+				rend.mesh.Indices.push_back(it->as<unsigned int>());
 			}
 		}
 		auto& texCoords = node["TexCoords"];
@@ -200,16 +200,16 @@ namespace Tomato
 		{
 			auto& FOV = perspective["FOV"];
 			if (FOV)
-				cam.Perspective.FOV = FOV.as<Float>();
+				cam.Perspective.FOV = FOV.as<float>();
 			auto& AspectRatio = perspective["AspectRatio"];
 			if (AspectRatio)
-				cam.Perspective.AspectRatio = AspectRatio.as<Float>();
+				cam.Perspective.AspectRatio = AspectRatio.as<float>();
 			auto& Near = perspective["Near"];
 			if (Near)
-				cam.Perspective.Near = Near.as<Float>();
+				cam.Perspective.Near = Near.as<float>();
 			auto& Far = perspective["Far"];
 			if (Far)
-				cam.Perspective.Far = Far.as<Float>();
+				cam.Perspective.Far = Far.as<float>();
 		}
 
 		auto& ortho = node["Ortho"];
@@ -217,22 +217,22 @@ namespace Tomato
 		{
 			auto& Left = ortho["Left"];
 			if (Left)
-				cam.Ortho.Left = Left.as<Float>();
+				cam.Ortho.Left = Left.as<float>();
 			auto& Right = ortho["Right"];
 			if (Right)
-				cam.Ortho.Right = Right.as<Float>();
+				cam.Ortho.Right = Right.as<float>();
 			auto& Top = ortho["Top"];
 			if (Top)
-				cam.Ortho.Top = Top.as<Float>();
+				cam.Ortho.Top = Top.as<float>();
 			auto& Bottom = ortho["Bottom"];
 			if (Bottom)
-				cam.Ortho.Bottom = Bottom.as<Float>();
+				cam.Ortho.Bottom = Bottom.as<float>();
 			auto& Near = ortho["Near"];
 			if (Near)
-				cam.Ortho.Near = Near.as<Float>();
+				cam.Ortho.Near = Near.as<float>();
 			auto& Far = ortho["Far"];
 			if (Far)
-				cam.Ortho.Far = Far.as<Float>();
+				cam.Ortho.Far = Far.as<float>();
 		}
 		return cam;
 	}

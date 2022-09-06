@@ -114,7 +114,7 @@ namespace Tomato::GUI
 
     void GUI::Dockspace()
     {
-        Float menu_y = 0.0f;
+        float menu_y = 0.0f;
         auto& window = App::GetWindow();
 
         if (Data::IsMainMenuShown)
@@ -195,7 +195,7 @@ namespace Tomato::GUI
         auto [w, h] = Renderer::GetFrameBuffer()->GetSize();
         ImVec2 size = ImGui::GetWindowSize();
 
-        ImGui::Image((ImTextureID)Renderer::GetFrameBuffer()->GetTexture()->GetID(), ImVec2(size.x, (size.x * h) / (Float)w));
+        ImGui::Image((ImTextureID)Renderer::GetFrameBuffer()->GetTexture()->GetID(), ImVec2(size.x, (size.x * h) / (float)w));
 
 		ImGui::End();
     }

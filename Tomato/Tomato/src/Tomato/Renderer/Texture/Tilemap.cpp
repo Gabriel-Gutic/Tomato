@@ -4,24 +4,24 @@
 
 namespace Tomato
 {
-	Tilemap::Tilemap(std::string_view filePath, UInt tileWidth, UInt tileHeight)
+	Tilemap::Tilemap(std::string_view filePath, unsigned int tileWidth, unsigned int tileHeight)
 		:Tilemap(Texture::Create(filePath), tileWidth, tileHeight)
 	{
 	}
 
-	Tilemap::Tilemap(std::shared_ptr<Texture> texture, UInt tileWidth, UInt tileHeight)
+	Tilemap::Tilemap(std::shared_ptr<Texture> texture, unsigned int tileWidth, unsigned int tileHeight)
 		:m_Texture(texture), m_RawTileWidth(tileWidth), m_RawTileHeight(tileHeight)
 	{
-		m_TileWidth = (Float)m_RawTileWidth / (Float)m_Texture->GetWidth();
-		m_TileHeight = (Float)m_RawTileHeight / (Float)m_Texture->GetHeight();
+		m_TileWidth = (float)m_RawTileWidth / (float)m_Texture->GetWidth();
+		m_TileHeight = (float)m_RawTileHeight / (float)m_Texture->GetHeight();
 	}
 
-	Float Tilemap::GetTileWidth() const
+	float Tilemap::GetTileWidth() const
 	{
 		return m_TileWidth;
 	}
 
-	Float Tilemap::GetTileHeight() const
+	float Tilemap::GetTileHeight() const
 	{
 		return m_TileHeight;
 	}
@@ -32,7 +32,7 @@ namespace Tomato
 	}
 
 	//(0, 0); (0, 1); (1, 0); (1, 1) 
-	std::array<Float2, 4> Tilemap::GetTexCoords(UInt row, UInt col, UInt rowspan, UInt colspan)
+	std::array<Float2, 4> Tilemap::GetTexCoords(unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan)
 	{
 		Float2 tl = Float2(row * this->GetTileWidth(), 1.0 - col * this->GetTileHeight());
 		std::array<Float2, 4> arr;

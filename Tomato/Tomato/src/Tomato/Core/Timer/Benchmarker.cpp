@@ -6,15 +6,15 @@ namespace Tomato
 {
 	struct BenchmarkerData
 	{
-		static ULong Counter;
+		static unsigned long long Counter;
 		static std::unique_ptr<File> ResultFile;
-		static ULong Start;
+		static unsigned long long Start;
 		static std::string Category;
 	};
 
 	std::unique_ptr<File> BenchmarkerData::ResultFile = nullptr;
-	ULong BenchmarkerData::Counter = 0;
-	ULong BenchmarkerData::Start = 0;
+	unsigned long long BenchmarkerData::Counter = 0;
+	unsigned long long BenchmarkerData::Start = 0;
 	std::string BenchmarkerData::Category = "";
 
 	Benchmarker::Benchmarker(std::string_view name)
@@ -30,7 +30,7 @@ namespace Tomato
 
 	void Benchmarker::Write()
 	{
-		const ULong duration = m_Timer.GetMicroseconds();
+		const unsigned long long duration = m_Timer.GetMicroseconds();
 
 		if (BenchmarkerData::Counter != 0)
 			BenchmarkerData::ResultFile->WriteLine("    ,");

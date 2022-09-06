@@ -11,16 +11,16 @@ namespace Tomato
 
 		void start();
 
-		ULong GetMicroseconds() const;
-		Double GetMilliseconds(UInt precision = 2) const;
-		Double GetSeconds(UInt precision = 2) const;
+		unsigned long long GetMicroseconds() const;
+		double GetMilliseconds(unsigned int precision = 2) const;
+		double GetSeconds(unsigned int precision = 2) const;
 		std::string MicrosecondsToString() const;
-		std::string MillisecondsToString(UInt precision = 2) const;
-		std::string SecondsToString(UInt precision = 2) const;
+		std::string MillisecondsToString(unsigned int precision = 2) const;
+		std::string SecondsToString(unsigned int precision = 2) const;
 		
-		static void Wait(ULong ms);
+		static void Wait(unsigned long long ms);
 	private:
-		Bool isStopped;
+		bool isStopped;
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_Start;
 	};
 }

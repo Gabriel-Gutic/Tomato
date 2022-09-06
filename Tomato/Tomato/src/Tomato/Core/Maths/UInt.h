@@ -4,17 +4,8 @@
 
 namespace Tomato
 {
-	typedef unsigned int UInt;
-
-	Vec2h(UInt)
-	Vec3h(UInt)
-	Vec4h(UInt)
-}
-
-namespace YAML
-{
-	Vec2Node(UInt)
-	Vec3Node(UInt)
-	Vec4Node(UInt)
+	Vec2h(UInt, unsigned int)
+	Vec3h(UInt, unsigned int)
+	Vec4h(UInt, unsigned int)
 }
 

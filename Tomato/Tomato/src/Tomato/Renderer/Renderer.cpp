@@ -12,19 +12,19 @@ namespace Tomato
 {
 	struct RendererData
 	{
-		static const UInt MaxVertexNumber = 16384;
+		static const unsigned int MaxVertexNumber = 16384;
 		static std::array<Vertex, MaxVertexNumber> Vertices;
-		static UInt VertexCounter;
+		static unsigned int VertexCounter;
 
-		static const UInt MaxTextureSlots = 32;
+		static const unsigned int MaxTextureSlots = 32;
 		static std::array<std::shared_ptr<Texture>, MaxTextureSlots> TextureSlots;
-		static UInt TextureSlotsCounter;
+		static unsigned int TextureSlotsCounter;
 	};
 	std::array<Vertex, RendererData::MaxVertexNumber> RendererData::Vertices = std::array<Vertex, MaxVertexNumber>();
-	UInt RendererData::VertexCounter = 0;
+	unsigned int RendererData::VertexCounter = 0;
 
 	std::array<std::shared_ptr<Texture>, RendererData::MaxTextureSlots> RendererData::TextureSlots = std::array < std::shared_ptr<Texture>, RendererData::MaxTextureSlots>();
-	UInt RendererData::TextureSlotsCounter = 0;
+	unsigned int RendererData::TextureSlotsCounter = 0;
 
 	Renderer* Renderer::s_Instance = nullptr;
 	void Renderer::Initialize()
@@ -98,7 +98,7 @@ namespace Tomato
 		return s_Instance->m_FrameBuffer;
 	}
 
-	UInt Renderer::GetNumberOfVertices()
+	unsigned int Renderer::GetNumberOfVertices()
 	{
 		return s_Instance->m_LastNumberOfVertices;
 	}
@@ -122,7 +122,7 @@ namespace Tomato
 		if (RendererData::VertexCounter + mesh.mesh.Indices.size() >= RendererData::MaxVertexNumber)
 			Flush();
 
-		Float texIndex = GetTextureIndex(texture);
+		float texIndex = GetTextureIndex(texture);
 
 		bool hasTransform = false;
 		Mat4 tran(1.0f);
@@ -132,9 +132,9 @@ namespace Tomato
 			tran = entity.GetComponent<TransformComponent>().Get();
 		}
 
-		for (UInt i = 0; i < mesh.mesh.Indices.size(); i++)
+		for (unsigned int i = 0; i < mesh.mesh.Indices.size(); i++)
 		{
-			UInt index = mesh.mesh.Indices[i];
+			unsigned int index = mesh.mesh.Indices[i];
 			auto coords = mesh.mesh.Vertices[index];
 			if (hasTransform)
 				coords = (transform * tran * Float4(coords, 1.0f)).xyz;
@@ -142,18 +142,18 @@ namespace Tomato
 		}
 	}
 
-	void Renderer::Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform)
+	void Renderer::Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan, const Mat4& transform)
 	{
 	}
 
-	void Renderer::DrawQuad(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform)
+	void Renderer::DrawQuad(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan, const Mat4& transform)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
 			Flush();
 
 		auto& rend = entity.GetComponent<MeshRendererComponent>();
-		Float texIndex = GetTextureIndex(tilemap->GetTexture());
+		float texIndex = GetTextureIndex(tilemap->GetTexture());
 
 		std::array<Vertex, 4> vertices;
 		vertices[0].Coords = Float3(-0.5f, -0.5f, 0.0f);
@@ -162,7 +162,7 @@ namespace Tomato
 		vertices[3].Coords = Float3( 0.5f,  0.5f, 0.0f);
 
 		auto texCoords = tilemap->GetTexCoords(row, col, rowspan, colspan);
-		for (UInt i = 0; i < 4; i++)
+		for (unsigned int i = 0; i < 4; i++)
 		{
 			vertices[i].Color = rend.Color;
 			vertices[i].TexCoords = texCoords[i];
@@ -179,7 +179,7 @@ namespace Tomato
 		for (auto& vertex : vertices)
 			vertex.Coords = (transform * Float4(vertex.Coords, 1.0f)).xyz;
 
-		std::array<UInt, 6> indices = { 0, 1, 2, 1, 2, 3 };
+		std::array<unsigned int, 6> indices = { 0, 1, 2, 1, 2, 3 };
 		for (const auto& index : indices)
 			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
 	}
@@ -191,19 +191,19 @@ namespace Tomato
 		ins->m_Shader->Use();
 		ins->m_VertexArray->Bind();
 
-		Float scale = 0.01f;
+		float scale = 0.01f;
 
 		// iterate through all characters
-		Float x = 0.0f;
+		float x = 0.0f;
 		for (const auto c : text)
 		{
 			auto& ch = font[c];
 
-			Float xpos = x + ch.Bearing.x * scale;
-			Float ypos = - (ch.Size.y - ch.Bearing.y) * scale;
+			float xpos = x + ch.Bearing.x * scale;
+			float ypos = - (ch.Size.y - ch.Bearing.y) * scale;
 
-			Float w = ch.Size.x * scale;
-			Float h = ch.Size.y * scale;
+			float w = ch.Size.x * scale;
+			float h = ch.Size.y * scale;
 
 			auto color = Float4(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -240,13 +240,13 @@ namespace Tomato
 
 		auto& ins = s_Instance;
 
-		for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
+		for (unsigned int i = 0; i < RendererData::TextureSlotsCounter; i++)
 		{
 			RendererData::TextureSlots[i]->BindUnit(i);
 		}
 
 		std::array<int, RendererData::MaxTextureSlots> arr;
-		for (UInt i = 0; i < RendererData::MaxTextureSlots; i++)
+		for (unsigned int i = 0; i < RendererData::MaxTextureSlots; i++)
 			arr[i] = i;
 
 		ins->m_Shader->SetIntArray("u_Textures", arr);
@@ -266,21 +266,21 @@ namespace Tomato
 		VertexArray::Unbind();
 	}
 
-	Float Renderer::GetTextureIndex(const std::shared_ptr<Texture>& texture)
+	float Renderer::GetTextureIndex(const std::shared_ptr<Texture>& texture)
 	{
-		Float texIndex = -1.0f;
+		float texIndex = -1.0f;
 		if (texture)
 		{
-			for (UInt i = 0; i < RendererData::TextureSlotsCounter; i++)
+			for (unsigned int i = 0; i < RendererData::TextureSlotsCounter; i++)
 			{
 				if (texture == RendererData::TextureSlots[i])
-					texIndex = static_cast<Float>(i);
+					texIndex = static_cast<float>(i);
 			}
 			if (texIndex == -1.0f)
 			{
 				if (RendererData::TextureSlotsCounter >= RendererData::MaxTextureSlots)
 					Flush();
-				texIndex = static_cast<Float>(RendererData::TextureSlotsCounter);
+				texIndex = static_cast<float>(RendererData::TextureSlotsCounter);
 				RendererData::TextureSlots[RendererData::TextureSlotsCounter++] = texture;
 			}
 		}

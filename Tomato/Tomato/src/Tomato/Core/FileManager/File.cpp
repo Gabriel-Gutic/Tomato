@@ -34,12 +34,12 @@ namespace Tomato
 		}
 	}
 
-	void File::Seek(UInt pos) const
+	void File::Seek(unsigned int pos) const
 	{
 		m_Buffer->seekg(pos);
 	}
 
-	Bool File::EndOfFile() const
+	bool File::EndOfFile() const
 	{
 		return m_Buffer->eof();
 	}
@@ -52,7 +52,7 @@ namespace Tomato
 		
 		std::string result;
 		m_Buffer->seekg(0, std::ios::end);
-		Long size = m_Buffer->tellg();
+		long long size = m_Buffer->tellg();
 		if (size != -1)
 		{
 			result.resize(size);

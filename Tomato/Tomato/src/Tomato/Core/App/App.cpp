@@ -41,7 +41,7 @@ namespace Tomato
 		Registry::Terminate();
 	}
 
-	Int App::Run()
+	int App::Run()
 	{
 		while (isRunning)
 		{
@@ -54,7 +54,7 @@ namespace Tomato
 				m_FrameTimer.start();
 
 				if (s_Instance->m_FPS != 0)
-					s_Instance->m_DeltaTime = 1.0f / static_cast<Float>(s_Instance->m_FPS);
+					s_Instance->m_DeltaTime = 1.0f / static_cast<float>(s_Instance->m_FPS);
 			}
 
 			while (!m_EventQueue.empty())
@@ -231,12 +231,12 @@ namespace Tomato
 		return s_Instance->m_SceneMap[s_Instance->m_CurrentSceneName]->GetCamera();
 	}
 
-	UInt App::GetFPS()
+	unsigned int App::GetFPS()
 	{
 		return s_Instance->m_FPS;
 	}
 
-	Float App::GetDeltaTime()
+	float App::GetDeltaTime()
 	{
 		return s_Instance->m_DeltaTime;
 	}

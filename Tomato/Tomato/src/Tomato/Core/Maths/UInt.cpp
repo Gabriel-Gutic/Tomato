@@ -4,7 +4,7 @@
 
 namespace Tomato
 {
-	Vec2cpp(UInt)
-	Vec3cpp(UInt)
-	Vec4cpp(UInt)
+	Vec2cpp(UInt, unsigned int)
+	Vec3cpp(UInt, unsigned int)
+	Vec4cpp(UInt, unsigned int)
 }

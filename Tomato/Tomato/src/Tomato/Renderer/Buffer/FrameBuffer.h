@@ -13,16 +13,16 @@ namespace Tomato
 		void Bind() const;
 		void Unbind() const;
 
-		UInt GetID() const;
+		unsigned int GetID() const;
 		std::unique_ptr<Texture>& GetTexture();
 		const std::unique_ptr<Texture>& GetTexture() const;
 
-		std::pair<UInt, UInt> GetSize() const;
-		void SetSize(UInt width, UInt height);
+		std::pair<unsigned int, unsigned int> GetSize() const;
+		void SetSize(unsigned int width, unsigned int height);
 	private:
-		UInt m_Width, m_Height;
-		UInt m_RendererID;
-		UInt m_RenderBuffer;
+		unsigned int m_Width, m_Height;
+		unsigned int m_RendererID;
+		unsigned int m_RenderBuffer;
 		std::unique_ptr<Texture> m_Texture;
 	};
 }

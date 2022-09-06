@@ -7,8 +7,8 @@ public:
 	TrianglesLayer();
 	~TrianglesLayer() = default;
 
-	virtual void OnUpdate(Tomato::Float dt) override;
+	virtual void OnUpdate(float dt) override;
 private:
 	std::vector<std::unique_ptr<Tomato::Entity>> m_Triangles;
-	const Tomato::UInt m_TriangleCounter = 1000;
+	const unsigned int m_TriangleCounter = 1000;
 };

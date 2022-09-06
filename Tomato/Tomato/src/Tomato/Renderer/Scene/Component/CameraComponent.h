@@ -13,20 +13,20 @@ namespace Tomato
 		ProjectionType ProjectionType;
 		struct
 		{
-			Float FOV;
-			Float AspectRatio;
-			Float Near;
-			Float Far;
+			float FOV;
+			float AspectRatio;
+			float Near;
+			float Far;
 		} Perspective;
 
 		struct
 		{
-			Float Left;
-			Float Right;
-			Float Bottom;
-			Float Top;
-			Float Near;
-			Float Far;
+			float Left;
+			float Right;
+			float Bottom;
+			float Top;
+			float Near;
+			float Far;
 		} Ortho;
 		Float3 Target;
 
@@ -37,7 +37,7 @@ namespace Tomato
 		Mat4 GetView(const TransformComponent& transform, bool reverseY = false) const;
 		Mat4 GetProjection() const;
 
-		void SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far);
-		void SetOrthographicProjection(Float left, Float right, Float bottom, Float top, Float _near, Float _far);
+		void SetPerspectiveProjection(float fov, float aspectRatio, float _near, float _far);
+		void SetOrthographicProjection(float left, float right, float bottom, float top, float _near, float _far);
 	};
 }

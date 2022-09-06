@@ -6,12 +6,12 @@ namespace Tomato
 	class Quaternion
 	{
 	public:
-		Quaternion(Float scalar = 0.0f, Float3 vector = Float3());
-		Quaternion(Float a, Float b, Float c, Float d);
+		Quaternion(float scalar = 0.0f, Float3 vector = Float3());
+		Quaternion(float a, float b, float c, float d);
 		~Quaternion() = default;
 
 		Quaternion Conjugate() const;
-		Float Norm() const;
+		float Norm() const;
 		Quaternion Reciprocal() const;
 		Quaternion Normalize() const;
 
@@ -21,11 +21,11 @@ namespace Tomato
 		Quaternion operator-(const Quaternion& other) const;
 		Quaternion operator*(const Quaternion& other) const;
 		Quaternion operator/(const Quaternion& other) const;
-		friend Quaternion operator*(Float scalar, const Quaternion& q);
-		friend Quaternion operator*(const Quaternion& q, Float scalar);
+		friend Quaternion operator*(float scalar, const Quaternion& q);
+		friend Quaternion operator*(const Quaternion& q, float scalar);
 	
-		static Quaternion Rotation(Float angle, const Float3& axis);
-		static Quaternion Rotation(Float pitch, Float yaw, Float roll);
+		static Quaternion Rotation(float angle, const Float3& axis);
+		static Quaternion Rotation(float pitch, float yaw, float roll);
 		static Quaternion Rotation(const Float3& angles);
 	
 		Float4  ToFloat4() const;
@@ -33,7 +33,7 @@ namespace Tomato
 
 		friend std::ostream& operator<<(std::ostream& os, const Quaternion& q);
 	private:
-		Float m_Scalar;
+		float m_Scalar;
 		Float3 m_Vector;
 	};
 }

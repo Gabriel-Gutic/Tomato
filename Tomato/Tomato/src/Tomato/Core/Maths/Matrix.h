@@ -20,13 +20,13 @@ namespace Tomato
 
 		bool operator==(const Matrix<T, ROWS, COLS>& other) const;
 		bool operator!=(const Matrix<T, ROWS, COLS>& other) const;
-		std::array<T, COLS>& operator[](UInt index);
-		const std::array<T, COLS>& operator[](UInt index) const;
+		std::array<T, COLS>& operator[](unsigned int index);
+		const std::array<T, COLS>& operator[](unsigned int index) const;
 		Matrix<T, ROWS, COLS> operator+(const Matrix<T, ROWS, COLS>& other) const;
 		Matrix<T, ROWS, COLS> operator-(const Matrix<T, ROWS, COLS>& other) const;
 		
-		Float GetDeterminant() const;
-		Matrix<T, ROWS - 1, COLS - 1> Minor(UInt row, UInt col) const;
+		T GetDeterminant() const;
+		Matrix<T, ROWS - 1, COLS - 1> Minor(unsigned int row, unsigned int col) const;
 		const std::array<std::array<T, COLS>, ROWS>& GetData() const;
 
 		template <typename T, size_t M, size_t N, size_t P>
@@ -41,7 +41,7 @@ namespace Tomato
 	
 		T* ToPtr() const;
 	private: 
-		static void Diagonally(Matrix<T, ROWS, COLS>& A, UInt n = 0);
+		static void Diagonally(Matrix<T, ROWS, COLS>& A, unsigned int n = 0);
 	protected:
 		std::array<std::array<T, COLS>, ROWS> m_Data;
 	};
@@ -49,8 +49,8 @@ namespace Tomato
 	template<typename T, size_t ROWS, size_t COLS>
 	inline Matrix<T, ROWS, COLS>::Matrix(const T& el)
 	{
-		for (UInt i = 0; i < ROWS; i++)
-			for (UInt j = 0; j < COLS; j++)
+		for (unsigned int i = 0; i < ROWS; i++)
+			for (unsigned int j = 0; j < COLS; j++)
 				if (i != j)
 					m_Data[i][j] = 0;
 				else
@@ -73,10 +73,10 @@ namespace Tomato
 	{
 		std::stringstream ss;
 		ss << "(";
-		for (UInt i = 0; i < ROWS; i++)
+		for (unsigned int i = 0; i < ROWS; i++)
 		{
 			ss << "(" << m_Data[i][0];
-			for (UInt j = 1; j < COLS; j++)
+			for (unsigned int j = 1; j < COLS; j++)
 				ss << ", " << m_Data[i][j];
 			ss << ")";
 			if (i < ROWS - 1)
@@ -90,8 +90,8 @@ namespace Tomato
 	template<typename T, size_t ROWS, size_t COLS>
 	inline bool Matrix<T, ROWS, COLS>::operator==(const Matrix<T, ROWS, COLS>& other) const
 	{
-		for (UInt i = 0; i < ROWS; i++)
-			for (UInt j = 0; j < COLS; j++)
+		for (unsigned int i = 0; i < ROWS; i++)
+			for (unsigned int j = 0; j < COLS; j++)
 				if (m_Data[i][j] != other[i][j])
 					return false;
 		return true;
@@ -104,13 +104,13 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	inline std::array<T, COLS>& Matrix<T, ROWS, COLS>::operator[](UInt index)
+	inline std::array<T, COLS>& Matrix<T, ROWS, COLS>::operator[](unsigned int index)
 	{
 		return m_Data[index];
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	inline const std::array<T, COLS>& Matrix<T, ROWS, COLS>::operator[](UInt index) const
+	inline const std::array<T, COLS>& Matrix<T, ROWS, COLS>::operator[](unsigned int index) const
 	{
 		return m_Data[index];
 	}
@@ -119,8 +119,8 @@ namespace Tomato
 	inline Matrix<T, ROWS, COLS> Matrix<T, ROWS, COLS>::operator+(const Matrix<T, ROWS, COLS>& other) const
 	{
 		Matrix<T, ROWS, COLS> M;
-		for (UInt i = 0; i < ROWS; i++)
-			for (UInt j = 0; j < COLS; j++)
+		for (unsigned int i = 0; i < ROWS; i++)
+			for (unsigned int j = 0; j < COLS; j++)
 				M[i][j] = m_Data[i][j] + other[i][j];
 		return M;
 	}
@@ -129,14 +129,14 @@ namespace Tomato
 	inline Matrix<T, ROWS, COLS> Matrix<T, ROWS, COLS>::operator-(const Matrix<T, ROWS, COLS>& other) const
 	{
 		Matrix<T, ROWS, COLS> M;
-		for (UInt i = 0; i < ROWS; i++)
-			for (UInt j = 0; j < COLS; j++)
+		for (unsigned int i = 0; i < ROWS; i++)
+			for (unsigned int j = 0; j < COLS; j++)
 				M[i][j] = m_Data[i][j] - other[i][j];
 		return M;
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	inline Float Matrix<T, ROWS, COLS>::GetDeterminant() const
+	inline T Matrix<T, ROWS, COLS>::GetDeterminant() const
 	{
 		if (ROWS != COLS)
 			return NAN;
@@ -146,24 +146,24 @@ namespace Tomato
 
 		auto M = *this;
 
-		Float det = 1;
+		T det = 1;
 
 		Diagonally(M);
-		for (UInt i = 0; i < ROWS; i++)
+		for (unsigned int i = 0; i < ROWS; i++)
 			det *= M[i][i];
 		return det;
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	inline Matrix<T, ROWS - 1, COLS - 1> Matrix<T, ROWS, COLS>::Minor(UInt row, UInt col) const
+	inline Matrix<T, ROWS - 1, COLS - 1> Matrix<T, ROWS, COLS>::Minor(unsigned int row, unsigned int col) const
 	{
 		TOMATO_ASSERT(row < ROWS && col < COLS, "You're trying to remove a row or a column that is not in the matrix");
 
 		Matrix<T, ROWS - 1, COLS - 1> minor;
-		UInt i0, j0;
+		unsigned int i0, j0;
 		i0 = j0 = 0;
-		for (UInt i = 0; i < ROWS; i++)
-			for (UInt j = 0; j < COLS; j++)
+		for (unsigned int i = 0; i < ROWS; i++)
+			for (unsigned int j = 0; j < COLS; j++)
 				if (i != row && j != col)
 				{
 					minor[i0][j0++] = m_Data[i][j];
@@ -186,12 +186,12 @@ namespace Tomato
 	Matrix<T, M, P> operator*(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B)
 	{
 		Matrix<T, M, P> C;
-		for (UInt i = 0; i < M; i++)
+		for (unsigned int i = 0; i < M; i++)
 		{
-			for (UInt j = 0; j < P; j++)
+			for (unsigned int j = 0; j < P; j++)
 			{
 				C[i][j] = 0;
-				for (UInt k = 0; k < N; k++)
+				for (unsigned int k = 0; k < N; k++)
 				{
 					C[i][j] += (A[i][k] * B[k][j]);
 				}
@@ -205,8 +205,8 @@ namespace Tomato
 	{
 		Matrix<T, ROWS, COLS> result;
 
-		for (UInt i = 0; i < ROWS; i++)
-			for (UInt j = 0; j < ROWS; j++)
+		for (unsigned int i = 0; i < ROWS; i++)
+			for (unsigned int j = 0; j < ROWS; j++)
 				result[i][j] = scalar * mat[i][j];
 		return result;
 	}
@@ -231,9 +231,9 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	inline void Matrix<T, ROWS, COLS>::Diagonally(Matrix<T, ROWS, COLS>& A, UInt n)
+	inline void Matrix<T, ROWS, COLS>::Diagonally(Matrix<T, ROWS, COLS>& A, unsigned int n)
 	{
-		UInt line = n;
+		unsigned int line = n;
 		while (line < ROWS)
 			if (A[line][n] == 0)
 				line++;
@@ -243,15 +243,15 @@ namespace Tomato
 			return;
 
 		if (line != n)
-			for (UInt j = n; j < ROWS; j++)
+			for (unsigned int j = n; j < ROWS; j++)
 				std::swap(A[n][j], A[line][j]);
 
-		for (UInt i = n + 1; i < ROWS; i++)
+		for (unsigned int i = n + 1; i < ROWS; i++)
 			if (A[i][n] != 0)
 			{
 				T el = -A[i][n] / A[n][n];
 				A[i][n] = 0;
-				for (UInt j = n + 1; j < ROWS; j++)
+				for (unsigned int j = n + 1; j < ROWS; j++)
 				{
 					A[i][j] += el * A[n][j];
 				}

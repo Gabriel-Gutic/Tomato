@@ -31,7 +31,7 @@ namespace Tomato
 		return Mat4(1.0f);
 	}
 
-	void CameraComponent::SetPerspectiveProjection(Float fov, Float aspectRatio, Float _near, Float _far)
+	void CameraComponent::SetPerspectiveProjection(float fov, float aspectRatio, float _near, float _far)
 	{
 		ProjectionType = ProjectionType::Perspective;
 
@@ -41,7 +41,7 @@ namespace Tomato
 		Perspective.Far = _far;
 	}
 
-	void CameraComponent::SetOrthographicProjection(Float left, Float right, Float bottom, Float top, Float _near, Float _far)
+	void CameraComponent::SetOrthographicProjection(float left, float right, float bottom, float top, float _near, float _far)
 	{
 		ProjectionType = ProjectionType::Orthographic;
 

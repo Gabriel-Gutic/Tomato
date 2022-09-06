@@ -25,30 +25,30 @@ namespace Tomato
 		m_Start = std::chrono::high_resolution_clock::now();
 	}
 
-	void Timer::Wait(ULong ms)
+	void Timer::Wait(unsigned long long ms)
 	{
 		Sleep(static_cast<unsigned long>(ms));
 	}
 
-	ULong Timer::GetMicroseconds() const
+	unsigned long long Timer::GetMicroseconds() const
 	{
-		Double seconds = GetSeconds(6);
-		return (ULong)(seconds * 1000000);
+		double seconds = GetSeconds(6);
+		return (unsigned long long)(seconds * 1000000);
 	}
 
-	Double Timer::GetMilliseconds(UInt precision) const
+	double Timer::GetMilliseconds(unsigned int precision) const
 	{
-		Double seconds = GetSeconds(precision + 3);
+		double seconds = GetSeconds(precision + 3);
 		return seconds * 1000;
 	}
 
-	Double Timer::GetSeconds(UInt precision) const
+	double Timer::GetSeconds(unsigned int precision) const
 	{
 		auto end = std::chrono::high_resolution_clock::now();
 
-		std::chrono::duration<Double> duration = end - m_Start;
+		std::chrono::duration<double> duration = end - m_Start;
 
-		Double power = std::pow(10, precision);
+		double power = std::pow(10, precision);
 		return (duration.count() * power) / power;
 	}
 
@@ -57,12 +57,12 @@ namespace Tomato
 		return Math::ToString(GetMicroseconds()) + (char)230 + "s";
 	}
 
-	std::string Timer::MillisecondsToString(UInt precision) const
+	std::string Timer::MillisecondsToString(unsigned int precision) const
 	{
 		return Math::ToString(GetMilliseconds(precision)) + "ms";
 	}
 
-	std::string Timer::SecondsToString(UInt precision) const
+	std::string Timer::SecondsToString(unsigned int precision) const
 	{
 		return Math::ToString(GetSeconds(precision)) + "s";
 	}

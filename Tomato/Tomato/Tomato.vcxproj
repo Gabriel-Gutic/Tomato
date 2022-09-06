@@ -108,7 +108,6 @@
     <ClInclude Include="src\Tomato\Core\FileManager\File.h" />
     <ClInclude Include="src\Tomato\Core\Logger\Logger.h" />
     <ClInclude Include="src\Tomato\Core\Logger\Print.h" />
-    <ClInclude Include="src\Tomato\Core\Maths\BaseTypes.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Float.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Int.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Mat.h" />

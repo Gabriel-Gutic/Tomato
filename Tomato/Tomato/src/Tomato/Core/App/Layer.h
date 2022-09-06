@@ -10,7 +10,7 @@ namespace Tomato
 		Layer(){}
 		virtual ~Layer(){}
 
-		virtual void OnUpdate(Float dt){}
+		virtual void OnUpdate(float dt){}
 		virtual void OnEvent(const Event& e){}
 		virtual void OnGUI(){}
 	};

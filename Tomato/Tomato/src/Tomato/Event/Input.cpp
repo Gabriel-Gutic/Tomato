@@ -23,12 +23,12 @@ namespace Tomato
 
 	Float2 Input::MousePos()
 	{
-		Double px, py;
+		double px, py;
 		Float2 pos;
 		glfwGetCursorPos((GLFWwindow*)App::GetWindow()->Get(),
 			&px, &py);
-		pos.x = static_cast<Float>(px);
-		pos.y = static_cast<Float>(py);
+		pos.x = static_cast<float>(px);
+		pos.y = static_cast<float>(py);
 		return pos;
 	}
 
@@ -37,8 +37,8 @@ namespace Tomato
 		auto& vp = Renderer::GetViewProjection();
 		Float2 pos = MousePos();
 
-		Float win_width = App::GetWindow()->GetWidth();
-		Float win_height = App::GetWindow()->GetHeight();
+		float win_width = App::GetWindow()->GetWidth();
+		float win_height = App::GetWindow()->GetHeight();
 		Float4 coords;
 		coords.x = 2.0 * (pos.x / win_width) - 1.0f;
 		coords.y = 1.0f - 2.0 * (pos.y / win_height);

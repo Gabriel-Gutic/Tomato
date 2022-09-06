@@ -16,7 +16,7 @@ namespace Tomato
 	public:
 		App();
 		~App();
-		Int Run();
+		int Run();
 
 		static App* Get() { return s_Instance; }
 		static App* Create();
@@ -27,8 +27,8 @@ namespace Tomato
 		static const std::unique_ptr<MenuBar>& GetMenuBar();
 		static std::unordered_map<std::string, std::unique_ptr<Scene>>& GetScenes();
 		static const std::unique_ptr<Entity>& GetCurrentCamera();
-		static UInt GetFPS();
-		static Float GetDeltaTime();
+		static unsigned int GetFPS();
+		static float GetDeltaTime();
 
 		static void PushEvent(Event* event);
 		static const std::unique_ptr<Scene>& CreateScene(std::string_view name);
@@ -43,9 +43,9 @@ namespace Tomato
 		static void PushImGuiLayer(std::string_view name, ImGuiLayer* layer);
 		static void RemoveImGuiLayer(std::string_view name);
 	private:
-		UInt m_FPS;
-		Float m_DeltaTime;
-		UInt m_FrameCounter;
+		unsigned int m_FPS;
+		float m_DeltaTime;
+		unsigned int m_FrameCounter;
 		Timer m_FrameTimer;
 		Timer m_SerializerTimer;
 		bool isRunning;

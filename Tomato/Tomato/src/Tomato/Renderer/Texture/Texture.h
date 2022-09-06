@@ -7,23 +7,23 @@ namespace Tomato
 	{
 		void Setup();
 	public:
-		Texture(UInt width, UInt height, UChar* data, int format);
-		Texture(UInt width, UInt height);
+		Texture(unsigned int width, unsigned int height, unsigned char* data, int format);
+		Texture(unsigned int width, unsigned int height);
 		Texture(std::string_view path);
 		~Texture();
 
 		void Bind() const;
-		void BindUnit(UInt unit) const;
+		void BindUnit(unsigned int unit) const;
 
-		void Reset(UInt width, UInt height);
-		UInt GetWidth() const;
-		UInt GetHeight() const;
+		void Reset(unsigned int width, unsigned int height);
+		unsigned int GetWidth() const;
+		unsigned int GetHeight() const;
 
-		UInt GetID() const;
+		unsigned int GetID() const;
 
 		static std::shared_ptr<Texture> Create(std::string_view path);
 	private:
-		UInt m_RendererID;
-		UInt m_Width, m_Height;
+		unsigned int m_RendererID;
+		unsigned int m_Width, m_Height;
 	};
 }

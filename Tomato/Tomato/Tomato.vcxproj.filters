@@ -94,9 +94,6 @@
     <ClInclude Include="src\Tomato\Core\Logger\Print.h">
       <Filter>Tomato\Core\Logger</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tomato\Core\Maths\BaseTypes.h">
-      <Filter>Tomato\Core\Maths</Filter>
-    </ClInclude>
     <ClInclude Include="src\Tomato\Core\Maths\Float.h">
       <Filter>Tomato\Core\Maths</Filter>
     </ClInclude>

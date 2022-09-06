@@ -29,7 +29,7 @@ namespace Tomato
 		void SetSize(int width, int height);
 		void SetWidth(int width);
 		void SetHeight(int height);
-		Float GetAspectRatio() const;
+		float GetAspectRatio() const;
 
 		int GetX() const;
 		int GetY() const;

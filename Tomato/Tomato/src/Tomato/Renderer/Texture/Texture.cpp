@@ -22,7 +22,7 @@ namespace Tomato
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
-	Texture::Texture(UInt width, UInt height, UChar* data, int format)
+	Texture::Texture(unsigned int width, unsigned int height, unsigned char* data, int format)
 		:m_Width(width), m_Height(height)
 	{
 		Setup();
@@ -31,7 +31,7 @@ namespace Tomato
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
-	Texture::Texture(UInt width, UInt height)
+	Texture::Texture(unsigned int width, unsigned int height)
 		:m_Width(width), m_Height(height)
 	{
 		Setup();
@@ -63,12 +63,12 @@ namespace Tomato
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 
-	void Texture::BindUnit(UInt unit) const
+	void Texture::BindUnit(unsigned int unit) const
 	{
 		glBindTextureUnit(unit, m_RendererID);
 	}
 
-	void Texture::Reset(UInt width, UInt height)
+	void Texture::Reset(unsigned int width, unsigned int height)
 	{
 		m_Width = width;
 		m_Height = height;
@@ -77,17 +77,17 @@ namespace Tomato
 		glGenerateMipmap(GL_TEXTURE_2D); // do i need this?
 	}
 
-	UInt Texture::GetWidth() const
+	unsigned int Texture::GetWidth() const
 	{
 		return m_Width;
 	}
 
-	UInt Texture::GetHeight() const
+	unsigned int Texture::GetHeight() const
 	{
 		return m_Height;
 	}
 
-	UInt Texture::GetID() const
+	unsigned int Texture::GetID() const
 	{
 		return m_RendererID;
 	}

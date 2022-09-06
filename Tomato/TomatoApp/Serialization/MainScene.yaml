@@ -2,11 +2,11 @@ Scene: Main Scene
 MainCamera:
   Camera:
     Target:
-      - 7.51794338
+      - 2.19819474
       - -0.0442891009
       - 39.7271996
     Perspective:
-      FOV: 49.8831024
+      FOV: 14.9112949
       AspectRatio: 1.90287411
       Near: 0.100000001
       Far: 100
@@ -19,7 +19,7 @@ MainCamera:
       Far: 100
   Transform:
     Position:
-      - 3.75897169
+      - 1.09909737
       - -0.0221445505
       - 22.8634853
     Scale:

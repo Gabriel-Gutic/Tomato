@@ -25,19 +25,19 @@ namespace Tomato
 
 		static Renderer* Get();
 		static const std::unique_ptr<FrameBuffer>& GetFrameBuffer();
-		static UInt GetNumberOfVertices();
+		static unsigned int GetNumberOfVertices();
 		static const Mat4& GetViewProjection();
 
 		static void SetBackgroundColor(const Float4& color);
 
 		static void Draw(const Entity& entity, const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
-		static void Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform = Mat4(1.0f));
-		static void DrawQuad(const Entity& entity,  const std::shared_ptr<Tilemap>& tilemap, UInt row, UInt col, UInt rowspan, UInt colspan, const Mat4& transform = Mat4(1.0f));
+		static void Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan, const Mat4& transform = Mat4(1.0f));
+		static void DrawQuad(const Entity& entity,  const std::shared_ptr<Tilemap>& tilemap, unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan, const Mat4& transform = Mat4(1.0f));
 		static void DrawText(std::string_view text, const Font& font, const Mat4& transform = Mat4(1.0f));
 	private:
 		static void Flush();
 
-		static Float GetTextureIndex(const std::shared_ptr<Texture>& texture);
+		static float GetTextureIndex(const std::shared_ptr<Texture>& texture);
 	private:
 		std::unique_ptr<FrameBuffer> m_FrameBuffer;
 
@@ -46,7 +46,7 @@ namespace Tomato
 		std::unique_ptr<VertexArray> m_VertexArray;
 
 		Float4 m_BackgroundColor;
-		UInt m_LastNumberOfVertices;
+		unsigned int m_LastNumberOfVertices;
 		Mat4 m_VP;
 
 		static Renderer* s_Instance;

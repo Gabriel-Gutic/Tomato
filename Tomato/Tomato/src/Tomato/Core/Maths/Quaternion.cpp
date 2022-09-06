@@ -4,12 +4,12 @@
 
 namespace Tomato
 {
-	Quaternion::Quaternion(Float scalar, Float3 vector)
+	Quaternion::Quaternion(float scalar, Float3 vector)
 		:m_Scalar(scalar), m_Vector(vector)
 	{
 	}
 
-	Quaternion::Quaternion(Float a, Float b, Float c, Float d)
+	Quaternion::Quaternion(float a, float b, float c, float d)
 		:m_Scalar(a), m_Vector(Float3(b, c, d))
 	{
 	}
@@ -19,7 +19,7 @@ namespace Tomato
 		return Quaternion(m_Scalar, -1 * m_Vector);
 	}
 
-	Float Quaternion::Norm() const
+	float Quaternion::Norm() const
 	{
 		return sqrtf(m_Scalar * m_Scalar + m_Vector[0] * m_Vector[0] + 
 			m_Vector[1] * m_Vector[1] + m_Vector[2] * m_Vector[2]
@@ -28,7 +28,7 @@ namespace Tomato
 
 	Quaternion Quaternion::Reciprocal() const
 	{
-		Float norm = Norm();
+		float norm = Norm();
 		return 1.0f / (norm * norm) * Conjugate();
 	}
 
@@ -80,7 +80,7 @@ namespace Tomato
 	{
 		Mat4 m(1.0f);
 
-		Float x, y, z, s;
+		float x, y, z, s;
 		x = m_Vector.x;
 		y = m_Vector.y;
 		z = m_Vector.z;
@@ -99,23 +99,23 @@ namespace Tomato
 		return m;
 	}
 
-	Quaternion Quaternion::Rotation(Float angle, const Float3& axis)
+	Quaternion Quaternion::Rotation(float angle, const Float3& axis)
 	{
-		Float cosine = cosf(Math::Radians(angle) / 2.0f);
-		Float sine = sinf(Math::Radians(angle) / 2.0f);
+		float cosine = cosf(Math::Radians(angle) / 2.0f);
+		float sine = sinf(Math::Radians(angle) / 2.0f);
 		Quaternion q(cosine, sine * Math::Normalize(axis));
 
 		return q;
 	}
 
-	Quaternion Quaternion::Rotation(Float roll, Float pitch, Float yaw)
+	Quaternion Quaternion::Rotation(float roll, float pitch, float yaw)
 	{
-		Float cr = cosf(Math::Radians(roll) / 2.0f);
-		Float sr = sinf(Math::Radians(roll) / 2.0f);
-		Float cp = cosf(Math::Radians(pitch) / 2.0f);
-		Float sp = sinf(Math::Radians(pitch) / 2.0f);
-		Float cy = cosf(Math::Radians(yaw) / 2.0f);
-		Float sy = sinf(Math::Radians(yaw) / 2.0f);
+		float cr = cosf(Math::Radians(roll) / 2.0f);
+		float sr = sinf(Math::Radians(roll) / 2.0f);
+		float cp = cosf(Math::Radians(pitch) / 2.0f);
+		float sp = sinf(Math::Radians(pitch) / 2.0f);
+		float cy = cosf(Math::Radians(yaw) / 2.0f);
+		float sy = sinf(Math::Radians(yaw) / 2.0f);
 
 		Quaternion q(
 			cr * cp * cy + sr * sp * sy,
@@ -127,12 +127,12 @@ namespace Tomato
 		return q;
 	}
 
-	Quaternion operator*(Float scalar, const Quaternion& q)
+	Quaternion operator*(float scalar, const Quaternion& q)
 	{
 		return Quaternion(scalar * q.m_Scalar, scalar * q.m_Vector);
 	}
 
-	Quaternion operator*(const Quaternion& q, Float scalar)
+	Quaternion operator*(const Quaternion& q, float scalar)
 	{
 		return scalar * q;
 	}

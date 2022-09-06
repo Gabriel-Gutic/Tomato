@@ -4,53 +4,53 @@
 
 namespace Tomato
 {
-	UInt Math::NumberOfDigits(Int number)
+	unsigned int Math::NumberOfDigits(int number)
 	{
-		return UInt(log10(number)) + 1;
+		return (unsigned int)log10(number) + 1;
 	}
 
-	UInt Math::NumberOfDigits(UInt number)
+	unsigned int Math::NumberOfDigits(unsigned int number)
 	{
-		return UInt(log10(number)) + 1;
+		return (unsigned int)log10(number) + 1;
 	}
 
-	UInt Math::NumberOfDigits(Long number)
+	unsigned int Math::NumberOfDigits(long long number)
 	{
-		return UInt(log10(number)) + 1;
+		return (unsigned int)log10(number) + 1;
 	}
-	UInt Math::NumberOfDigits(ULong number)
+	unsigned int Math::NumberOfDigits(unsigned long long number)
 	{
-		return UInt(log10(number)) + 1;
+		return (unsigned int)log10(number) + 1;
 	}
-	std::string Math::ToString(Int number)
+	std::string Math::ToString(int number)
 	{
 		return std::to_string(number);
 	}
 
-	std::string Math::ToString(UInt number)
+	std::string Math::ToString(unsigned int number)
 	{
 		return std::to_string(number);
 	}
 
-	std::string Math::ToString(Long number)
+	std::string Math::ToString(long long number)
 	{
 		return std::to_string(number);
 	}
 
-	std::string Math::ToString(ULong number)
+	std::string Math::ToString(unsigned long long number)
 	{
 		return std::to_string(number);
 	}
 
-	std::string Math::ToString(Float number, UInt precision)
+	std::string Math::ToString(float number, unsigned int precision)
 	{
-		Long a = Long(number);
-		Float b = number - a;
+		long long a = (long long)number;
+		float b = number - a;
 
-		for (UInt i = 0; i < precision; i++)
+		for (unsigned int i = 0; i < precision; i++)
 			b *= 10;
 
-		Long c = Long(b);
+		long long c = (long long)b;
 		while (c % 10 == 0 && c != 0)
 			c /= 10;
 
@@ -59,15 +59,15 @@ namespace Tomato
 		return std::to_string(a) + "." + std::to_string(c);
 	}
 
-	std::string Math::ToString(Double number, UInt precision)
+	std::string Math::ToString(double number, unsigned int precision)
 	{
-		Long a = Long(number);
-		Double b = number - a;
+		long long a = (long long)number;
+		double b = number - a;
 
-		for (UInt i = 0; i < precision; i++)
+		for (unsigned int i = 0; i < precision; i++)
 			b *= 10;
 
-		Long c = Long(b);
+		long long c = (long long)b;
 		while (c % 10 == 0 && c != 0)
 			c /= 10;
 
@@ -76,16 +76,16 @@ namespace Tomato
 		return std::to_string(a) + "." + std::to_string(c);
 	}
 
-	std::string Math::ToString(Bool value)
+	std::string Math::ToString(bool value)
 	{
 		return value ? "True" : "False";
 	}
 
-	std::vector<Float2> Math::GeneratePolygonCoords(UInt numberOfSides)
+	std::vector<Float2> Math::GeneratePolygonCoords(unsigned int numberOfSides)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 		TOMATO_ASSERT(numberOfSides >= 3, "You can't create a polygon with {0} sides", numberOfSides);
-		Float angle = 360.0f / static_cast<Float>(numberOfSides);
+		float angle = 360.0f / static_cast<float>(numberOfSides);
 
 		std::vector<Float2> vec;
 		vec.reserve(numberOfSides + 1);
@@ -93,11 +93,11 @@ namespace Tomato
 		vec.emplace_back();
 		vec.emplace_back(0.0f, 0.5f);
 
-		Float radius = 0.5f;
+		float radius = 0.5f;
 		Float2 center = Float2();
-		Float t = acosf((vec[1].x - center.x) / radius);
+		float t = acosf((vec[1].x - center.x) / radius);
 
-		for (UInt i = 1; i < numberOfSides; i++)
+		for (unsigned int i = 1; i < numberOfSides; i++)
 		{
 			vec.emplace_back(center.x + radius * cosf(t - Math::Radians(angle)), center.y + radius * sinf(t - Math::Radians(angle)));
 			t -= Math::Radians(angle);
@@ -106,13 +106,13 @@ namespace Tomato
 		return vec;
 	}
 
-	std::vector<UInt> Math::GeneratePolygonIndices(UInt numberOfSides)
+	std::vector<unsigned int> Math::GeneratePolygonIndices(unsigned int numberOfSides)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 
-		std::vector<UInt> indices;
+		std::vector<unsigned int> indices;
 		indices.reserve(3 * numberOfSides);
-		for (UInt i = 0; i < numberOfSides; i++)
+		for (unsigned int i = 0; i < numberOfSides; i++)
 		{
 			indices.push_back(0);
 			indices.push_back(i + 1);
@@ -125,46 +125,46 @@ namespace Tomato
 		return indices;
 	}
 
-	Int Math::RandomInt(Int a, Int b)
+	int Math::RandomInt(int a, int b)
 	{
 		std::random_device rd;
 		std::mt19937 mt(rd());
-		std::uniform_int_distribution<Int> distribution(a, b);
-		Int random_int = distribution(mt);
+		std::uniform_int_distribution<int> distribution(a, b);
+		int random_int = distribution(mt);
 		return random_int;
 	}
 
-	Float Math::RandomFloat(Float a, Float b)
+	float Math::RandomFloat(float a, float b)
 	{
 		std::random_device rd;
 		std::mt19937 mt(rd());
-		std::uniform_real_distribution<Float> distribution(a, b);
-		Float random_float = distribution(mt);
+		std::uniform_real_distribution<float> distribution(a, b);
+		float random_float = distribution(mt);
 		return random_float;
 	}
 
-	Float Math::Trunc(Float number, UInt precision)
+	float Math::Trunc(float number, unsigned int precision)
 	{
-		UInt power = 1;
-		for (UInt i = 0; i < precision; i++)
+		unsigned int power = 1;
+		for (unsigned int i = 0; i < precision; i++)
 			power *= 10;
-		return floorf(number * power) / (Float)power;
+		return floorf(number * power) / (float)power;
 	}
 
-	Double Math::Trunc(Double number, UInt precision)
+	double Math::Trunc(double number, unsigned int precision)
 	{
-		UInt power = 1;
-		for (UInt i = 0; i < precision; i++)
+		unsigned int power = 1;
+		for (unsigned int i = 0; i < precision; i++)
 			power *= 10;
-		return floor(number * power) / (Double)power;
+		return floor(number * power) / (double)power;
 	}
 
-	Float Math::Radians(Float degrees)
+	float Math::Radians(float degrees)
 	{
 		return degrees * (pi / 180);
 	}
 
-	Float Math::Degrees(Float radians)
+	float Math::Degrees(float radians)
 	{
 		return radians * (180 / pi);
 	}
@@ -178,7 +178,7 @@ namespace Tomato
 		return scale;
 	}
 
-	Mat4 Math::Translate(Float x, Float y, Float z)
+	Mat4 Math::Translate(float x, float y, float z)
 	{
 		return Translate(Float3(x, y, z));
 	}
@@ -186,23 +186,23 @@ namespace Tomato
 	Mat4 Math::Scale(const Float3& vector)
 	{
 		Mat4 scale(1.0f);
-		for (UInt i = 0; i < 3; i++)
+		for (unsigned int i = 0; i < 3; i++)
 			scale[i][i] = vector[i];
 		return scale;
 	}
 
-	Mat4 Math::Scale(Float x, Float y, Float z)
+	Mat4 Math::Scale(float x, float y, float z)
 	{
 		return Scale(Float3(x, y, z));
 	}
 
-	Mat4 Math::Rotate(const Float angle, const Float3& axe)
+	Mat4 Math::Rotate(const float angle, const Float3& axe)
 	{
-		Float rad = Math::Radians(angle);
+		float rad = Math::Radians(angle);
 		Mat4 rotate(1.0f);
 
-		Float c = cos(rad);
-		Float s = sin(rad);
+		float c = cos(rad);
+		float s = sin(rad);
 
 		rotate[0][0] = c + axe.x * axe.x * (1 - c);
 		rotate[0][1] = axe.x * axe.y * (1 - c) - axe.z * s;
@@ -224,11 +224,11 @@ namespace Tomato
 		Float3 up = Float3::CrossProduct(right, direction);
 
 		Mat4 result = Mat4(1.0f);
-		for (UInt j = 0; j < 3; j++)
+		for (unsigned int j = 0; j < 3; j++)
 			result[j][0] = right[j];
-		for (UInt j = 0; j < 3; j++)
+		for (unsigned int j = 0; j < 3; j++)
 			result[j][1] = up[j];
-		for (UInt j = 0; j < 3; j++)
+		for (unsigned int j = 0; j < 3; j++)
 			result[j][2] = -direction[j];
 		
 		result[3][0] = -(right * position);
@@ -238,11 +238,11 @@ namespace Tomato
 		return result;
 	}
 
-	Mat4 Math::Perspective(const Float fov, const Float aspect, const Float _near, const Float _far)
+	Mat4 Math::Perspective(const float fov, const float aspect, const float _near, const float _far)
 	{
 		Mat4 perspective = Mat4(0.0f);
 
-		Float S = 1.0f / (tan(Radians(fov) / 2.0f));
+		float S = 1.0f / (tan(Radians(fov) / 2.0f));
 
 		perspective[0][0] = S / aspect;
 		perspective[1][1] = S;
@@ -253,7 +253,7 @@ namespace Tomato
 		return perspective;
 	}
 
-	Mat4 Math::Orthographic(const Float left, const Float right, const Float bottom, const Float top, const Float _near, const Float _far)
+	Mat4 Math::Orthographic(const float left, const float right, const float bottom, const float top, const float _near, const float _far)
 	{
 		Mat4 ortho(1.0f);
 

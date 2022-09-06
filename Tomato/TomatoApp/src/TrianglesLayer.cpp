@@ -4,7 +4,7 @@
 
 TrianglesLayer::TrianglesLayer()
 {
-	for (Tomato::UInt i = 0; i < m_TriangleCounter; i++)
+	for (unsigned int i = 0; i < m_TriangleCounter; i++)
 	{
 		m_Triangles.push_back(std::make_unique<Tomato::Entity>());
 		m_Triangles.back()->AddComponent<Tomato::TransformComponent>().Position = Tomato::Float3(Tomato::Math::RandomFloat(-2, 2), Tomato::Math::RandomFloat(-2, 2), Tomato::Math::RandomFloat(-10, -6));
@@ -14,9 +14,9 @@ TrianglesLayer::TrianglesLayer()
 	}
 }
 
-void TrianglesLayer::OnUpdate(Tomato::Float dt)
+void TrianglesLayer::OnUpdate(float dt)
 {
-	for (Tomato::UInt i = 0; i < m_TriangleCounter; i++)
+	for (unsigned int i = 0; i < m_TriangleCounter; i++)
 	{
 		Tomato::Renderer::Draw(*m_Triangles[i]);
 	}

@@ -42,7 +42,7 @@ namespace Tomato
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	UInt FrameBuffer::GetID() const
+	unsigned int FrameBuffer::GetID() const
 	{
 		return m_RendererID;
 	}
@@ -57,12 +57,12 @@ namespace Tomato
 		return m_Texture;
 	}
 
-	std::pair<UInt, UInt> FrameBuffer::GetSize() const
+	std::pair<unsigned int, unsigned int> FrameBuffer::GetSize() const
 	{
 		return { m_Width, m_Height };
 	}
 
-	void FrameBuffer::SetSize(UInt width, UInt height)
+	void FrameBuffer::SetSize(unsigned int width, unsigned int height)
 	{
 		m_Width = width;
 		m_Height = height;

@@ -4,34 +4,34 @@
 
 namespace Tomato::Math
 {
-	const Float pi = acosf(-1.0f);
-	const Float e = expf(1.0f);
+	const float pi = acosf(-1.0f);
+	const float e = expf(1.0f);
 
-	UInt NumberOfDigits(Int number);
-	UInt NumberOfDigits(UInt number);
-	UInt NumberOfDigits(Long number);
-	UInt NumberOfDigits(ULong number);
-	std::string ToString(Int number);
-	std::string ToString(UInt number);
-	std::string ToString(Long number);
-	std::string ToString(ULong number);
-	std::string ToString(Float number, UInt precision = 2);
-	std::string ToString(Double number, UInt precision = 2);
-	std::string ToString(Bool value);
+	unsigned int NumberOfDigits(int number);
+	unsigned int NumberOfDigits(unsigned int number);
+	unsigned int NumberOfDigits(long long number);
+	unsigned int NumberOfDigits(unsigned long long number);
+	std::string ToString(int number);
+	std::string ToString(unsigned int number);
+	std::string ToString(long long number);
+	std::string ToString(unsigned long long number);
+	std::string ToString(float number, unsigned int precision = 2);
+	std::string ToString(double number, unsigned int precision = 2);
+	std::string ToString(bool value);
 
-	std::vector<Float2> GeneratePolygonCoords(UInt numberOfSides);
-	std::vector<UInt> GeneratePolygonIndices(UInt numberOfSides);
+	std::vector<Float2> GeneratePolygonCoords(unsigned int numberOfSides);
+	std::vector<unsigned int> GeneratePolygonIndices(unsigned int numberOfSides);
 
 	//Generate random int value on the closed interval [a, b]
-	Int RandomInt(Int a, Int b);
+	int RandomInt(int a, int b);
 	//Generate random floating-point value on the interval [a, b)
-	Float RandomFloat(Float a, Float b);
-	Float Trunc(Float number, UInt precision = 2);
-	Double Trunc(Double number, UInt precision = 2);
+	float RandomFloat(float a, float b);
+	float Trunc(float number, unsigned int precision = 2);
+	double Trunc(double number, unsigned int precision = 2);
 
 	// Angles
-	Float Radians(Float degrees);
-	Float Degrees(Float radians);
+	float Radians(float degrees);
+	float Degrees(float radians);
 
 	// Reverse
 	template <typename T, size_t ROWS, size_t COLS>
@@ -41,11 +41,11 @@ namespace Tomato::Math
 
 	// Return the length of a vector
 	template <typename T>
-	Float Length(const T& vector);
+	float Length(const T& vector);
 
 	// Return the angle of two vectors
 	template <typename T>
-	Float Angle(const T& vector1, const T& vector2);
+	float Angle(const T& vector1, const T& vector2);
 
 	// Return the normalized vector
 	template <typename T>
@@ -53,20 +53,20 @@ namespace Tomato::Math
 
 	// Transformation Matrix
 	Mat4 Translate(const Float3& vector);
-	Mat4 Translate(Float x, Float y, Float z);
+	Mat4 Translate(float x, float y, float z);
 	Mat4 Scale(const Float3& vector);
-	Mat4 Scale(Float x, Float y, Float z);
-	Mat4 Rotate(const Float angle, const Float3& axe = Float3(0.0f, 0.0f, 1.0f));
+	Mat4 Scale(float x, float y, float z);
+	Mat4 Rotate(const float angle, const Float3& axe = Float3(0.0f, 0.0f, 1.0f));
 	Mat4 LookAt(const Float3& position, const Float3& target);
-	Mat4 Perspective(const Float fov, const Float aspect, const Float _near, const Float _far);
-	Mat4 Orthographic(const Float left, const Float right, const Float bottom, const Float top, const Float _near, const Float _far);
+	Mat4 Perspective(const float fov, const float aspect, const float _near, const float _far);
+	Mat4 Orthographic(const float left, const float right, const float bottom, const float top, const float _near, const float _far);
 
 	template<typename T, size_t ROWS, size_t COLS>
 	Matrix<T, COLS, ROWS> Transpose(const Matrix<T, ROWS, COLS>& mat)
 	{
 		Matrix<T, COLS, ROWS> transpose;
-		for (UInt i = 0; i < ROWS; i++)
-			for (UInt j = 0; j < COLS; j++)
+		for (unsigned int i = 0; i < ROWS; i++)
+			for (unsigned int j = 0; j < COLS; j++)
 				transpose[j][i] = mat[i][j];
 		return transpose;
 	}
@@ -81,8 +81,8 @@ namespace Tomato::Math
 		Matrix<T, SIZE, SIZE> transpose = Transpose(mat);
 		Matrix<T, SIZE, SIZE> reverse;
 
-		for (UInt i = 0; i < SIZE; i++)
-			for (UInt j = 0; j < SIZE; j++)
+		for (unsigned int i = 0; i < SIZE; i++)
+			for (unsigned int j = 0; j < SIZE; j++)
 			{
 				reverse[i][j] = pow(-1, i + j) * transpose.Minor(i, j).GetDeterminant();
 			}
@@ -91,9 +91,9 @@ namespace Tomato::Math
 	}
 
 	template<typename T>
-	Float Length(const T& vector)
+	float Length(const T& vector)
 	{
-		Float sum = 0.0f;
+		float sum = 0.0f;
 
 		for (auto& el : vector.list)
 		{
@@ -104,10 +104,10 @@ namespace Tomato::Math
 	}
 
 	template<typename T>
-	Float Angle(const T& vector1, const T& vector2)
+	float Angle(const T& vector1, const T& vector2)
 	{
-		Float l1 = Length(vector1);
-		Float l2 = Length(vector2);
+		float l1 = Length(vector1);
+		float l2 = Length(vector2);
 
 		if (l1 == 0 || l2 == 0)
 		{
@@ -120,7 +120,7 @@ namespace Tomato::Math
 	template<typename T>
 	T Normalize(const T& vector)
 	{
-		Float length = Length(vector);
+		float length = Length(vector);
 
 		if (length == 0)
 			return vector;

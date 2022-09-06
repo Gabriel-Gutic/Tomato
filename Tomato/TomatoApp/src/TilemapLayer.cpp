@@ -20,22 +20,22 @@ TilemapLayer::TilemapLayer()
 	SetTilePosition(m_Tiles[4], -1, 4);
 }
 
-void TilemapLayer::OnUpdate(Tomato::Float dt)
+void TilemapLayer::OnUpdate(float dt)
 {
 	for (const auto& tile : m_Tiles)
 		Tomato::Renderer::DrawQuad(tile.Quad, m_Tilemap, tile.Row, tile.Col, tile.Rowspan, tile.Colspan);
 }
 
-void TilemapLayer::SetTilePosition(Tile& tile, Tomato::Int i, Tomato::Int j)
+void TilemapLayer::SetTilePosition(Tile& tile, int i, int j)
 {
 	Tomato::Float3 pos;
-	pos.x = (Tomato::Float)i + (Tomato::Float)tile.Rowspan / 2.0f;
-	pos.y = (Tomato::Float)j - (Tomato::Float)tile.Colspan / 2.0f;
+	pos.x = (float)i + (float)tile.Rowspan / 2.0f;
+	pos.y = (float)j - (float)tile.Colspan / 2.0f;
 	tile.Quad.GetComponent<Tomato::TransformComponent>().Position = pos;
 }
 
-Tile::Tile(Tomato::UInt row, Tomato::UInt col, Tomato::UInt rowspan, Tomato::UInt colspan)
+Tile::Tile(unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan)
 	:Row(row), Col(col), Rowspan(rowspan), Colspan(colspan)
 {
-	Quad.AddComponent<Tomato::TransformComponent>().Scale = Tomato::Float3((Tomato::Float)Rowspan, (Tomato::Float)Colspan, 1.0f);
+	Quad.AddComponent<Tomato::TransformComponent>().Scale = Tomato::Float3((float)Rowspan, (float)Colspan, 1.0f);
 }
