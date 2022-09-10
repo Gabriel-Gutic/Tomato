@@ -2,26 +2,26 @@ Scene: Main Scene
 MainCamera:
   Camera:
     Target:
-      - 2.19819474
-      - -0.0442891009
-      - 39.7271996
+      - 1.11711431
+      - -0.0310389102
+      - 7.60991096
     Perspective:
-      FOV: 14.9112949
+      FOV: 43.4304085
       AspectRatio: 1.90287411
       Near: 0.100000001
       Far: 100
     Ortho:
-      Left: -4.12827873
-      Right: 4.12827873
-      Bottom: -2.16949654
-      Top: 2.16949654
+      Left: -15.6227884
+      Right: 15.6227884
+      Bottom: -8.21010113
+      Top: 8.21010113
       Near: 0.100000001
       Far: 100
   Transform:
     Position:
-      - 1.09909737
-      - -0.0221445505
-      - 22.8634853
+      - 0.558557153
+      - -0.0155194551
+      - 6.80485201
     Scale:
       - 1
       - 1
@@ -48,7 +48,7 @@ Entities:
     MeshRenderer:
       Sprite: Circle
       Color:
-        - 0.936708927
+        - 0.835443139
         - 1
         - 0
         - 1
@@ -656,8 +656,8 @@ Entities:
   quad:
     Transform:
       Position:
-        - -1.39999998
-        - 0.5
+        - 2.70000005
+        - -0.400000006
         - -0.699999988
       Scale:
         - 1

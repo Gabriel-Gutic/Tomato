@@ -142,46 +142,47 @@ namespace Tomato
 		}
 	}
 
+	// TODO: TexCoords for other entities than quad
 	void Renderer::Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan, const Mat4& transform)
 	{
-	}
+		if (!entity.HasComponent<MeshRendererComponent>())
+			return;
 
-	void Renderer::DrawQuad(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan, const Mat4& transform)
-	{
-		TOMATO_BENCHMARKING_FUNCTION();
-		if (RendererData::VertexCounter + 6 >= RendererData::MaxVertexNumber)
+		const auto& mesh = entity.GetComponent<MeshRendererComponent>();
+		if (RendererData::VertexCounter + mesh.mesh.Indices.size() >= RendererData::MaxVertexNumber)
 			Flush();
 
-		auto& rend = entity.GetComponent<MeshRendererComponent>();
 		float texIndex = GetTextureIndex(tilemap->GetTexture());
 
-		std::array<Vertex, 4> vertices;
-		vertices[0].Coords = Float3(-0.5f, -0.5f, 0.0f);
-		vertices[1].Coords = Float3(-0.5f,  0.5f, 0.0f);
-		vertices[2].Coords = Float3( 0.5f, -0.5f, 0.0f);
-		vertices[3].Coords = Float3( 0.5f,  0.5f, 0.0f);
+		std::vector<Vertex> vertices;
+		size_t size = mesh.mesh.Vertices.size();
+		vertices.resize(size);
 
 		auto texCoords = tilemap->GetTexCoords(row, col, rowspan, colspan);
-		for (unsigned int i = 0; i < 4; i++)
+		for (unsigned int i = 0; i < size; i++)
 		{
-			vertices[i].Color = rend.Color;
+			vertices[i].Coords = mesh.mesh.Vertices[i];
+			vertices[i].Color = mesh.Color;
 			vertices[i].TexCoords = texCoords[i];
 			vertices[i].TexIndex = texIndex;
 		}
-		
+
+		bool hasTransform = false;
+		Mat4 tran(1.0f);
 		if (entity.HasComponent<TransformComponent>())
 		{
-			auto tran = entity.GetComponent<TransformComponent>().Get();
-
-			for (auto& vertex : vertices)
-				vertex.Coords = (tran * Float4(vertex.Coords, 1.0f)).xyz;
+			hasTransform = true;
+			tran = entity.GetComponent<TransformComponent>().Get();
 		}
-		for (auto& vertex : vertices)
-			vertex.Coords = (transform * Float4(vertex.Coords, 1.0f)).xyz;
 
-		std::array<unsigned int, 6> indices = { 0, 1, 2, 1, 2, 3 };
-		for (const auto& index : indices)
-			RendererData::Vertices[RendererData::VertexCounter++] = vertices[index];
+		for (unsigned int i = 0; i < mesh.mesh.Indices.size(); i++)
+		{
+			unsigned int index = mesh.mesh.Indices[i];
+			auto vertex = vertices[index];
+			if (hasTransform)
+				vertex.Coords = (transform * tran * Float4(vertex.Coords, 1.0f)).xyz;
+			RendererData::Vertices[RendererData::VertexCounter++] = vertex;
+		}
 	}
 
 	void Renderer::DrawText(std::string_view text, const Font& font, const Mat4& transform)
