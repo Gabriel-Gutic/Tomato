@@ -6,7 +6,7 @@ MainCamera:
       - -0.0310389102
       - 7.60991096
     Perspective:
-      FOV: 43.4304085
+      FOV: 48.7241249
       AspectRatio: 1.90287411
       Near: 0.100000001
       Far: 100

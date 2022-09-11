@@ -10,6 +10,8 @@
 #include "Core/App/App.h"
 #include "Renderer/Renderer.h"
 
+#include "RendererAPI/OpenGL/OpenGLWindow.h"
+
 
 namespace Tomato::GUI
 {
@@ -40,7 +42,7 @@ namespace Tomato::GUI
         io.Fonts->AddFontFromFileTTF(fontPath, 16.0f);
 
         // Setup Platform/Renderer bindings
-        auto window = static_cast<GLFWwindow*>(App::GetWindow()->Get());
+        auto window = static_cast<GLFWwindow*>(std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get());
 
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init();

@@ -16,36 +16,36 @@ namespace Tomato
 	{
 	public:
 		Window(std::string_view title = "Tomato Window", int width = 1280, int height = 720);
-		~Window();
+		virtual ~Window();
 
-		void Clear(float r, float g, float b, float a) const;
-		void Clear(const Float4& color) const;
-		void Swap();
-		void* Get();
+		virtual void Clear(float r, float g, float b, float a) const = 0;
+		virtual void Clear(const Float4& color) const = 0;
+		virtual void Swap() = 0;
 
-		int GetWidth() const;
-		int GetHeight() const;
-		std::pair<int, int> GetSize() const;
-		void SetSize(int width, int height);
-		void SetWidth(int width);
-		void SetHeight(int height);
-		float GetAspectRatio() const;
+		virtual int GetWidth() const;
+		virtual int GetHeight() const;
+		virtual std::pair<int, int> GetSize() const;
+		virtual void SetSize(int width, int height) = 0;
+		virtual void SetWidth(int width) = 0;
+		virtual void SetHeight(int height) = 0;
+		virtual float GetAspectRatio() const;
 
-		int GetX() const;
-		int GetY() const;
-		std::pair<int, int> GetPos() const;
-		void SetPos(int x, int y);
-		void SetX(int x);
-		void SetY(int y);
+		virtual int GetX() const;
+		virtual int GetY() const;
+		virtual std::pair<int, int> GetPos() const;
+		virtual void SetPos(int x, int y) = 0;
+		virtual void SetX(int x);
+		virtual void SetY(int y);
 
-		void SetTitle(std::string_view title);
-		const std::string& GetTitle() const;
-		void SetIcon(std::string_view iconPath);
+		virtual void SetTitle(std::string_view title) = 0;
+		virtual const std::string& GetTitle() const;
+		virtual void SetIcon(std::string_view iconPath) = 0;
 
-		void SetVSync(bool vsync);
-		bool GetVSync() const;
-	private:
-		void* m_Window;
+		virtual void SetVSync(bool vsync) = 0;
+		virtual bool GetVSync() const;
+	public:
+		static std::shared_ptr<Window> Create(std::string_view title = "Tomato Window", int width = 1280, int height = 720);
+	protected:
 		WindowData m_Data;
 	};
 }

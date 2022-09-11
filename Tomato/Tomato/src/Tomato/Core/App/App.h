@@ -22,7 +22,7 @@ namespace Tomato
 		static App* Create();
 		static void Exit();
 
-		static std::unique_ptr<Window>& GetWindow();
+		static const std::shared_ptr<Window>& GetWindow();
 		static void SetMenuBar(MenuBar* menuBar);
 		static const std::unique_ptr<MenuBar>& GetMenuBar();
 		static std::unordered_map<std::string, std::unique_ptr<Scene>>& GetScenes();
@@ -51,7 +51,7 @@ namespace Tomato
 		bool isRunning;
 		std::queue<Event*> m_EventQueue;
 
-		std::unique_ptr<Window> m_Window;
+		std::shared_ptr<Window> m_Window;
 		std::unique_ptr<MenuBar> m_MenuBar;
 		std::unordered_map<std::string, std::unique_ptr<Scene>> m_SceneMap;
 		std::vector<std::unique_ptr<Serializer>> m_Serializers;

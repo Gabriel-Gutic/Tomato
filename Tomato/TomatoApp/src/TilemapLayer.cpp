@@ -23,7 +23,7 @@ TilemapLayer::TilemapLayer()
 void TilemapLayer::OnUpdate(float dt)
 {
 	for (const auto& tile : m_Tiles)
-		Tomato::Renderer::DrawQuad(tile.Quad, m_Tilemap, tile.Row, tile.Col, tile.Rowspan, tile.Colspan);
+		Tomato::Renderer::Draw(tile.Quad, m_Tilemap, tile.Row, tile.Col, tile.Rowspan, tile.Colspan);
 }
 
 void TilemapLayer::SetTilePosition(Tile& tile, int i, int j)

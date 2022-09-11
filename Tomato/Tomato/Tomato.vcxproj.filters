@@ -227,6 +227,8 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\RendererAPI\RendererAPI.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
@@ -356,5 +358,7 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\RendererAPI\RendererAPI.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp" />
   </ItemGroup>
 </Project>

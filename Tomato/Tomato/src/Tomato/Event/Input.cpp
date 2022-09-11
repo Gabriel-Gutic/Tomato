@@ -5,19 +5,20 @@
 
 #include "Core/App/App.h"
 #include "Renderer/Renderer.h"
+#include "RendererAPI/OpenGL/OpenGLWindow.h"
 
 
 namespace Tomato
 {
 	bool Input::Keyboard(int key)
 	{
-		int status = glfwGetKey((GLFWwindow*)App::GetWindow()->Get(), key);
+		int status = glfwGetKey((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(), key);
 		return status;
 	}
 
 	bool Input::Mouse(int button)
 	{
-		int status = glfwGetMouseButton((GLFWwindow*)App::GetWindow()->Get(), button);
+		int status = glfwGetMouseButton((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(), button);
 		return status;
 	}
 
@@ -25,7 +26,7 @@ namespace Tomato
 	{
 		double px, py;
 		Float2 pos;
-		glfwGetCursorPos((GLFWwindow*)App::GetWindow()->Get(),
+		glfwGetCursorPos((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(),
 			&px, &py);
 		pos.x = static_cast<float>(px);
 		pos.y = static_cast<float>(py);

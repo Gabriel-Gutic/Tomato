@@ -93,6 +93,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h" />
+    <ClInclude Include="src\RendererAPI\RendererAPI.h" />
     <ClInclude Include="src\Tomato.h" />
     <ClInclude Include="src\Tomato\Core\App\App.h" />
     <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h" />
@@ -155,6 +157,8 @@
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp" />
+    <ClCompile Include="src\RendererAPI\RendererAPI.cpp" />
     <ClCompile Include="src\Tomato\Core\App\App.cpp" />
     <ClCompile Include="src\Tomato\Core\App\EntryPoint.cpp" />
     <ClCompile Include="src\Tomato\Core\App\Object.cpp" />

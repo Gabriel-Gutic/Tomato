@@ -26,7 +26,8 @@ namespace Tomato
 		TOMATO_ASSERT(!s_Instance, "App already instantiated!");
 		s_Instance = this;
 
-		m_Window = std::make_unique<Window>("Tomato Window", 800, 800);
+		m_Window = Window::Create();
+		TOMATO_ASSERT(m_Window, "Failed to create Tomato Window!");
 
 		Renderer::Initialize();
 
@@ -204,7 +205,7 @@ namespace Tomato
 		s_Instance->m_ImGuiLayers.erase(name.data());
 	}
 
-	std::unique_ptr<Window>& App::GetWindow()
+	const std::shared_ptr<Window>& App::GetWindow()
 	{
 		return s_Instance->m_Window;
 	}
