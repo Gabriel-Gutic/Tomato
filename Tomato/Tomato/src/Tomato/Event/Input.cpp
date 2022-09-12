@@ -1,53 +1,58 @@
 #include "pchTomato.h"
 #include "Input.h"
 
-#include <GLFW/glfw3.h>
-
-#include "Core/App/App.h"
-#include "Renderer/Renderer.h"
-#include "RendererAPI/OpenGL/OpenGLWindow.h"
+#include "RendererAPI/RendererAPI.h"
+#include "RendererAPI/OpenGL/OpenGLInput.h"
 
 
 namespace Tomato
 {
 	bool Input::Keyboard(int key)
 	{
-		int status = glfwGetKey((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(), key);
-		return status;
+		switch (RendererAPI::GetType())
+		{
+		case RendererType::OpenGL:
+			return OpenGLInput::Keyboard(key);
+		}
+		return false;
 	}
 
 	bool Input::Mouse(int button)
 	{
-		int status = glfwGetMouseButton((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(), button);
-		return status;
+		switch (RendererAPI::GetType())
+		{
+		case RendererType::OpenGL:
+			return OpenGLInput::Mouse(button);
+		}
+		return false;
 	}
 
 	Float2 Input::MousePos()
 	{
-		double px, py;
-		Float2 pos;
-		glfwGetCursorPos((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(),
-			&px, &py);
-		pos.x = static_cast<float>(px);
-		pos.y = static_cast<float>(py);
-		return pos;
+		switch (RendererAPI::GetType())
+		{
+		case RendererType::OpenGL:
+			return OpenGLInput::MousePos();
+		}
+		return Float2();
 	}
 
 	Float3 Input::MouseWorldCoords()
 	{
-		auto& vp = Renderer::GetViewProjection();
-		Float2 pos = MousePos();
-
-		float win_width = App::GetWindow()->GetWidth();
-		float win_height = App::GetWindow()->GetHeight();
-		Float4 coords;
-		coords.x = 2.0 * (pos.x / win_width) - 1.0f;
-		coords.y = 1.0f - 2.0 * (pos.y / win_height);
-		coords.z = 1.0f;
-		coords.w = 1.0f;
-
-		coords = Math::Inverse(vp) * coords;
-		return 1.0f / coords.w * coords.xyz;
+		//auto& vp = Renderer::GetViewProjection();
+		//Float2 pos = MousePos();
+		//
+		//float win_width = App::GetWindow()->GetWidth();
+		//float win_height = App::GetWindow()->GetHeight();
+		//Float4 coords;
+		//coords.x = 2.0 * (pos.x / win_width) - 1.0f;
+		//coords.y = 1.0f - 2.0 * (pos.y / win_height);
+		//coords.z = 1.0f;
+		//coords.w = 1.0f;
+		//
+		//coords = Math::Inverse(vp) * coords;
+		//return 1.0f / coords.w * coords.xyz;
+		return {};
 	}
 
 	double Input::GetMouseX()
