@@ -116,7 +116,7 @@ namespace Tomato
 
 	OpenGLWindow::~OpenGLWindow()
 	{
-		glfwDestroyWindow((GLFWwindow*)m_Window);
+		glfwDestroyWindow(static_cast<GLFWwindow*>(m_Window));
 		glfwTerminate();
 	}
 
@@ -139,7 +139,7 @@ namespace Tomato
 	void OpenGLWindow::Swap()
 	{
 		/* Swap front and back buffers */
-		glfwSwapBuffers((GLFWwindow*)m_Window);
+		glfwSwapBuffers(static_cast<GLFWwindow*>(m_Window));
 
 		/* Poll for and process events */
 		glfwPollEvents();
@@ -148,20 +148,20 @@ namespace Tomato
 
 	void OpenGLWindow::SetSize(int width, int height)
 	{
-		glfwSetWindowSize((GLFWwindow*)m_Window, width, height);
+		glfwSetWindowSize(static_cast<GLFWwindow*>(m_Window), width, height);
 		m_Data.Width = width;
 		m_Data.Height = height;
 	}
 
 	void OpenGLWindow::SetWidth(int width)
 	{
-		glfwSetWindowSize((GLFWwindow*)m_Window, width, m_Data.Height);
+		glfwSetWindowSize(static_cast<GLFWwindow*>(m_Window), width, m_Data.Height);
 		m_Data.Width = width;
 	}
 
 	void OpenGLWindow::SetHeight(int height)
 	{
-		glfwSetWindowSize((GLFWwindow*)m_Window, m_Data.Width, height);
+		glfwSetWindowSize(static_cast<GLFWwindow*>(m_Window), m_Data.Width, height);
 		m_Data.Height = height;
 	}
 
@@ -174,7 +174,7 @@ namespace Tomato
 
 	void OpenGLWindow::SetTitle(std::string_view title)
 	{
-		glfwSetWindowTitle((GLFWwindow*)m_Window, title.data());
+		glfwSetWindowTitle(static_cast<GLFWwindow*>(m_Window), title.data());
 		m_Data.Title = title;
 	}
 
@@ -184,7 +184,7 @@ namespace Tomato
 
 		GLFWimage images[1];
 		images[0].pixels = stbi_load(iconPath.data(), &images[0].width, &images[0].height, 0, 4); //rgba channels 
-		glfwSetWindowIcon((GLFWwindow*)m_Window, 1, images);
+		glfwSetWindowIcon(static_cast<GLFWwindow*>(m_Window), 1, images);
 		stbi_image_free(images[0].pixels);
 	}
 
@@ -192,6 +192,24 @@ namespace Tomato
 	{
 		glfwSwapInterval(vsync);
 		m_Data.VSync = vsync;
+	}
+
+	void OpenGLWindow::SetFullscreen(bool fullscreen)
+	{
+		m_Data.Fullscreen = fullscreen;
+		
+		auto window = static_cast<GLFWwindow*>(m_Window);
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		if (fullscreen)
+		{
+			const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+			glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+		} 
+		else
+		{
+			glfwSetWindowMonitor(window, NULL, 200, 200, 1280, 720, 0);
+		}
 	}
 }
 

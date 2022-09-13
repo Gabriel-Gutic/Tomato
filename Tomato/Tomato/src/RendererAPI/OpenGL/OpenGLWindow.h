@@ -24,6 +24,7 @@ namespace Tomato
 		virtual void SetTitle(std::string_view title) override;
 		virtual void SetIcon(std::string_view iconPath) override;
 		virtual void SetVSync(bool vsync) override;
+		virtual void SetFullscreen(bool fullscreen) override;
 	private:
 		void* m_Window;
 	};

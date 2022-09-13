@@ -10,6 +10,7 @@ namespace Tomato
 		int X, Y;
 		int Width, Height;
 		bool VSync;
+		bool Fullscreen;
 	};
 
 	class Window
@@ -43,6 +44,9 @@ namespace Tomato
 
 		virtual void SetVSync(bool vsync) = 0;
 		virtual bool GetVSync() const;
+
+		virtual void SetFullscreen(bool fullscreen) = 0;
+		virtual bool IsFullscreen() const;
 	public:
 		static std::shared_ptr<Window> Create(std::string_view title = "Tomato Window", int width = 1280, int height = 720);
 	protected:

@@ -10,11 +10,12 @@ namespace Tomato
 	Window::Window(std::string_view title, int width, int height)
 		:m_Data({
 				title.data(),
-				200,
-				100,
+				200,		// XPos
+				100,		// YPos
 				width,
 				height,
-				false
+				false,		// VSync
+				false,		// Fullscreen
 			}){}
 
 	Window::~Window()
@@ -75,6 +76,11 @@ namespace Tomato
 	bool Window::GetVSync() const
 	{
 		return m_Data.VSync;
+	}
+
+	bool Window::IsFullscreen() const
+	{
+		return m_Data.Fullscreen;
 	}
 
 	std::shared_ptr<Window> Window::Create(std::string_view title, int width, int height)

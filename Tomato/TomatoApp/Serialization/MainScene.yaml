@@ -2,8 +2,8 @@ Scene: Main Scene
 MainCamera:
   Camera:
     Target:
-      - 1.60098481
-      - -0.418135703
+      - 2.30828762
+      - 1.16235042
       - 7.60991096
     Perspective:
       FOV: 45
@@ -19,8 +19,8 @@ MainCamera:
       Far: 100
   Transform:
     Position:
-      - 0.800492406
-      - -0.209067851
+      - 1.15414381
+      - 0.581175208
       - 6.80485201
     Scale:
       - 1
@@ -658,7 +658,7 @@ Entities:
       Position:
         - 2.70000005
         - -0.400000006
-        - -0.699999988
+        - 0
       Scale:
         - 1
         - 1

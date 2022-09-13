@@ -53,6 +53,15 @@ void GUILayer::OnUpdate(float dt)
 		tran.Position.z += cameraSpeed;
 		camera.Target.z += 2 * cameraSpeed;
 	}
+
+	if (Tomato::Input::Keyboard(TOMATO_KEY_Q))
+	{
+		window->SetFullscreen(true);
+	}
+	if (Tomato::Input::Keyboard(TOMATO_KEY_W))
+	{
+		window->SetFullscreen(false);
+	}
 }
 
 void GUILayer::OnGUI()
