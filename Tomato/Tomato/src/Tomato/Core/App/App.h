@@ -21,7 +21,7 @@ namespace Tomato
 		static App* Get() { return s_Instance; }
 		static App* Create();
 		static void Exit();
-
+		 
 		static const std::shared_ptr<Window>& GetWindow();
 		static void SetMenuBar(MenuBar* menuBar);
 		static const std::unique_ptr<MenuBar>& GetMenuBar();

@@ -202,12 +202,13 @@ namespace Tomato
 		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 		if (fullscreen)
 		{
+			// Go in fullscreen mode
 			const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
 			glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
 		} 
 		else
 		{
+			// Go in windowed mode
 			glfwSetWindowMonitor(window, NULL, 200, 200, 1280, 720, 0);
 		}
 	}
