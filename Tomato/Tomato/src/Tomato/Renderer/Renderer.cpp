@@ -135,10 +135,10 @@ namespace Tomato
 		for (unsigned int i = 0; i < mesh.mesh.Indices.size(); i++)
 		{
 			unsigned int index = mesh.mesh.Indices[i];
-			auto coords = mesh.mesh.Vertices[index];
+			auto vertex = mesh.mesh.Vertices[index];
 			if (hasTransform)
-				coords = (transform * tran * Float4(coords, 1.0f)).xyz;
-			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(coords, mesh.Color, texIndex, mesh.mesh.TexCoords[index]);
+				vertex.Position = (transform * tran * Float4(vertex.Position, 1.0f)).xyz;
+			RendererData::Vertices[RendererData::VertexCounter++] = Vertex(vertex.Position, mesh.Color, texIndex, vertex.TexCoords);
 		}
 	}
 
@@ -161,7 +161,7 @@ namespace Tomato
 		auto texCoords = tilemap->GetTexCoords(row, col, rowspan, colspan);
 		for (unsigned int i = 0; i < size; i++)
 		{
-			vertices[i].Coords = mesh.mesh.Vertices[i];
+			vertices[i].Coords = mesh.mesh.Vertices[i].Position;
 			vertices[i].Color = mesh.Color;
 			vertices[i].TexCoords = texCoords[i];
 			vertices[i].TexIndex = texIndex;

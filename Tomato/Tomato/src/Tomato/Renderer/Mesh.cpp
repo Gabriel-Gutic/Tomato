@@ -4,33 +4,25 @@
 
 namespace Tomato
 {
-	std::vector<Float3> Mesh::GetIndexedVertices() const
-	{
-		std::vector<Float3> result;
-		result.resize(Indices.size());
-		for (unsigned int i = 0; i < Indices.size(); i++)
-		{
-			result[i] = Vertices[Indices[i]];
-		}
-
-		return result;
-	}
-
 	Mesh Mesh::TriangleMesh()
 	{
 		Mesh mesh;
-		mesh.Vertices = { Float3(0.0f, 0.5f, 0.0f), Float3(-0.5f, -0.5f, 0.0f), Float3(0.5f, -0.5f, 0.0f) };
+		mesh.Vertices = { Vertex(Float3(0.0f, 0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.5f, 1.0f)), 
+			Vertex(Float3(-0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.0f, 0.0f)), 
+			Vertex(Float3(0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(1.0f, 0.0f)) };
 		mesh.Indices = { 0, 1, 2 };
-		mesh.TexCoords = { Float2(0.5f, 1.0f), Float2(0.0f, 0.0f), Float2(1.0f, 0.0f) };
 		return mesh;
 	}
 
 	Mesh Mesh::QuadMesh()
 	{
 		Mesh mesh;
-		mesh.Vertices = { Float3(-0.5f, -0.5f, 0.0f), Float3(0.5f, -0.5f, 0.0f), Float3(-0.5f, 0.5f, 0.0f), Float3(0.5f, 0.5f, 0.0f) };
+		mesh.Vertices = { 
+			Vertex(Float3(-0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.0f, 0.0f)),
+			Vertex(Float3( 0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(1.0f, 0.0f)),
+			Vertex(Float3(-0.5f,  0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.0f, 1.0f)),
+			Vertex(Float3( 0.5f,  0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(1.0f, 1.0f)) };
 		mesh.Indices = { 0, 1, 2, 1, 2, 3 };
-		mesh.TexCoords = { Float2(0.0f, 1.0f), Float2(1.0f, 0.0f), Float2(0.0f, 1.0f), Float2(1.0f, 1.0f) };
 		return mesh;
 	}
 
@@ -48,7 +40,7 @@ namespace Tomato
 
 		float radius = 0.5f;
 		Float2 center = Float2();
-		float t = acosf((mesh.Vertices[1].x - center.x) / radius);
+		float t = acosf((mesh.Vertices[1].Position.x - center.x) / radius);
 
 		for (unsigned int i = 1; i < sides; i++)
 		{
@@ -66,8 +58,6 @@ namespace Tomato
 			else
 				mesh.Indices.push_back(i + 2);
 		}
-
-		mesh.TexCoords.resize(sides + 1);
 
 		return mesh;
 	}

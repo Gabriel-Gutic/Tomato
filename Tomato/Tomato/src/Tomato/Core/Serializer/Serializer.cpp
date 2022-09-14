@@ -85,7 +85,7 @@ namespace Tomato
 		out << YAML::Key << "Vertices" << YAML::Value << YAML::BeginSeq;
 		for (const auto& vertex : rend.mesh.Vertices)
 		{
-			EncodeFloat3(out, vertex);
+			EncodeFloat3(out, vertex.Position);
 		}
 		out << YAML::EndSeq;
 		out << YAML::Key << "Indices" << YAML::Value << YAML::BeginSeq;
@@ -95,9 +95,9 @@ namespace Tomato
 		}
 		out << YAML::EndSeq;
 		out << YAML::Key << "TexCoords" << YAML::Value << YAML::BeginSeq;
-		for (const auto& texCoords : rend.mesh.TexCoords)
+		for (const auto& vertex : rend.mesh.Vertices)
 		{
-			EncodeFloat2(out, texCoords);
+			EncodeFloat2(out, vertex.TexCoords);
 		}
 		out << YAML::EndSeq;
 		out << YAML::EndMap;
@@ -164,7 +164,7 @@ namespace Tomato
 		if (vertices)
 		{
 			for (YAML::const_iterator it = vertices.begin(); it != vertices.end(); ++it) {
-				rend.mesh.Vertices.push_back(DecodeFloat3(*it));
+				rend.mesh.Vertices.push_back(Mesh::Vertex(DecodeFloat3(*it)));
 			}
 		}
 		auto& indices = node["Indices"];
@@ -177,8 +177,9 @@ namespace Tomato
 		auto& texCoords = node["TexCoords"];
 		if (texCoords)
 		{
+			int i = 0;
 			for (YAML::const_iterator it = texCoords.begin(); it != texCoords.end(); ++it) {
-				rend.mesh.TexCoords.push_back(DecodeFloat2(*it));
+				rend.mesh.Vertices[i++].TexCoords = DecodeFloat2(*it);
 			}
 		}
 		return rend;

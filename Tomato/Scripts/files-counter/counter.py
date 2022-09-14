@@ -13,11 +13,12 @@ def iterate_through_dir(path):
             if file not in EXCLUDE_DIRS:
                 iterate_through_dir(filepath)
         else:
-            if file.endswith('.h') or file.endswith('.cpp') or file.endswith('.glsl'):
+            if file.endswith('.h') or file.endswith('.cpp') or file.endswith('.glsl') or file.endswith('.hlsl'):
                 print(file)
                 f = open(filepath, 'r')
                 lines = f.readlines()
                 count += len(lines)
                 
 iterate_through_dir(SLN_DIR)
-print('There are {0} lines in all the .h, .cpp and .glsl files'.format(count))
+print('There are {0} lines in all the .h, .cpp, .glsl and .hlsl files'.format(count))
+input("Press enter to close...")

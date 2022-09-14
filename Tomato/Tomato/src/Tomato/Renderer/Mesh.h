@@ -1,4 +1,5 @@
 #pragma once
+#include "Texture/Texture.h"
 
 
 namespace Tomato
@@ -6,17 +7,25 @@ namespace Tomato
 	class Mesh
 	{
 	public:
-		std::vector<Float3> Vertices;
+		struct Vertex
+		{
+			Float3 Position;
+			Float4 Color;
+			Float3 Normal;
+			Float2 TexCoords;
+			Vertex(const Float3& pos = Float3(0.0f, 0.0f, 0.0f), const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f), const Float3& normal = Float3(0.0f, 0.0f, 0.0f), const Float2& texCoords = Float2(0.0f, 0.0f))
+				:Position(pos), Color(color), Normal(normal), TexCoords(texCoords) {}
+		};
+	public:
+		std::vector<Vertex> Vertices;
 		std::vector<unsigned int> Indices;
-		std::vector<Float2> TexCoords;
+		std::vector<Texture> Textures;
 
 		Mesh() = default;
 		Mesh(const Mesh&) = default;
 		~Mesh() = default;
 
-		std::vector<Float3> GetIndexedVertices() const;
-
-
+	public:
 		static Mesh TriangleMesh();
 		static Mesh QuadMesh();
 		static Mesh PolygonMesh(int sides);

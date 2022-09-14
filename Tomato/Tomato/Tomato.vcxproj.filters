@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="RendererAPI">
+      <UniqueIdentifier>{162C8002-82E1-F8F7-0BD6-F2CE778AEFFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RendererAPI\OpenGL">
+      <UniqueIdentifier>{8AA01BB3-7684-DC08-DFE4-D65BCBE7C68A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato">
       <UniqueIdentifier>{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}</UniqueIdentifier>
     </Filter>
@@ -51,6 +57,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLInput.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLRenderer3D.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLShader.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\RendererAPI.h">
+      <Filter>RendererAPI</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato.h" />
     <ClInclude Include="src\Tomato\Core\App\App.h">
       <Filter>Tomato\Core\App</Filter>
@@ -181,6 +202,9 @@
     <ClInclude Include="src\Tomato\Renderer\Renderer.h">
       <Filter>Tomato\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Renderer\Renderer3D.h">
+      <Filter>Tomato\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Scene\Component\CameraComponent.h">
       <Filter>Tomato\Renderer\Scene\Component</Filter>
     </ClInclude>
@@ -227,12 +251,23 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\RendererAPI\RendererAPI.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLInput.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLRenderer3D.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLShader.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\RendererAPI.cpp">
+      <Filter>RendererAPI</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Core\App\App.cpp">
       <Filter>Tomato\Core\App</Filter>
     </ClCompile>
@@ -320,6 +355,9 @@
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp">
       <Filter>Tomato\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Renderer\Renderer3D.cpp">
+      <Filter>Tomato\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Scene\Component\CameraComponent.cpp">
       <Filter>Tomato\Renderer\Scene\Component</Filter>
     </ClCompile>
@@ -360,9 +398,5 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\RendererAPI\RendererAPI.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>
