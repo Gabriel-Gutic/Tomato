@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLInput.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="src\RendererAPI\RendererAPI.h" />
     <ClInclude Include="src\Tomato.h" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp" />
     <ClCompile Include="src\RendererAPI\RendererAPI.cpp" />
     <ClCompile Include="src\Tomato\Core\App\App.cpp" />

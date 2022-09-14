@@ -34,7 +34,7 @@ namespace Tomato
 		s_Instance = new Renderer();
 
 		// Drawing
-		s_Instance->m_Shader = std::make_unique<Shader>("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl");
+		s_Instance->m_Shader = std::move(Shader::CreateUnique("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl"));
 		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber);
 		s_Instance->m_VertexArray = std::make_unique<VertexArray>();
 
