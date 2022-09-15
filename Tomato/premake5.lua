@@ -18,3 +18,4 @@ sln = "%{wks.location}/"
 
 include "Tomato"
 include "TomatoApp"
+include "Tomato3D"

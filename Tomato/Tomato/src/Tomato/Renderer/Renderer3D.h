@@ -1,6 +1,7 @@
 #pragma once
 #include "Shader.h"
 #include "Buffer/VertexBuffer.h"
+#include "Buffer/IndexBuffer.h"
 #include "Buffer/VertexArray.h"
 
 
@@ -16,10 +17,18 @@ namespace Tomato
 		static void Initialize();
 		static void Terminate();
 
+		virtual void Begin() = 0;
+		virtual void End() = 0;
+
+		virtual void Draw(const Mesh& mesh) = 0;
+
 		static Renderer3D* Get();
+	private:
+		virtual void Flush() = 0;
 	protected:
 		std::unique_ptr<Shader> m_Shader;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;
 	private:
 		static Renderer3D* s_Instance;

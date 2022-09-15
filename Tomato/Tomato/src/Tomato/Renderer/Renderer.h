@@ -11,6 +11,12 @@
 
 namespace Tomato
 {
+	enum class RendererType
+	{
+		_2D,
+		_3D,
+	};
+
 	class Renderer
 	{
 		Renderer() = default;
@@ -33,6 +39,8 @@ namespace Tomato
 		static void Draw(const Entity& entity, const std::shared_ptr<Texture>& texture = nullptr, const Mat4& transform = Mat4(1.0f));
 		static void Draw(const Entity& entity, const std::shared_ptr<Tilemap>& tilemap, unsigned int row, unsigned int col, unsigned int rowspan, unsigned int colspan, const Mat4& transform = Mat4(1.0f));
 		static void DrawText(std::string_view text, const Font& font, const Mat4& transform = Mat4(1.0f));
+	
+		static RendererType GetType();
 	private:
 		static void Flush();
 
@@ -49,6 +57,8 @@ namespace Tomato
 		Mat4 m_VP;
 
 		static Renderer* s_Instance;
+
+		static RendererType s_Type;
 	};
 
 	

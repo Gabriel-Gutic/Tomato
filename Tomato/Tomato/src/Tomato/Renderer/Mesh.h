@@ -18,7 +18,7 @@ namespace Tomato
 		};
 	public:
 		std::vector<Vertex> Vertices;
-		std::vector<unsigned int> Indices;
+		std::vector<uint32_t> Indices;
 		std::vector<Texture> Textures;
 
 		Mesh() = default;
@@ -30,5 +30,8 @@ namespace Tomato
 		static Mesh QuadMesh();
 		static Mesh PolygonMesh(int sides);
 		static Mesh CircleMesh(float smoothness);
+
+	public:
+		static Mesh Cube();
 	};
 }

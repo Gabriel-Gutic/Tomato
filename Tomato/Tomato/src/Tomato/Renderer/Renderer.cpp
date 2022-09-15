@@ -10,6 +10,7 @@
 
 namespace Tomato
 {
+	RendererType Renderer::s_Type = RendererType::_3D;
 	struct RendererData
 	{
 		static const unsigned int MaxVertexNumber = 16384;
@@ -35,7 +36,7 @@ namespace Tomato
 
 		// Drawing
 		s_Instance->m_Shader = std::move(Shader::CreateUnique("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl"));
-		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber);
+		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber * sizeof(Vertex));
 		s_Instance->m_VertexArray = std::make_unique<VertexArray>();
 
 		glEnable(GL_BLEND);
@@ -233,6 +234,11 @@ namespace Tomato
 		}
 
 		VertexArray::Unbind();
+	}
+
+	RendererType Renderer::GetType()
+	{
+		return s_Type;
 	}
 
 	void Renderer::Flush()

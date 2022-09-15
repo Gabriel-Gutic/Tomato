@@ -81,8 +81,8 @@ namespace Tomato::GUI
                 RenderWindow();
         }
 
-        bool demo = true;
-        ImGui::ShowDemoWindow(&demo);
+        //bool demo = true;
+        //ImGui::ShowDemoWindow(&demo);
     }
 
     void End()

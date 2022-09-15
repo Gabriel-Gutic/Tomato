@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yaml-cpp", "Tomato\dependen
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tomato", "Tomato\Tomato.vcxproj", "{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tomato3D", "Tomato3D\Tomato3D.vcxproj", "{F08B2C67-DC58-8772-0572-751AF19DBC00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -45,6 +47,10 @@ Global
 		{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}.Debug|x64.Build.0 = Debug|x64
 		{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}.Release|x64.ActiveCfg = Release|x64
 		{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}.Release|x64.Build.0 = Release|x64
+		{F08B2C67-DC58-8772-0572-751AF19DBC00}.Debug|x64.ActiveCfg = Debug|x64
+		{F08B2C67-DC58-8772-0572-751AF19DBC00}.Debug|x64.Build.0 = Debug|x64
+		{F08B2C67-DC58-8772-0572-751AF19DBC00}.Release|x64.ActiveCfg = Release|x64
+		{F08B2C67-DC58-8772-0572-751AF19DBC00}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

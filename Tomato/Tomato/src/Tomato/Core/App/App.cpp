@@ -7,12 +7,8 @@
 #include "GUI/GUI.h"
 #include "Renderer/Shader.h"
 
-#include "Renderer/Buffer/VertexBuffer.h"
-#include "Renderer/Buffer/IndexBuffer.h"
-#include "Renderer/Buffer/VertexArray.h"
-#include "Renderer/Texture/Texture.h"
-
 #include "Renderer/Renderer.h"
+#include "Renderer/Renderer3D.h"
 
 
 namespace Tomato
@@ -29,7 +25,8 @@ namespace Tomato
 		m_Window = Window::Create();
 		TOMATO_ASSERT(m_Window, "Failed to create Tomato Window!");
 
-		Renderer::Initialize();
+		if (Renderer::GetType() == RendererType::_3D)
+			Renderer3D::Initialize();
 
 		GUI::Initialize();
 
@@ -83,7 +80,8 @@ namespace Tomato
 				m_EventQueue.pop();
 			}
 
-			Renderer::Begin();
+			if (Renderer::GetType() == RendererType::_3D)
+				Renderer3D::Get()->Begin();
 
 			for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
 			{
@@ -95,7 +93,8 @@ namespace Tomato
 				layer->OnUpdate(m_DeltaTime);
 			}
 
-			Renderer::End();
+			if (Renderer::GetType() == RendererType::_3D)
+				Renderer3D::Get()->End();
 
 			GUI::Begin();
 

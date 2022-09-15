@@ -70,4 +70,33 @@ namespace Tomato
 			smoothness = 1.0f;
 		return PolygonMesh(static_cast<unsigned int>(smoothness * 100));
 	}
+
+	Mesh Mesh::Cube()
+	{
+		Mesh mesh;
+		mesh.Vertices = { 
+			Vertex(Float3(-0.5f, -0.5f, -0.5f), Float4(1.0f, 0.0f, 0.0f, 1.0f)),
+			Vertex(Float3( 0.5f, -0.5f, -0.5f), Float4(0.0f, 1.0f, 0.0f, 1.0f)),
+			Vertex(Float3( 0.5f, -0.5f,  0.5f), Float4(0.0f, 0.0f, 1.0f, 1.0f)),
+			Vertex(Float3(-0.5f, -0.5f,  0.5f), Float4(1.0f, 1.0f, 0.0f, 1.0f)),
+			Vertex(Float3(-0.5f,  0.5f, -0.5f), Float4(0.0f, 1.0f, 1.0f, 1.0f)),
+			Vertex(Float3( 0.5f,  0.5f, -0.5f), Float4(1.0f, 0.0f, 1.0f, 1.0f)),
+			Vertex(Float3( 0.5f,  0.5f,  0.5f), Float4(1.0f, 1.0f, 1.0f, 1.0f)),
+			Vertex(Float3(-0.5f,  0.5f,  0.5f), Float4(0.0f, 0.0f, 0.0f, 1.0f)) };
+		mesh.Indices = { 
+			0, 1, 2,
+			2, 3, 0,
+			3, 2, 6,
+			6, 3, 7,
+			0, 1, 5,
+			5, 0, 4,
+			1, 2, 6,
+			1, 5, 6,
+			0, 3, 4,
+			3, 4, 7,
+			4, 5, 6,
+			4, 7, 6,
+		};
+		return mesh;
+	}
 }

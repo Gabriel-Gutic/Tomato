@@ -98,6 +98,7 @@
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="src\RendererAPI\RendererAPI.h" />
+    <ClInclude Include="src\RendererAPI\RendererData.h" />
     <ClInclude Include="src\Tomato.h" />
     <ClInclude Include="src\Tomato\Core\App\App.h" />
     <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h" />

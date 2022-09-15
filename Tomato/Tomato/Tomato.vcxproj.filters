@@ -72,6 +72,9 @@
     <ClInclude Include="src\RendererAPI\RendererAPI.h">
       <Filter>RendererAPI</Filter>
     </ClInclude>
+    <ClInclude Include="src\RendererAPI\RendererData.h">
+      <Filter>RendererAPI</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato.h" />
     <ClInclude Include="src\Tomato\Core\App\App.h">
       <Filter>Tomato\Core\App</Filter>

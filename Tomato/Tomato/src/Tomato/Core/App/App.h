@@ -15,7 +15,7 @@ namespace Tomato
 	{
 	public:
 		App();
-		~App();
+		virtual ~App();
 		int Run();
 
 		static App* Get() { return s_Instance; }

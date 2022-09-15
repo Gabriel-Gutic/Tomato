@@ -9,6 +9,12 @@ namespace Tomato
 	public:
 		OpenGLRenderer3D();
 		virtual ~OpenGLRenderer3D() override;
+
+		virtual void Begin();
+		virtual void End();
+
+		virtual void Draw(const Mesh& mesh) override;
 	private:
+		virtual void Flush() override;
 	};
 }
