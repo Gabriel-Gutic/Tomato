@@ -20,7 +20,7 @@ namespace Tomato
 		virtual void Begin() = 0;
 		virtual void End() = 0;
 
-		virtual void Draw(const Mesh& mesh) = 0;
+		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f)) = 0;
 
 		static Renderer3D* Get();
 	private:

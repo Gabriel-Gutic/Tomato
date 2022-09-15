@@ -50,7 +50,7 @@ namespace Tomato
 		Flush();
 	}
 
-	void OpenGLRenderer3D::Draw(const Mesh& mesh)
+	void OpenGLRenderer3D::Draw(const Mesh& mesh, const Mat4& transform)
 	{
 		if (RendererData.VertexCounter + mesh.Vertices.size() >= MAX_VERTEX_NUMBER ||
 			RendererData.IndexCounter + mesh.Indices.size() >= MAX_INDEX_NUMBER)
@@ -59,8 +59,11 @@ namespace Tomato
 			RendererData.IndexCounter + mesh.Indices.size() >= MAX_INDEX_NUMBER)
 			return;
 
-		for (const auto& vertex : mesh.Vertices)
+		for (auto vertex : mesh.Vertices)
+		{
+			vertex.Position = (transform * Float4(vertex.Position, 1.0f)).xyz;
 			RendererData.Vertices[RendererData.VertexCounter++] = vertex;
+		}
 		for (const auto& index : mesh.Indices)
 		{
 			RendererData.Indices[RendererData.IndexCounter++] = index;
