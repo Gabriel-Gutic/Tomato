@@ -6,7 +6,8 @@ public:
 	Layer3D()
 	{
 		Tomato::App::GetWindow()->SetTitle("Tomato3D");
-		//Tomato::GUI::ShowDockspace();
+		// Tomato::GUI::ShowDockspace();
+		// Tomato::GUI::ShowRenderWindow();
 	}
 
 	void OnUpdate(float dt)
@@ -80,7 +81,8 @@ private:
 class Tomato3D : public Tomato::App
 {
 public:
-	Tomato3D()
+	Tomato3D(const std::unordered_map<std::string, std::any>& args)
+		:App(args)
 	{
 		auto& scene = this->CreateScene("3D Scene");
 		scene->PushLayer(new Layer3D());
@@ -88,7 +90,7 @@ public:
 	virtual ~Tomato3D() override = default;
 };
 
-Tomato::App* Tomato::App::Create()
+Tomato::App* Tomato::App::Create(const std::unordered_map<std::string, std::any>& args)
 {
-	return new Tomato3D();
+	return new Tomato3D(args);
 }

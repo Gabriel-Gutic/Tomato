@@ -48,7 +48,8 @@ namespace Tomato
 		virtual void SetFullscreen(bool fullscreen) = 0;
 		virtual bool IsFullscreen() const;
 	public:
-		static std::shared_ptr<Window> Create(std::string_view title = "Tomato Window", int width = 1280, int height = 720);
+		static std::unique_ptr<Window> CreateUnique(std::string_view title = "Tomato Window", int width = 1280, int height = 720);
+		static std::shared_ptr<Window> CreateShared(std::string_view title = "Tomato Window", int width = 1280, int height = 720);
 	protected:
 		WindowData m_Data;
 	};

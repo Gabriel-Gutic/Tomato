@@ -14,28 +14,27 @@
 namespace Tomato
 {
 	App* App::s_Instance = nullptr;
-	App::App()
-		:isRunning(true), m_FPS(0), m_FrameCounter(0), m_MenuBar(nullptr)
+	App::App(const std::unordered_map<std::string, std::any>& args)
+		:isRunning(true), m_FPS(0), m_FrameCounter(0), m_MenuBar(nullptr), m_Args(args)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 
 		TOMATO_ASSERT(!s_Instance, "App already instantiated!");
 		s_Instance = this;
 
-		m_Window = Window::Create();
+		m_Window = Window::CreateShared();
 		TOMATO_ASSERT(m_Window, "Failed to create Tomato Window!");
 
-		if (Renderer::GetType() == RendererType::_3D)
-			Renderer3D::Initialize();
-
-		GUI::Initialize();
-
+		//if (Renderer::GetType() == RendererType::_3D)
+		//	Renderer3D::Initialize();
+		//
+		//GUI::Initialize();
 		Registry::Initialize();
 	}
 
 	App::~App()
 	{
-		GUI::Terminate();
+		//GUI::Terminate();
 		Registry::Terminate();
 	}
 
@@ -80,46 +79,46 @@ namespace Tomato
 				m_EventQueue.pop();
 			}
 
-			if (Renderer::GetType() == RendererType::_3D)
-				Renderer3D::Get()->Begin();
-
-			for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
-			{
-				layer->OnUpdate(m_DeltaTime);
-			}
-
-			for (auto& layer : GetCurrentScene()->GetLayers())
-			{
-				layer->OnUpdate(m_DeltaTime);
-			}
-
-			if (Renderer::GetType() == RendererType::_3D)
-				Renderer3D::Get()->End();
-
-			GUI::Begin();
-
-			for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
-			{
-				layer->OnGUI();
-			}
-
-			for (auto& layer : GetCurrentScene()->GetLayers())
-			{
-				layer->OnGUI();
-			}
-			
-			GUI::End();
-
-			if (m_SerializerTimer.GetSeconds() > 2)
-			{
-				for (auto& serializer : m_Serializers)
-				{
-					serializer->Serialize();
-				}
-				m_SerializerTimer.start();
-			}
-
-			m_Window->Swap();
+			//if (Renderer::GetType() == RendererType::_3D)
+			//	Renderer3D::Get()->Begin();
+			//
+			//for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
+			//{
+			//	layer->OnUpdate(m_DeltaTime);
+			//}
+			//
+			//for (auto& layer : GetCurrentScene()->GetLayers())
+			//{
+			//	layer->OnUpdate(m_DeltaTime);
+			//}
+			//
+			//if (Renderer::GetType() == RendererType::_3D)
+			//	Renderer3D::Get()->End();
+			//
+			//GUI::Begin();
+			//
+			//for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
+			//{
+			//	layer->OnGUI();
+			//}
+			//
+			//for (auto& layer : GetCurrentScene()->GetLayers())
+			//{
+			//	layer->OnGUI();
+			//}
+			//
+			//GUI::End();
+			//
+			//if (m_SerializerTimer.GetSeconds() > 2)
+			//{
+			//	for (auto& serializer : m_Serializers)
+			//	{
+			//		serializer->Serialize();
+			//	}
+			//	m_SerializerTimer.start();
+			//}
+			//
+			//m_Window->Swap();
 		}
 
 		return 0;
@@ -202,6 +201,11 @@ namespace Tomato
 		auto& ins = s_Instance;
 		TOMATO_ASSERT(ins->m_ImGuiLayers.find(name.data()) != ins->m_ImGuiLayers.end(), "ImGuiLayer '{0}' doesn't exist!", name.data());
 		s_Instance->m_ImGuiLayers.erase(name.data());
+	}
+
+	const std::unordered_map<std::string, std::any>& App::GetArgs()
+	{
+		return s_Instance->m_Args;
 	}
 
 	const std::shared_ptr<Window>& App::GetWindow()

@@ -34,7 +34,6 @@ namespace Tomato
 
 	OpenGLRenderer3D::~OpenGLRenderer3D()
 	{
-
 	}
 
 	void OpenGLRenderer3D::Begin()

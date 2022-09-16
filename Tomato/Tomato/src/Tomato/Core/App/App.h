@@ -14,12 +14,12 @@ namespace Tomato
 	class App
 	{
 	public:
-		App();
+		App(const std::unordered_map<std::string, std::any>& args = {});
 		virtual ~App();
 		int Run();
 
 		static App* Get() { return s_Instance; }
-		static App* Create();
+		static App* Create(const std::unordered_map<std::string, std::any>& args = {});
 		static void Exit();
 		 
 		static const std::shared_ptr<Window>& GetWindow();
@@ -42,6 +42,8 @@ namespace Tomato
 
 		static void PushImGuiLayer(std::string_view name, ImGuiLayer* layer);
 		static void RemoveImGuiLayer(std::string_view name);
+
+		static const std::unordered_map<std::string, std::any>& GetArgs();
 	private:
 		unsigned int m_FPS;
 		float m_DeltaTime;
@@ -59,6 +61,7 @@ namespace Tomato
 
 		std::unordered_map<std::string, ImGuiLayer*> m_ImGuiLayers;
 
+		std::unordered_map<std::string, std::any> m_Args;
 		static App* s_Instance;
 	};
 }

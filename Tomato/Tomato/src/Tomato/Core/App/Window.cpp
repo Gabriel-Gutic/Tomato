@@ -3,6 +3,7 @@
 
 #include "RendererAPI/RendererAPI.h"
 #include "RendererAPI/OpenGL/OpenGLWindow.h"
+#include "RendererAPI/DirectX/DirectXWindow.h"
 
 
 namespace Tomato
@@ -83,12 +84,26 @@ namespace Tomato
 		return m_Data.Fullscreen;
 	}
 
-	std::shared_ptr<Window> Window::Create(std::string_view title, int width, int height)
+	std::unique_ptr<Window> Window::CreateUnique(std::string_view title, int width, int height)
+	{
+		switch (RendererAPI::GetType())
+		{
+		case RendererType::OpenGL:
+			return std::make_unique<OpenGLWindow>(title, width, height);
+		case RendererType::DirectX:
+			return std::make_unique<DirectXWindow>(title, width, height);
+		}
+		return nullptr;
+	}
+
+	std::shared_ptr<Window> Window::CreateShared(std::string_view title, int width, int height)
 	{
 		switch (RendererAPI::GetType())
 		{
 		case RendererType::OpenGL:
 			return std::make_shared<OpenGLWindow>(title, width, height);
+		case RendererType::DirectX:
+			return std::make_shared<DirectXWindow>(title, width, height);
 		}
 		return nullptr;
 	}

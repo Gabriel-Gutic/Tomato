@@ -111,13 +111,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 	TOMATO_PRINT("Start App: {0}", Tomato::DateTime::Now().ToString());
 
 	TOMATO_BENCHMARKING_START_SESSION("App Initialization", "benchmarking/app_init.json");
-	auto app = Tomato::App::Create();
+	std::unordered_map<std::string, std::any> args;
+	args["hInstance"] = hInstance;
+	args["hPrevInstance"] = hPrevInstance;
+	args["lpCmdLine"] = lpCmdLine;
+	args["nShowCmd"] = nShowCmd;
+	auto app = Tomato::App::Create(args);
 	int result = -1;
 	TOMATO_BENCHMARKING_END_SESSION();
 
 	if (app)
 	{
 		TOMATO_BENCHMARKING_START_SESSION("Running Application", "benchmarking/run_init.json");
+
 		result = app->Run();
 		TOMATO_BENCHMARKING_END_SESSION();
 

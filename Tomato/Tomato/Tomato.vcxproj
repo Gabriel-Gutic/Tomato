@@ -93,6 +93,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXWindow.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXWindow.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.cpp" />

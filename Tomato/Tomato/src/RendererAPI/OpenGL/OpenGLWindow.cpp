@@ -18,7 +18,6 @@ namespace Tomato
 		:Window(title, width, height), m_Window(nullptr)
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
-
 		/* Initialize the library */
 		TOMATO_ASSERT(glfwInit(), "Failed to initialize GLFW!");
 
@@ -36,10 +35,12 @@ namespace Tomato
 
 		/* Make the window's context current */
 		glfwMakeContextCurrent(window);
+
+		/* Initialize Glad */
+		TOMATO_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
+
 		glfwSwapInterval(m_Data.VSync);
 		glfwSetWindowUserPointer(window, &m_Data);
-
-		TOMATO_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
 
 		SetIcon("assets/Logo/logo.png");
 
