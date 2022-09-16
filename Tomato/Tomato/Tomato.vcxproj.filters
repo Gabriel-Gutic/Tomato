@@ -258,6 +258,8 @@
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h" />
+    <ClInclude Include="src\Tomato\GUI\GUI_API.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp">
@@ -409,5 +411,7 @@
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp" />
+    <ClCompile Include="src\Tomato\GUI\GUI_API.cpp" />
   </ItemGroup>
 </Project>

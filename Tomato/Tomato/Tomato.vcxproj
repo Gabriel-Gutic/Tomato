@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLInput.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLRenderer3D.h" />
@@ -139,6 +140,7 @@
     <ClInclude Include="src\Tomato\Event\MouseEvent.h" />
     <ClInclude Include="src\Tomato\Event\WindowEvent.h" />
     <ClInclude Include="src\Tomato\GUI\GUI.h" />
+    <ClInclude Include="src\Tomato\GUI\GUI_API.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\FrameBuffer.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\IndexBuffer.h" />
@@ -167,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLRenderer3D.cpp" />
@@ -196,6 +199,7 @@
     <ClCompile Include="src\Tomato\Event\Event.cpp" />
     <ClCompile Include="src\Tomato\Event\Input.cpp" />
     <ClCompile Include="src\Tomato\GUI\GUI.cpp" />
+    <ClCompile Include="src\Tomato\GUI\GUI_API.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\FrameBuffer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\IndexBuffer.cpp" />

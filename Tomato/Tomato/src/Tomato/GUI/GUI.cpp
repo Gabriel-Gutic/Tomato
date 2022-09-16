@@ -2,15 +2,10 @@
 #include "GUI.h"
 
 #include <imgui/imgui.h>
-#include <imgui/backends/imgui_impl_glfw.h>
-#include <imgui/backends/imgui_impl_opengl3.h>
-
-#include <GLFW/glfw3.h>
 
 #include "Core/App/App.h"
 #include "Renderer/Renderer.h"
-
-#include "RendererAPI/OpenGL/OpenGLWindow.h"
+#include "GUI_API.h"
 
 
 namespace Tomato::GUI
@@ -26,8 +21,11 @@ namespace Tomato::GUI
     bool Data::IsMainMenuShown = false;
     bool Data::IsSecondMenuShown = false;
 
+    static std::unique_ptr<GUI_API> s_GUI_API;
     void Initialize()
     {
+        s_GUI_API = GUI_API::CreateUnique();
+
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -42,10 +40,8 @@ namespace Tomato::GUI
         io.Fonts->AddFontFromFileTTF(fontPath, 16.0f);
 
         // Setup Platform/Renderer bindings
-        auto window = static_cast<GLFWwindow*>(std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get());
+        s_GUI_API->Initialize();
 
-        ImGui_ImplGlfw_InitForOpenGL(window, true);
-        ImGui_ImplOpenGL3_Init();
         // Setup Dear ImGui style
         SetDarkThemeColors();
 
@@ -61,16 +57,14 @@ namespace Tomato::GUI
 
     void Terminate()
     {
-        ImGui_ImplOpenGL3_Shutdown();
-        ImGui_ImplGlfw_Shutdown();
+        s_GUI_API->Terminate();
         ImGui::DestroyContext();
     }
 
     void Begin()
     {
         // feed inputs to dear imgui, start new frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
+        s_GUI_API->Begin();
         ImGui::NewFrame();
 
         if (Data::IsDockspaceShown)
@@ -93,15 +87,7 @@ namespace Tomato::GUI
 
         // Render dear imgui into screen
         ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-        {
-            GLFWwindow* backup_current_context = glfwGetCurrentContext();
-            ImGui::UpdatePlatformWindows();
-            ImGui::RenderPlatformWindowsDefault();
-            glfwMakeContextCurrent(backup_current_context);
-        }
+        s_GUI_API->End();
     }
 
     void GUI::ShowDockspace()
