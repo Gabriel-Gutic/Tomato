@@ -3,15 +3,23 @@
 
 namespace Tomato
 {
+	enum class BufferAllocType
+	{
+		Static = 0,
+		Dynamic = 1,
+	};
+
 	class Buffer
 	{
 	public:
-		Buffer();
-		virtual ~Buffer();
+		Buffer(BufferAllocType allocType);
+		virtual ~Buffer() = default;
 
 		virtual void Bind() = 0;
 		virtual void Unbind(){};
+
+		virtual void SetAllocType(BufferAllocType allocType);
 	protected:
-		unsigned int m_RendererID;
+		BufferAllocType m_AllocType;
 	};
 }

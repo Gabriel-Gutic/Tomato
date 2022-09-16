@@ -1,31 +1,36 @@
 #include "pchTomato.h"
 #include "VertexBuffer.h"
 
-#include <glad/glad.h>
+#include "RendererAPI/RendererAPI.h"
+#include "RendererAPI/OpenGL/OpenGLVertexBuffer.h"
 
 
 namespace Tomato
 {
-	VertexBuffer::VertexBuffer(unsigned int size)
-		:Buffer()
+	VertexBuffer::VertexBuffer(BufferAllocType allocType)
+		:Buffer(allocType)
 	{
-		this->Bind();
 
-		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	VertexBuffer::~VertexBuffer()
+	std::unique_ptr<VertexBuffer> VertexBuffer::CreateUnique(uint32_t size, BufferAllocType allocType, const void* data)
 	{
+		switch (RendererAPI::GetType())
+		{
+		case RendererType::OpenGL:
+			return std::make_unique<OpenGLVertexBuffer>(size, allocType, data);
+		}
+		return nullptr;
 	}
 
-	void VertexBuffer::Bind()
+	std::shared_ptr<VertexBuffer> VertexBuffer::CreateShared(uint32_t size, BufferAllocType allocType, const void* data)
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-	}
-
-	void VertexBuffer::SetRawData(const void* data, unsigned int size) const
-	{
-		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+		switch (RendererAPI::GetType())
+		{
+		case RendererType::OpenGL:
+			return std::make_shared<OpenGLVertexBuffer>(size, allocType, data);
+		}
+		return nullptr;
 	}
 }
 

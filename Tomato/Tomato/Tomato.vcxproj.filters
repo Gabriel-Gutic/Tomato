@@ -254,6 +254,9 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp">
@@ -401,5 +404,8 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.cpp" />
   </ItemGroup>
 </Project>

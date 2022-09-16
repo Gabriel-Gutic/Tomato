@@ -93,9 +93,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLInput.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLRenderer3D.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="src\RendererAPI\RendererAPI.h" />
     <ClInclude Include="src\RendererAPI\RendererData.h" />
@@ -162,9 +165,12 @@
     <ClInclude Include="src\pchTomato.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLRenderer3D.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp" />
     <ClCompile Include="src\RendererAPI\RendererAPI.cpp" />
     <ClCompile Include="src\Tomato\Core\App\App.cpp" />

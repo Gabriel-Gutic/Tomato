@@ -1,29 +1,38 @@
 #include "pchTomato.h"
 #include "IndexBuffer.h"
 
-#include <glad/glad.h>
+#include "RendererAPI/RendererAPI.h"
+#include "RendererAPI/OpenGL/OpenGLIndexBuffer.h"
 
 
 namespace Tomato
 {
-	IndexBuffer::IndexBuffer(unsigned int mvn)
+	IndexBuffer::IndexBuffer(BufferAllocType allocType)
+		:Buffer(allocType)
 	{
-		this->Bind();
-
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mvn * sizeof(unsigned int), nullptr, GL_DYNAMIC_DRAW);
 	}
 
 	IndexBuffer::~IndexBuffer()
 	{
 	}
 
-	void IndexBuffer::Bind()
+	std::unique_ptr<IndexBuffer> IndexBuffer::CreateUnique(uint32_t count, BufferAllocType allocType, const void* data)
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		switch (RendererAPI::GetType())
+		{
+		case RendererType::OpenGL:
+			return std::make_unique<OpenGLIndexBuffer>(count, allocType, data);
+		}
+		return nullptr;
 	}
 
-	void IndexBuffer::SetRawData(const unsigned int* data, unsigned int size) const
+	std::shared_ptr<IndexBuffer> IndexBuffer::CreateShared(uint32_t count, BufferAllocType allocType, const void* data)
 	{
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data);
+		switch (RendererAPI::GetType())
+		{
+		case RendererType::OpenGL:
+			return std::make_shared<OpenGLIndexBuffer>(count, allocType, data);
+		}
+		return nullptr;
 	}
 }

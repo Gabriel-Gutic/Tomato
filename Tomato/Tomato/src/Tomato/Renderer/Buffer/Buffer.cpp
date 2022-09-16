@@ -1,20 +1,17 @@
 #include "pchTomato.h"
 #include "Buffer.h"
 
-#include <glad/glad.h>
-
 
 namespace Tomato
 {
-	Buffer::Buffer()
+	Buffer::Buffer(BufferAllocType allocType)
+		:m_AllocType(allocType)
 	{
-		glCreateBuffers(1, &m_RendererID);
 	}
 
-	Buffer::~Buffer()
+	void Buffer::SetAllocType(BufferAllocType allocType)
 	{
-		glDeleteBuffers(1, &m_RendererID);
-		PRINT("BUFFER DELETED");
+		m_AllocType = allocType;
 	}
 }
 

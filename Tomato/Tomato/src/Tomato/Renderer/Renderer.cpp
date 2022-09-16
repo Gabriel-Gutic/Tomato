@@ -36,7 +36,7 @@ namespace Tomato
 
 		// Drawing
 		s_Instance->m_Shader = std::move(Shader::CreateUnique("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl"));
-		s_Instance->m_VertexBuffer = std::make_unique<VertexBuffer>(RendererData::MaxVertexNumber * sizeof(Vertex));
+		s_Instance->m_VertexBuffer = std::move(VertexBuffer::CreateUnique(RendererData::MaxVertexNumber * sizeof(Vertex), BufferAllocType::Dynamic));
 		s_Instance->m_VertexArray = std::make_unique<VertexArray>();
 
 		glEnable(GL_BLEND);

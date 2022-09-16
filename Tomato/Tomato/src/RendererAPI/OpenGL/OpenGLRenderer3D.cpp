@@ -22,8 +22,8 @@ namespace Tomato
 	OpenGLRenderer3D::OpenGLRenderer3D()
 	{
 		m_Shader = std::move(Shader::CreateUnique("assets/Shaders/3D/VertexShader.glsl", "assets/Shaders/3D/FragmentShader.glsl"));
-		m_VertexBuffer = std::make_unique<VertexBuffer>(MAX_VERTEX_NUMBER * sizeof(Mesh::Vertex));
-		m_IndexBuffer = std::make_unique<IndexBuffer>(MAX_INDEX_NUMBER);
+		m_VertexBuffer = std::move(VertexBuffer::CreateUnique(MAX_VERTEX_NUMBER * sizeof(Mesh::Vertex), BufferAllocType::Dynamic));
+		m_IndexBuffer = std::move(IndexBuffer::CreateUnique(MAX_INDEX_NUMBER, BufferAllocType::Dynamic));
 		m_VertexArray = std::make_unique<VertexArray>();
 
 		glEnable(GL_BLEND);
