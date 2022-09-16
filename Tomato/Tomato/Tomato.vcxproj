@@ -98,6 +98,7 @@
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLInput.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLRenderer3D.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="src\RendererAPI\RendererAPI.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLRenderer3D.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp" />
     <ClCompile Include="src\RendererAPI\RendererAPI.cpp" />

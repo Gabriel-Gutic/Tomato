@@ -37,7 +37,7 @@ namespace Tomato
 		// Drawing
 		s_Instance->m_Shader = std::move(Shader::CreateUnique("assets/Shaders/VertexShader.glsl", "assets/Shaders/FragmentShader.glsl"));
 		s_Instance->m_VertexBuffer = std::move(VertexBuffer::CreateUnique(RendererData::MaxVertexNumber * sizeof(Vertex), BufferAllocType::Dynamic));
-		s_Instance->m_VertexArray = std::make_unique<VertexArray>();
+		s_Instance->m_VertexArray = std::move(VertexArray::CreateUnique());
 
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
@@ -233,7 +233,7 @@ namespace Tomato
 			x += (ch.Advance >> 6) * scale;
 		}
 
-		VertexArray::Unbind();
+		ins->m_VertexArray->Unbind();
 	}
 
 	RendererType Renderer::GetType()
@@ -270,7 +270,7 @@ namespace Tomato
 		RendererData::VertexCounter = 0;
 		RendererData::TextureSlotsCounter = 0;
 
-		VertexArray::Unbind();
+		ins->m_VertexArray->Unbind();
 	}
 
 	float Renderer::GetTextureIndex(const std::shared_ptr<Texture>& texture)

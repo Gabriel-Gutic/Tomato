@@ -6,12 +6,13 @@ namespace Tomato
 	class VertexArray
 	{
 	public:
-		VertexArray();
-		~VertexArray();
+		VertexArray() = default;
+		virtual ~VertexArray() = default;
 
-		void Bind();
-		static void Unbind();
-	private:
-		unsigned int m_RendererID;
+		virtual void Bind() = 0;
+		virtual void Unbind() {};
+	public:
+		static std::unique_ptr<VertexArray> CreateUnique();
+		static std::shared_ptr<VertexArray> CreateShared();
 	};
 }

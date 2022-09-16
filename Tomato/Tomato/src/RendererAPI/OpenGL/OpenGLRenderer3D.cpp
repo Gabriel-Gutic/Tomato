@@ -24,7 +24,7 @@ namespace Tomato
 		m_Shader = std::move(Shader::CreateUnique("assets/Shaders/3D/VertexShader.glsl", "assets/Shaders/3D/FragmentShader.glsl"));
 		m_VertexBuffer = std::move(VertexBuffer::CreateUnique(MAX_VERTEX_NUMBER * sizeof(Mesh::Vertex), BufferAllocType::Dynamic));
 		m_IndexBuffer = std::move(IndexBuffer::CreateUnique(MAX_INDEX_NUMBER, BufferAllocType::Dynamic));
-		m_VertexArray = std::make_unique<VertexArray>();
+		m_VertexArray = std::move(VertexArray::CreateUnique());
 
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
@@ -90,6 +90,6 @@ namespace Tomato
 		RendererData.VertexCounter = 0;
 		RendererData.IndexCounter = 0;
 
-		VertexArray::Unbind();
+		m_VertexArray->Unbind();
 	}
 }
