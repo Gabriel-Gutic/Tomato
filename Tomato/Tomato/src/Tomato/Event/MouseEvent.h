@@ -11,14 +11,11 @@ namespace Tomato
 
 		int GetButton() const { return m_Button; }
 
-		virtual std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << this->GetName() << ": " << m_Button;
-			return ss.str();
-		}
+		virtual std::string ToString() const override;
 	protected:
 		int m_Button;
+	private:
+		static const std::unordered_map<int, std::string> s_ButtonNames;
 	};
 
 	class MouseButtonPressEvent : public MouseButtonEvent
@@ -42,38 +39,27 @@ namespace Tomato
 	class WheelEvent : public Event
 	{
 	public:
-		WheelEvent(int value) :m_Value(value){}
+		WheelEvent(float value) :m_Value(value){}
 
 		EVENT_SETUP(Wheel);
-		int GetValue() const { return m_Value; }
+		float GetValue() const { return m_Value; }
 
-		virtual std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << this->GetName() << ": " << m_Value;
-			return ss.str();
-		}
+		virtual std::string ToString() const override;
 	private:
-		int m_Value;
+		float m_Value;
 	};
 
 	class MouseMoveEvent : public Event
 	{
 	public:
-		MouseMoveEvent(double x, double y) :m_X(x), m_Y(y){}
+		MouseMoveEvent(float x, float y) :m_X(x), m_Y(y){}
 
 		EVENT_SETUP(MouseMove);
-		double GetX() const { return m_X; }
-		double GetY() const { return m_Y; }
+		float GetX() const { return m_X; }
+		float GetY() const { return m_Y; }
 
-		virtual std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << this->GetName() << ": (" 
-				<< m_X << ", " << m_Y << ")";
-			return ss.str();
-		}
+		virtual std::string ToString() const override;
 	private:
-		double m_X, m_Y;
+		float m_X, m_Y;
 	};
 }

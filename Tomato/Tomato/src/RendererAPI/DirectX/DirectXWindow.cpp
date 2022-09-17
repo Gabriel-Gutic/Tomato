@@ -2,6 +2,8 @@
 #include "DirectXWindow.h"
 
 #include "Tomato/Core/App/App.h"
+#include "Tomato/Event/Events.h"
+#include "DirectXCodes.h"
 
 
 namespace Tomato
@@ -15,11 +17,117 @@ namespace Tomato
         // sort through and find what code to run for the message given
         switch (message)
         {
-            // this message is read when the window is closed
+        case WM_KEYDOWN:
+        {
+            App::PushEvent(new KeyPressEvent(DirectXCodes::Cast(wParam)));
+        } break;
+        case WM_KEYUP:
+        {
+            App::PushEvent(new KeyReleaseEvent(DirectXCodes::Cast(wParam)));
+        } break;
+        case WM_SYSKEYDOWN:
+        {
+            App::PushEvent(new KeyPressEvent(TOMATO_KEY_ALT));
+        } break;
+        case WM_SYSKEYUP:
+        {
+            App::PushEvent(new KeyReleaseEvent(TOMATO_KEY_ALT));
+        } break;
+        case WM_CHAR:
+        {
+            App::PushEvent(new CharEvent(wParam));
+        } break;
+        case WM_LBUTTONDOWN:
+        {
+            App::PushEvent(new MouseButtonPressEvent(TOMATO_MOUSE_BUTTON_LEFT));
+        } break;
+        case WM_LBUTTONUP:
+        {
+            App::PushEvent(new MouseButtonReleaseEvent(TOMATO_MOUSE_BUTTON_LEFT));
+        } break;
+        case WM_RBUTTONDOWN:
+        {
+            App::PushEvent(new MouseButtonPressEvent(TOMATO_MOUSE_BUTTON_RIGHT));
+        } break;
+        case WM_RBUTTONUP:
+        {
+            App::PushEvent(new MouseButtonReleaseEvent(TOMATO_MOUSE_BUTTON_RIGHT));
+        } break;
+        case WM_MBUTTONDOWN:
+        {
+            App::PushEvent(new MouseButtonPressEvent(TOMATO_MOUSE_BUTTON_MIDDLE));
+        } break;
+        case WM_MBUTTONUP:
+        {
+            App::PushEvent(new MouseButtonReleaseEvent(TOMATO_MOUSE_BUTTON_MIDDLE));
+        } break;
+        case WM_XBUTTONDOWN:
+        {
+            switch ((wParam & 0x000f0000) >> 16)
+            {
+            case XBUTTON1:
+                App::PushEvent(new MouseButtonPressEvent(TOMATO_MOUSE_BUTTON_4));
+                break;
+            case XBUTTON2:
+                App::PushEvent(new MouseButtonPressEvent(TOMATO_MOUSE_BUTTON_5));
+                break;
+            }
+        } break;
+        case WM_XBUTTONUP:
+        {
+            switch ((wParam & 0x000f0000) >> 16)
+            {
+            case XBUTTON1:
+                App::PushEvent(new MouseButtonReleaseEvent(TOMATO_MOUSE_BUTTON_4));
+                break;
+            case XBUTTON2:
+                App::PushEvent(new MouseButtonReleaseEvent(TOMATO_MOUSE_BUTTON_5));
+                break;
+            }
+        } break;
+        case WM_MOUSEMOVE:
+        {
+            uint32_t x = lParam & 0x0000ffff;
+            uint32_t y = (lParam & 0xffff0000) >> 16;
+
+            App::PushEvent(new MouseMoveEvent(static_cast<double>(x), static_cast<double>(y)));
+        } break;
+        case WM_MOUSEWHEEL:
+        {
+            int16_t delta = (wParam & 0xffff0000) >> 16;
+            float value = static_cast<float>(delta) / static_cast<float>(WHEEL_DELTA);
+
+            App::PushEvent(new WheelEvent(value));
+        } break;
+        case WM_SIZE:
+        {
+            switch (wParam)
+            {
+            case SIZE_MAXIMIZED:
+            {
+                App::PushEvent(new WindowMaximizeEvent(true));
+                App::PushEvent(new WindowMinimizeEvent(false));
+            } break;
+            case SIZE_MINIMIZED:
+            {
+                App::PushEvent(new WindowMinimizeEvent(true));
+                App::PushEvent(new WindowMaximizeEvent(false));
+            } break;
+            default:
+            {
+                App::PushEvent(new WindowMinimizeEvent(false));
+                App::PushEvent(new WindowMaximizeEvent(false));
+            } break;
+            }
+
+            uint32_t width = lParam & 0x0000ffff;
+            uint32_t height = (lParam & 0xffff0000) >> 16;
+
+            App::PushEvent(new WindowResizeEvent(width, height));
+        } break;
         case WM_DESTROY:
         {
-            // close the application entirely
-            return 0;
+            App::PushEvent(new WindowCloseEvent());
         } break;
         }
 
@@ -31,6 +139,8 @@ namespace Tomato
 	DirectXWindow::DirectXWindow(std::string_view title, int width, int height)
 		:Window(title, width, height)
 	{
+        DirectXCodes::Setup();
+
         // this struct holds information for the window class
         WNDCLASSEX wc = {};
 
@@ -74,6 +184,19 @@ namespace Tomato
 	DirectXWindow::~DirectXWindow()
 	{
 	}
+
+    void DirectXWindow::DispatchEvents() const
+    {
+        // Check to see if any messages are waiting in the queue
+        MSG msg;
+        while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            // Translate the message and dispatch it to WindowProc()
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+    }
+
     void DirectXWindow::Clear(float r, float g, float b, float a) const
     {
     }

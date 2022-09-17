@@ -27,5 +27,6 @@ namespace Tomato
 		virtual void SetFullscreen(bool fullscreen) override;
 	private:
 		void* m_Window;
+		static const std::unordered_map<int, int> s_NumPad;
 	};
 }

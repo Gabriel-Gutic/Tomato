@@ -10,6 +10,7 @@ namespace Tomato
 		DirectXWindow(std::string_view title = "Tomato DirectX Window", int width = 1280, int height = 720);
 		virtual ~DirectXWindow() override;
 
+		virtual void DispatchEvents() const override;
 		virtual void Clear(float r, float g, float b, float a) const override;
 		virtual void Clear(const Float4& color) const override;
 		virtual void Swap() override;

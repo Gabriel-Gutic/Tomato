@@ -100,23 +100,23 @@
 #define TOMATO_KEY_F23                312
 #define TOMATO_KEY_F24                313
 #define TOMATO_KEY_F25                314
-#define TOMATO_KEY_KP_0               320
-#define TOMATO_KEY_KP_1               321
-#define TOMATO_KEY_KP_2               322
-#define TOMATO_KEY_KP_3               323
-#define TOMATO_KEY_KP_4               324
-#define TOMATO_KEY_KP_5               325
-#define TOMATO_KEY_KP_6               326
-#define TOMATO_KEY_KP_7               327
-#define TOMATO_KEY_KP_8               328
-#define TOMATO_KEY_KP_9               329
-#define TOMATO_KEY_KP_DECIMAL         330
-#define TOMATO_KEY_KP_DIVIDE          331
-#define TOMATO_KEY_KP_MULTIPLY        332
-#define TOMATO_KEY_KP_SUBTRACT        333
-#define TOMATO_KEY_KP_ADD             334
-#define TOMATO_KEY_KP_ENTER           335
-#define TOMATO_KEY_KP_EQUAL           336
+#define TOMATO_KEY_NUMPAD_0           320
+#define TOMATO_KEY_NUMPAD_1           321
+#define TOMATO_KEY_NUMPAD_2           322
+#define TOMATO_KEY_NUMPAD_3           323
+#define TOMATO_KEY_NUMPAD_4           324
+#define TOMATO_KEY_NUMPAD_5           325
+#define TOMATO_KEY_NUMPAD_6           326
+#define TOMATO_KEY_NUMPAD_7           327
+#define TOMATO_KEY_NUMPAD_8           328
+#define TOMATO_KEY_NUMPAD_9           329
+#define TOMATO_KEY_NUMPAD_DECIMAL     330
+#define TOMATO_KEY_NUMPAD_DIVIDE      331
+#define TOMATO_KEY_NUMPAD_MULTIPLY    332
+#define TOMATO_KEY_NUMPAD_SUBTRACT    333
+#define TOMATO_KEY_NUMPAD_ADD         334
+#define TOMATO_KEY_NUMPAD_ENTER       335
+#define TOMATO_KEY_NUMPAD_EQUAL       336
 #define TOMATO_KEY_LEFT_SHIFT         340
 #define TOMATO_KEY_LEFT_CONTROL       341
 #define TOMATO_KEY_LEFT_ALT           342
@@ -126,6 +126,12 @@
 #define TOMATO_KEY_RIGHT_ALT          346
 #define TOMATO_KEY_RIGHT_SUPER        347
 #define TOMATO_KEY_MENU               348
+
+
+#define TOMATO_KEY_SHIFT			  349
+#define TOMATO_KEY_CONTROL			  350
+#define TOMATO_KEY_ALT				  351
+#define TOMATO_KEY_SUPER			  352
 
 #define TOMATO_KEY_LAST               TOMATO_KEY_MENU
  /*! @} */

@@ -47,12 +47,12 @@ public:
 			tran.Position.y -= cameraSpeed;
 			camera.Target.y -= 2 * cameraSpeed;
 		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_KP_8))
+		if (Tomato::Input::Keyboard(TOMATO_KEY_NUMPAD_8))
 		{
 			tran.Position.z -= cameraSpeed;
 			camera.Target.z -= 2 * cameraSpeed;
 		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_KP_2))
+		if (Tomato::Input::Keyboard(TOMATO_KEY_NUMPAD_2))
 		{
 			tran.Position.z += cameraSpeed;
 			camera.Target.z += 2 * cameraSpeed;

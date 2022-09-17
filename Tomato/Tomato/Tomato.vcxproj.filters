@@ -261,6 +261,7 @@
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h" />
     <ClInclude Include="src\Tomato\GUI\GUI_API.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXWindow.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp">
@@ -415,5 +416,8 @@
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp" />
     <ClCompile Include="src\Tomato\GUI\GUI_API.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXWindow.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp" />
+    <ClCompile Include="src\Tomato\Event\KeyboardEvent.cpp" />
+    <ClCompile Include="src\Tomato\Event\MouseEvent.cpp" />
   </ItemGroup>
 </Project>

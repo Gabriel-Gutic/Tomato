@@ -7,18 +7,28 @@ namespace Tomato
 	class KeyboardEvent : public Event
 	{
 	public:
+		struct Code
+		{
+		public:
+			int Value;
+
+			Code(int value);
+
+			friend bool operator==(const Code& code, int scancode);
+			friend bool operator==(int scancode, const Code& code);
+			friend bool operator!=(const Code& code, int scancode);
+			friend bool operator!=(int scancode, const Code& code);
+		};
+	public:
 		KeyboardEvent(int key) :m_Key(key) {}
 
-		int GetKey() const { return m_Key; }
+		Code GetKey() const { return m_Key; }
 
-		virtual std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << this->GetName() << ": " << (char)m_Key;
-			return ss.str();
-		}
+		virtual std::string ToString() const override;
 	protected:
-		int m_Key;
+		Code m_Key;
+	private:
+		static std::unordered_map<int, std::string> s_KeyNames;
 	};
 
 	class KeyPressEvent : public KeyboardEvent
@@ -50,12 +60,7 @@ namespace Tomato
 
 		int GetChar() const { return m_Char; }
 
-		virtual std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << this->GetName() << ": " << (char)m_Char;
-			return ss.str();
-		}
+		virtual std::string ToString() const override;
 	private:
 		unsigned int m_Char;
 	};

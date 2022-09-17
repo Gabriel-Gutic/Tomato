@@ -10,6 +10,9 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Renderer3D.h"
 
+#include "Event/KeyboardEvent.h"
+#include "Event/Input.h"
+#include "Event/KeyboardCodes.h"
 
 namespace Tomato
 {
@@ -53,6 +56,8 @@ namespace Tomato
 				if (s_Instance->m_FPS != 0)
 					s_Instance->m_DeltaTime = 1.0f / static_cast<float>(s_Instance->m_FPS);
 			}
+
+			m_Window->DispatchEvents();
 
 			while (!m_EventQueue.empty())
 			{
@@ -118,7 +123,7 @@ namespace Tomato
 			//	m_SerializerTimer.start();
 			//}
 			//
-			//m_Window->Swap();
+			m_Window->Swap();
 		}
 
 		return 0;
