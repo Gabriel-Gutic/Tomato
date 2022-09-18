@@ -151,6 +151,7 @@ namespace Tomato::GUI
 
         ImGui::SetNextWindowPos(ImVec2(window->GetX(), window->GetY() + menu_y));
         ImGui::SetNextWindowSize(ImVec2(window->GetWidth(), window->GetHeight() - menu_y));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         ImGui::Begin("DockSpace", NULL,
             ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_NoResize |
@@ -158,6 +159,7 @@ namespace Tomato::GUI
             ImGuiWindowFlags_NoScrollbar |
             ImGuiWindowFlags_NoScrollWithMouse
         );
+        ImGui::PopStyleVar();
 
         // Declare Central dockspace
         auto dockspaceID = ImGui::GetID("HUB_DockSpace");
