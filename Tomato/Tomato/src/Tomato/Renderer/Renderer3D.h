@@ -20,6 +20,10 @@ namespace Tomato
 		virtual void Begin() = 0;
 		virtual void End() = 0;
 
+		virtual void Clear(float r, float g, float b, float a) const = 0;
+		virtual void Clear(const Float4& color) const;
+		virtual void Swap() const = 0;
+
 		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f)) = 0;
 
 		static Renderer3D* Get();

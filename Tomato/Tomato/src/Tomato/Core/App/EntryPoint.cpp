@@ -98,11 +98,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 		case 0:
 			return 0;
 		case 1:
-			Tomato::RendererAPI::SetType(Tomato::RendererType::OpenGL);
+			Tomato::RendererAPI::SetType(Tomato::RendererAPI::Type::OpenGL);
 			isRendererChosen = true;
 			break;
 		case 2:
-			Tomato::RendererAPI::SetType(Tomato::RendererType::DirectX);
+			Tomato::RendererAPI::SetType(Tomato::RendererAPI::Type::DirectX);
 			isRendererChosen = true;
 			break;
 		}

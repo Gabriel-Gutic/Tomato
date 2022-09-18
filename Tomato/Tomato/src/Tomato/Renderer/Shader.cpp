@@ -11,7 +11,7 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLShader>(vertexSource, fragmentSource);
 		}
 		return nullptr;
@@ -21,7 +21,7 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLShader>(vertexSource, fragmentSource);
 		}
 		return nullptr;

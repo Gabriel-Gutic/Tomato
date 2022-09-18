@@ -4,10 +4,10 @@
 
 namespace Tomato
 {
-	RendererType RendererAPI::s_Type = RendererType::OpenGL;
-	RendererType RendererAPI::GetType()
+	RendererAPI::Type RendererAPI::s_Type = RendererAPI::Type::OpenGL;
+	RendererAPI::Type RendererAPI::GetType()
 	{
-		if (s_Type == RendererType::None)
+		if (s_Type == RendererAPI::Type::None)
 		{
 			TOMATO_ERROR("Invalid RendererAPI");
 			__debugbreak();
@@ -15,7 +15,7 @@ namespace Tomato
 		return RendererAPI::s_Type;
 	}
 
-	void RendererAPI::SetType(RendererType type)
+	void RendererAPI::SetType(RendererAPI::Type type)
 	{
 		s_Type = type;
 	}

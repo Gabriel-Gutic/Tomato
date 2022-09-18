@@ -19,10 +19,9 @@ namespace Tomato
 		Window(std::string_view title = "Tomato Window", int width = 1280, int height = 720);
 		virtual ~Window();
 
+		virtual std::any Get() = 0;
+
 		virtual void DispatchEvents() const {};
-		virtual void Clear(float r, float g, float b, float a) const = 0;
-		virtual void Clear(const Float4& color) const = 0;
-		virtual void Swap() = 0;
 
 		virtual int GetWidth() const;
 		virtual int GetHeight() const;

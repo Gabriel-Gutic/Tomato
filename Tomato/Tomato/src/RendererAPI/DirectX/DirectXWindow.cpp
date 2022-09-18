@@ -4,16 +4,31 @@
 #include "Tomato/Core/App/App.h"
 #include "Tomato/Event/Events.h"
 #include "DirectXCodes.h"
+#include "DirectXDevice.h"
 
 
+#include <Windows.h>
+#include <commctrl.h>
+#include <imgui/imgui.h>
+#include <imgui/backends/imgui_impl_win32.h>
+#include <imgui/backends/imgui_impl_dx11.h>
+
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 namespace Tomato
 {
-    // the WindowProc function prototype
+    // Forward declare message handler from imgui_impl_win32.cpp
+
     static LRESULT CALLBACK WindowProc(HWND hWnd,
         UINT message,
         WPARAM wParam,
         LPARAM lParam)
     {    
+        if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+            return true;
+
+        auto& data = *reinterpret_cast<WindowData*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+
         // sort through and find what code to run for the message given
         switch (message)
         {
@@ -123,7 +138,22 @@ namespace Tomato
             uint32_t width = lParam & 0x0000ffff;
             uint32_t height = (lParam & 0xffff0000) >> 16;
 
+            if (wParam != SIZE_MINIMIZED)
+            {
+                DirectXDevice::RefreshRenderTarget(width, height);
+            }
+
+            data.Width = static_cast<int>(width);
+            data.Height = static_cast<int>(height);
             App::PushEvent(new WindowResizeEvent(width, height));
+        } break;
+        case WM_MOVE:
+        {
+            uint32_t x = lParam & 0x0000ffff;
+            uint32_t y = (lParam & 0xffff0000) >> 16;
+
+            data.X = x;
+            data.Y = y;
         } break;
         case WM_DESTROY:
         {
@@ -177,13 +207,29 @@ namespace Tomato
             hInstance,    // application handle
             NULL);    // used with multiple windows, NULL
 
+        auto hwnd = std::any_cast<HWND>(m_Handle);
+
+        // Set the window user pointer
+        SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(&m_Data));
+
         // display the window on the screen
-        ShowWindow(std::any_cast<HWND>(m_Handle), std::any_cast<int>(args.at("nShowCmd")));
+        ShowWindow(hwnd, std::any_cast<int>(args.at("nShowCmd")));
 	}
 
 	DirectXWindow::~DirectXWindow()
 	{
+        try {
+            DestroyWindow(std::any_cast<HWND>(m_Handle));
+            m_Handle = 0; // Clear the Handler
+        }
+        catch (const std::bad_any_cast& error){}
+
 	}
+
+    std::any DirectXWindow::Get()
+    {
+        return m_Handle;
+    }
 
     void DirectXWindow::DispatchEvents() const
     {
@@ -197,15 +243,6 @@ namespace Tomato
         }
     }
 
-    void DirectXWindow::Clear(float r, float g, float b, float a) const
-    {
-    }
-    void DirectXWindow::Clear(const Float4& color) const
-    {
-    }
-    void DirectXWindow::Swap()
-    {
-    }
     void DirectXWindow::SetSize(int width, int height)
     {
     }

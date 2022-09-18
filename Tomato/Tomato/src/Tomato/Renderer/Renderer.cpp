@@ -71,7 +71,7 @@ namespace Tomato
 			s_Instance->m_FrameBuffer->Unbind();
 		}
 
-		window->Clear(s_Instance->m_BackgroundColor);
+		//window->Clear(s_Instance->m_BackgroundColor);
 
 		s_Instance->m_Shader->Use(true);
 

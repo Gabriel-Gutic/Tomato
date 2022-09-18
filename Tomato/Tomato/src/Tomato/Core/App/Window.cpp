@@ -88,9 +88,9 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLWindow>(title, width, height);
-		case RendererType::DirectX:
+		case RendererAPI::Type::DirectX:
 			return std::make_unique<DirectXWindow>(title, width, height);
 		}
 		return nullptr;
@@ -100,9 +100,9 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLWindow>(title, width, height);
-		case RendererType::DirectX:
+		case RendererAPI::Type::DirectX:
 			return std::make_shared<DirectXWindow>(title, width, height);
 		}
 		return nullptr;

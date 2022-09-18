@@ -3,6 +3,7 @@
 
 #include "RendererAPI/RendererAPI.h"
 #include "RendererAPI/OpenGL/OpenGLGUI.h"
+#include "RendererAPI/DirectX/DirectXGUI.h"
 
 
 namespace Tomato
@@ -11,8 +12,10 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLGUI>();
+		case RendererAPI::Type::DirectX:
+			return std::make_unique<DirectXGUI>();
 		}
 		return nullptr;
 	}
@@ -21,8 +24,10 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLGUI>();
+		case RendererAPI::Type::DirectX:
+			return std::make_shared<DirectXGUI>();
 		}
 		return nullptr;
 	}

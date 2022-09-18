@@ -3,20 +3,22 @@
 
 namespace Tomato
 {
-	enum class RendererType
-	{
-		None = 0,
-		OpenGL = 1,
-		DirectX = 2
-	};
+
 
 	class RendererAPI
 	{
+	public:
+		enum class Type
+		{
+			None = 0,
+			OpenGL = 1,
+			DirectX = 2
+		};
 		RendererAPI(){}
 	public:
-		static RendererType GetType();
-		static void SetType(RendererType type);
+		static Type GetType();
+		static void SetType(Type type);
 	private:
-		static RendererType s_Type;
+		static Type s_Type;
 	};
 }

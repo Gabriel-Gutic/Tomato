@@ -12,7 +12,7 @@ namespace Tomato
 {
 	bool OpenGLInput::Keyboard(int key)
 	{
-		auto window = static_cast<GLFWwindow*>(std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get());
+		auto window = std::any_cast<GLFWwindow*>(App::GetWindow()->Get());
 		bool status;
 
 		switch (key)
@@ -34,7 +34,7 @@ namespace Tomato
 				|| static_cast<bool>(glfwGetKey(window, TOMATO_KEY_RIGHT_SUPER));
 			break;
 		default:
-			status = static_cast<bool>(glfwGetKey((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(), key));
+			status = static_cast<bool>(glfwGetKey(std::any_cast<GLFWwindow*>(App::GetWindow()->Get()), key));
 			break;
 		}
 		
@@ -43,14 +43,14 @@ namespace Tomato
 
 	bool OpenGLInput::Mouse(int button)
 	{
-		return glfwGetMouseButton((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(), button);
+		return glfwGetMouseButton(std::any_cast<GLFWwindow*>(App::GetWindow()->Get()), button);
 	}
 
 	Float2 OpenGLInput::MousePos()
 	{
 		double px, py;
 		Float2 pos;
-		glfwGetCursorPos((GLFWwindow*)std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get(),
+		glfwGetCursorPos(std::any_cast<GLFWwindow*>(App::GetWindow()->Get()),
 			&px, &py);
 		pos.x = static_cast<float>(px);
 		pos.y = static_cast<float>(py);

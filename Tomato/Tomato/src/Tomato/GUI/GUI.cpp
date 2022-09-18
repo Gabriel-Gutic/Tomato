@@ -7,6 +7,8 @@
 #include "Renderer/Renderer.h"
 #include "GUI_API.h"
 
+#include "RendererAPI/RendererAPI.h"
+
 
 namespace Tomato::GUI
 {
@@ -74,9 +76,6 @@ namespace Tomato::GUI
             if (Data::IsRenderWindowShown)
                 RenderWindow();
         }
-
-        //bool demo = true;
-        //ImGui::ShowDemoWindow(&demo);
     }
 
     void End()
@@ -87,6 +86,7 @@ namespace Tomato::GUI
 
         // Render dear imgui into screen
         ImGui::Render();
+
         s_GUI_API->End();
     }
 

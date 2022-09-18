@@ -11,7 +11,7 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return OpenGLInput::Keyboard(key);
 		}
 		return false;
@@ -21,7 +21,7 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return OpenGLInput::Mouse(button);
 		}
 		return false;
@@ -31,7 +31,7 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return OpenGLInput::MousePos();
 		}
 		return Float2();

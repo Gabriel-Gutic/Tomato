@@ -12,6 +12,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="imgui\backends\imgui_impl_dx11.h">
+      <Filter>backends</Filter>
+    </ClInclude>
     <ClInclude Include="imgui\backends\imgui_impl_glfw.h">
       <Filter>backends</Filter>
     </ClInclude>
@@ -22,6 +25,9 @@
       <Filter>backends</Filter>
     </ClInclude>
     <ClInclude Include="imgui\backends\imgui_impl_opengl3_loader.h">
+      <Filter>backends</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\backends\imgui_impl_win32.h">
       <Filter>backends</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h" />
@@ -35,6 +41,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>backends</Filter>
+    </ClCompile>
     <ClCompile Include="imgui\backends\imgui_impl_glfw.cpp">
       <Filter>backends</Filter>
     </ClCompile>
@@ -42,6 +51,9 @@
       <Filter>backends</Filter>
     </ClCompile>
     <ClCompile Include="imgui\backends\imgui_impl_opengl3.cpp">
+      <Filter>backends</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\backends\imgui_impl_win32.cpp">
       <Filter>backends</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp" />

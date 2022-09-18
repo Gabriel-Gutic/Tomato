@@ -38,6 +38,7 @@ public:																			\
 	friend std::ostream& operator<<(std::ostream& os, const Name##2 & f2);		\
 																				\
 	Type* ToPtr();																\
+	const Type* ToPtr() const;													\
 };
 
 
@@ -126,6 +127,11 @@ std::ostream& operator<<(std::ostream& os, const Name##2 & f2)					\
 Type* Name##2::ToPtr()															\
 {																				\
 	return &x;																	\
+}																				\
+																				\
+const Type* Name##2::ToPtr() const												\
+{																				\
+	return &x;																	\
 }
 					
 
@@ -176,10 +182,11 @@ Type* Name##2::ToPtr()															\
 		friend std::ostream& operator<<(std::ostream& os, const Name##3& f3);	\
 																				\
 		Type* ToPtr();															\
+		const Type* ToPtr() const;												\
 	};
 
 
-#define Vec3cpp(Name, Type) Name##3::Name##3(Type x, Type y, Type z)					\
+#define Vec3cpp(Name, Type) Name##3::Name##3(Type x, Type y, Type z)			\
 :x(x), y(y), z(z)																\
 {																				\
 																				\
@@ -285,10 +292,15 @@ std::ostream& operator<<(std::ostream& os, const Name##3& f3)					\
 Type* Name##3::ToPtr()															\
 {																				\
 	return &x;																	\
+}																				\
+																				\
+const Type* Name##3::ToPtr() const												\
+{																				\
+	return &x;																	\
 }
 
 
-#define Vec4h(Name, Type) class Name##4												\
+#define Vec4h(Name, Type) class Name##4											\
 	{																			\
 	public:																		\
 		union {																	\
@@ -342,10 +354,11 @@ Type* Name##3::ToPtr()															\
 		friend std::ostream& operator<<(std::ostream& os, const Name##4& f4);	\
 																				\
 		Type* ToPtr();															\
+		const Type* ToPtr() const;												\
 	};
 
 
-#define Vec4cpp(Name, Type) Name##4::Name##4(Type x, Type y, Type z, Type w)			\
+#define Vec4cpp(Name, Type) Name##4::Name##4(Type x, Type y, Type z, Type w)	\
 :x(x), y(y), z(z), w(w)															\
 {																				\
 }																				\
@@ -450,4 +463,9 @@ std::ostream& operator<<(std::ostream& os, const Name##4& f4)					\
 Type* Name##4::ToPtr()															\
 {																				\
 	return &x;																	\
+}																				\
+																				\
+const Type* Name##4::ToPtr() const															\
+{																				\
+	return &x;																		\
 }

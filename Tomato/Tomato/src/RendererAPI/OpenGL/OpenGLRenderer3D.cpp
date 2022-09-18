@@ -5,6 +5,7 @@
 #include "Tomato/Core/App/App.h"
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 
 namespace Tomato
@@ -38,8 +39,7 @@ namespace Tomato
 
 	void OpenGLRenderer3D::Begin()
 	{
-		const auto& window = App::GetWindow();
-		window->Clear(Float4(1.0f, 0.5f, 0.2f, 1.0f));
+		OpenGLRenderer3D::Clear(1.0f, 0.5f, 0.2f, 1.0f);
 
 		m_Shader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection());
 	}
@@ -47,6 +47,21 @@ namespace Tomato
 	void OpenGLRenderer3D::End()
 	{
 		Flush();
+	}
+
+	void OpenGLRenderer3D::Clear(float r, float g, float b, float a) const
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(r, g, b, a);
+	}
+
+	void OpenGLRenderer3D::Swap() const
+	{
+		/* Swap front and back buffers */
+		glfwSwapBuffers(std::any_cast<GLFWwindow*>(App::GetWindow()->Get()));
+
+		/* Poll for and process events */
+		glfwPollEvents();
 	}
 
 	void OpenGLRenderer3D::Draw(const Mesh& mesh, const Mat4& transform)

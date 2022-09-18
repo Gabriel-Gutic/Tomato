@@ -4,6 +4,9 @@
     <Filter Include="RendererAPI">
       <UniqueIdentifier>{162C8002-82E1-F8F7-0BD6-F2CE778AEFFB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RendererAPI\DirectX">
+      <UniqueIdentifier>{D8C461B8-4426-3FC6-CD93-857839F47585}</UniqueIdentifier>
+    </Filter>
     <Filter Include="RendererAPI\OpenGL">
       <UniqueIdentifier>{8AA01BB3-7684-DC08-DFE4-D65BCBE7C68A}</UniqueIdentifier>
     </Filter>
@@ -57,6 +60,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXCodes.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXDevice.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXGUI.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXRenderer3D.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXWindow.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLInput.h">
       <Filter>RendererAPI\OpenGL</Filter>
     </ClInclude>
@@ -64,6 +91,12 @@
       <Filter>RendererAPI\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLShader.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexArray.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.h">
       <Filter>RendererAPI\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLWindow.h">
@@ -181,6 +214,9 @@
     <ClInclude Include="src\Tomato\GUI\GUI.h">
       <Filter>Tomato\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\GUI\GUI_API.h">
+      <Filter>Tomato\GUI</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Renderer\Buffer\Buffer.h">
       <Filter>Tomato\Renderer\Buffer</Filter>
     </ClInclude>
@@ -254,16 +290,32 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h" />
-    <ClInclude Include="src\Tomato\GUI\GUI_API.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXWindow.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXCodes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXDevice.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXGUI.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXRenderer3D.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXWindow.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp">
       <Filter>RendererAPI\OpenGL</Filter>
     </ClCompile>
@@ -271,6 +323,12 @@
       <Filter>RendererAPI\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLShader.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.cpp">
       <Filter>RendererAPI\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp">
@@ -339,7 +397,16 @@
     <ClCompile Include="src\Tomato\Event\Input.cpp">
       <Filter>Tomato\Event</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tomato\Event\KeyboardEvent.cpp">
+      <Filter>Tomato\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Event\MouseEvent.cpp">
+      <Filter>Tomato\Event</Filter>
+    </ClCompile>
     <ClCompile Include="src\Tomato\GUI\GUI.cpp">
+      <Filter>Tomato\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\GUI\GUI_API.cpp">
       <Filter>Tomato\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Renderer\Buffer\Buffer.cpp">
@@ -409,15 +476,5 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexBuffer.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp" />
-    <ClCompile Include="src\Tomato\GUI\GUI_API.cpp" />
-    <ClCompile Include="src\RendererAPI\DirectX\DirectXWindow.cpp" />
-    <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp" />
-    <ClCompile Include="src\Tomato\Event\KeyboardEvent.cpp" />
-    <ClCompile Include="src\Tomato\Event\MouseEvent.cpp" />
   </ItemGroup>
 </Project>

@@ -28,16 +28,16 @@ namespace Tomato
 		m_Window = Window::CreateShared();
 		TOMATO_ASSERT(m_Window, "Failed to create Tomato Window!");
 
-		//if (Renderer::GetType() == RendererType::_3D)
-		//	Renderer3D::Initialize();
-		//
-		//GUI::Initialize();
+		if (Renderer::GetType() == RendererType::_3D)
+			Renderer3D::Initialize();
+		
+		GUI::Initialize();
 		Registry::Initialize();
 	}
 
 	App::~App()
 	{
-		//GUI::Terminate();
+		GUI::Terminate();
 		Registry::Terminate();
 	}
 
@@ -84,35 +84,37 @@ namespace Tomato
 				m_EventQueue.pop();
 			}
 
-			//if (Renderer::GetType() == RendererType::_3D)
-			//	Renderer3D::Get()->Begin();
-			//
-			//for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
-			//{
-			//	layer->OnUpdate(m_DeltaTime);
-			//}
-			//
-			//for (auto& layer : GetCurrentScene()->GetLayers())
-			//{
-			//	layer->OnUpdate(m_DeltaTime);
-			//}
-			//
-			//if (Renderer::GetType() == RendererType::_3D)
-			//	Renderer3D::Get()->End();
-			//
-			//GUI::Begin();
-			//
-			//for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
-			//{
-			//	layer->OnGUI();
-			//}
-			//
-			//for (auto& layer : GetCurrentScene()->GetLayers())
-			//{
-			//	layer->OnGUI();
-			//}
-			//
-			//GUI::End();
+			if (!isRunning) return 0; // Close the app if the Exit() was called in through an event
+
+			if (Renderer::GetType() == RendererType::_3D)
+				Renderer3D::Get()->Begin();
+			
+			for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
+			{
+				layer->OnUpdate(m_DeltaTime);
+			}
+			
+			for (auto& layer : GetCurrentScene()->GetLayers())
+			{
+				layer->OnUpdate(m_DeltaTime);
+			}
+			
+			if (Renderer::GetType() == RendererType::_3D)
+				Renderer3D::Get()->End();
+			
+			GUI::Begin();
+			
+			for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
+			{
+				layer->OnGUI();
+			}
+			
+			for (auto& layer : GetCurrentScene()->GetLayers())
+			{
+				layer->OnGUI();
+			}
+			
+			GUI::End();
 			//
 			//if (m_SerializerTimer.GetSeconds() > 2)
 			//{
@@ -122,8 +124,9 @@ namespace Tomato
 			//	}
 			//	m_SerializerTimer.start();
 			//}
-			//
-			m_Window->Swap();
+
+			if (Renderer::GetType() == RendererType::_3D)
+				Renderer3D::Get()->Swap();
 		}
 
 		return 0;

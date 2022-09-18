@@ -140,52 +140,31 @@ namespace Tomato
 
 	OpenGLWindow::~OpenGLWindow()
 	{
-		glfwDestroyWindow(static_cast<GLFWwindow*>(m_Window));
+		glfwDestroyWindow(std::any_cast<GLFWwindow*>(m_Window));
 		glfwTerminate();
 	}
 
-	void OpenGLWindow::Clear(float r, float g, float b, float a) const
-	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(r, g, b, a);
-	}
-
-	void* OpenGLWindow::Get()
+	std::any OpenGLWindow::Get()
 	{
 		return m_Window;
 	}
 
-	void OpenGLWindow::Clear(const Float4& color) const
-	{
-		Clear(color.a, color.b, color.c, color.w);
-	}
-
-	void OpenGLWindow::Swap()
-	{
-		/* Swap front and back buffers */
-		glfwSwapBuffers(static_cast<GLFWwindow*>(m_Window));
-
-		/* Poll for and process events */
-		glfwPollEvents();
-	}
-
-
 	void OpenGLWindow::SetSize(int width, int height)
 	{
-		glfwSetWindowSize(static_cast<GLFWwindow*>(m_Window), width, height);
+		glfwSetWindowSize(std::any_cast<GLFWwindow*>(m_Window), width, height);
 		m_Data.Width = width;
 		m_Data.Height = height;
 	}
 
 	void OpenGLWindow::SetWidth(int width)
 	{
-		glfwSetWindowSize(static_cast<GLFWwindow*>(m_Window), width, m_Data.Height);
+		glfwSetWindowSize(std::any_cast<GLFWwindow*>(m_Window), width, m_Data.Height);
 		m_Data.Width = width;
 	}
 
 	void OpenGLWindow::SetHeight(int height)
 	{
-		glfwSetWindowSize(static_cast<GLFWwindow*>(m_Window), m_Data.Width, height);
+		glfwSetWindowSize(std::any_cast<GLFWwindow*>(m_Window), m_Data.Width, height);
 		m_Data.Height = height;
 	}
 
@@ -193,12 +172,12 @@ namespace Tomato
 	{
 		m_Data.X = x;
 		m_Data.Y = y;
-		glfwSetWindowPos(static_cast<GLFWwindow*>(m_Window), x, y);
+		glfwSetWindowPos(std::any_cast<GLFWwindow*>(m_Window), x, y);
 	}
 
 	void OpenGLWindow::SetTitle(std::string_view title)
 	{
-		glfwSetWindowTitle(static_cast<GLFWwindow*>(m_Window), title.data());
+		glfwSetWindowTitle(std::any_cast<GLFWwindow*>(m_Window), title.data());
 		m_Data.Title = title;
 	}
 
@@ -208,7 +187,7 @@ namespace Tomato
 
 		GLFWimage images[1];
 		images[0].pixels = stbi_load(iconPath.data(), &images[0].width, &images[0].height, 0, 4); //rgba channels 
-		glfwSetWindowIcon(static_cast<GLFWwindow*>(m_Window), 1, images);
+		glfwSetWindowIcon(std::any_cast<GLFWwindow*>(m_Window), 1, images);
 		stbi_image_free(images[0].pixels);
 	}
 
@@ -222,7 +201,7 @@ namespace Tomato
 	{
 		m_Data.Fullscreen = fullscreen;
 		
-		auto window = static_cast<GLFWwindow*>(m_Window);
+		auto window = std::any_cast<GLFWwindow*>(m_Window);
 		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 		if (fullscreen)
 		{

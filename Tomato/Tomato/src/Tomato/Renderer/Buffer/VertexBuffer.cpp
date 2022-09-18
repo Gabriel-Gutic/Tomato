@@ -17,7 +17,7 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLVertexBuffer>(size, allocType, data);
 		}
 		return nullptr;
@@ -27,7 +27,7 @@ namespace Tomato
 	{
 		switch (RendererAPI::GetType())
 		{
-		case RendererType::OpenGL:
+		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLVertexBuffer>(size, allocType, data);
 		}
 		return nullptr;

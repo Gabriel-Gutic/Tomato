@@ -13,10 +13,10 @@ namespace Tomato
 {
 	void OpenGLGUI::Initialize()
 	{
-		auto window = static_cast<GLFWwindow*>(std::dynamic_pointer_cast<OpenGLWindow>(App::GetWindow())->Get());
+		auto window = std::any_cast<GLFWwindow*>(App::GetWindow()->Get());
 
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
-		ImGui_ImplOpenGL3_Init();
+		TOMATO_ASSERT(ImGui_ImplGlfw_InitForOpenGL(window, true), "Failed to configure ImGui for GLFW!");
+		TOMATO_ASSERT(ImGui_ImplOpenGL3_Init(), "Failed to initialize OpenGL3 for ImGui!");
 	}
 
 	void OpenGLGUI::Terminate()
