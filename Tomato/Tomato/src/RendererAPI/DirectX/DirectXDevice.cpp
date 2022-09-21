@@ -75,16 +75,7 @@ namespace Tomato
         pBackBuffer->Release();
 
         SetRenderTarget();
-
-        // Set the viewport
-        D3D11_VIEWPORT viewport = {};
-
-        viewport.TopLeftX = 0;
-        viewport.TopLeftY = 0;
-        viewport.Width = window->GetWidth();
-        viewport.Height = window->GetHeight();
-
-        DirectXDeviceData::DeviceContext->RSSetViewports(1, &viewport);
+        SetViewport(window->GetWidth(), window->GetHeight());
     }
 
 	void DirectXDevice::Terminate()
@@ -131,6 +122,8 @@ namespace Tomato
             DirectXDeviceData::SwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
             DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL, &DirectXDeviceData::BackBuffer);
             pBackBuffer->Release();
+
+            SetViewport(width, height);
         }
     }
 
@@ -152,5 +145,18 @@ namespace Tomato
     std::any DirectXDevice::GetBackBuffer()
     {
         return std::any(DirectXDeviceData::BackBuffer);
+    }
+
+    void DirectXDevice::SetViewport(uint32_t width, uint32_t height)
+    {        
+        // Set the viewport
+        D3D11_VIEWPORT viewport = {};
+
+        viewport.TopLeftX = 0;
+        viewport.TopLeftY = 0;
+        viewport.Width = width;
+        viewport.Height = height;
+
+        DirectXDeviceData::DeviceContext->RSSetViewports(1, &viewport);
     }
 }

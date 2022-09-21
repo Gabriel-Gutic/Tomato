@@ -3,12 +3,29 @@
 
 #include "DirectXDevice.h"
 
+#include <d3d11.h>
+
 
 namespace Tomato
 {
 	DirectXRenderer3D::DirectXRenderer3D()
 	{
 		DirectXDevice::Initialize();
+
+		struct Vertex
+		{
+			Float3 Position;
+			Float4 Color;
+		};
+
+		const Vertex vertices[] = {
+			{{ 0.0f,  0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+			{{ 0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+			{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}},
+		};
+
+		m_Shader = std::move(Shader::CreateUnique("assets/Shaders/3D/VertexShader.hlsl", "assets/Shaders/3D/FragmentShader.hlsl"));
+		m_VertexBuffer = std::move(VertexBuffer::CreateUnique(sizeof(vertices), BufferAllocType::Static, vertices));
 	}
 
 	DirectXRenderer3D::~DirectXRenderer3D()
@@ -18,11 +35,11 @@ namespace Tomato
 
 	void DirectXRenderer3D::Begin()
 	{
-		DirectXRenderer3D::Clear(1.0f, 0.5f, 0.2f, 1.0f);
 	}
 
 	void DirectXRenderer3D::End()
 	{
+		Flush();
 	}
 
 	void DirectXRenderer3D::Clear(float r, float g, float b, float a) const
@@ -42,9 +59,18 @@ namespace Tomato
 
 	void DirectXRenderer3D::Draw(const Mesh& mesh, const Mat4& transform)
 	{
+
 	}
 
 	void DirectXRenderer3D::Flush()
 	{
+		m_VertexBuffer->Bind();
+		auto devcon = std::any_cast<ID3D11DeviceContext*>(DirectXDevice::GetDeviceContext());
+		devcon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// Draw without the index buffer
+		devcon->Draw(3, 0);
+		// Draw within the index buffer
+		// devcon->DrawIndexed(6, 0, 0);
 	}
 }

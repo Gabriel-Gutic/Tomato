@@ -290,6 +290,9 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXBuffer.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXVertexBuffer.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
@@ -476,5 +479,7 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXVertexBuffer.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXShader.cpp" />
   </ItemGroup>
 </Project>

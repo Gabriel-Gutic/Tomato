@@ -27,6 +27,7 @@ namespace Tomato
 
 	void OpenGLVertexBuffer::SetRawData(const void* data, unsigned int size) const
 	{
-		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+		if (m_AllocType == BufferAllocType::Dynamic)
+			glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 }

@@ -1,8 +1,9 @@
 #include "pchTomato.h"
 #include "Shader.h"
 
-#include "RendererAPI/OpenGL/OpenGLShader.h"
 #include "RendererAPI/RendererAPI.h"
+#include "RendererAPI/OpenGL/OpenGLShader.h"
+#include "RendererAPI/DirectX/DirectXShader.h"
 
 
 namespace Tomato
@@ -13,6 +14,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLShader>(vertexSource, fragmentSource);
+		case RendererAPI::Type::DirectX:
+			return std::make_unique<DirectXShader>(vertexSource, fragmentSource);
 		}
 		return nullptr;
 	}
@@ -23,6 +26,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLShader>(vertexSource, fragmentSource);
+		case RendererAPI::Type::DirectX:
+			return std::make_shared<DirectXShader>(vertexSource, fragmentSource);
 		}
 		return nullptr;
 	}

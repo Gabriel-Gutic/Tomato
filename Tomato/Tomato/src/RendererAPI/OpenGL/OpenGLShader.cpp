@@ -25,7 +25,7 @@ namespace Tomato
 		glDeleteProgram(m_RendererID);
 	}
 
-	void OpenGLShader::Use(bool use) const
+	void OpenGLShader::Use(bool use)
 	{
 		if (use)
 		{
@@ -35,54 +35,6 @@ namespace Tomato
 		{
 			glUseProgram(0);
 		}
-	}
-
-	void OpenGLShader::SetFloat(std::string_view location, float value) const
-	{
-		int id = GetUniformLocation(location);
-		glUniform1f(id, value);
-	}
-
-	void OpenGLShader::SetFloat2(std::string_view location, const Float2& vec) const
-	{
-		int id = GetUniformLocation(location);
-		glUniform2f(id, vec.x, vec.y);
-	}
-
-	void OpenGLShader::SetFloat3(std::string_view location, const Float3& vec) const
-	{
-		int id = GetUniformLocation(location);
-		glUniform3f(id, vec.x, vec.y, vec.z);
-	}
-
-	void OpenGLShader::SetFloat4(std::string_view location, const Float4& vec) const
-	{
-		int id = GetUniformLocation(location);
-		glUniform4f(id, vec.x, vec.y, vec.z, vec.w);
-	}
-
-	void OpenGLShader::SetInt(std::string_view location, int value) const
-	{
-		int id = GetUniformLocation(location);
-		glUniform1i(id, value);
-	}
-
-	void OpenGLShader::SetInt2(std::string_view location, const Int2& vec) const
-	{
-		int id = GetUniformLocation(location);
-		glUniform2i(id, vec.x, vec.y);
-	}
-
-	void OpenGLShader::SetInt3(std::string_view location, const Int3& vec) const
-	{
-		int id = GetUniformLocation(location);
-		glUniform3i(id, vec.x, vec.y, vec.z);
-	}
-
-	void OpenGLShader::SetInt4(std::string_view location, const Int4& vec) const
-	{
-		int id = GetUniformLocation(location);
-		glUniform4i(id, vec.x, vec.y, vec.z, vec.w);
 	}
 
 	void OpenGLShader::SetMat4(std::string_view location, const Mat4& matrix) const
@@ -104,7 +56,7 @@ namespace Tomato
 
 	int OpenGLShader::GetUniformLocation(std::string_view uniform) const
 	{
-		this->Use();
+		glUseProgram(m_RendererID);
 		const char* c_uniform = uniform.data();
 		if (m_UniformLocations.find(c_uniform) != m_UniformLocations.end())
 			return m_UniformLocations[c_uniform];

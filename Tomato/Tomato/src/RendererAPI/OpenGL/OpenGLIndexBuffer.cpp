@@ -26,6 +26,7 @@ namespace Tomato
 
 	void OpenGLIndexBuffer::SetRawData(const void* data, uint32_t size) const
 	{
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data);
+		if (m_AllocType == BufferAllocType::Dynamic)
+			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data);
 	}
 }

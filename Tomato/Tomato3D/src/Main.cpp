@@ -6,7 +6,7 @@ public:
 	Layer3D()
 	{
 		Tomato::App::GetWindow()->SetTitle("Tomato3D");
-		Tomato::GUI::ShowDockspace();
+		// Tomato::GUI::ShowDockspace();
 	}
 
 	void OnUpdate(float dt)
@@ -72,6 +72,10 @@ public:
 		bool show_demo_window = true;
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
+
+		ImGui::Begin("Menu");
+		ImGui::Text("Menu");
+		ImGui::End();
 	}
 private:
 	int m_CurrentCameraProjection = 1;

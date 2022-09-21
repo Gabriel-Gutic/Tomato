@@ -3,6 +3,7 @@
 
 #include "RendererAPI/RendererAPI.h"
 #include "RendererAPI/OpenGL/OpenGLVertexBuffer.h"
+#include "RendererAPI/DirectX/DirectXVertexBuffer.h"
 
 
 namespace Tomato
@@ -19,6 +20,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLVertexBuffer>(size, allocType, data);
+		case RendererAPI::Type::DirectX:
+			return std::make_unique<DirectXVertexBuffer>(size, allocType, data);
 		}
 		return nullptr;
 	}
@@ -29,6 +32,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLVertexBuffer>(size, allocType, data);
+		case RendererAPI::Type::DirectX:
+			return std::make_shared<DirectXVertexBuffer>(size, allocType, data);
 		}
 		return nullptr;
 	}

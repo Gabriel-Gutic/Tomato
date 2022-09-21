@@ -86,6 +86,7 @@ namespace Tomato
 
 			if (!isRunning) return 0; // Close the app if the Exit() was called in through an event
 
+			GUI::Begin();
 			if (Renderer::GetType() == RendererType::_3D)
 				Renderer3D::Get()->Begin();
 			
@@ -102,7 +103,6 @@ namespace Tomato
 			if (Renderer::GetType() == RendererType::_3D)
 				Renderer3D::Get()->End();
 			
-			GUI::Begin();
 			
 			for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
 			{

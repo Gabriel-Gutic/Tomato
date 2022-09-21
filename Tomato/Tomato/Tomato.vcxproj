@@ -93,10 +93,13 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXBuffer.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXCodes.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXDevice.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXGUI.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXRenderer3D.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXShader.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXVertexBuffer.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXWindow.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h" />
@@ -177,6 +180,8 @@
     <ClCompile Include="src\RendererAPI\DirectX\DirectXDevice.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXGUI.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXRenderer3D.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXShader.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXVertexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXWindow.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp" />

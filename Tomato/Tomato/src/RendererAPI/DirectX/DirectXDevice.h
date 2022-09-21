@@ -24,6 +24,8 @@ namespace Tomato
 		static std::any GetSwapChain();
 		static std::any GetBackBuffer();
 	private:
+		static void SetViewport(uint32_t width, uint32_t height);
+	private:
 		static DirectXDevice* s_Instance;
 	};
 }

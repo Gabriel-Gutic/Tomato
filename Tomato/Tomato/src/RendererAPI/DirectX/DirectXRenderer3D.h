@@ -20,5 +20,7 @@ namespace Tomato
 		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f)) override;
 	private:
 		virtual void Flush() override;
+	private:
+
 	};
 }
