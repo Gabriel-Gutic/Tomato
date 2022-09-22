@@ -6,7 +6,6 @@ public:
 	Layer3D()
 	{
 		Tomato::App::GetWindow()->SetTitle("Tomato3D");
-		Tomato::App::GetWindow()->SetIcon("assets/Logo/logo.png");
 		// Tomato::GUI::ShowDockspace();
 	}
 
@@ -32,7 +31,7 @@ public:
 		else
 			camera.SetPerspectiveProjection(45.0f, window->GetAspectRatio(), 0.1f, 100.0f);
 
-		float cameraSpeed = m_CameraSpeed * dt;
+		/*float cameraSpeed = m_CameraSpeed * dt;
 		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
 		{
 			tran.Position.x -= cameraSpeed;
@@ -71,14 +70,33 @@ public:
 		if (Tomato::Input::Keyboard(TOMATO_KEY_EQUAL))
 		{
 			window->SetFullscreen(false);
-		}
+		}*/
 	}
 
 	virtual void OnEvent(const Tomato::Event& e)
 	{
 		if (e.GetType() == Tomato::EventType::KeyPress)
 		{
-			Tomato::App::GetWindow()->SetIcon("Hello world!");
+			auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>();
+			auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
+
+			float cameraSpeed = m_CameraSpeed * 0.1f;
+			auto ev = Tomato::Event::Cast<Tomato::KeyPressEvent>(e);
+			if (ev.GetKey() == TOMATO_KEY_LEFT)
+			{
+				tran.Position.x -= cameraSpeed;
+				camera.Target.x -= 2 * cameraSpeed;
+			}
+			if (ev.GetKey() == TOMATO_KEY_NUMPAD_8)
+			{
+				tran.Position.z -= cameraSpeed;
+				camera.Target.z -= 2 * cameraSpeed;
+			}
+			if (ev.GetKey() == TOMATO_KEY_NUMPAD_2)
+			{
+				tran.Position.z += cameraSpeed;
+				camera.Target.z += 2 * cameraSpeed;
+			}
 		}
 	}
 

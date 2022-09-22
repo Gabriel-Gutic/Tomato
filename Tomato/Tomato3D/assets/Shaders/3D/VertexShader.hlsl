@@ -4,10 +4,15 @@ struct Output
     float4 Color : COLOR;
 };
 
+cbuffer Transform
+{
+    matrix VP;
+};
+
 Output main(float3 pos : Position, float4 color : Color)
 {
     Output output;
-    output.Position = float4(pos, 1.0f);
+    output.Position = mul(float4(pos, 1.0f), VP);
     output.Color = color;
     return output;
 }

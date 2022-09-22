@@ -73,7 +73,7 @@ namespace Tomato
 
 		//window->Clear(s_Instance->m_BackgroundColor);
 
-		s_Instance->m_Shader->Use(true);
+		s_Instance->m_Shader->Use();
 
 		s_Instance->m_VP = App::GetCurrentScene()->GetViewProjection(renderWindow);
 		s_Instance->m_Shader->SetMat4("u_VP", s_Instance->m_VP);
@@ -83,8 +83,6 @@ namespace Tomato
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 		Flush();
-
-		s_Instance->m_Shader->Use(false);
 
 		s_Instance->m_FrameBuffer->Unbind();
 	}

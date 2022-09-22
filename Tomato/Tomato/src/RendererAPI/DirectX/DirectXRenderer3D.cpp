@@ -2,6 +2,7 @@
 #include "DirectXRenderer3D.h"
 
 #include "DirectXDevice.h"
+#include "Tomato/Core/App/App.h"
 
 #include <d3d11.h>
 
@@ -35,6 +36,8 @@ namespace Tomato
 
 	void DirectXRenderer3D::Begin()
 	{
+		m_Shader->Use();
+		m_Shader->SetMat4("VP", Math::Transpose(App::GetCurrentScene()->GetViewProjection()));
 	}
 
 	void DirectXRenderer3D::End()

@@ -15,13 +15,13 @@ namespace Tomato
 		Shader() = default;
 		virtual ~Shader() = default;
 
-		virtual void Use(bool use = true) = 0;
+		virtual void Use() = 0;
 
-		virtual void SetMat4(std::string_view location, const Mat4& matrix) const = 0;
+		virtual void SetMat4(std::string_view location, const Mat4& matrix) = 0;
 		
 		template <size_t SIZE>
-		void SetIntArray(std::string_view location, const std::array<int, SIZE>& data) const;
-		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) const = 0;
+		void SetIntArray(std::string_view location, const std::array<int, SIZE>& data);
+		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) = 0;
 	public:
 		static std::unique_ptr<Shader> CreateUnique(std::string_view vertexSource, std::string_view fragmentSource);
 		static std::shared_ptr<Shader> CreateShared(std::string_view vertexSource, std::string_view fragmentSource);
@@ -31,7 +31,7 @@ namespace Tomato
 	};
 
 	template <size_t SIZE>
-	void Shader::SetIntArray(std::string_view location, const std::array<int, SIZE>& data) const
+	void Shader::SetIntArray(std::string_view location, const std::array<int, SIZE>& data)
 	{
 		SetIntData(location, SIZE, data.data());
 	}

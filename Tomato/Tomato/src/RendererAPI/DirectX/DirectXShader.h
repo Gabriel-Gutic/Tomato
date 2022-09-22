@@ -10,11 +10,11 @@ namespace Tomato
 		DirectXShader(std::string_view vertexSource, std::string_view fragmentSource);
 		virtual ~DirectXShader() override;
 
-		virtual void Use(bool use = true) override;
+		virtual void Use() override;
 
-		virtual void SetMat4(std::string_view location, const Mat4& matrix) const override;
+		virtual void SetMat4(std::string_view location, const Mat4& matrix) override;
 
-		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) const override;
+		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) override;
 	private:
 		std::any m_VertexShader;
 		std::any m_VertexBlob;
@@ -24,7 +24,7 @@ namespace Tomato
 		std::any m_Layout;
 		struct 
 		{
-			Mat4 Transform;
+			Mat4 VP;
 		} m_ConstantBufferData;
 	};
 }

@@ -25,25 +25,18 @@ namespace Tomato
 		glDeleteProgram(m_RendererID);
 	}
 
-	void OpenGLShader::Use(bool use)
+	void OpenGLShader::Use()
 	{
-		if (use)
-		{
-			glUseProgram(m_RendererID);
-		}
-		else
-		{
-			glUseProgram(0);
-		}
+		glUseProgram(m_RendererID);
 	}
 
-	void OpenGLShader::SetMat4(std::string_view location, const Mat4& matrix) const
+	void OpenGLShader::SetMat4(std::string_view location, const Mat4& matrix)
 	{
 		int id = GetUniformLocation(location);
 		glUniformMatrix4fv(id, 1, GL_FALSE, matrix.GetData().data()->data());
 	}
 
-	void OpenGLShader::SetIntData(std::string_view location, unsigned int size, const int* data) const
+	void OpenGLShader::SetIntData(std::string_view location, unsigned int size, const int* data)
 	{
 		int id = GetUniformLocation(location);
 		glUniform1iv(id, size, data);

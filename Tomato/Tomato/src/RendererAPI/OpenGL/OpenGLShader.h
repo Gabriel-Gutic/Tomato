@@ -10,14 +10,14 @@ namespace Tomato
 		OpenGLShader(std::string_view vertexSource, std::string_view fragmentSource);
 		virtual ~OpenGLShader() override;
 
-		virtual void Use(bool use = true) override;
+		virtual void Use() override;
 
-		virtual void SetMat4(std::string_view location, const Mat4& matrix) const override;
+		virtual void SetMat4(std::string_view location, const Mat4& matrix) override;
 
 		unsigned int GetID() const;
 		int GetUniformLocation(std::string_view uniform) const;
 
-		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) const override;
+		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) override;
 	protected:
 		virtual unsigned int CompileShader(std::string_view source, ShaderType type) override;
 	private:

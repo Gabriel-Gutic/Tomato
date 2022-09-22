@@ -61,19 +61,27 @@ namespace Tomato
         m_VertexBlob = vertexBlob;
         m_FragmentBlob = fragmentBlob;
 
-        devcon->VSSetShader(vs, 0, 0);
-        devcon->PSSetShader(fs, 0, 0);
+        Use();
 
-        D3D11_INPUT_ELEMENT_DESC ied[] =
-        {
-            {"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-            {"Color", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, sizeof(Float3), D3D11_INPUT_PER_VERTEX_DATA, 0},
-        };
+        // Create the constant buffer
+        m_ConstantBufferData.VP = Mat4(1.0f);
 
-        ID3D11InputLayout* layout;
-        dev->CreateInputLayout(ied, 2, vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), &layout);
-        devcon->IASetInputLayout(layout);
-        m_Layout = layout;
+        D3D11_BUFFER_DESC cbd = {};
+        cbd.Usage = D3D11_USAGE_DYNAMIC;
+        cbd.ByteWidth = sizeof(m_ConstantBufferData);
+        cbd.StructureByteStride = 0u;
+        cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+        cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+        cbd.MiscFlags = 0;
+
+        D3D11_SUBRESOURCE_DATA csd = {};
+        csd.pSysMem = &m_ConstantBufferData.VP;
+
+        ID3D11Buffer* constantBuffer;
+        dev->CreateBuffer(&cbd, &csd, &constantBuffer);
+        devcon->VSSetConstantBuffers(0u, 1u, &constantBuffer);
+
+        m_ConstantBuffer = constantBuffer;
 	}
 
 	DirectXShader::~DirectXShader()
@@ -87,17 +95,61 @@ namespace Tomato
         std::any_cast<ID3D11InputLayout*>(m_Layout)->Release();
 	}
 
-	void DirectXShader::Use(bool use)
+	void DirectXShader::Use()
 	{
+        auto devcon = std::any_cast<ID3D11DeviceContext*>(DirectXDevice::GetDeviceContext());
+        auto dev = std::any_cast<ID3D11Device*>(DirectXDevice::GetDevice());
+        devcon->VSSetShader(std::any_cast<ID3D11VertexShader*>(m_VertexShader), 0, 0);
+        devcon->PSSetShader(std::any_cast<ID3D11PixelShader*>(m_FragmentShader), 0, 0);
 
+        D3D11_INPUT_ELEMENT_DESC ied[] =
+        {
+            {"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+            {"Color", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, sizeof(Float3), D3D11_INPUT_PER_VERTEX_DATA, 0},
+        };
+
+        ID3D11InputLayout* layout;
+        try 
+        {
+            layout = std::any_cast<ID3D11InputLayout*>(m_Layout);
+            layout->Release();
+        }
+        catch (const std::bad_any_cast& error)
+        {}
+        auto vertexBlob = std::any_cast<ID3DBlob*>(m_VertexBlob);
+        dev->CreateInputLayout(ied, 2, vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), &layout);
+        devcon->IASetInputLayout(layout);
+        m_Layout = layout;
     }
 
-	void DirectXShader::SetMat4(std::string_view location, const Mat4& matrix) const
+	void DirectXShader::SetMat4(std::string_view location, const Mat4& matrix)
 	{
-        // TODO: Implementation
+        bool isChanged = false;
+        if (location == "VP")
+        {
+            m_ConstantBufferData.VP = matrix;
+            isChanged = true;
+        }
+
+        if (isChanged)
+        {
+            // Change the data from a Constant Buffer
+            D3D11_MAPPED_SUBRESOURCE mappedResource = {};
+
+            //  Disable GPU access to the constant buffer data
+            auto devcon = std::any_cast<ID3D11DeviceContext*>(DirectXDevice::GetDeviceContext());
+            auto constantBuffer = std::any_cast<ID3D11Buffer*>(m_ConstantBuffer);
+            devcon->Map(constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+            //  Update the constant buffer here.
+            memcpy(mappedResource.pData, &m_ConstantBufferData.VP, sizeof(m_ConstantBufferData));
+            //  Reenable GPU access to the constant buffer data.
+            devcon->Unmap(constantBuffer, 0);
+
+            devcon->VSSetConstantBuffers(0u, 1u, &constantBuffer);
+        }
 	}
 
-	void DirectXShader::SetIntData(std::string_view location, unsigned int size, const int* data) const
+	void DirectXShader::SetIntData(std::string_view location, unsigned int size, const int* data)
 	{
         // TODO: Implementation
 	}
