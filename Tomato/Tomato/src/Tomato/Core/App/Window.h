@@ -25,7 +25,7 @@ namespace Tomato
 
 		virtual int GetWidth() const;
 		virtual int GetHeight() const;
-		virtual std::pair<int, int> GetSize() const;
+		virtual Int2 GetSize() const;
 		virtual void SetSize(int width, int height) = 0;
 		virtual void SetWidth(int width) = 0;
 		virtual void SetHeight(int height) = 0;
@@ -33,7 +33,7 @@ namespace Tomato
 
 		virtual int GetX() const;
 		virtual int GetY() const;
-		virtual std::pair<int, int> GetPos() const;
+		virtual Int2 GetPos() const;
 		virtual void SetPos(int x, int y) = 0;
 		virtual void SetX(int x);
 		virtual void SetY(int y);

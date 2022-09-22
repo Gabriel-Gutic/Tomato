@@ -34,9 +34,9 @@ namespace Tomato
 		return m_Data.Height;
 	}
 
-	std::pair<int, int> Window::GetSize() const
+	Int2 Window::GetSize() const
 	{
-		return { m_Data.Width, m_Data.Height };
+		return Int2(m_Data.Width, m_Data.Height);
 	}
 
 	float Window::GetAspectRatio() const
@@ -54,9 +54,9 @@ namespace Tomato
 		return m_Data.Y;
 	}
 
-	std::pair<int, int> Window::GetPos() const
+	Int2 Window::GetPos() const
 	{
-		return { m_Data.X, m_Data.Y };
+		return Int2(m_Data.X, m_Data.Y);
 	}
 
 	void Window::SetX(int x)

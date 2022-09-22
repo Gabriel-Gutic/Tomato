@@ -67,15 +67,25 @@ public:
 		}
 	}
 
+	virtual void OnEvent(const Tomato::Event& e)
+	{
+		if (e.GetType() == Tomato::EventType::KeyPress)
+		{
+			Tomato::App::GetWindow()->SetFullscreen(!Tomato::App::GetWindow()->IsFullscreen());
+
+			PRINT("SIZE: {0}", Tomato::App::GetWindow()->GetSize().ToString());
+		}
+	}
+
 	virtual void OnGUI() override
 	{
-		bool show_demo_window = true;
-		if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);
-
-		ImGui::Begin("Menu");
-		ImGui::Text("Menu");
-		ImGui::End();
+		//bool show_demo_window = true;
+		//if (show_demo_window)
+		//	ImGui::ShowDemoWindow(&show_demo_window);
+		//
+		//ImGui::Begin("Menu");
+		//ImGui::Text("Menu");
+		//ImGui::End();
 	}
 private:
 	int m_CurrentCameraProjection = 1;

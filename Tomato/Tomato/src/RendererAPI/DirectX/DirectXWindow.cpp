@@ -7,7 +7,7 @@
 #include "DirectXDevice.h"
 
 
-#include <Windows.h>
+#include <d3d11.h>
 #include <commctrl.h>
 #include <imgui/imgui.h>
 #include <imgui/backends/imgui_impl_win32.h>
@@ -103,13 +103,13 @@ namespace Tomato
         case WM_MOUSEMOVE:
         {
             uint32_t x = lParam & 0x0000ffff;
-            uint32_t y = (lParam & 0xffff0000) >> 16;
+            uint32_t y = lParam >> 16;
 
             App::PushEvent(new MouseMoveEvent(static_cast<double>(x), static_cast<double>(y)));
         } break;
         case WM_MOUSEWHEEL:
         {
-            int16_t delta = (wParam & 0xffff0000) >> 16;
+            int16_t delta = wParam >> 16;
             float value = static_cast<float>(delta) / static_cast<float>(WHEEL_DELTA);
 
             App::PushEvent(new WheelEvent(value));
@@ -150,7 +150,7 @@ namespace Tomato
         case WM_MOVE:
         {
             uint32_t x = lParam & 0x0000ffff;
-            uint32_t y = (lParam & 0xffff0000) >> 16;
+            uint32_t y = lParam >> 16;
 
             data.X = x;
             data.Y = y;
@@ -245,26 +245,54 @@ namespace Tomato
 
     void DirectXWindow::SetSize(int width, int height)
     {
+        RECT windowRect = { m_Data.X, m_Data.Y, m_Data.X + width, m_Data.Y + height };                      // set the size, but not the position
+        AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);      // adjust the size
+        m_Data.Width = width;
+        m_Data.Height = height;
+
+        HWND hWnd = std::any_cast<HWND>(m_Handle);
+        SetWindowPos(hWnd, 0, windowRect.left, windowRect.top, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, SWP_SHOWWINDOW);
     }
+
     void DirectXWindow::SetWidth(int width)
     {
+        SetSize(width, m_Data.Height);
     }
+
     void DirectXWindow::SetHeight(int height)
     {
+        SetSize(m_Data.Width, height);
     }
+
     void DirectXWindow::SetPos(int x, int y)
     {
+        RECT windowRect = { x, y, x + m_Data.Width, y + m_Data.Height };                      // set the size, but not the position
+        AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
+
+        HWND hWnd = std::any_cast<HWND>(m_Handle);
+        m_Data.X = windowRect.left;
+        m_Data.Y = windowRect.top;
+        SetWindowPos(hWnd, 0, m_Data.X, m_Data.Y, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, SWP_SHOWWINDOW);
     }
+
     void DirectXWindow::SetTitle(std::string_view title)
     {
+
     }
+
     void DirectXWindow::SetIcon(std::string_view iconPath)
     {
+
     }
+
     void DirectXWindow::SetVSync(bool vsync)
     {
     }
+
     void DirectXWindow::SetFullscreen(bool fullscreen)
     {
+        m_Data.Fullscreen = fullscreen;
+        BOOL _fullscreen = fullscreen ? TRUE : FALSE;
+        std::any_cast<IDXGISwapChain*>(DirectXDevice::GetSwapChain())->SetFullscreenState(_fullscreen, NULL);
     }
 }

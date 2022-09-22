@@ -44,7 +44,7 @@ namespace Tomato
         scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be us
         scd.OutputWindow = std::any_cast<HWND>(window->Get());  // the window to be used
         scd.SampleDesc.Count = 4;                               // how many multisamples
-        scd.Windowed = true;                                    // windowed/full-screen mode
+        scd.Windowed = TRUE;                                    // windowed/full-screen mode
         scd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;     // allow fullscreen switching
 
         // create a device, device context and 
