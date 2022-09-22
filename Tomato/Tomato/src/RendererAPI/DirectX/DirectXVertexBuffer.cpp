@@ -25,7 +25,7 @@ namespace Tomato
 		} break;
 		case RendererType::_3D:
 		{
-			bd.StructureByteStride = sizeof(Float3) + sizeof(Float4);
+			bd.StructureByteStride = sizeof(Mesh::Vertex);
 		} break;
 		}
 
@@ -45,13 +45,12 @@ namespace Tomato
 
 		D3D11_SUBRESOURCE_DATA sd = {};
 		sd.pSysMem = data;
-		sd.SysMemPitch = 0;
-		sd.SysMemSlicePitch = 0;
 
 		ID3D11Buffer* buffer;
 
 		// Create the vertex buffer
-		TOMATO_ASSERT(!FAILED(std::any_cast<ID3D11Device*>(DirectXDevice::GetDevice())->CreateBuffer(&bd, &sd, &buffer)), "Failed to create the DirectX Vertex Buffer");       
+		TOMATO_ASSERT(!FAILED(std::any_cast<ID3D11Device*>(DirectXDevice::GetDevice())->CreateBuffer(&bd, &sd, &buffer)), 
+			"Failed to create the DirectX Vertex Buffer");       
 		m_Data = buffer;
 	}
 
@@ -69,7 +68,7 @@ namespace Tomato
 			stride = sizeof(Vertex);
 			break;
 		case RendererType::_3D:
-			stride = sizeof(Float3) + sizeof(Float4);
+			stride = sizeof(Mesh::Vertex);
 			break;
 		default:
 			stride = 0;

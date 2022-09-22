@@ -294,6 +294,7 @@
     <ClInclude Include="src\RendererAPI\DirectX\DirectXVertexBuffer.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXShader.h" />
     <ClInclude Include="src\Tomato\Core\String\String.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXIndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
@@ -483,5 +484,6 @@
     <ClCompile Include="src\RendererAPI\DirectX\DirectXVertexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXShader.cpp" />
     <ClCompile Include="src\Tomato\Core\String\String.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXIndexBuffer.cpp" />
   </ItemGroup>
 </Project>

@@ -93,6 +93,8 @@ namespace Tomato
         std::any_cast<ID3DBlob*>(m_FragmentBlob)->Release();
 
         std::any_cast<ID3D11InputLayout*>(m_Layout)->Release();
+
+        std::any_cast<ID3D11Buffer*>(m_ConstantBuffer)->Release();
 	}
 
 	void DirectXShader::Use()
@@ -102,22 +104,25 @@ namespace Tomato
         devcon->VSSetShader(std::any_cast<ID3D11VertexShader*>(m_VertexShader), 0, 0);
         devcon->PSSetShader(std::any_cast<ID3D11PixelShader*>(m_FragmentShader), 0, 0);
 
-        D3D11_INPUT_ELEMENT_DESC ied[] =
+        D3D11_INPUT_ELEMENT_DESC inputElementDescription[] =
         {
             {"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
             {"Color", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, sizeof(Float3), D3D11_INPUT_PER_VERTEX_DATA, 0},
+            {"Normal", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, sizeof(Float3) + sizeof(Float4), D3D11_INPUT_PER_VERTEX_DATA, 0},
+            {"TexCoords", 0, DXGI_FORMAT_R32G32_FLOAT, 0, sizeof(Float3) + sizeof(Float4) + sizeof(Float3), D3D11_INPUT_PER_VERTEX_DATA, 0},
         };
 
         ID3D11InputLayout* layout;
         try 
         {
             layout = std::any_cast<ID3D11InputLayout*>(m_Layout);
-            layout->Release();
+            if (layout)
+                layout->Release();
         }
         catch (const std::bad_any_cast& error)
         {}
         auto vertexBlob = std::any_cast<ID3DBlob*>(m_VertexBlob);
-        dev->CreateInputLayout(ied, 2, vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), &layout);
+        dev->CreateInputLayout(inputElementDescription, 4, vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), &layout);
         devcon->IASetInputLayout(layout);
         m_Layout = layout;
     }

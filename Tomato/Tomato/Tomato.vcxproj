@@ -97,6 +97,7 @@
     <ClInclude Include="src\RendererAPI\DirectX\DirectXCodes.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXDevice.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXGUI.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXIndexBuffer.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXRenderer3D.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXShader.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXVertexBuffer.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXDevice.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXGUI.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXIndexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXRenderer3D.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXShader.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXVertexBuffer.cpp" />

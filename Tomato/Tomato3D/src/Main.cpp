@@ -12,10 +12,10 @@ public:
 	void OnUpdate(float dt)
 	{
 		// Show FPS
-		//if (m_Timer.GetMicroseconds() % 1000 < 100)
-		//{
-		//	PRINT(Tomato::App::GetFPS());
-		//}
+		if (m_Timer.GetMicroseconds() % 1000 < 100)
+		{
+			PRINT(Tomato::App::GetFPS());
+		}
 
 		float angle = m_Timer.GetMilliseconds() / 10.0f;
 		Tomato::Mat4 rot = Tomato::Quaternion::Rotation(angle, angle, angle).ToMat4();
@@ -86,6 +86,21 @@ public:
 			{
 				tran.Position.x -= cameraSpeed;
 				camera.Target.x -= 2 * cameraSpeed;
+			}
+			if (ev.GetKey() == TOMATO_KEY_RIGHT)
+			{
+				tran.Position.x += cameraSpeed;
+				camera.Target.x += 2 * cameraSpeed;
+			}
+			if (ev.GetKey() == TOMATO_KEY_UP)
+			{
+				tran.Position.y += cameraSpeed;
+				camera.Target.y += 2 * cameraSpeed;
+			}
+			if (ev.GetKey() == TOMATO_KEY_DOWN)
+			{
+				tran.Position.y -= cameraSpeed;
+				camera.Target.y -= 2 * cameraSpeed;
 			}
 			if (ev.GetKey() == TOMATO_KEY_NUMPAD_8)
 			{

@@ -3,6 +3,7 @@
 
 #include "RendererAPI/RendererAPI.h"
 #include "RendererAPI/OpenGL/OpenGLIndexBuffer.h"
+#include "RendererAPI/DirectX/DirectXIndexBuffer.h"
 
 
 namespace Tomato
@@ -22,6 +23,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLIndexBuffer>(count, allocType, data);
+		case RendererAPI::Type::DirectX:
+			return std::make_unique<DirectXIndexBuffer>(count, allocType, data);
 		}
 		return nullptr;
 	}
@@ -32,6 +35,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLIndexBuffer>(count, allocType, data);
+		case RendererAPI::Type::DirectX:
+			return std::make_shared<DirectXIndexBuffer>(count, allocType, data);
 		}
 		return nullptr;
 	}

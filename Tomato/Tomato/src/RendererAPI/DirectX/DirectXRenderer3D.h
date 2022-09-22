@@ -21,6 +21,5 @@ namespace Tomato
 	private:
 		virtual void Flush() override;
 	private:
-
 	};
 }

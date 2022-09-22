@@ -73,15 +73,15 @@ namespace Tomato
 			RendererData.IndexCounter + mesh.Indices.size() >= MAX_INDEX_NUMBER)
 			return;
 
+		for (const auto& index : mesh.Indices)
+		{
+			RendererData.Indices[RendererData.IndexCounter++] = RendererData.VertexCounter + index;
+		}
+
 		for (auto vertex : mesh.Vertices)
 		{
 			vertex.Position = (transform * Float4(vertex.Position, 1.0f)).xyz;
 			RendererData.Vertices[RendererData.VertexCounter++] = vertex;
-		}
-		for (const auto& index : mesh.Indices)
-		{
-			RendererData.Indices[RendererData.IndexCounter++] = index;
-
 		}
 	}
 
