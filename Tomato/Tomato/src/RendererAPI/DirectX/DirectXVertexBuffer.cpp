@@ -1,8 +1,10 @@
 #include "pchTomato.h"
 #include "DirectXVertexBuffer.h"
 
+#ifdef TOMATO_PLATFORM_WINDOWS
 #include "DirectXDevice.h"
 #include "Tomato/Renderer/Renderer.h"
+
 
 #include <d3d11.h>
 
@@ -98,3 +100,5 @@ namespace Tomato
 		}
 	}
 }
+
+#endif // TOMATO_PLATFORM_WINDOWS

@@ -4,8 +4,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Image.h"
-
 
 namespace Tomato
 {
@@ -22,12 +20,13 @@ namespace Tomato
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
-	Texture::Texture(unsigned int width, unsigned int height, unsigned char* data, int format)
+	Texture::Texture(unsigned int width, unsigned int height, unsigned char* data, Image::Format format)
 		:m_Width(width), m_Height(height)
 	{
 		Setup();
 
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		int gl_format = ConvertFormat(format);
+		glTexImage2D(GL_TEXTURE_2D, 0, gl_format, width, height, 0, gl_format, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
@@ -49,7 +48,9 @@ namespace Tomato
 		m_Width = image->GetWidth();
 		m_Height = image->GetHeight();
 
-		glTexImage2D(GL_TEXTURE_2D, 0, image->GetFormat(), m_Width, m_Height, 0, image->GetFormat(), GL_UNSIGNED_BYTE, image->GetData());
+		int gl_format = ConvertFormat(image->GetFormat());
+
+		glTexImage2D(GL_TEXTURE_2D, 0, gl_format, m_Width, m_Height, 0, gl_format, GL_UNSIGNED_BYTE, image->GetData());
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
@@ -95,6 +96,22 @@ namespace Tomato
 	std::shared_ptr<Texture> Texture::Create(std::string_view path)
 	{
 		return std::make_shared<Texture>(path);
+	}
+
+	int Texture::ConvertFormat(Image::Format format)
+	{
+		switch (format)
+		{
+		case Image::Format::Red:
+			return GL_RED;
+		case Image::Format::RG:
+			return GL_RG;
+		case Image::Format::RGB:
+			return GL_RGB;
+		case Image::Format::RGBA:
+			return GL_RGBA;
+		}
+		return 0;
 	}
 
 }

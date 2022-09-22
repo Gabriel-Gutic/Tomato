@@ -34,6 +34,7 @@ project "Tomato3D"
 
 	filter "system:windows"
 		systemversion "latest"
+		kind "WindowedApp"
 
 		defines
 		{

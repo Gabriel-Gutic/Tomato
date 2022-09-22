@@ -3,6 +3,7 @@
 
 namespace Tomato
 {
+#ifdef TOMATO_PLATFORM_WINDOWS
 	/* Singleton */
 	class DirectXDevice
 	{
@@ -28,4 +29,11 @@ namespace Tomato
 	private:
 		static DirectXDevice* s_Instance;
 	};
+#else
+	class DirectXDevice 
+	{
+	private:
+		DirectXDevice() {}
+	};
+#endif // TOMATO_PLATFORM_WINDOWS
 }

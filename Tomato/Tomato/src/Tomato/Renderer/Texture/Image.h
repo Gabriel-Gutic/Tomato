@@ -15,6 +15,15 @@ namespace Tomato
 	class Image
 	{
 	public:
+		enum class Format
+		{
+			None = 0,
+			Red = 1,
+			RG = 2,
+			RGB = 3,
+			RGBA = 4,
+		};
+	public:
 		Image(std::string_view path);
 		~Image();
 
@@ -23,7 +32,7 @@ namespace Tomato
 		int GetWidth() const;
 		int GetHeight() const;
 		int GetNrChannels() const;
-		int GetFormat() const;
+		Format GetFormat() const;
 	private:
 		RawImageData m_RawData;
 	};

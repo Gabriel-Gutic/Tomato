@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 		case 0:
 			return 0;
 		case 1:
-			Tomato::RendererAPI::SetType(Tomato::RendererType::OpenGL);
+			Tomato::RendererAPI::SetType(Tomato::RendererAPI::Type::OpenGL);
 			isRendererChosen = true;
 			break;
 		case 2:

@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef TOMATO_PLATFORM_WINDOWS
+
 namespace Tomato
 {
 	class DirectXCodes
@@ -11,3 +13,5 @@ namespace Tomato
 		static std::unordered_map<uint64_t, int> s_Data;
 	};
 }
+
+#endif // TOMATO_PLATFORM_WINDOWS

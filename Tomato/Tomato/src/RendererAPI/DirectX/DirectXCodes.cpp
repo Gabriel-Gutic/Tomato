@@ -1,6 +1,8 @@
 #include "pchTomato.h"
 #include "DirectXCodes.h"
 
+#ifdef TOMATO_PLATFORM_WINDOWS
+
 #include "Event/KeyboardCodes.h"
 #include "Event/MouseCodes.h"
 
@@ -152,3 +154,5 @@ namespace Tomato
 		return s_Data[code];
 	}
 }
+
+#endif // TOMATO_PLATFORM_WINDOWS

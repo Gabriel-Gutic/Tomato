@@ -52,20 +52,20 @@ namespace Tomato
 		return m_RawData.NrChannels;
 	}
 
-	int Image::GetFormat() const
+	Image::Format Image::GetFormat() const
 	{
 		switch (m_RawData.NrChannels)
 		{
 		case 1:
-			return GL_R;
+			return Format::Red;
 		case 2:
-			return GL_RG;
+			return Format::RG;
 		case 3:
-			return GL_RGB;
+			return Format::RGB;
 		case 4:
-			return GL_RGBA;
+			return Format::RGBA;
 		}
-		return 0;
+		return Format::None;
 	}
 }
 

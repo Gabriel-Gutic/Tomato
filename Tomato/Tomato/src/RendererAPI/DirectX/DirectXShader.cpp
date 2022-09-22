@@ -1,6 +1,7 @@
 #include "pchTomato.h"
 #include "DirectXShader.h"
 
+#ifdef TOMATO_PLATFORM_WINDOWS
 #include "DirectXDevice.h"
 
 #include <d3d11.h>
@@ -159,3 +160,5 @@ namespace Tomato
         // TODO: Implementation
 	}
 }
+
+#endif // TOMATO_PLATFORM_WINDOWS

@@ -34,6 +34,9 @@
     <Filter Include="Tomato\Core\Serializer">
       <UniqueIdentifier>{3ABF6E57-26B9-97A9-0F26-2EBAFBBEFD15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tomato\Core\String">
+      <UniqueIdentifier>{37084F24-23EC-0F7A-8C4C-0ACD784FFAFB}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tomato\Core\Timer">
       <UniqueIdentifier>{6148B12F-CD5E-AFC5-16D6-3AE7822B804D}</UniqueIdentifier>
     </Filter>
@@ -60,6 +63,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXBuffer.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
     <ClInclude Include="src\RendererAPI\DirectX\DirectXCodes.h">
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
@@ -69,7 +75,16 @@
     <ClInclude Include="src\RendererAPI\DirectX\DirectXGUI.h">
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXIndexBuffer.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
     <ClInclude Include="src\RendererAPI\DirectX\DirectXRenderer3D.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXShader.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXVertexBuffer.h">
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\DirectX\DirectXWindow.h">
@@ -181,6 +196,9 @@
     <ClInclude Include="src\Tomato\Core\Serializer\Serializer.h">
       <Filter>Tomato\Core\Serializer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tomato\Core\String\String.h">
+      <Filter>Tomato\Core\String</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tomato\Core\Timer\Benchmarker.h">
       <Filter>Tomato\Core\Timer</Filter>
     </ClInclude>
@@ -290,11 +308,6 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXBuffer.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXVertexBuffer.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXShader.h" />
-    <ClInclude Include="src\Tomato\Core\String\String.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXIndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
@@ -306,7 +319,16 @@
     <ClCompile Include="src\RendererAPI\DirectX\DirectXGUI.cpp">
       <Filter>RendererAPI\DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXIndexBuffer.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXRenderer3D.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXShader.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXVertexBuffer.cpp">
       <Filter>RendererAPI\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXWindow.cpp">
@@ -389,6 +411,9 @@
     </ClCompile>
     <ClCompile Include="src\Tomato\Core\Serializer\Serializer.cpp">
       <Filter>Tomato\Core\Serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Core\String\String.cpp">
+      <Filter>Tomato\Core\String</Filter>
     </ClCompile>
     <ClCompile Include="src\Tomato\Core\Timer\Benchmarker.cpp">
       <Filter>Tomato\Core\Timer</Filter>
@@ -481,9 +506,5 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\RendererAPI\DirectX\DirectXVertexBuffer.cpp" />
-    <ClCompile Include="src\RendererAPI\DirectX\DirectXShader.cpp" />
-    <ClCompile Include="src\Tomato\Core\String\String.cpp" />
-    <ClCompile Include="src\RendererAPI\DirectX\DirectXIndexBuffer.cpp" />
   </ItemGroup>
 </Project>

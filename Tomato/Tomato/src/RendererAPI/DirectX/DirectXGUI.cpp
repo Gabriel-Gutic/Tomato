@@ -1,6 +1,7 @@
 #include "pchTomato.h"
 #include "DirectXGUI.h"
 
+#ifdef TOMATO_PLATFORM_WINDOWS
 #include "Tomato/Core/App/App.h"
 #include "DirectXDevice.h"
 
@@ -9,6 +10,8 @@
 #include <imgui/backends/imgui_impl_win32.h>
 
 #include "Tomato/Renderer/Renderer3D.h"
+
+
 #include <d3d11.h>
 
 
@@ -51,3 +54,4 @@ namespace Tomato
 		}
 	}
 }
+#endif // TOMATO_PLATFORM_WINDOWS

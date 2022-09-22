@@ -1,6 +1,7 @@
 #include "pchTomato.h"
 #include "DirectXDevice.h"
 
+#ifdef TOMATO_PLATFORM_WINDOWS
 #include "Tomato/Core/App/App.h"
 
 
@@ -161,3 +162,4 @@ namespace Tomato
         DirectXDeviceData::DeviceContext->RSSetViewports(1, &viewport);
     }
 }
+#endif // TOMATO_PLATFORM_WINDOWS

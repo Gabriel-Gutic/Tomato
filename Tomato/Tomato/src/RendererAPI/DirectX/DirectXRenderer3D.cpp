@@ -1,9 +1,11 @@
 #include "pchTomato.h"
 #include "DirectXRenderer3D.h"
 
+#ifdef TOMATO_PLATFORM_WINDOWS
 #include "RendererAPI/RendererData.h"
 #include "DirectXDevice.h"
 #include "Tomato/Core/App/App.h"
+
 
 #include <d3d11.h>
 
@@ -106,3 +108,5 @@ namespace Tomato
 		RendererData.IndexCounter = 0;
 	}
 }
+
+#endif // TOMATO_PLATFORM_WINDOWS

@@ -1,17 +1,19 @@
 #include "pchTomato.h"
 #include "DirectXWindow.h"
 
+#ifdef TOMATO_PLATFORM_WINDOWS
+
 #include "Tomato/Core/App/App.h"
 #include "Tomato/Event/Events.h"
 #include "DirectXCodes.h"
 #include "DirectXDevice.h"
 
-
-#include <d3d11.h>
-#include <commctrl.h>
 #include <imgui/imgui.h>
 #include <imgui/backends/imgui_impl_win32.h>
 #include <imgui/backends/imgui_impl_dx11.h>
+
+
+#include <d3d11.h>
 
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -219,7 +221,8 @@ namespace Tomato
 
 	DirectXWindow::~DirectXWindow()
 	{
-        try {
+        try 
+        {
             DestroyWindow(std::any_cast<HWND>(m_Handle));
             m_Handle = 0; // Clear the Handler
         }
@@ -316,3 +319,5 @@ namespace Tomato
         std::any_cast<IDXGISwapChain*>(DirectXDevice::GetSwapChain())->SetFullscreenState(_fullscreen, NULL);
     }
 }
+
+#endif

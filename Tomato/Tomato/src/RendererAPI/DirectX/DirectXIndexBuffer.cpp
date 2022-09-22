@@ -1,6 +1,7 @@
 #include "pchTomato.h"
 #include "DirectXIndexBuffer.h"
 
+#ifdef TOMATO_PLATFORM_WINDOWS
 #include "DirectXDevice.h"
 
 #include <d3d11.h>
@@ -68,3 +69,5 @@ namespace Tomato
 		}
 	}
 }
+
+#endif // TOMATO_PLATFORM_WINDOWS
