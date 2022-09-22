@@ -99,7 +99,8 @@ namespace Tomato
     void DirectXDevice::Swap()
     {
         // switch the back buffer and the front buffer
-        DirectXDeviceData::SwapChain->Present(0, 0);
+        uint32_t vsync = App::GetWindow()->GetVSync() ? 1 : 0;
+        DirectXDeviceData::SwapChain->Present(vsync, 0);
     }
 
     void DirectXDevice::SetRenderTarget()

@@ -137,6 +137,7 @@
     <ClInclude Include="src\Tomato\Core\Maths\UInt.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Vec.h" />
     <ClInclude Include="src\Tomato\Core\Serializer\Serializer.h" />
+    <ClInclude Include="src\Tomato\Core\String\String.h" />
     <ClInclude Include="src\Tomato\Core\Timer\Benchmarker.h" />
     <ClInclude Include="src\Tomato\Core\Timer\Timer.h" />
     <ClInclude Include="src\Tomato\Event\Event.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="src\Tomato\Core\Maths\Quaternion.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp" />
     <ClCompile Include="src\Tomato\Core\Serializer\Serializer.cpp" />
+    <ClCompile Include="src\Tomato\Core\String\String.cpp" />
     <ClCompile Include="src\Tomato\Core\Timer\Benchmarker.cpp" />
     <ClCompile Include="src\Tomato\Core\Timer\Timer.cpp" />
     <ClCompile Include="src\Tomato\Event\Event.cpp" />

@@ -190,8 +190,7 @@ namespace Tomato
         // register the window class
         RegisterClassEx(&wc);
 
-        std::wstring _title(title.size(), L'#');
-        mbstowcs(&_title[0], title.data(), title.size());
+        auto _title = String::ToWString(title);
 
         // create the window and use the result as the handle
         m_Handle = CreateWindowEx(NULL,
@@ -214,6 +213,8 @@ namespace Tomato
 
         // display the window on the screen
         ShowWindow(hwnd, std::any_cast<int>(args.at("nShowCmd")));
+
+        SetIcon("assets/Logo/logo.ico");
 	}
 
 	DirectXWindow::~DirectXWindow()
@@ -272,21 +273,40 @@ namespace Tomato
         HWND hWnd = std::any_cast<HWND>(m_Handle);
         m_Data.X = windowRect.left;
         m_Data.Y = windowRect.top;
-        SetWindowPos(hWnd, 0, m_Data.X, m_Data.Y, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, SWP_SHOWWINDOW);
+        SetWindowPos(hWnd, 0, m_Data.X, m_Data.Y, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, SWP_SHOWWINDOW);   
     }
 
     void DirectXWindow::SetTitle(std::string_view title)
     {
-
+        HWND hWnd = std::any_cast<HWND>(m_Handle);
+        SetWindowText(hWnd, String::ToWString(title).data());
     }
 
     void DirectXWindow::SetIcon(std::string_view iconPath)
     {
-
+        HWND hWnd = std::any_cast<HWND>(m_Handle);
+        if (File::Exist(iconPath))
+        {
+            if (iconPath.substr(iconPath.length() - 4) == ".ico")
+            {
+                HANDLE icon = LoadImage(std::any_cast<HINSTANCE>(App::GetArgs().at("hInstance")),
+                    String::ToWString(iconPath).c_str(), IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+                SendMessage(hWnd, WM_SETICON, ICON_SMALL, (LPARAM)(icon));
+            }
+            else
+            {
+                TOMATO_ERROR("Not a valid .ico file: '{0}'!", iconPath.data());
+            }
+        }
+        else 
+        {
+            TOMATO_ERROR("Icon '{0}' not found!", iconPath.data());
+        }
     }
 
     void DirectXWindow::SetVSync(bool vsync)
     {
+        m_Data.VSync = vsync;
     }
 
     void DirectXWindow::SetFullscreen(bool fullscreen)

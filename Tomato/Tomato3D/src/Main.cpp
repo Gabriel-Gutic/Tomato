@@ -6,11 +6,18 @@ public:
 	Layer3D()
 	{
 		Tomato::App::GetWindow()->SetTitle("Tomato3D");
+		Tomato::App::GetWindow()->SetIcon("assets/Logo/logo.png");
 		// Tomato::GUI::ShowDockspace();
 	}
 
 	void OnUpdate(float dt)
 	{
+		// Show FPS
+		//if (m_Timer.GetMicroseconds() % 1000 < 100)
+		//{
+		//	PRINT(Tomato::App::GetFPS());
+		//}
+
 		float angle = m_Timer.GetMilliseconds() / 10.0f;
 		Tomato::Mat4 rot = Tomato::Quaternion::Rotation(angle, angle, angle).ToMat4();
 		Tomato::Renderer3D::Get()->Draw(Tomato::Mesh::Cube(), rot);
@@ -71,9 +78,7 @@ public:
 	{
 		if (e.GetType() == Tomato::EventType::KeyPress)
 		{
-			Tomato::App::GetWindow()->SetFullscreen(!Tomato::App::GetWindow()->IsFullscreen());
-
-			PRINT("SIZE: {0}", Tomato::App::GetWindow()->GetSize().ToString());
+			Tomato::App::GetWindow()->SetIcon("Hello world!");
 		}
 	}
 

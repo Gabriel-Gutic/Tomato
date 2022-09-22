@@ -28,8 +28,7 @@ namespace Tomato
         ID3DBlob* errorBlob = nullptr;
 
         // Compile de Vertex Shader
-        std::wstring vSource(vertexSource.size(), L'#');
-        mbstowcs(&vSource[0], vertexSource.data(), vertexSource.size());
+        auto vSource = String::ToWString(vertexSource);
 
         HRESULT hr = D3DCompileFromFile(vSource.c_str(), 0, D3D_COMPILE_STANDARD_FILE_INCLUDE,
             "main", profile,
@@ -38,8 +37,7 @@ namespace Tomato
         
 
         // Compile the Fragment Shader
-        std::wstring fSource(fragmentSource.size(), L'#');
-        mbstowcs(&fSource[0], fragmentSource.data(), fragmentSource.size());
+        auto fSource = String::ToWString(fragmentSource);
 
         profile = (dev->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "ps_5_0" : "ps_4_0";
         hr = D3DCompileFromFile(fSource.c_str(), 0, D3D_COMPILE_STANDARD_FILE_INCLUDE,

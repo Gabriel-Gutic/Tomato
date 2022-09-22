@@ -8,4 +8,5 @@
 #include "Timer/Benchmarker.h"
 #include "FileManager/File.h"
 #include "Serializer/Serializer.h"
+#include "String/String.h"
 

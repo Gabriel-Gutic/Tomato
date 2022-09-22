@@ -56,7 +56,7 @@ namespace Tomato
 		glfwSwapInterval(m_Data.VSync);
 		glfwSetWindowUserPointer(window, &m_Data);
 
-		SetIcon("assets/Logo/logo.png");
+		SetIcon("assets/Logo/logo.ico");
 
 		// Check if CapsLock and NumLock are on
 		glfwSetInputMode(window, GLFW_LOCK_KEY_MODS, GLFW_TRUE);
@@ -183,12 +183,26 @@ namespace Tomato
 
 	void OpenGLWindow::SetIcon(std::string_view iconPath)
 	{
-		TOMATO_ASSERT(File::Exist(iconPath), "Icon '{0}' not found!", iconPath.data());
+		if (File::Exist(iconPath))
+		{
+			if (iconPath.substr(iconPath.length() - 4) == ".ico")
+			{
+				GLFWimage images[1];
+				images[0].pixels = stbi_load(iconPath.data(), &images[0].width, &images[0].height, 0, 4); //rgba channels 
+				glfwSetWindowIcon(std::any_cast<GLFWwindow*>(m_Window), 1, images);
+				stbi_image_free(images[0].pixels);
+			}
+			else
+			{
+				TOMATO_ERROR("Not a valid .ico file: '{0}'!", iconPath.data());
+			}
+		}
+		else
+		{
+			TOMATO_ERROR("Icon '{0}' not found!", iconPath.data());
+		}
 
-		GLFWimage images[1];
-		images[0].pixels = stbi_load(iconPath.data(), &images[0].width, &images[0].height, 0, 4); //rgba channels 
-		glfwSetWindowIcon(std::any_cast<GLFWwindow*>(m_Window), 1, images);
-		stbi_image_free(images[0].pixels);
+
 	}
 
 	void OpenGLWindow::SetVSync(bool vsync)
