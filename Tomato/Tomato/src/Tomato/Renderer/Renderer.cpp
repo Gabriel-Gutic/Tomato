@@ -11,22 +11,27 @@
 namespace Tomato
 {
 	RendererType Renderer::s_Type = RendererType::_3D;
-	struct RendererData
+	RendererType Renderer::GetType()
 	{
-		static const unsigned int MaxVertexNumber = 16384;
-		static std::array<Vertex, MaxVertexNumber> Vertices;
-		static unsigned int VertexCounter;
+		return s_Type;
+	}
+	//struct RendererData
+	//{
+	//	static const unsigned int MaxVertexNumber = 16384;
+	//	static std::array<Vertex, MaxVertexNumber> Vertices;
+	//	static unsigned int VertexCounter;
+	//
+	//	static const unsigned int MaxTextureSlots = 32;
+	//	static std::array<std::shared_ptr<Texture>, MaxTextureSlots> TextureSlots;
+	//	static unsigned int TextureSlotsCounter;
+	//};
+	//std::array<Vertex, RendererData::MaxVertexNumber> RendererData::Vertices = std::array<Vertex, MaxVertexNumber>();
+	//unsigned int RendererData::VertexCounter = 0;
+	//
+	//std::array<std::shared_ptr<Texture>, RendererData::MaxTextureSlots> RendererData::TextureSlots = std::array < std::shared_ptr<Texture>, RendererData::MaxTextureSlots>();
+	//unsigned int RendererData::TextureSlotsCounter = 0;
 
-		static const unsigned int MaxTextureSlots = 32;
-		static std::array<std::shared_ptr<Texture>, MaxTextureSlots> TextureSlots;
-		static unsigned int TextureSlotsCounter;
-	};
-	std::array<Vertex, RendererData::MaxVertexNumber> RendererData::Vertices = std::array<Vertex, MaxVertexNumber>();
-	unsigned int RendererData::VertexCounter = 0;
-
-	std::array<std::shared_ptr<Texture>, RendererData::MaxTextureSlots> RendererData::TextureSlots = std::array < std::shared_ptr<Texture>, RendererData::MaxTextureSlots>();
-	unsigned int RendererData::TextureSlotsCounter = 0;
-
+	/*
 	Renderer* Renderer::s_Instance = nullptr;
 	void Renderer::Initialize()
 	{
@@ -234,11 +239,6 @@ namespace Tomato
 		ins->m_VertexArray->Unbind();
 	}
 
-	RendererType Renderer::GetType()
-	{
-		return s_Type;
-	}
-
 	void Renderer::Flush()
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
@@ -247,7 +247,7 @@ namespace Tomato
 
 		for (unsigned int i = 0; i < RendererData::TextureSlotsCounter; i++)
 		{
-			RendererData::TextureSlots[i]->BindUnit(i);
+			//RendererData::TextureSlots[i]->BindUnit(i);
 		}
 
 		std::array<int, RendererData::MaxTextureSlots> arr;
@@ -291,4 +291,5 @@ namespace Tomato
 		}
 		return texIndex;
 	}
+	*/
 }

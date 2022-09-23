@@ -14,8 +14,7 @@ namespace Tomato
 		void Unbind() const;
 
 		unsigned int GetID() const;
-		std::unique_ptr<Texture>& GetTexture();
-		const std::unique_ptr<Texture>& GetTexture() const;
+		const std::shared_ptr<Texture>& GetTexture() const;
 
 		std::pair<unsigned int, unsigned int> GetSize() const;
 		void SetSize(unsigned int width, unsigned int height);
@@ -23,6 +22,6 @@ namespace Tomato
 		unsigned int m_Width, m_Height;
 		unsigned int m_RendererID;
 		unsigned int m_RenderBuffer;
-		std::unique_ptr<Texture> m_Texture;
+		std::shared_ptr<Texture> m_Texture;
 	};
 }

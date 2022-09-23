@@ -19,7 +19,7 @@ namespace Tomato
 	public:
 		std::vector<Vertex> Vertices;
 		std::vector<uint32_t> Indices;
-		std::vector<Texture> Textures;
+		std::vector<std::shared_ptr<Texture>> Textures;
 
 		Mesh() = default;
 		Mesh(const Mesh&) = default;

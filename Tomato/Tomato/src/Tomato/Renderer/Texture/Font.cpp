@@ -30,7 +30,7 @@ namespace Tomato
                 continue;
             }
             // generate texture
-            m_Chars[c].Texture = std::make_shared<Texture>(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer, Image::Format::Red);
+            m_Chars[c].Texture = Texture::CreateShared(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer, Image::Format::Red);
             
             // now store character for later use
             m_Chars[c].Size = Int2(face->glyph->bitmap.width, face->glyph->bitmap.rows);

@@ -6,27 +6,20 @@ namespace Tomato
 {
 	class Texture
 	{
-		void Setup();
 	public:
-		Texture(unsigned int width, unsigned int height, unsigned char* data, Image::Format format);
-		Texture(unsigned int width, unsigned int height);
-		Texture(std::string_view path);
-		~Texture();
+		Texture(uint32_t width = 0, uint32_t height = 0);
+		virtual ~Texture();
 
-		void Bind() const;
-		void BindUnit(unsigned int unit) const;
+		virtual void Bind() const {}
 
-		void Reset(unsigned int width, unsigned int height);
-		unsigned int GetWidth() const;
-		unsigned int GetHeight() const;
+		virtual unsigned int GetWidth() const;
+		virtual unsigned int GetHeight() const;
 
-		unsigned int GetID() const;
-
-		static std::shared_ptr<Texture> Create(std::string_view path);
-	private:
-		static int ConvertFormat(Image::Format format);
-	private:
-		unsigned int m_RendererID;
-		unsigned int m_Width, m_Height;
+		static std::unique_ptr<Texture> CreateUnique(uint32_t width, uint32_t height, const uint8_t* data = nullptr, Image::Format format = Image::Format::RGB);
+		static std::shared_ptr<Texture> CreateShared(uint32_t width, uint32_t height, const uint8_t* data = nullptr, Image::Format format = Image::Format::RGB);
+		static std::unique_ptr<Texture> CreateUnique(std::string_view path);
+		static std::shared_ptr<Texture> CreateShared(std::string_view path);
+	protected:
+		uint32_t m_Width, m_Height;
 	};
 }

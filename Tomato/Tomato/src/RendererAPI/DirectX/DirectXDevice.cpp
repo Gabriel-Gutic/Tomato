@@ -22,11 +22,13 @@ namespace Tomato
         static ID3D11Device* Device;
         static ID3D11DeviceContext* DeviceContext;
         static ID3D11RenderTargetView* BackBuffer;
+        static ID3D11RasterizerState* RasterizerState;
     };
     IDXGISwapChain*         DirectXDeviceData::SwapChain;
     ID3D11Device*           DirectXDeviceData::Device;
     ID3D11DeviceContext*    DirectXDeviceData::DeviceContext;
     ID3D11RenderTargetView* DirectXDeviceData::BackBuffer;
+    ID3D11RasterizerState*  DirectXDeviceData::RasterizerState;
 
     DirectXDevice* DirectXDevice::s_Instance = nullptr;
 	void DirectXDevice::Initialize()
@@ -76,6 +78,24 @@ namespace Tomato
         pBackBuffer->Release();
 
         SetRenderTarget();
+
+        D3D11_RASTERIZER_DESC rasterizerDescription;
+        rasterizerDescription.AntialiasedLineEnable = false;
+        rasterizerDescription.CullMode = D3D11_CULL_BACK;
+        rasterizerDescription.DepthBias = 0;
+        rasterizerDescription.DepthBiasClamp = 0.0f;
+        rasterizerDescription.DepthClipEnable = true;
+        rasterizerDescription.FillMode = D3D11_FILL_SOLID;
+        rasterizerDescription.FrontCounterClockwise = false;
+
+        rasterizerDescription.MultisampleEnable = false;
+        rasterizerDescription.ScissorEnable = false;
+        rasterizerDescription.SlopeScaledDepthBias = 0.0f;
+
+        TOMATO_ASSERT(!FAILED(DirectXDeviceData::Device->CreateRasterizerState(&rasterizerDescription, &DirectXDeviceData::RasterizerState)),
+            "Failed to create the Rasterizer State!");
+        DirectXDeviceData::DeviceContext->RSSetState(DirectXDeviceData::RasterizerState);
+
         SetViewport(window->GetWidth(), window->GetHeight());
     }
 

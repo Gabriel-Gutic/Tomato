@@ -12,7 +12,7 @@ public:
 	void OnUpdate(float dt)
 	{
 		// Show FPS
-		if (m_Timer.GetMicroseconds() % 1000 < 100)
+		if (m_Timer.GetMicroseconds() % 10000 < 10)
 		{
 			PRINT(Tomato::App::GetFPS());
 		}

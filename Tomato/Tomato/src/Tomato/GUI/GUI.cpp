@@ -8,6 +8,7 @@
 #include "GUI_API.h"
 
 #include "RendererAPI/RendererAPI.h"
+#include "RendererAPI/OpenGL/OpenGLTexture.h"
 
 
 namespace Tomato::GUI
@@ -182,12 +183,15 @@ namespace Tomato::GUI
     {
 		ImGui::Begin("RenderWindow");
 
-        auto [w, h] = Renderer::GetFrameBuffer()->GetSize();
-        ImVec2 size = ImGui::GetWindowSize();
-
-        ImGui::Image((ImTextureID)Renderer::GetFrameBuffer()->GetTexture()->GetID(), ImVec2(size.x, (size.x * h) / (float)w));
-
-		ImGui::End();
+        //auto [w, h] = Renderer::GetFrameBuffer()->GetSize();
+        //ImVec2 size = ImGui::GetWindowSize();
+        //
+        //if (RendererAPI::GetType() == RendererAPI::Type::OpenGL)
+        //{
+        //    uint32_t id = std::dynamic_pointer_cast<OpenGLTexture>(Renderer::GetFrameBuffer()->GetTexture())->GetID();
+        //    ImGui::Image((ImTextureID)id, ImVec2(size.x, (size.x * h) / (float)w));
+        //}
+		//ImGui::End();
     }
 
     bool IsRenderWindowShown()

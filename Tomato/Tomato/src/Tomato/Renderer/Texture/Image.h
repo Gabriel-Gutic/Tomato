@@ -8,8 +8,8 @@ namespace Tomato
 		int Width;
 		int Height;
 		int NrChannels;
-		unsigned char* Data;
-		unsigned int Size;
+		uint8_t* Data;
+		uint32_t Size;
 	};
 
 	class Image
@@ -27,7 +27,7 @@ namespace Tomato
 		Image(std::string_view path);
 		~Image();
 
-		const unsigned char* GetData() const;
+		const uint8_t* GetData() const;
 		unsigned int GetBufferSize() const;
 		int GetWidth() const;
 		int GetHeight() const;

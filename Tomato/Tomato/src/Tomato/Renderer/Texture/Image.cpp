@@ -4,9 +4,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image/stb_image.h>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 
 namespace Tomato
 {
@@ -27,7 +24,7 @@ namespace Tomato
 		stbi_image_free(m_RawData.Data);
 	}
 
-	const unsigned char* Image::GetData() const
+	const uint8_t* Image::GetData() const
 	{
 		return m_RawData.Data;
 	}

@@ -5,7 +5,7 @@
 namespace Tomato
 {
 	Tilemap::Tilemap(std::string_view filePath, unsigned int tileWidth, unsigned int tileHeight)
-		:Tilemap(Texture::Create(filePath), tileWidth, tileHeight)
+		:Tilemap(Texture::CreateShared(filePath), tileWidth, tileHeight)
 	{
 	}
 

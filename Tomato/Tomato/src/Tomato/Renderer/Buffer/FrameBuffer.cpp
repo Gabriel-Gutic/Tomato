@@ -2,19 +2,22 @@
 #include "FrameBuffer.h"
 
 #include <glad/glad.h>
+#include "RendererAPI/OpenGL/OpenGLTexture.h"
 
 
 namespace Tomato
 {
 	FrameBuffer::FrameBuffer()
-		:m_Width(800), m_Height(800)
+		:m_Width(800), m_Height(800), m_Texture(nullptr)
 	{
 		glGenFramebuffers(1, &m_RendererID);
 		Bind();
 
-		m_Texture = std::make_unique<Texture>(m_Width, m_Height);
+		m_Texture = Texture::CreateShared(m_Width, m_Height);
 
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_Texture->GetID(), 0);
+		auto id = std::dynamic_pointer_cast<OpenGLTexture>(m_Texture)->GetID();
+
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, id, 0);
 	
 		glGenRenderbuffers(1, &m_RenderBuffer);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBuffer);
@@ -47,12 +50,7 @@ namespace Tomato
 		return m_RendererID;
 	}
 
-	std::unique_ptr<Texture>& FrameBuffer::GetTexture()
-	{
-		return m_Texture;
-	}
-
-	const std::unique_ptr<Texture>& FrameBuffer::GetTexture() const
+	const std::shared_ptr<Texture>& FrameBuffer::GetTexture() const
 	{
 		return m_Texture;
 	}
@@ -72,7 +70,7 @@ namespace Tomato
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
 		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
-		m_Texture->Reset(width, height);
+		m_Texture = Texture::CreateShared(width, height);
 		Unbind();
 	}
 
