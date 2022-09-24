@@ -48,6 +48,9 @@ namespace Tomato
 			glEnableVertexAttribArray(3);
 			glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (const void*)size);
 			size += sizeof(Float2);
+			glEnableVertexAttribArray(4);
+			glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (const void*)size);
+			size += sizeof(float);
 		}
 	}
 

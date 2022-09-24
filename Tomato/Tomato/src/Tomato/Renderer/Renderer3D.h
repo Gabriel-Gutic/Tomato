@@ -25,7 +25,7 @@ namespace Tomato
 		virtual void Swap() const = 0;
 
 		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f)) = 0;
-
+		
 		static Renderer3D* Get();
 	private:
 		virtual void Flush() = 0;

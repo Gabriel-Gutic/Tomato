@@ -7,6 +7,9 @@ public:
 	{
 		Tomato::App::GetWindow()->SetTitle("Tomato3D");
 		// Tomato::GUI::ShowDockspace();
+
+		m_Textures.push_back(Tomato::Texture::CreateShared("assets/Images/grass_bottom.png"));
+		m_Textures.push_back(Tomato::Texture::CreateShared("assets/Logo/logo.png"));
 	}
 
 	void OnUpdate(float dt)
@@ -20,6 +23,13 @@ public:
 		float angle = m_Timer.GetMilliseconds() / 10.0f;
 		Tomato::Mat4 rot = Tomato::Quaternion::Rotation(angle, angle, angle).ToMat4();
 		Tomato::Renderer3D::Get()->Draw(Tomato::Mesh::Cube(), rot);
+
+		//auto quad = Tomato::Mesh::QuadMesh();
+		//for (auto& vertex : quad.Vertices)
+		//	vertex.TexIndex = 0.0f;
+		//quad.Vertices[0].TexIndex = 1.0f;
+		//quad.Textures.push_back(texture);
+		//quad.Textures.push_back(texture1);
 
 		auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>();
 		auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
@@ -133,6 +143,8 @@ private:
 	float m_CameraFOV = 45.0f;
 
 	Tomato::Timer m_Timer;
+
+	std::vector<std::shared_ptr<Tomato::Texture>> m_Textures;
 };
 
 

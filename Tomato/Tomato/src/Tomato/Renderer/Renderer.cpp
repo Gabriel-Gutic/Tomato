@@ -15,15 +15,15 @@ namespace Tomato
 	{
 		return s_Type;
 	}
+
+	// Old Renderer
+
 	//struct RendererData
 	//{
 	//	static const unsigned int MaxVertexNumber = 16384;
 	//	static std::array<Vertex, MaxVertexNumber> Vertices;
 	//	static unsigned int VertexCounter;
 	//
-	//	static const unsigned int MaxTextureSlots = 32;
-	//	static std::array<std::shared_ptr<Texture>, MaxTextureSlots> TextureSlots;
-	//	static unsigned int TextureSlotsCounter;
 	//};
 	//std::array<Vertex, RendererData::MaxVertexNumber> RendererData::Vertices = std::array<Vertex, MaxVertexNumber>();
 	//unsigned int RendererData::VertexCounter = 0;
