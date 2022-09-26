@@ -48,8 +48,6 @@ public:
 
 		float rotationSpeed = 30.0f * dt;
 
-		PRINT(Tomato::Input::MousePos().ToString());
-
 		float cameraSpeed = m_CameraSpeed * dt;
 		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
 		{

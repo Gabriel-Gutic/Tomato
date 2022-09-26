@@ -10,24 +10,13 @@
 #include "Tomato/Event/WindowEvent.h"
 #include "Tomato/Event/KeyboardCodes.h"
 
+#include "RendererAPI/OpenGL/OpenGLInput.h"
+
 #include <stb_image/stb_image.h>
 
 
 namespace Tomato
 {
-	const std::unordered_map<int, int> OpenGLWindow::s_NumPad =
-	{
-		{TOMATO_KEY_NUMPAD_0,		TOMATO_KEY_INSERT	},
-		{TOMATO_KEY_NUMPAD_1,		TOMATO_KEY_END		},
-		{TOMATO_KEY_NUMPAD_2,		TOMATO_KEY_DOWN		},
-		{TOMATO_KEY_NUMPAD_3,		TOMATO_KEY_PAGE_DOWN},
-		{TOMATO_KEY_NUMPAD_4,		TOMATO_KEY_LEFT		},
-		{TOMATO_KEY_NUMPAD_6,		TOMATO_KEY_RIGHT		},
-		{TOMATO_KEY_NUMPAD_7,		TOMATO_KEY_HOME		},
-		{TOMATO_KEY_NUMPAD_8,		TOMATO_KEY_UP		},
-		{TOMATO_KEY_NUMPAD_9,		TOMATO_KEY_PAGE_UP	},
-		{TOMATO_KEY_NUMPAD_DECIMAL, TOMATO_KEY_DELETE	},
-	};
 	OpenGLWindow::OpenGLWindow(std::string_view title, int width, int height)
 		:Window(title, width, height), m_Window(nullptr)
 	{
@@ -64,8 +53,7 @@ namespace Tomato
 		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 			if (!(mods & GLFW_MOD_NUM_LOCK))
 			{
-				if (s_NumPad.find(key) != s_NumPad.end())
-					key = s_NumPad.at(key);
+				key = OpenGLInput::ConvertNumPadKey(key);
 			}
 			
 			switch (action)

@@ -56,4 +56,22 @@ namespace Tomato
 		pos.y = static_cast<float>(py);
 		return pos;
 	}
+
+	int OpenGLInput::ConvertNumPadKey(int key)
+	{
+		switch (key)
+		{
+		case TOMATO_KEY_NUMPAD_0: return TOMATO_KEY_INSERT;
+		case TOMATO_KEY_NUMPAD_1: return TOMATO_KEY_END;
+		case TOMATO_KEY_NUMPAD_2: return TOMATO_KEY_DOWN;
+		case TOMATO_KEY_NUMPAD_3: return TOMATO_KEY_PAGE_DOWN;
+		case TOMATO_KEY_NUMPAD_4: return TOMATO_KEY_LEFT;
+		case TOMATO_KEY_NUMPAD_6: return TOMATO_KEY_RIGHT;
+		case TOMATO_KEY_NUMPAD_7: return TOMATO_KEY_HOME;
+		case TOMATO_KEY_NUMPAD_8: return TOMATO_KEY_UP;
+		case TOMATO_KEY_NUMPAD_9: return TOMATO_KEY_PAGE_UP;
+		case TOMATO_KEY_NUMPAD_DECIMAL: return TOMATO_KEY_DELETE;
+		}
+		return key;
+	}
 }
