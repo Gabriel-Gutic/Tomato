@@ -48,7 +48,7 @@ namespace Tomato
 
 	void OpenGLRenderer3D::Begin()
 	{
-		OpenGLRenderer3D::Clear(1.0f, 0.5f, 0.2f, 1.0f);
+		OpenGLRenderer3D::Clear(0.0f, 0.0f, 0.0f, 1.0f);
 
 		m_Shader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection());
 	}

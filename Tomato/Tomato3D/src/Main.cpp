@@ -26,7 +26,7 @@ public:
 	void OnUpdate(float dt)
 	{
 		// Show FPS
-		if (m_Timer.GetMicroseconds() % 10000 < 10)
+		if (Tomato::Input::Keyboard(TOMATO_KEY_F))
 		{
 			PRINT(Tomato::App::GetFPS());
 		}
@@ -47,6 +47,8 @@ public:
 			camera.SetPerspectiveProjection(45.0f, window->GetAspectRatio(), 0.1f, 100.0f);
 
 		float rotationSpeed = 30.0f * dt;
+
+		PRINT(Tomato::Input::MousePos().ToString());
 
 		float cameraSpeed = m_CameraSpeed * dt;
 		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
@@ -91,7 +93,7 @@ public:
 		{
 			m_Rotation.z -= rotationSpeed;
 		}
-
+		
 		if (Tomato::Input::Keyboard(TOMATO_KEY_MINUS))
 		{
 			window->SetFullscreen(true);

@@ -8,7 +8,8 @@ namespace Tomato
 	{
 	public:
 		static void Setup();
-		static int Cast(uint64_t code);
+		static int Cast(uint64_t directXCode);
+		static uint64_t CastBack(int tomatoCode);
 	private:
 		static std::unordered_map<uint64_t, int> s_Data;
 	};

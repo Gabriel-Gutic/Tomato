@@ -5,6 +5,8 @@ namespace Tomato
 {
 	class Input
 	{
+	private:
+		Input() = delete;
 	public:
 		static bool Keyboard(int key);
 		static bool Mouse(int button);

@@ -3,9 +3,11 @@
 
 namespace Tomato
 {
-	class OpenGLInput
+
+	class DirectXInput
 	{
-		OpenGLInput() = delete;
+	private:
+		DirectXInput() = delete;
 	public:
 		static bool Keyboard(int key);
 		static bool Mouse(int button);

@@ -21,8 +21,9 @@ void main()
 	else
 	{
 		int index = int(o_TexIndex + 0.1);
-		vec4 tex = texture(u_Textures[index], o_TexCoords);
-		FragColor = vec4(prod * tex.xyz, tex.w);
+		//vec4 tex = texture(u_Textures[index], o_TexCoords);
+		//FragColor = vec4(prod * tex.xyz, tex.w);
+		FragColor = texture(u_Textures[index], o_TexCoords);
 	}
 }
 

@@ -309,6 +309,8 @@
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXTexture.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
@@ -508,5 +510,7 @@
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLTexture.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXTexture.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXInput.cpp" />
   </ItemGroup>
 </Project>

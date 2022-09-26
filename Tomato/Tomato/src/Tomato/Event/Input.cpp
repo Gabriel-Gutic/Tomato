@@ -3,6 +3,7 @@
 
 #include "RendererAPI/RendererAPI.h"
 #include "RendererAPI/OpenGL/OpenGLInput.h"
+#include "RendererAPI/DirectX/DirectXInput.h"
 
 
 namespace Tomato
@@ -13,6 +14,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return OpenGLInput::Keyboard(key);
+		case RendererAPI::Type::DirectX:
+			return DirectXInput::Keyboard(key);
 		}
 		return false;
 	}
@@ -23,6 +26,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return OpenGLInput::Mouse(button);
+		case RendererAPI::Type::DirectX:
+			return DirectXInput::Mouse(button);
 		}
 		return false;
 	}
@@ -33,6 +38,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return OpenGLInput::MousePos();
+		case RendererAPI::Type::DirectX:
+			return DirectXInput::MousePos();
 		}
 		return Float2();
 	}
