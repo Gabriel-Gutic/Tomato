@@ -19,6 +19,8 @@ namespace Tomato
 		uint32_t IndexCounter = 0;
 		std::array<std::shared_ptr<Texture>, MAX_TEXTURE_SLOTS> TextureSlots;
 		uint32_t TextureSlotsCounter;
+
+		const std::array<int, MAX_TEXTURE_SLOTS> TextureUnits = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
 	};
 	static OpenGLRendererData RendererData;
 
@@ -111,15 +113,10 @@ namespace Tomato
 		m_IndexBuffer->SetData(RendererData.Indices, RendererData.IndexCounter);
 		m_IndexBuffer->Unbind();
 
-		std::array<int, MAX_TEXTURE_SLOTS> textureSlots;
-		for (uint32_t i = 0; i < MAX_TEXTURE_SLOTS; i++)
-			if (i < RendererData.TextureSlotsCounter)
-			{
-				std::dynamic_pointer_cast<OpenGLTexture>(RendererData.TextureSlots[i])->BindUnit(i);
-				textureSlots[i] = i;
-			}
-			else textureSlots[i] = -1;
-		m_Shader->SetIntArray("u_Textures", textureSlots);
+		for (uint32_t i = 0; i < RendererData.TextureSlotsCounter; i++)
+			std::dynamic_pointer_cast<OpenGLTexture>(RendererData.TextureSlots[i])->BindUnit(i);
+		
+		m_Shader->SetIntArray("u_Textures", RendererData.TextureUnits);
 
 		m_VertexArray->Bind();
 

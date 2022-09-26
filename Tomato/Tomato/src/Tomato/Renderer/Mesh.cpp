@@ -76,46 +76,45 @@ namespace Tomato
 		Mesh mesh;
 		mesh.Vertices = 
 		{ 
-			Vertex(Float3(-0.5f, -0.5f, -0.5f), Float4(1.0f, 0.0f, 0.0f, 1.0f), Float3(-1.0f,  0.0f,  0.0f)), //0
-			Vertex(Float3(-0.5f, -0.5f, -0.5f), Float4(1.0f, 0.0f, 0.0f, 1.0f), Float3( 0.0f, -1.0f,  0.0f)), //1
-			Vertex(Float3(-0.5f, -0.5f, -0.5f), Float4(1.0f, 0.0f, 0.0f, 1.0f), Float3( 0.0f,  0.0f, -1.0f)), //2
-			
-			Vertex(Float3( 0.5f, -0.5f, -0.5f), Float4(0.0f, 1.0f, 0.0f, 1.0f), Float3( 1.0f,  0.0f,  0.0f)), //3
-			Vertex(Float3( 0.5f, -0.5f, -0.5f), Float4(0.0f, 1.0f, 0.0f, 1.0f), Float3( 0.0f, -1.0f,  0.0f)), //4
-			Vertex(Float3( 0.5f, -0.5f, -0.5f), Float4(0.0f, 1.0f, 0.0f, 1.0f), Float3( 0.0f,  0.0f, -1.0f)), //5
-			
-			Vertex(Float3( 0.5f, -0.5f,  0.5f), Float4(0.0f, 0.0f, 1.0f, 1.0f), Float3( 1.0f,  0.0f,  0.0f)), //6
-			Vertex(Float3( 0.5f, -0.5f,  0.5f), Float4(0.0f, 0.0f, 1.0f, 1.0f), Float3( 0.0f, -1.0f,  0.0f)), //7
-			Vertex(Float3( 0.5f, -0.5f,  0.5f), Float4(0.0f, 0.0f, 1.0f, 1.0f), Float3( 0.0f,  0.0f,  1.0f)), //8
-			
-			Vertex(Float3(-0.5f, -0.5f,  0.5f), Float4(1.0f, 1.0f, 0.0f, 1.0f), Float3(-1.0f,  0.0f,  0.0f)), //9
-			Vertex(Float3(-0.5f, -0.5f,  0.5f), Float4(1.0f, 1.0f, 0.0f, 1.0f), Float3( 0.0f, -1.0f,  0.0f)), //10
-			Vertex(Float3(-0.5f, -0.5f,  0.5f), Float4(1.0f, 1.0f, 0.0f, 1.0f), Float3( 0.0f,  0.0f,  1.0f)), //11
-			
-			Vertex(Float3(-0.5f,  0.5f, -0.5f), Float4(0.0f, 1.0f, 1.0f, 1.0f), Float3(-1.0f,  0.0f,  0.0f)), //12
-			Vertex(Float3(-0.5f,  0.5f, -0.5f), Float4(0.0f, 1.0f, 1.0f, 1.0f), Float3( 0.0f,  1.0f,  0.0f)), //13
-			Vertex(Float3(-0.5f,  0.5f, -0.5f), Float4(0.0f, 1.0f, 1.0f, 1.0f), Float3( 0.0f,  0.0f, -1.0f)), //14
-			
-			Vertex(Float3( 0.5f,  0.5f, -0.5f), Float4(1.0f, 0.0f, 1.0f, 1.0f), Float3( 1.0f,  0.0f,  0.0f)), //15
-			Vertex(Float3( 0.5f,  0.5f, -0.5f), Float4(1.0f, 0.0f, 1.0f, 1.0f), Float3( 0.0f,  1.0f,  0.0f)), //16
-			Vertex(Float3( 0.5f,  0.5f, -0.5f), Float4(1.0f, 0.0f, 1.0f, 1.0f), Float3( 0.0f,  0.0f, -1.0f)), //17
-			
-			Vertex(Float3( 0.5f,  0.5f,  0.5f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3( 1.0f,  0.0f,  0.0f)), //18
-			Vertex(Float3( 0.5f,  0.5f,  0.5f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3( 0.0f,  1.0f,  0.0f)), //19
-			Vertex(Float3( 0.5f,  0.5f,  0.5f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3( 0.0f,  0.0f,  1.0f)), //20
-			
-			Vertex(Float3(-0.5f,  0.5f,  0.5f), Float4(0.0f, 0.0f, 0.0f, 1.0f), Float3(-1.0f,  0.0f,  0.0f)), //21
-			Vertex(Float3(-0.5f,  0.5f,  0.5f), Float4(0.0f, 0.0f, 0.0f, 1.0f), Float3( 0.0f,  1.0f,  0.0f)), //22
-			Vertex(Float3(-0.5f,  0.5f,  0.5f), Float4(0.0f, 0.0f, 0.0f, 1.0f), Float3( 0.0f,  0.0f,  1.0f)), //23
+			// Bottom
+			Vertex(Float3(-0.5f, -0.5f, -0.5f), Float4(1.0f, 0.0f, 0.0f, 1.0f), Float3( 0.0f, -1.0f,  0.0f), Float2(0.0f, 0.0f)), //0
+			Vertex(Float3( 0.5f, -0.5f, -0.5f), Float4(0.0f, 1.0f, 0.0f, 1.0f), Float3( 0.0f, -1.0f,  0.0f), Float2(1.0f, 0.0f)), //1
+			Vertex(Float3( 0.5f, -0.5f,  0.5f), Float4(0.0f, 0.0f, 1.0f, 1.0f), Float3( 0.0f, -1.0f,  0.0f), Float2(1.0f, 1.0f)), //2
+			Vertex(Float3(-0.5f, -0.5f,  0.5f), Float4(1.0f, 1.0f, 0.0f, 1.0f), Float3( 0.0f, -1.0f,  0.0f), Float2(0.0f, 1.0f)), //3
+			// Left
+			Vertex(Float3(-0.5f, -0.5f, -0.5f), Float4(1.0f, 0.0f, 0.0f, 1.0f), Float3(-1.0f,  0.0f,  0.0f), Float2(0.0f, 0.0f)), //4
+			Vertex(Float3(-0.5f, -0.5f,  0.5f), Float4(1.0f, 1.0f, 0.0f, 1.0f), Float3(-1.0f,  0.0f,  0.0f), Float2(1.0f, 0.0f)), //5
+			Vertex(Float3(-0.5f,  0.5f,  0.5f), Float4(0.0f, 0.0f, 0.0f, 1.0f), Float3(-1.0f,  0.0f,  0.0f), Float2(1.0f, 1.0f)), //6
+			Vertex(Float3(-0.5f,  0.5f, -0.5f), Float4(0.0f, 1.0f, 1.0f, 1.0f), Float3(-1.0f,  0.0f,  0.0f), Float2(0.0f, 1.0f)), //7
+			// Back
+			Vertex(Float3(-0.5f, -0.5f, -0.5f), Float4(1.0f, 0.0f, 0.0f, 1.0f), Float3( 0.0f,  0.0f, -1.0f), Float2(1.0f, 0.0f)), //8
+			Vertex(Float3( 0.5f, -0.5f, -0.5f), Float4(0.0f, 1.0f, 0.0f, 1.0f), Float3( 0.0f,  0.0f, -1.0f), Float2(0.0f, 0.0f)), //9
+			Vertex(Float3(-0.5f,  0.5f, -0.5f), Float4(0.0f, 1.0f, 1.0f, 1.0f), Float3( 0.0f,  0.0f, -1.0f), Float2(1.0f, 1.0f)), //10
+			Vertex(Float3( 0.5f,  0.5f, -0.5f), Float4(1.0f, 0.0f, 1.0f, 1.0f), Float3( 0.0f,  0.0f, -1.0f), Float2(0.0f, 1.0f)), //11
+			// Right
+			Vertex(Float3( 0.5f, -0.5f, -0.5f), Float4(0.0f, 1.0f, 0.0f, 1.0f), Float3( 1.0f,  0.0f,  0.0f), Float2(1.0f, 0.0f)), //12
+			Vertex(Float3( 0.5f, -0.5f,  0.5f), Float4(0.0f, 0.0f, 1.0f, 1.0f), Float3( 1.0f,  0.0f,  0.0f), Float2(0.0f, 0.0f)), //13
+			Vertex(Float3( 0.5f,  0.5f, -0.5f), Float4(1.0f, 0.0f, 1.0f, 1.0f), Float3( 1.0f,  0.0f,  0.0f), Float2(1.0f, 1.0f)), //14
+			Vertex(Float3( 0.5f,  0.5f,  0.5f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3( 1.0f,  0.0f,  0.0f), Float2(0.0f, 1.0f)), //15
+			// Front
+			Vertex(Float3( 0.5f, -0.5f,  0.5f), Float4(0.0f, 0.0f, 1.0f, 1.0f), Float3( 0.0f,  0.0f,  1.0f), Float2(1.0f, 0.0f)), //16
+			Vertex(Float3(-0.5f, -0.5f,  0.5f), Float4(1.0f, 1.0f, 0.0f, 1.0f), Float3( 0.0f,  0.0f,  1.0f), Float2(0.0f, 0.0f)), //17
+			Vertex(Float3( 0.5f,  0.5f,  0.5f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3( 0.0f,  0.0f,  1.0f), Float2(1.0f, 1.0f)), //18
+			Vertex(Float3(-0.5f,  0.5f,  0.5f), Float4(0.0f, 0.0f, 0.0f, 1.0f), Float3( 0.0f,  0.0f,  1.0f), Float2(0.0f, 1.0f)), //19
+			// Top
+			Vertex(Float3(-0.5f,  0.5f, -0.5f), Float4(0.0f, 1.0f, 1.0f, 1.0f), Float3( 0.0f,  1.0f,  0.0f), Float2(0.0f, 1.0f)), //20
+			Vertex(Float3( 0.5f,  0.5f, -0.5f), Float4(1.0f, 0.0f, 1.0f, 1.0f), Float3( 0.0f,  1.0f,  0.0f), Float2(1.0f, 1.0f)), //21
+			Vertex(Float3( 0.5f,  0.5f,  0.5f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3( 0.0f,  1.0f,  0.0f), Float2(1.0f, 0.0f)), //22
+			Vertex(Float3(-0.5f,  0.5f,  0.5f), Float4(0.0f, 0.0f, 0.0f, 1.0f), Float3( 0.0f,  1.0f,  0.0f), Float2(0.0f, 0.0f)), //23
 		};
 		mesh.Indices = 
 		{ 
-			1, 7, 4, 7, 1, 10,
-			8, 11, 20, 20, 11, 23,
-			5, 17, 2, 14, 2, 17,
-			3, 6, 18, 3, 18, 15,
-			0, 12, 9, 9, 12, 21,
-			13, 16, 19, 13, 19, 22,
+			2, 1, 0, 2, 0, 3,           // Bottom
+			6, 5, 4, 6, 4, 7,			// Left
+			10, 8, 9, 10, 9, 11,		// Back
+			14, 12, 13, 14, 13, 15,		// Right
+			18, 16, 17, 18, 17, 19,		// Front
+			21, 22, 23, 21, 23, 20,		// Top
 		};
 		return mesh;
 	}
