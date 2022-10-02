@@ -10,8 +10,6 @@ namespace Tomato
 		Texture(uint32_t width = 0, uint32_t height = 0);
 		virtual ~Texture();
 
-		virtual void Bind() const {}
-
 		virtual unsigned int GetWidth() const;
 		virtual unsigned int GetHeight() const;
 

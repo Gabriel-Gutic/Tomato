@@ -34,7 +34,7 @@ namespace Tomato
 	{
 		Setup();
 
-		std::unique_ptr<Image> image = std::make_unique<Image>(path);
+		std::unique_ptr<Image> image = std::make_unique<Image>(path); 
 
 		m_Width = image->GetWidth();
 		m_Height = image->GetHeight();

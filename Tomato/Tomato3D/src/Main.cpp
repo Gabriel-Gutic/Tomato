@@ -14,7 +14,7 @@ public:
 		m_Cube.Textures.push_back(Tomato::Texture::CreateShared("assets/Images/grass_side.png"));
 		m_Cube.Textures.push_back(Tomato::Texture::CreateShared("assets/Images/grass_top.jpg"));
 	
-		uint32_t i = 0;
+		uint32_t i;
 		for (i = 0; i < 4; i++)
 			m_Cube.Vertices[i].TexIndex = 0.0f;
 		for (; i < 20; i++)

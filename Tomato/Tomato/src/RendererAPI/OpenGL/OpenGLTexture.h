@@ -4,7 +4,7 @@
 
 namespace Tomato
 {
-	class OpenGLTexture : public  Texture
+	class OpenGLTexture : public Texture
 	{
 	private:
 		void Setup();
@@ -13,7 +13,7 @@ namespace Tomato
 		OpenGLTexture(std::string_view path);
 		virtual ~OpenGLTexture() override;
 
-		virtual void Bind() const override;
+		void Bind() const;
 		void BindUnit(unsigned int unit) const;
 
 		unsigned int GetID() const;

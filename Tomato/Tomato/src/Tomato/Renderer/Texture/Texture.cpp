@@ -3,6 +3,7 @@
 
 #include "RendererAPI/RendererAPI.h"
 #include "RendererAPI/OpenGL/OpenGLTexture.h"
+#include "RendererAPI/DirectX/DirectXTexture.h"
 
 
 namespace Tomato
@@ -32,6 +33,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLTexture>(width, height, data, format);
+		case RendererAPI::Type::DirectX:
+			return std::make_unique<DirectXTexture>(width, height, data, format);
 		}
 		return nullptr;
 	}
@@ -42,6 +45,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLTexture>(width, height, data, format);
+		case RendererAPI::Type::DirectX:
+			return std::make_shared<DirectXTexture>(width, height, data, format);
 		}
 		return nullptr;
 	}
@@ -52,6 +57,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_unique<OpenGLTexture>(path);
+		case RendererAPI::Type::DirectX:
+			return std::make_unique<DirectXTexture>(path);
 		}
 		return nullptr;
 	}
@@ -62,6 +69,8 @@ namespace Tomato
 		{
 		case RendererAPI::Type::OpenGL:
 			return std::make_shared<OpenGLTexture>(path);
+		case RendererAPI::Type::DirectX:
+			return std::make_shared<DirectXTexture>(path);
 		}
 		return nullptr;
 	}

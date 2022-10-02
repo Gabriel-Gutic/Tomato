@@ -18,12 +18,6 @@ namespace Tomato
 
 		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) override;
 	private:
-		std::any m_VertexShader;
-		std::any m_VertexBlob;
-		std::any m_FragmentShader;
-		std::any m_FragmentBlob;
-		std::any m_ConstantBuffer;
-		std::any m_Layout;
 		struct 
 		{
 			Mat4 VP;

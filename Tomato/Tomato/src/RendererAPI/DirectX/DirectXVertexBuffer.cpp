@@ -51,7 +51,7 @@ namespace Tomato
 		ID3D11Buffer* buffer;
 
 		// Create the vertex buffer
-		TOMATO_ASSERT(!FAILED(std::any_cast<ID3D11Device*>(DirectXDevice::GetDevice())->CreateBuffer(&bd, &sd, &buffer)), 
+		TOMATO_ASSERT(SUCCEEDED(std::any_cast<ID3D11Device*>(DirectXDevice::GetDevice())->CreateBuffer(&bd, &sd, &buffer)),
 			"Failed to create the DirectX Vertex Buffer");       
 		m_Data = buffer;
 	}

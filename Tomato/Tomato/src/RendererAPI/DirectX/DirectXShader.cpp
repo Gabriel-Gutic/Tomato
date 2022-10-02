@@ -10,6 +10,23 @@
 
 namespace Tomato
 {
+    struct DirectXShaderData
+    {
+        ID3D11VertexShader* VertexShader;
+        ID3DBlob* VertexBlob;
+        ID3D11PixelShader* FragmentShader;
+        ID3DBlob* FragmentBlob;
+        ID3D11Buffer* ConstantBuffer;
+        ID3D11InputLayout* Layout;
+        ID3D11SamplerState* SamplerState;
+
+        DirectXShaderData() 
+            :VertexShader(nullptr), VertexBlob(nullptr), FragmentShader(nullptr),
+            FragmentBlob(nullptr), ConstantBuffer(nullptr), Layout(nullptr),
+            SamplerState(nullptr) {}
+    };
+    static DirectXShaderData Data;
+
 	DirectXShader::DirectXShader(std::string_view vertexSource, std::string_view fragmentSource)
 	{
         // Shader compiling
@@ -24,8 +41,6 @@ namespace Tomato
         // Prefer higher CS shader profile when possible as CS 5.0 provides better performance on 11-class hardware.
         LPCSTR profile = (dev->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "vs_5_0" : "vs_4_0";
 
-        ID3DBlob* vertexBlob = nullptr;
-        ID3DBlob* fragmentBlob = nullptr;
         ID3DBlob* errorBlob = nullptr;
 
         // Compile de Vertex Shader
@@ -33,8 +48,8 @@ namespace Tomato
 
         HRESULT hr = D3DCompileFromFile(vSource.c_str(), 0, D3D_COMPILE_STANDARD_FILE_INCLUDE,
             "main", profile,
-            flags, 0, &vertexBlob, &errorBlob);
-        TOMATO_ASSERT(!FAILED(hr), "Vertex Shader Error: {0}", (char*)errorBlob->GetBufferPointer());
+            flags, 0, &Data.VertexBlob, &errorBlob);
+        TOMATO_ASSERT(SUCCEEDED(hr), "Vertex Shader Error: {0}", (char*)errorBlob->GetBufferPointer());
         
 
         // Compile the Fragment Shader
@@ -43,24 +58,15 @@ namespace Tomato
         profile = (dev->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "ps_5_0" : "ps_4_0";
         hr = D3DCompileFromFile(fSource.c_str(), 0, D3D_COMPILE_STANDARD_FILE_INCLUDE,
             "main", profile,
-            flags, 0, &fragmentBlob, &errorBlob);
-        TOMATO_ASSERT(!FAILED(hr), "Fragment Shader Error: {0}", (char*)errorBlob->GetBufferPointer());
+            flags, 0, &Data.FragmentBlob, &errorBlob);
+        TOMATO_ASSERT(SUCCEEDED(hr), "Fragment Shader Error: {0}", (char*)errorBlob->GetBufferPointer());
 
-        ID3D11VertexShader* vs;
-        ID3D11PixelShader* fs;
-        
         // encapsulate both shaders into shader objects
-        dev->CreateVertexShader(vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), NULL, &vs);
-        dev->CreatePixelShader(fragmentBlob->GetBufferPointer(), fragmentBlob->GetBufferSize(), NULL, &fs);
+        dev->CreateVertexShader(Data.VertexBlob->GetBufferPointer(), Data.VertexBlob->GetBufferSize(), NULL, &Data.VertexShader);
+        dev->CreatePixelShader(Data.FragmentBlob->GetBufferPointer(), Data.FragmentBlob->GetBufferSize(), NULL, &Data.FragmentShader);
 
-        TOMATO_ASSERT(vs, "Failed to create the Vertex Shader!");
-        TOMATO_ASSERT(fs, "Failed to create the Fragment Shader!");
-
-        m_VertexShader = vs;
-        m_FragmentShader = fs;
-
-        m_VertexBlob = vertexBlob;
-        m_FragmentBlob = fragmentBlob;
+        TOMATO_ASSERT(Data.VertexShader, "Failed to create the Vertex Shader!");
+        TOMATO_ASSERT(Data.FragmentShader, "Failed to create the Fragment Shader!");
 
         Use();
 
@@ -82,50 +88,62 @@ namespace Tomato
         dev->CreateBuffer(&cbd, &csd, &constantBuffer);
         devcon->VSSetConstantBuffers(0u, 1u, &constantBuffer);
 
-        m_ConstantBuffer = constantBuffer;
+        Data.ConstantBuffer = constantBuffer;
+
+        // Sampler
+        D3D11_SAMPLER_DESC ImageSamplerDesc = {};
+
+        ImageSamplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+        ImageSamplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+        ImageSamplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+        ImageSamplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+        ImageSamplerDesc.MipLODBias = 0.0f;
+        ImageSamplerDesc.MaxAnisotropy = 1;
+        ImageSamplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+        ImageSamplerDesc.BorderColor[0] = 1.0f;
+        ImageSamplerDesc.BorderColor[1] = 1.0f;
+        ImageSamplerDesc.BorderColor[2] = 1.0f;
+        ImageSamplerDesc.BorderColor[3] = 1.0f;
+        ImageSamplerDesc.MinLOD = -FLT_MAX;
+        ImageSamplerDesc.MaxLOD = FLT_MAX;
+
+        TOMATO_ASSERT(SUCCEEDED(dev->CreateSamplerState(&ImageSamplerDesc,
+            &Data.SamplerState)), "Failed to create sampler for Directx Texture!");
 	}
 
 	DirectXShader::~DirectXShader()
 	{
-        std::any_cast<ID3D11VertexShader*>(m_VertexShader)->Release();
-        std::any_cast<ID3D11PixelShader*>(m_FragmentShader)->Release();
+        Data.VertexShader->Release();
+        Data.FragmentShader->Release();
 
-        std::any_cast<ID3DBlob*>(m_VertexBlob)->Release();
-        std::any_cast<ID3DBlob*>(m_FragmentBlob)->Release();
+        Data.VertexBlob->Release();
+        Data.FragmentBlob->Release();
 
-        std::any_cast<ID3D11InputLayout*>(m_Layout)->Release();
-
-        std::any_cast<ID3D11Buffer*>(m_ConstantBuffer)->Release();
+        Data.Layout->Release();
+        Data.ConstantBuffer->Release();
 	}
 
 	void DirectXShader::Use()
 	{
         auto devcon = std::any_cast<ID3D11DeviceContext*>(DirectXDevice::GetDeviceContext());
         auto dev = std::any_cast<ID3D11Device*>(DirectXDevice::GetDevice());
-        devcon->VSSetShader(std::any_cast<ID3D11VertexShader*>(m_VertexShader), 0, 0);
-        devcon->PSSetShader(std::any_cast<ID3D11PixelShader*>(m_FragmentShader), 0, 0);
+        devcon->VSSetShader(Data.VertexShader, 0, 0);
+        devcon->PSSetShader(Data.FragmentShader, 0, 0);
+        devcon->PSSetSamplers(0, 1, &Data.SamplerState);
 
-        D3D11_INPUT_ELEMENT_DESC inputElementDescription[] =
+        D3D11_INPUT_ELEMENT_DESC inputElementDescription[5] =
         {
             {"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
             {"Color", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, sizeof(Float3), D3D11_INPUT_PER_VERTEX_DATA, 0},
             {"Normal", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, sizeof(Float3) + sizeof(Float4), D3D11_INPUT_PER_VERTEX_DATA, 0},
             {"TexCoords", 0, DXGI_FORMAT_R32G32_FLOAT, 0, sizeof(Float3) + sizeof(Float4) + sizeof(Float3), D3D11_INPUT_PER_VERTEX_DATA, 0},
+            {"TexIndex", 0, DXGI_FORMAT_R32_FLOAT, 0, sizeof(Float3) + sizeof(Float4) + sizeof(Float3) + sizeof(Float2), D3D11_INPUT_PER_VERTEX_DATA, 0},
         };
 
-        ID3D11InputLayout* layout;
-        try 
-        {
-            layout = std::any_cast<ID3D11InputLayout*>(m_Layout);
-            if (layout)
-                layout->Release();
-        }
-        catch (const std::bad_any_cast& error)
-        {}
-        auto vertexBlob = std::any_cast<ID3DBlob*>(m_VertexBlob);
-        dev->CreateInputLayout(inputElementDescription, 4, vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), &layout);
-        devcon->IASetInputLayout(layout);
-        m_Layout = layout;
+        if (Data.Layout)
+            Data.Layout->Release();
+        dev->CreateInputLayout(inputElementDescription, 5, Data.VertexBlob->GetBufferPointer(), Data.VertexBlob->GetBufferSize(), &Data.Layout);
+        devcon->IASetInputLayout(Data.Layout);
     }
 
 	void DirectXShader::SetMat4(std::string_view location, const Mat4& matrix)
@@ -144,14 +162,13 @@ namespace Tomato
 
             //  Disable GPU access to the constant buffer data
             auto devcon = std::any_cast<ID3D11DeviceContext*>(DirectXDevice::GetDeviceContext());
-            auto constantBuffer = std::any_cast<ID3D11Buffer*>(m_ConstantBuffer);
-            devcon->Map(constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+            devcon->Map(Data.ConstantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
             //  Update the constant buffer here.
             memcpy(mappedResource.pData, &m_ConstantBufferData.VP, sizeof(m_ConstantBufferData));
             //  Reenable GPU access to the constant buffer data.
-            devcon->Unmap(constantBuffer, 0);
+            devcon->Unmap(Data.ConstantBuffer, 0);
 
-            devcon->VSSetConstantBuffers(0u, 1u, &constantBuffer);
+            devcon->VSSetConstantBuffers(0u, 1u, &Data.ConstantBuffer);
         }
 	}
 
