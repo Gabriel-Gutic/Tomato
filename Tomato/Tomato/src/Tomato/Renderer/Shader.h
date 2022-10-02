@@ -21,7 +21,7 @@ namespace Tomato
 		
 		template <size_t SIZE>
 		void SetIntArray(std::string_view location, const std::array<int, SIZE>& data);
-		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) = 0;
+		virtual void SetIntData(std::string_view location, unsigned int size, const int* data) {};
 	public:
 		static std::unique_ptr<Shader> CreateUnique(std::string_view vertexSource, std::string_view fragmentSource);
 		static std::shared_ptr<Shader> CreateShared(std::string_view vertexSource, std::string_view fragmentSource);

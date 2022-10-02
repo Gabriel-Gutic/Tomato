@@ -60,8 +60,6 @@ namespace Tomato
 	{
         Image image = Image(path);
 
-        TOMATO_PRINT("Image loaded: '{0}', Channels: {1}", path.data(), image.GetNrChannels());
-
         D3D11_TEXTURE2D_DESC imageTextureDesc = {};
 
         imageTextureDesc.Width = image.GetWidth();

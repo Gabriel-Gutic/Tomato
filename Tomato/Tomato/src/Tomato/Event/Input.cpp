@@ -5,6 +5,8 @@
 #include "RendererAPI/OpenGL/OpenGLInput.h"
 #include "RendererAPI/DirectX/DirectXInput.h"
 
+#include "Tomato/Core/App/App.h"
+
 
 namespace Tomato
 {

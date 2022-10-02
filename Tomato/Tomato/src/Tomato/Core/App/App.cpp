@@ -57,76 +57,79 @@ namespace Tomato
 					s_Instance->m_DeltaTime = 1.0f / static_cast<float>(s_Instance->m_FPS);
 			}
 
-			m_Window->DispatchEvents();
-
-			while (!m_EventQueue.empty())
+			if (m_FPS > 0)
 			{
-				const auto& e = *m_EventQueue.front();
+				m_Window->DispatchEvents();
 
-				if (e.GetType() == EventType::WindowClose)
+				while (!m_EventQueue.empty())
 				{
-					Exit();
+					const auto& e = *m_EventQueue.front();
+
+					if (e.GetType() == EventType::WindowClose)
+					{
+						Exit();
+					}
+
+					TOMATO_PRINT(e.ToString());
+
+					for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
+					{
+						layer->OnEvent(e);
+					}
+
+					for (auto& layer : GetCurrentScene()->GetLayers())
+					{
+						layer->OnEvent(e);
+					}
+
+					delete m_EventQueue.front();
+					m_EventQueue.pop();
 				}
 
-				TOMATO_PRINT(e.ToString());
+				if (!isRunning) return 0; // Close the app if the Exit() was called in through an event
+
+				GUI::Begin();
+				if (Renderer::GetType() == RendererType::_3D)
+					Renderer3D::Get()->Begin();
 
 				for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
 				{
-					layer->OnEvent(e);
+					layer->OnUpdate(m_DeltaTime);
 				}
 
 				for (auto& layer : GetCurrentScene()->GetLayers())
 				{
-					layer->OnEvent(e);
+					layer->OnUpdate(m_DeltaTime);
 				}
 
-				delete m_EventQueue.front();
-				m_EventQueue.pop();
-			}
+				if (Renderer::GetType() == RendererType::_3D)
+					Renderer3D::Get()->End();
 
-			if (!isRunning) return 0; // Close the app if the Exit() was called in through an event
 
-			GUI::Begin();
-			if (Renderer::GetType() == RendererType::_3D)
-				Renderer3D::Get()->Begin();
-			
-			for (const auto& [name, layer] : s_Instance->m_ImGuiLayers)
-			{
-				layer->OnUpdate(m_DeltaTime);
-			}
-			
-			for (auto& layer : GetCurrentScene()->GetLayers())
-			{
-				layer->OnUpdate(m_DeltaTime);
-			}
-			
-			if (Renderer::GetType() == RendererType::_3D)
-				Renderer3D::Get()->End();
-			
-			
-			for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
-			{
-				layer->OnGUI();
-			}
-			
-			for (auto& layer : GetCurrentScene()->GetLayers())
-			{
-				layer->OnGUI();
-			}
-			
-			GUI::End();
-			//
-			//if (m_SerializerTimer.GetSeconds() > 2)
-			//{
-			//	for (auto& serializer : m_Serializers)
-			//	{
-			//		serializer->Serialize();
-			//	}
-			//	m_SerializerTimer.start();
-			//}
+				for (auto& [name, layer] : s_Instance->m_ImGuiLayers)
+				{
+					layer->OnGUI();
+				}
 
-			if (Renderer::GetType() == RendererType::_3D)
-				Renderer3D::Get()->Swap();
+				for (auto& layer : GetCurrentScene()->GetLayers())
+				{
+					layer->OnGUI();
+				}
+
+				GUI::End();
+				//
+				//if (m_SerializerTimer.GetSeconds() > 2)
+				//{
+				//	for (auto& serializer : m_Serializers)
+				//	{
+				//		serializer->Serialize();
+				//	}
+				//	m_SerializerTimer.start();
+				//}
+
+				if (Renderer::GetType() == RendererType::_3D)
+					Renderer3D::Get()->Swap();
+			}
 		}
 
 		return 0;

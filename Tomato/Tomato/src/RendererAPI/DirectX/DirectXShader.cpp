@@ -171,11 +171,6 @@ namespace Tomato
             devcon->VSSetConstantBuffers(0u, 1u, &Data.ConstantBuffer);
         }
 	}
-
-	void DirectXShader::SetIntData(std::string_view location, unsigned int size, const int* data)
-	{
-        // TODO: Implementation
-	}
 }
 
 #endif // TOMATO_PLATFORM_WINDOWS
