@@ -3,6 +3,9 @@
 
 #ifdef TOMATO_PLATFORM_WINDOWS
 #include "Tomato/Core/App/App.h"
+#include "Tomato/Renderer/Renderer3D.h"
+
+#include "DirectXFrameBuffer.h"
 
 
 #include <d3d11.h>
@@ -77,7 +80,7 @@ namespace Tomato
         DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL, &DirectXDeviceData::FrameBuffer);
         pBackBuffer->Release();
 
-        SetRenderTarget();
+        SetRenderTarget(DirectXDeviceData::FrameBuffer);
 
         D3D11_RASTERIZER_DESC rasterizerDescription;
         rasterizerDescription.AntialiasedLineEnable = false;
@@ -111,10 +114,10 @@ namespace Tomato
 
     void DirectXDevice::Clear(const Float4& color)
     {
-        // Render a frame
-        // clear the back buffer to a deep blue
-        DirectXDeviceData::DeviceContext->ClearRenderTargetView(
-            DirectXDeviceData::FrameBuffer, color.ToPtr());
+        ID3D11RenderTargetView* rt;
+        ID3D11DepthStencilView* dsv;
+        DirectXDeviceData::DeviceContext->OMGetRenderTargets(1, &rt, &dsv);
+        DirectXDeviceData::DeviceContext->ClearRenderTargetView(rt, color.ToPtr());
     }
 
     void DirectXDevice::Swap()
@@ -124,31 +127,51 @@ namespace Tomato
         DirectXDeviceData::SwapChain->Present(vsync, 0);
     }
 
-    void DirectXDevice::SetRenderTarget()
+    void DirectXDevice::SetRenderTarget(std::any rt)
     {
+        ID3D11RenderTargetView* rtv = std::any_cast<ID3D11RenderTargetView*>(rt);
         // set the render target as the back buffer
-        DirectXDeviceData::DeviceContext->OMSetRenderTargets(1, &DirectXDeviceData::FrameBuffer, NULL);
+        DirectXDeviceData::DeviceContext->OMSetRenderTargets(1, &rtv, NULL);
     }
 
-    void DirectXDevice::RefreshRenderTarget(uint32_t width, uint32_t height)
+    void DirectXDevice::RefreshRenderTarget(std::any rt, uint32_t width, uint32_t height)
     {
         if (DirectXDeviceData::Device)
         {
-            // Destroy BackBuffer
-            if (DirectXDeviceData::FrameBuffer) 
-            { 
-                DirectXDeviceData::FrameBuffer->Release(); 
-                DirectXDeviceData::FrameBuffer = NULL;
+            try
+            {
+                ID3D11RenderTargetView* rtv = std::any_cast<ID3D11RenderTargetView*>(rt);
+                // Destroy BackBuffer
+                if (rtv)
+                {
+                    rtv->Release();
+                    rtv = nullptr;
+                }
+
+                DirectXDeviceData::SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
+                
+                // Recreate BackBuffer
+                ID3D11Texture2D* pBackBuffer;
+                DirectXDeviceData::SwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
+                DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL,
+                    &DirectXDeviceData::FrameBuffer);
+                pBackBuffer->Release();
+            } 
+            catch (std::bad_any_cast)
+            {
+                try
+                {
+                    std::shared_ptr<FrameBuffer> fb = std::any_cast<std::shared_ptr<FrameBuffer>>(rt);
+                
+                    DirectXDeviceData::SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
+
+                    fb = FrameBuffer::CreateShared();
+                }
+                catch (std::bad_any_cast)
+                {
+                    TOMATO_ASSERT(0, "Invalid render target!");
+                }
             }
-            
-            DirectXDeviceData::SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
-            
-            // Recreate BackBuffer
-            ID3D11Texture2D* pBackBuffer;
-            DirectXDeviceData::SwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
-            DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL, 
-                &DirectXDeviceData::FrameBuffer);
-            pBackBuffer->Release();
 
             SetViewport(width, height);
         }

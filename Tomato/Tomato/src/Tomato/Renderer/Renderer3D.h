@@ -31,6 +31,7 @@ namespace Tomato
 		
 		static Renderer3D* Get();
 		static void SetFrameBuffer(const std::shared_ptr<FrameBuffer>& fb);
+		static const std::shared_ptr<FrameBuffer>& GetFrameBuffer();
 	protected:
 		virtual float GetTextureIndex(const std::shared_ptr<Texture>& texture);
 		virtual void Flush() = 0;

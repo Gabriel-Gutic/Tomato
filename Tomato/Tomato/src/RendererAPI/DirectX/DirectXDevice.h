@@ -17,8 +17,8 @@ namespace Tomato
 		
 		static void Clear(const Float4& color);
 		static void Swap();
-		static void SetRenderTarget();
-		static void RefreshRenderTarget(uint32_t width, uint32_t height);
+		static void SetRenderTarget(std::any rt);
+		static void RefreshRenderTarget(std::any rt, uint32_t width, uint32_t height);
 
 		static std::any GetDevice();
 		static std::any GetDeviceContext();

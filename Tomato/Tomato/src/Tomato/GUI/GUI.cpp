@@ -8,6 +8,8 @@
 
 #include "RendererAPI/RendererAPI.h"
 #include "RendererAPI/OpenGL/OpenGLTexture.h"
+#include "RendererAPI/DirectX/DirectXTexture.h"
+#include "RendererAPI/DirectX/DirectXGUI.h"
 
 
 namespace Tomato::GUI
@@ -167,18 +169,28 @@ namespace Tomato::GUI
     {
         if (fb)
         {
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
             ImGui::Begin("RenderWindow");
 
             auto [w, h] = fb->GetSize().data;
             ImVec2 size = ImGui::GetWindowSize();
 
-            if (RendererAPI::GetType() == RendererAPI::Type::OpenGL)
+            void* id = 0;
+            switch (RendererAPI::GetType())
             {
-                uint32_t id = std::dynamic_pointer_cast<OpenGLTexture>(fb->GetTexture())->GetID();
-                ImGui::Image((ImTextureID)id, ImVec2(size.x, (size.x * h) / (float)w));
+                case RendererAPI::Type::OpenGL:
+                {
+                    id = (void*)std::dynamic_pointer_cast<OpenGLTexture>(fb->GetTexture())->GetID();
+                } break;
+                case RendererAPI::Type::DirectX:
+                {
+                    id = DirectXGUI::GetImTextureID(std::dynamic_pointer_cast<DirectXTexture>(fb->GetTexture())->GetResourceView());
+                } break;
             }
+            ImGui::Image((ImTextureID)id, ImVec2(size.x, (size.x * h) / (float)w));
 
             ImGui::End();
+            ImGui::PopStyleVar();
         }
     }
 

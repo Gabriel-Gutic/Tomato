@@ -4,7 +4,9 @@
 #ifdef TOMATO_PLATFORM_WINDOWS
 
 #include "Tomato/Core/App/App.h"
+#include "Tomato/Renderer/Renderer3D.h"
 #include "Tomato/Event/Events.h"
+
 #include "DirectXCodes.h"
 #include "DirectXDevice.h"
 
@@ -142,7 +144,12 @@ namespace Tomato
 
             if (wParam != SIZE_MINIMIZED)
             {
-                DirectXDevice::RefreshRenderTarget(width, height);
+                DirectXDevice::RefreshRenderTarget(DirectXDevice::GetBackBuffer(), width, height);
+                if (Renderer3D::Get() != nullptr)
+                {
+                    if (Renderer3D::GetFrameBuffer() != nullptr)
+                        DirectXDevice::RefreshRenderTarget(Renderer3D::GetFrameBuffer(), width, height);
+                }
             }
 
             data.Width = static_cast<int>(width);

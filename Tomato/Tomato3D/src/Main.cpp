@@ -25,8 +25,8 @@ public:
 
 		Tomato::App::GetWindow()->SetTitle("Tomato3D");
 		Tomato::GUI::ShowDockspace();
-		//Tomato::GUI::HideMainMenu();
-		//Tomato::GUI::HideSecondMenu();
+		Tomato::GUI::HideMainMenu();
+		Tomato::GUI::HideSecondMenu();
 
 		m_Cube = Tomato::Mesh::Cube();
 
@@ -171,9 +171,9 @@ public:
 	{
 		Tomato::GUI::RenderWindow(m_FrameBuffer);
 
-		//bool show_demo_window = true;
-		//if (show_demo_window)
-		//	ImGui::ShowDemoWindow(&show_demo_window);
+		bool show_demo_window = true;
+		if (show_demo_window)
+			ImGui::ShowDemoWindow(&show_demo_window);
 		//
 		//ImGui::Begin("Menu");
 		//ImGui::Text("Menu");

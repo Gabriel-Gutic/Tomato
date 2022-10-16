@@ -3,6 +3,7 @@
 
 #include "RendererAPI/RendererAPI.h"
 #include "RendererAPI/OpenGL/OpenGLFrameBuffer.h"
+#include "RendererAPI/DirectX/DirectXFrameBuffer.h"
 
 
 namespace Tomato
@@ -30,22 +31,26 @@ namespace Tomato
 		m_Texture = Texture::CreateShared(width, height);
 	}
 
-	std::shared_ptr<FrameBuffer> FrameBuffer::CreateShared()
+	std::shared_ptr<FrameBuffer> FrameBuffer::CreateShared(uint32_t width, uint32_t height)
 	{
 		switch (RendererAPI::GetType())
 		{
 		case RendererAPI::Type::OpenGL:
-			return std::make_shared<OpenGLFrameBuffer>();
+			return std::make_shared<OpenGLFrameBuffer>(width, height);
+		case RendererAPI::Type::DirectX:
+			return std::make_shared<DirectXFrameBuffer>(width, height);
 		}
 		return nullptr;
 	}
 
-	std::unique_ptr<FrameBuffer> FrameBuffer::CreateUnique()
+	std::unique_ptr<FrameBuffer> FrameBuffer::CreateUnique(uint32_t width, uint32_t height)
 	{
 		switch (RendererAPI::GetType())
 		{
 		case RendererAPI::Type::OpenGL:
-			return std::make_unique<OpenGLFrameBuffer>();
+			return std::make_unique<OpenGLFrameBuffer>(width, height);
+		case RendererAPI::Type::DirectX:
+			return std::make_unique<DirectXFrameBuffer>(width, height);
 		}
 		return nullptr;
 	}

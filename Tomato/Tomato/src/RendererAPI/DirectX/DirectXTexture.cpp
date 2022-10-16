@@ -21,8 +21,16 @@ namespace Tomato
         imageTextureDesc.Format = static_cast<DXGI_FORMAT>(ConvertFormat(format));
         imageTextureDesc.SampleDesc.Count = 1;
         imageTextureDesc.SampleDesc.Quality = 0;
-        imageTextureDesc.Usage = D3D11_USAGE_IMMUTABLE;
-        imageTextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+        if (data)
+        {
+            imageTextureDesc.Usage = D3D11_USAGE_IMMUTABLE;
+            imageTextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+        }
+        else
+        {
+            imageTextureDesc.Usage = D3D11_USAGE_DEFAULT;
+            imageTextureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+        }
 
         D3D11_SUBRESOURCE_DATA imageSubresourceData = {};
 
@@ -47,13 +55,22 @@ namespace Tomato
 
         ID3D11Texture2D* imageTexture;
 
-        TOMATO_ASSERT(SUCCEEDED(std::any_cast<ID3D11Device*>(DirectXDevice::GetDevice())->CreateTexture2D(
+        auto device = std::any_cast<ID3D11Device*>(DirectXDevice::GetDevice());
+        TOMATO_ASSERT(SUCCEEDED(device->CreateTexture2D(
             &imageTextureDesc,
-            &imageSubresourceData,
+            data ? &imageSubresourceData : NULL,
             &imageTexture
         )), "Failed to create empty texture!");
 
         m_Buffer = imageTexture;
+
+        ID3D11ShaderResourceView* imageShaderResourceView;
+        TOMATO_ASSERT(SUCCEEDED(device->CreateShaderResourceView(
+            imageTexture,
+            nullptr,
+            &imageShaderResourceView
+        )), "Failed to create the resource view for empty texture");
+        m_ResourceView = imageShaderResourceView;
 	}
 
 	DirectXTexture::DirectXTexture(std::string_view path)
@@ -101,7 +118,18 @@ namespace Tomato
 	DirectXTexture::~DirectXTexture()
 	{
         std::any_cast<ID3D11Texture2D*>(m_Buffer)->Release();
+
+        try
+        {
+            std::any_cast<ID3D11ShaderResourceView*>(m_ResourceView)->Release();
+        }
+        catch (std::bad_any_cast) {}
 	}
+
+    std::any DirectXTexture::GetBuffer() const
+    {
+        return m_Buffer;
+    }
 
     std::any DirectXTexture::GetResourceView() const
     {

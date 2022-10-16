@@ -15,8 +15,8 @@ namespace Tomato
 		virtual UInt2 GetSize() const;
 		virtual void SetSize(uint32_t width, uint32_t height);
 
-		static std::shared_ptr<FrameBuffer> CreateShared();
-		static std::unique_ptr<FrameBuffer> CreateUnique();
+		static std::shared_ptr<FrameBuffer> CreateShared(uint32_t width = 1280, uint32_t height = 720);
+		static std::unique_ptr<FrameBuffer> CreateUnique(uint32_t width = 1280, uint32_t height = 720);
 	protected:
 		uint32_t m_Width, m_Height;
 		std::shared_ptr<Texture> m_Texture;

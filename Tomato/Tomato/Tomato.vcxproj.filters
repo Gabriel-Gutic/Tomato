@@ -318,6 +318,7 @@
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.h" />
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
@@ -526,5 +527,6 @@
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.cpp" />
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "RendererAPI/RendererData.h"
 #include "DirectXDevice.h"
 #include "DirectXTexture.h"
+#include "DirectXFrameBuffer.h"
 #include "Tomato/Core/App/App.h"
 
 
@@ -20,6 +21,8 @@ namespace Tomato
 		m_Shader = std::move(Shader::CreateUnique("assets/Shaders/3D/VertexShader.hlsl", "assets/Shaders/3D/FragmentShader.hlsl"));
 		m_VertexBuffer = std::move(VertexBuffer::CreateUnique(MAX_VERTEX_NUMBER * sizeof(Mesh::Vertex), BufferAllocType::Dynamic, m_Data.Vertices.data()));
 		m_IndexBuffer = std::move(IndexBuffer::CreateUnique(MAX_INDEX_NUMBER, BufferAllocType::Dynamic, m_Data.Indices.data()));
+	
+		m_FrameBuffer = nullptr;
 	}
 
 	DirectXRenderer3D::~DirectXRenderer3D()
@@ -29,6 +32,11 @@ namespace Tomato
 
 	void DirectXRenderer3D::Begin()
 	{
+		if (Renderer3D::GetFrameBuffer())
+			DirectXDevice::SetRenderTarget(std::dynamic_pointer_cast<DirectXFrameBuffer>(Renderer3D::GetFrameBuffer())->GetRenderTargetView());
+
+		Renderer3D::Get()->Clear(1.0f, 0.0f, 0.0f, 1.0f);
+
 		m_Shader->Use();
 		m_Shader->SetMat4("VP", Math::Transpose(App::GetCurrentScene()->GetViewProjection()));
 	}
@@ -36,6 +44,9 @@ namespace Tomato
 	void DirectXRenderer3D::End()
 	{
 		Flush();
+
+		DirectXDevice::SetRenderTarget(DirectXDevice::GetBackBuffer());
+		Renderer3D::Get()->Clear(0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	void DirectXRenderer3D::Clear(float r, float g, float b, float a) const

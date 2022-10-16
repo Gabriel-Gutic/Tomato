@@ -4,6 +4,7 @@
 #ifdef TOMATO_PLATFORM_WINDOWS
 #include "Tomato/Core/App/App.h"
 #include "DirectXDevice.h"
+#include "DirectXFrameBuffer.h"
 
 #include <imgui/imgui.h>
 #include <imgui/backends/imgui_impl_dx11.h>
@@ -38,8 +39,8 @@ namespace Tomato
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 
-		DirectXDevice::SetRenderTarget();
-		Renderer3D::Get()->Clear(0.0f, 0.0f, 0.0f, 1.0f);
+		DirectXDevice::SetRenderTarget(DirectXDevice::GetBackBuffer());
+		Renderer3D::Get()->Clear(0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	void DirectXGUI::End()
@@ -51,6 +52,18 @@ namespace Tomato
 		{
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
+		}
+	}
+
+	void* DirectXGUI::GetImTextureID(std::any shaderResourceView)
+	{
+		try
+		{
+			return std::any_cast<ID3D11ShaderResourceView*>(shaderResourceView);
+		} 
+		catch (std::bad_any_cast)
+		{
+			return nullptr;
 		}
 	}
 }
