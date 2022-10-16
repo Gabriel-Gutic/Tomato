@@ -2,8 +2,10 @@
 #include "OpenGLGUI.h"
 
 #include "Tomato/Core/App/App.h"
+#include "Tomato/Renderer/Renderer3D.h"
 #include "OpenGLWindow.h"
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <imgui/backends/imgui_impl_glfw.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
@@ -27,6 +29,9 @@ namespace Tomato
 
 	void OpenGLGUI::Begin()
 	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		Renderer3D::Get()->Clear(0.0f, 0.0f, 1.0f, 1.0f);
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 	}

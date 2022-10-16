@@ -21,14 +21,14 @@ namespace Tomato
         static IDXGISwapChain* SwapChain;
         static ID3D11Device* Device;
         static ID3D11DeviceContext* DeviceContext;
-        static ID3D11RenderTargetView* BackBuffer;
+        static ID3D11RenderTargetView* FrameBuffer;
         static ID3D11RasterizerState* RasterizerState;
     };
-    IDXGISwapChain*         DirectXDeviceData::SwapChain;
-    ID3D11Device*           DirectXDeviceData::Device;
-    ID3D11DeviceContext*    DirectXDeviceData::DeviceContext;
-    ID3D11RenderTargetView* DirectXDeviceData::BackBuffer;
-    ID3D11RasterizerState*  DirectXDeviceData::RasterizerState;
+    IDXGISwapChain*         DirectXDeviceData::SwapChain = nullptr;
+    ID3D11Device*           DirectXDeviceData::Device = nullptr;
+    ID3D11DeviceContext*    DirectXDeviceData::DeviceContext = nullptr;
+    ID3D11RenderTargetView* DirectXDeviceData::FrameBuffer = nullptr;
+    ID3D11RasterizerState*  DirectXDeviceData::RasterizerState = nullptr;
 
     DirectXDevice* DirectXDevice::s_Instance = nullptr;
 	void DirectXDevice::Initialize()
@@ -74,7 +74,7 @@ namespace Tomato
         TOMATO_ASSERT(pBackBuffer, "Failed to get the address of the back buffer!");
 
         // use the back buffer address to create the render target
-        DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL, &DirectXDeviceData::BackBuffer);
+        DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL, &DirectXDeviceData::FrameBuffer);
         pBackBuffer->Release();
 
         SetRenderTarget();
@@ -104,7 +104,7 @@ namespace Tomato
         DirectXDeviceData::SwapChain->SetFullscreenState(FALSE, NULL);  // switch to windowed mode
 
         DirectXDeviceData::SwapChain->Release();
-        DirectXDeviceData::BackBuffer->Release();
+        DirectXDeviceData::FrameBuffer->Release();
         DirectXDeviceData::Device->Release();
         DirectXDeviceData::DeviceContext->Release();
 	}
@@ -114,7 +114,7 @@ namespace Tomato
         // Render a frame
         // clear the back buffer to a deep blue
         DirectXDeviceData::DeviceContext->ClearRenderTargetView(
-            DirectXDeviceData::BackBuffer, color.ToPtr());
+            DirectXDeviceData::FrameBuffer, color.ToPtr());
     }
 
     void DirectXDevice::Swap()
@@ -127,7 +127,7 @@ namespace Tomato
     void DirectXDevice::SetRenderTarget()
     {
         // set the render target as the back buffer
-        DirectXDeviceData::DeviceContext->OMSetRenderTargets(1, &DirectXDeviceData::BackBuffer, NULL);
+        DirectXDeviceData::DeviceContext->OMSetRenderTargets(1, &DirectXDeviceData::FrameBuffer, NULL);
     }
 
     void DirectXDevice::RefreshRenderTarget(uint32_t width, uint32_t height)
@@ -135,14 +135,19 @@ namespace Tomato
         if (DirectXDeviceData::Device)
         {
             // Destroy BackBuffer
-            if (DirectXDeviceData::BackBuffer) { DirectXDeviceData::BackBuffer->Release(); DirectXDeviceData::BackBuffer = NULL; }
+            if (DirectXDeviceData::FrameBuffer) 
+            { 
+                DirectXDeviceData::FrameBuffer->Release(); 
+                DirectXDeviceData::FrameBuffer = NULL;
+            }
             
             DirectXDeviceData::SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
             
             // Recreate BackBuffer
             ID3D11Texture2D* pBackBuffer;
             DirectXDeviceData::SwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
-            DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL, &DirectXDeviceData::BackBuffer);
+            DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL, 
+                &DirectXDeviceData::FrameBuffer);
             pBackBuffer->Release();
 
             SetViewport(width, height);
@@ -166,7 +171,7 @@ namespace Tomato
 
     std::any DirectXDevice::GetBackBuffer()
     {
-        return std::any(DirectXDeviceData::BackBuffer);
+        return std::any(DirectXDeviceData::FrameBuffer);
     }
 
     void DirectXDevice::SetViewport(uint32_t width, uint32_t height)

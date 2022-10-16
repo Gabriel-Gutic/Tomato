@@ -3,6 +3,7 @@
 #include "Buffer/VertexBuffer.h"
 #include "Buffer/IndexBuffer.h"
 #include "Buffer/VertexArray.h"
+#include "Buffer/FrameBuffer.h"
 
 #include "RendererAPI/RendererData.h"
 
@@ -29,6 +30,7 @@ namespace Tomato
 		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f));
 		
 		static Renderer3D* Get();
+		static void SetFrameBuffer(const std::shared_ptr<FrameBuffer>& fb);
 	protected:
 		virtual float GetTextureIndex(const std::shared_ptr<Texture>& texture);
 		virtual void Flush() = 0;
@@ -47,7 +49,9 @@ namespace Tomato
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;
-	private:
+
+		std::shared_ptr<FrameBuffer> m_FrameBuffer;
+
 		static Renderer3D* s_Instance;
 	};
 }

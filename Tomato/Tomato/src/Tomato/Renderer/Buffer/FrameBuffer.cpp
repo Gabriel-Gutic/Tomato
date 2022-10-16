@@ -1,53 +1,16 @@
 #include "pchTomato.h"
 #include "FrameBuffer.h"
 
-#include <glad/glad.h>
-#include "RendererAPI/OpenGL/OpenGLTexture.h"
+#include "RendererAPI/RendererAPI.h"
+#include "RendererAPI/OpenGL/OpenGLFrameBuffer.h"
 
 
 namespace Tomato
 {
-	FrameBuffer::FrameBuffer()
-		:m_Width(800), m_Height(800), m_Texture(nullptr)
+	FrameBuffer::FrameBuffer(uint32_t width, uint32_t height)
+		:m_Width(width), m_Height(height), m_Texture(nullptr)
 	{
-		glGenFramebuffers(1, &m_RendererID);
-		Bind();
 
-		m_Texture = Texture::CreateShared(m_Width, m_Height);
-
-		auto id = std::dynamic_pointer_cast<OpenGLTexture>(m_Texture)->GetID();
-
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, id, 0);
-	
-		glGenRenderbuffers(1, &m_RenderBuffer);
-		glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBuffer);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RenderBuffer);
-	
-		TOMATO_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
-		Unbind();
-	}
-
-	FrameBuffer::~FrameBuffer()
-	{
-		glDeleteFramebuffers(1, &m_RendererID);
-	}
-
-	void FrameBuffer::Bind() const
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
-	}
-
-	void FrameBuffer::Unbind() const
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
-
-	unsigned int FrameBuffer::GetID() const
-	{
-		return m_RendererID;
 	}
 
 	const std::shared_ptr<Texture>& FrameBuffer::GetTexture() const
@@ -55,24 +18,35 @@ namespace Tomato
 		return m_Texture;
 	}
 
-	std::pair<unsigned int, unsigned int> FrameBuffer::GetSize() const
+	UInt2 FrameBuffer::GetSize() const
 	{
 		return { m_Width, m_Height };
 	}
 
-	void FrameBuffer::SetSize(unsigned int width, unsigned int height)
+	void FrameBuffer::SetSize(uint32_t width, uint32_t height)
 	{
 		m_Width = width;
 		m_Height = height;
-		Bind();
-
-		glBindRenderbuffer(GL_RENDERBUFFER, m_RenderBuffer);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Width, m_Height);
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
 		m_Texture = Texture::CreateShared(width, height);
-		Unbind();
 	}
 
+	std::shared_ptr<FrameBuffer> FrameBuffer::CreateShared()
+	{
+		switch (RendererAPI::GetType())
+		{
+		case RendererAPI::Type::OpenGL:
+			return std::make_shared<OpenGLFrameBuffer>();
+		}
+		return nullptr;
+	}
 
+	std::unique_ptr<FrameBuffer> FrameBuffer::CreateUnique()
+	{
+		switch (RendererAPI::GetType())
+		{
+		case RendererAPI::Type::OpenGL:
+			return std::make_unique<OpenGLFrameBuffer>();
+		}
+		return nullptr;
+	}
 }

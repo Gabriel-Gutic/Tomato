@@ -7,21 +7,18 @@ namespace Tomato
 	class FrameBuffer
 	{
 	public:
-		FrameBuffer();
-		~FrameBuffer();
+		FrameBuffer(uint32_t width = 1280, uint32_t height = 720);
+		virtual ~FrameBuffer() = default;
 
-		void Bind() const;
-		void Unbind() const;
-
-		unsigned int GetID() const;
 		const std::shared_ptr<Texture>& GetTexture() const;
 
-		std::pair<unsigned int, unsigned int> GetSize() const;
-		void SetSize(unsigned int width, unsigned int height);
-	private:
-		unsigned int m_Width, m_Height;
-		unsigned int m_RendererID;
-		unsigned int m_RenderBuffer;
+		virtual UInt2 GetSize() const;
+		virtual void SetSize(uint32_t width, uint32_t height);
+
+		static std::shared_ptr<FrameBuffer> CreateShared();
+		static std::unique_ptr<FrameBuffer> CreateUnique();
+	protected:
+		uint32_t m_Width, m_Height;
 		std::shared_ptr<Texture> m_Texture;
 	};
 }

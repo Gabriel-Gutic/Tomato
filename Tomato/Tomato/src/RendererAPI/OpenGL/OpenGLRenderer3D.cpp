@@ -3,6 +3,7 @@
 
 #include "RendererAPI/RendererData.h"
 #include "RendererAPI/OpenGL/OpenGLTexture.h"
+#include "RendererAPI/OpenGL/OpenGLFrameBuffer.h"
 #include "Tomato/Core/App/App.h"
 
 #include <glad/glad.h>
@@ -24,13 +25,16 @@ namespace Tomato
 		m_IndexBuffer = std::move(IndexBuffer::CreateUnique(MAX_INDEX_NUMBER, BufferAllocType::Dynamic));
 		m_VertexArray = std::move(VertexArray::CreateUnique());
 
+		m_FrameBuffer = nullptr;
+
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		//glCullFace(GL_BACK);
+		glCullFace(GL_FRONT);
 		glFrontFace(GL_CW);
 	}
 
@@ -40,18 +44,38 @@ namespace Tomato
 
 	void OpenGLRenderer3D::Begin()
 	{
-		OpenGLRenderer3D::Clear(0.0f, 0.0f, 0.0f, 1.0f);
+		bool drawToFramebuffer = m_FrameBuffer != nullptr;
+		if (drawToFramebuffer)
+		{
+			const auto& [w, h] = App::GetWindow()->GetSize().data;
+			m_FrameBuffer->SetSize(w, h);
+			std::dynamic_pointer_cast<OpenGLFrameBuffer>(m_FrameBuffer)->Bind();
+			std::dynamic_pointer_cast<OpenGLTexture>(m_FrameBuffer->GetTexture())->Bind();
 
-		m_Shader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection());
+			glCullFace(GL_FRONT);
+		}
+		else
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			
+			glCullFace(GL_BACK);
+		}
+		
+		OpenGLRenderer3D::Clear(0.8f, 0.2f, 0.3f, 1.0f);
+		
+		m_Shader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection(drawToFramebuffer));
 	}
 
 	void OpenGLRenderer3D::End()
 	{
 		Flush();
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void OpenGLRenderer3D::Clear(float r, float g, float b, float a) const
 	{
+		glEnable(GL_DEPTH_TEST);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(r, g, b, a);
 	}

@@ -88,7 +88,9 @@ namespace Tomato
 					m_EventQueue.pop();
 				}
 
-				if (!isRunning) return 0; // Close the app if the Exit() was called in through an event
+				// Close the app if the Exit() was called in through an event
+				if (!isRunning) 
+					return 0; 
 
 				GUI::Begin();
 				if (Renderer::GetType() == RendererType::_3D)

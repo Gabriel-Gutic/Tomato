@@ -20,10 +20,13 @@ class Layer3D : public Tomato::Layer
 public:
 	Layer3D()
 	{
+		m_FrameBuffer = Tomato::FrameBuffer::CreateShared();
+		Tomato::Renderer3D::SetFrameBuffer(m_FrameBuffer);
+
 		Tomato::App::GetWindow()->SetTitle("Tomato3D");
 		Tomato::GUI::ShowDockspace();
-		Tomato::GUI::HideMainMenu();
-		Tomato::GUI::HideSecondMenu();
+		//Tomato::GUI::HideMainMenu();
+		//Tomato::GUI::HideSecondMenu();
 
 		m_Cube = Tomato::Mesh::Cube();
 
@@ -51,7 +54,6 @@ public:
 		float angle = m_Timer.GetMilliseconds() / 10.0f;
 		Tomato::Mat4 rot = Tomato::Quaternion::Rotation(m_Rotation).ToMat4();
 		Tomato::Renderer3D::Get()->Draw(m_Cube, rot);
-
 
 		auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>();
 		auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
@@ -167,13 +169,15 @@ public:
 
 	virtual void OnGUI() override
 	{
-		bool show_demo_window = true;
-		if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);
-		
-		ImGui::Begin("Menu");
-		ImGui::Text("Menu");
-		ImGui::End();
+		Tomato::GUI::RenderWindow(m_FrameBuffer);
+
+		//bool show_demo_window = true;
+		//if (show_demo_window)
+		//	ImGui::ShowDemoWindow(&show_demo_window);
+		//
+		//ImGui::Begin("Menu");
+		//ImGui::Text("Menu");
+		//ImGui::End();
 	}
 private:
 	int m_CurrentCameraProjection = 1;
@@ -186,6 +190,7 @@ private:
 
 	Tomato::Mesh m_Cube;
 	Tomato::Float3 m_Rotation;
+	std::shared_ptr<Tomato::FrameBuffer> m_FrameBuffer;
 };
 
 

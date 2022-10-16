@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Renderer/Buffer/FrameBuffer.h"
+
 
 namespace Tomato::GUI
 {
@@ -13,10 +15,7 @@ namespace Tomato::GUI
 	void HideDockspace();
 	void Dockspace();
 
-	void ShowRenderWindow();
-	void HideRenderWindow();
-	void RenderWindow();
-	bool IsRenderWindowShown();
+	void RenderWindow(const std::shared_ptr<FrameBuffer>& fb);
 
 	void ShowMainMenu();
 	void HideMainMenu();

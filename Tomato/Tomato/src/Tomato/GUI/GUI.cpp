@@ -4,7 +4,6 @@
 #include <imgui/imgui.h>
 
 #include "Core/App/App.h"
-#include "Renderer/Renderer.h"
 #include "GUI_API.h"
 
 #include "RendererAPI/RendererAPI.h"
@@ -15,12 +14,10 @@ namespace Tomato::GUI
 {
     struct Data {
         static bool IsDockspaceShown;
-        static bool IsRenderWindowShown;
         static bool IsMainMenuShown;
         static bool IsSecondMenuShown;
     };
 	bool Data::IsDockspaceShown = false;
-	bool Data::IsRenderWindowShown = false;
     bool Data::IsMainMenuShown = false;
     bool Data::IsSecondMenuShown = false;
 
@@ -73,9 +70,6 @@ namespace Tomato::GUI
         if (Data::IsDockspaceShown)
         {
             Dockspace();
-            
-            if (Data::IsRenderWindowShown)
-                RenderWindow();
         }
     }
 
@@ -169,34 +163,23 @@ namespace Tomato::GUI
         ImGui::End();
     }
 
-    void ShowRenderWindow()
+    void RenderWindow(const std::shared_ptr<FrameBuffer>& fb)
     {
-        Data::IsRenderWindowShown = true;
-    }
+        if (fb)
+        {
+            ImGui::Begin("RenderWindow");
 
-    void HideRenderWindow()
-    {
-        Data::IsRenderWindowShown = false;
-    }
+            auto [w, h] = fb->GetSize().data;
+            ImVec2 size = ImGui::GetWindowSize();
 
-    void RenderWindow()
-    {
-		ImGui::Begin("RenderWindow");
+            if (RendererAPI::GetType() == RendererAPI::Type::OpenGL)
+            {
+                uint32_t id = std::dynamic_pointer_cast<OpenGLTexture>(fb->GetTexture())->GetID();
+                ImGui::Image((ImTextureID)id, ImVec2(size.x, (size.x * h) / (float)w));
+            }
 
-        //auto [w, h] = Renderer::GetFrameBuffer()->GetSize();
-        //ImVec2 size = ImGui::GetWindowSize();
-        //
-        //if (RendererAPI::GetType() == RendererAPI::Type::OpenGL)
-        //{
-        //    uint32_t id = std::dynamic_pointer_cast<OpenGLTexture>(Renderer::GetFrameBuffer()->GetTexture())->GetID();
-        //    ImGui::Image((ImTextureID)id, ImVec2(size.x, (size.x * h) / (float)w));
-        //}
-		//ImGui::End();
-    }
-
-    bool IsRenderWindowShown()
-    {
-        return Data::IsRenderWindowShown;
+            ImGui::End();
+        }
     }
 
     void ShowMainMenu()

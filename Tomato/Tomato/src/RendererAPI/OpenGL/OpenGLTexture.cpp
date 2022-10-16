@@ -28,6 +28,8 @@ namespace Tomato
 		int gl_format = ConvertFormat(format);
 		glTexImage2D(GL_TEXTURE_2D, 0, gl_format, width, height, 0, gl_format, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	OpenGLTexture::OpenGLTexture(std::string_view path)
@@ -43,6 +45,8 @@ namespace Tomato
 
 		glTexImage2D(GL_TEXTURE_2D, 0, gl_format, m_Width, m_Height, 0, gl_format, GL_UNSIGNED_BYTE, image->GetData());
 		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	OpenGLTexture::~OpenGLTexture()

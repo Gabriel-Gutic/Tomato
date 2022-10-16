@@ -67,6 +67,11 @@ namespace Tomato
 		return s_Instance;
 	}
 
+	void Renderer3D::SetFrameBuffer(const std::shared_ptr<FrameBuffer>& fb)
+	{
+		s_Instance->m_FrameBuffer = fb;
+	}
+
 	float Renderer3D::GetTextureIndex(const std::shared_ptr<Texture>& texture)
 	{
 		float texIndex = -1.0f;

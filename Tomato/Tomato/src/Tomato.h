@@ -18,6 +18,7 @@
 #include "Tomato/Renderer/Texture/Tilemap.h"
 #include "Tomato/Renderer/Renderer.h"
 #include "Tomato/Renderer/Renderer3D.h"
+#include "Tomato/Renderer/Buffer/FrameBuffer.h"
 
 //ImGui
 #include <imgui/imgui.h>
