@@ -29,6 +29,12 @@ namespace Tomato::Math
 	float Trunc(float number, unsigned int precision = 2);
 	double Trunc(double number, unsigned int precision = 2);
 
+	float Exp(float x);
+	float Log(float x);
+	float Log2(float x);
+	float Log10(float x);
+	float Log(float base, float x);
+	float Pow(float a, float b);
 
 	// Trigonometric Functions
 	float Sin(float rad);

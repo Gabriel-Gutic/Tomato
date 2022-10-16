@@ -159,6 +159,36 @@ namespace Tomato
 		return floor(number * power) / (double)power;
 	}
 
+	float Math::Exp(float x)
+	{
+		return expf(x);
+	}
+
+	float Math::Log(float x)
+	{
+		return logf(x);
+	}
+
+	float Math::Log2(float x)
+	{
+		return log2f(x);
+	}
+
+	float Math::Log10(float x)
+	{
+		return log10f(x);
+	}
+
+	float Math::Log(float base, float x)
+	{
+		return Log(x) / Log(base);
+	}
+
+	float Math::Pow(float a, float b)
+	{
+		return Exp(a * Log(b));
+	}
+
 	float Math::Sin(float rad)
 	{
 		return sinf(rad);
