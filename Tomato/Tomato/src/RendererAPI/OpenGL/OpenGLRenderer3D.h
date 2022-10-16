@@ -15,10 +15,7 @@ namespace Tomato
 
 		virtual void Clear(float r, float g, float b, float a) const override;
 		virtual void Swap() const override;
-
-		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f)) override;
 	private:
-		float GetTextureIndex(const std::shared_ptr<Texture>& texture);
 		virtual void Flush() override;
 	};
 }

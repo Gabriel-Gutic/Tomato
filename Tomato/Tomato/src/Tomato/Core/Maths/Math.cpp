@@ -159,6 +159,146 @@ namespace Tomato
 		return floor(number * power) / (double)power;
 	}
 
+	float Math::Sin(float rad)
+	{
+		return sinf(rad);
+	}
+
+	float Math::Cos(float rad)
+	{
+		return cosf(rad);
+	}
+
+	float Math::Tan(float rad)
+	{
+		return tanf(rad);
+	}
+
+	float Math::ASin(float rad)
+	{
+		TOMATO_ASSERT(-1.0f <= rad && rad <= 1, "ASin invalid parameter: {0}", rad);
+		return asinf(rad);
+	}
+
+	float Math::ACos(float rad)
+	{
+		TOMATO_ASSERT(-1.0f <= rad && rad <= 1, "ACos invalid parameter: {0}", rad);
+		return acosf(rad);
+	}
+
+	float Math::ATan(float rad)
+	{
+		return atanf(rad);
+	}
+
+	float Math::Csc(float rad)
+	{
+		float _sin = Sin(rad);
+		TOMATO_ASSERT(_sin != 0.0f, "Csc invalid parameter: {0}", rad);
+		return 1.0f / _sin;
+	}
+
+	float Math::Sec(float rad)
+	{
+		float _cos = Cos(rad);
+		TOMATO_ASSERT(_cos != 0.0f, "Sec invalid parameter: {0}", rad);
+		return 1.0f / _cos;
+	}
+
+	float Math::Cot(float rad)
+	{
+		float _tan = Tan(rad);
+		TOMATO_ASSERT(_tan != 0.0f, "Cot invalid parameter: {0}", rad);
+		return 1.0f / _tan;
+	}
+
+	float Math::ACsc(float rad)
+	{
+		TOMATO_ASSERT(rad != 0.0f, "ACsc invalid argument: {0}", rad);
+		return ASin(1.0f / rad);
+	}
+
+	float Math::ASec(float rad)
+	{
+		TOMATO_ASSERT(rad != 0.0f, "ACsc invalid argument: {0}", rad);
+		return ACos(1.0f / rad);
+	}
+
+	float Math::ACot(float rad)
+	{
+		TOMATO_ASSERT(rad != 0.0f, "ACsc invalid argument: {0}", rad);
+		return ATan(1.0f / rad);
+	}
+
+	float Math::Sinh(float rad)
+	{
+		return sinhf(rad);
+	}
+
+	float Math::Cosh(float rad)
+	{
+		return coshf(rad);
+	}
+
+	float Math::Tanh(float rad)
+	{
+		return tanhf(rad);
+	}
+
+	float Math::ASinh(float rad)
+	{
+		return asinh(rad);
+	}
+
+	float Math::ACosh(float rad)
+	{
+		return acosh(rad);
+	}
+
+	float Math::ATanh(float rad)
+	{
+		return atanh(rad);
+	}
+
+	float Math::Csch(float rad)
+	{
+		float _sinh = Sinh(rad);
+		TOMATO_ASSERT(_sinh != 0.0f, "Csch invalid argument: {0}", rad);
+		return 1.0f / _sinh;
+	}
+
+	float Math::Sech(float rad)
+	{
+		float _sech = Sech(rad);
+		TOMATO_ASSERT(_sech != 0.0f, "Sech invalid argument: {0}", rad);
+		return 1.0f / _sech;
+	}
+
+	float Math::Coth(float rad)
+	{
+		float _tanh = Tanh(rad);
+		TOMATO_ASSERT(_tanh != 0.0f, "Coth invalid argument: {0}", rad);
+		return 1.0f / _tanh;
+	}
+
+	float Math::ACsch(float rad)
+	{
+		TOMATO_ASSERT(rad != 0.0f, "ACsch invalid argument: {0}", rad);
+		return ASinh(1.0f / rad);
+	}
+
+	float Math::ASech(float rad)
+	{
+		TOMATO_ASSERT(rad != 0.0f, "ASech invalid argument: {0}", rad);
+		return ACosh(1.0f / rad);
+	}
+
+	float Math::ACoth(float rad)
+	{
+		TOMATO_ASSERT(rad != 0.0f, "ACoth invalid argument: {0}", rad);
+		return ATanh(1.0f / rad);
+	}
+
 	float Math::Radians(float degrees)
 	{
 		return degrees * (pi / 180);

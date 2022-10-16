@@ -29,6 +29,40 @@ namespace Tomato::Math
 	float Trunc(float number, unsigned int precision = 2);
 	double Trunc(double number, unsigned int precision = 2);
 
+
+	// Trigonometric Functions
+	float Sin(float rad);
+	float Cos(float rad);
+	float Tan(float rad);
+
+	float ASin(float rad);
+	float ACos(float rad);
+	float ATan(float rad);
+
+	float Csc(float rad);
+	float Sec(float rad);
+	float Cot(float rad);
+
+	float ACsc(float rad);
+	float ASec(float rad);
+	float ACot(float rad);
+
+	float Sinh(float rad);
+	float Cosh(float rad);
+	float Tanh(float rad);
+
+	float ASinh(float rad);
+	float ACosh(float rad);
+	float ATanh(float rad);
+
+	float Csch(float rad);
+	float Sech(float rad);
+	float Coth(float rad);
+
+	float ACsch(float rad);
+	float ASech(float rad);
+	float ACoth(float rad);
+
 	// Angles
 	float Radians(float degrees);
 	float Degrees(float radians);

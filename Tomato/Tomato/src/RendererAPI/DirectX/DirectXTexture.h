@@ -20,7 +20,7 @@ namespace Tomato
 		std::any m_ResourceView;
 	};
 #else
-	class DirectXTexture : Texture
+	class DirectXTexture : public Texture
 	{
 	public:
 		DirectXTexture(uint32_t width, uint32_t height, const uint8_t* data = nullptr, Image::Format format = Image::Format::RGB){}

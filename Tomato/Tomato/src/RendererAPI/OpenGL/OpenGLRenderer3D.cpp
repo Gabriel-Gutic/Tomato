@@ -11,19 +11,11 @@
 
 namespace Tomato
 {
-	struct OpenGLRendererData
+	struct OpenGLRenderer3DData
 	{
-		std::array<Mesh::Vertex, MAX_VERTEX_NUMBER> Vertices = {};
-		uint32_t VertexCounter = 0;
-		std::array<uint32_t, MAX_INDEX_NUMBER> Indices = {};
-		uint32_t IndexCounter = 0;
-		std::array<std::shared_ptr<Texture>, MAX_TEXTURE_SLOTS> TextureSlots;
-		uint32_t TextureSlotsCounter;
-
-		const std::array<int, MAX_TEXTURE_SLOTS> TextureUnits = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+		static const std::array<int, MAX_TEXTURE_SLOTS> TextureUnits;
 	};
-	static OpenGLRendererData RendererData;
-
+	const std::array<int, MAX_TEXTURE_SLOTS> OpenGLRenderer3DData::TextureUnits = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
 
 	OpenGLRenderer3D::OpenGLRenderer3D()
 	{
@@ -73,82 +65,31 @@ namespace Tomato
 		glfwPollEvents();
 	}
 
-	void OpenGLRenderer3D::Draw(const Mesh& mesh, const Mat4& transform)
-	{
-		if (RendererData.VertexCounter + mesh.Vertices.size() >= MAX_VERTEX_NUMBER ||
-			RendererData.IndexCounter + mesh.Indices.size() >= MAX_INDEX_NUMBER ||
-			RendererData.TextureSlotsCounter + mesh.Textures.size() >= MAX_TEXTURE_SLOTS)
-			Flush();
-		if (RendererData.VertexCounter + mesh.Vertices.size() >= MAX_VERTEX_NUMBER ||
-			RendererData.IndexCounter + mesh.Indices.size() >= MAX_INDEX_NUMBER ||
-			RendererData.TextureSlotsCounter + mesh.Textures.size() >= MAX_TEXTURE_SLOTS)
-			return;
-
-		for (const auto& index : mesh.Indices)
-		{
-			RendererData.Indices[RendererData.IndexCounter++] = RendererData.VertexCounter + index;
-		}
-
-		for (auto vertex : mesh.Vertices)
-		{
-			float texIndex = -1.0f;
-			if (vertex.TexIndex >= 0.0f)
-				texIndex = GetTextureIndex(mesh.Textures[static_cast<int>(vertex.TexIndex)]);
-			vertex.Position = (transform * Float4(vertex.Position, 1.0f)).xyz;
-			vertex.Normal = (transform * Float4(vertex.Normal, 1.0f)).xyz;
-			vertex.TexIndex = texIndex;
-			RendererData.Vertices[RendererData.VertexCounter++] = vertex;
-		}
-	}
-
 	void OpenGLRenderer3D::Flush()
 	{
 		m_Shader->Use();
 
 		m_VertexBuffer->Bind();
-		m_VertexBuffer->SetData(RendererData.Vertices, RendererData.VertexCounter);
+		m_VertexBuffer->SetData(m_Data.Vertices, m_Data.VertexCounter);
 		m_VertexBuffer->Unbind();
 
 		m_IndexBuffer->Bind();
-		m_IndexBuffer->SetData(RendererData.Indices, RendererData.IndexCounter);
+		m_IndexBuffer->SetData(m_Data.Indices, m_Data.IndexCounter);
 		m_IndexBuffer->Unbind();
 
-		for (uint32_t i = 0; i < RendererData.TextureSlotsCounter; i++)
-			std::dynamic_pointer_cast<OpenGLTexture>(RendererData.TextureSlots[i])->BindUnit(i);
+		for (uint32_t i = 0; i < m_Data.TextureSlotsCounter; i++)
+			std::dynamic_pointer_cast<OpenGLTexture>(m_Data.TextureSlots[i])->BindUnit(i);
 		
-		m_Shader->SetIntArray("u_Textures", RendererData.TextureUnits);
+		m_Shader->SetIntArray("u_Textures", OpenGLRenderer3DData::TextureUnits);
 
 		m_VertexArray->Bind();
 
-		glDrawElements(GL_TRIANGLES, RendererData.IndexCounter, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, m_Data.IndexCounter, GL_UNSIGNED_INT, 0);
 
-		RendererData.VertexCounter = 0;
-		RendererData.IndexCounter = 0;
-		RendererData.TextureSlotsCounter = 0;
+		m_Data.VertexCounter = 0;
+		m_Data.IndexCounter = 0;
+		m_Data.TextureSlotsCounter = 0;
 
 		m_VertexArray->Unbind();
-	}
-
-	float OpenGLRenderer3D::GetTextureIndex(const std::shared_ptr<Texture>& texture)
-	{
-		float texIndex = -1.0f;
-		if (texture)
-		{
-			// Check if texture allready exist in RendererData.TextureSlots
-			for (uint32_t i = 0; i < RendererData.TextureSlotsCounter; i++)
-			{
-				if (texture == RendererData.TextureSlots[i])
-					texIndex = static_cast<float>(i);
-			}
-			// Add the texture to RendererData.TextureSlots if it doesn't exist 
-			if (texIndex == -1.0f)
-			{
-				if (RendererData.TextureSlotsCounter >= MAX_TEXTURE_SLOTS)
-					Flush();
-				texIndex = static_cast<float>(RendererData.TextureSlotsCounter);
-				RendererData.TextureSlots[RendererData.TextureSlotsCounter++] = texture;
-			}
-		}
-		return texIndex;
 	}
 }

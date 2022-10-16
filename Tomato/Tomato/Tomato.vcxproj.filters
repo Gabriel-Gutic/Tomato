@@ -78,10 +78,16 @@
     <ClInclude Include="src\RendererAPI\DirectX\DirectXIndexBuffer.h">
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXInput.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
     <ClInclude Include="src\RendererAPI\DirectX\DirectXRenderer3D.h">
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\DirectX\DirectXShader.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXTexture.h">
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\DirectX\DirectXVertexBuffer.h">
@@ -106,6 +112,9 @@
       <Filter>RendererAPI\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLShader.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLTexture.h">
       <Filter>RendererAPI\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLVertexArray.h">
@@ -308,9 +317,6 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLTexture.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXTexture.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
@@ -325,10 +331,16 @@
     <ClCompile Include="src\RendererAPI\DirectX\DirectXIndexBuffer.cpp">
       <Filter>RendererAPI\DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXInput.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXRenderer3D.cpp">
       <Filter>RendererAPI\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXShader.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXTexture.cpp">
       <Filter>RendererAPI\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXVertexBuffer.cpp">
@@ -353,6 +365,9 @@
       <Filter>RendererAPI\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLShader.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLTexture.cpp">
       <Filter>RendererAPI\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLVertexArray.cpp">
@@ -509,8 +524,5 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLTexture.cpp" />
-    <ClCompile Include="src\RendererAPI\DirectX\DirectXTexture.cpp" />
-    <ClCompile Include="src\RendererAPI\DirectX\DirectXInput.cpp" />
   </ItemGroup>
 </Project>

@@ -1,19 +1,36 @@
 #include "pch.h"
 
+class Tomato3DMenuBar : public Tomato::MenuBar
+{
+public:
+	Tomato3DMenuBar()
+	{
+
+	}
+
+	~Tomato3DMenuBar()
+	{
+
+	}
+private:
+};
+
 class Layer3D : public Tomato::Layer
 {
 public:
 	Layer3D()
 	{
 		Tomato::App::GetWindow()->SetTitle("Tomato3D");
-		// Tomato::GUI::ShowDockspace();
+		Tomato::GUI::ShowDockspace();
+		Tomato::GUI::HideMainMenu();
+		Tomato::GUI::HideSecondMenu();
 
 		m_Cube = Tomato::Mesh::Cube();
 
 		m_Cube.Textures.push_back(Tomato::Texture::CreateShared("assets/Images/grass_bottom.png"));
 		m_Cube.Textures.push_back(Tomato::Texture::CreateShared("assets/Images/grass_side.png"));
 		m_Cube.Textures.push_back(Tomato::Texture::CreateShared("assets/Images/grass_top.jpg"));
-	
+
 		uint32_t i;
 		for (i = 0; i < 4; i++)
 			m_Cube.Vertices[i].TexIndex = 0.0f;
@@ -150,13 +167,13 @@ public:
 
 	virtual void OnGUI() override
 	{
-		//bool show_demo_window = true;
-		//if (show_demo_window)
-		//	ImGui::ShowDemoWindow(&show_demo_window);
-		//
-		//ImGui::Begin("Menu");
-		//ImGui::Text("Menu");
-		//ImGui::End();
+		bool show_demo_window = true;
+		if (show_demo_window)
+			ImGui::ShowDemoWindow(&show_demo_window);
+		
+		ImGui::Begin("Menu");
+		ImGui::Text("Menu");
+		ImGui::End();
 	}
 private:
 	int m_CurrentCameraProjection = 1;
@@ -180,6 +197,8 @@ public:
 	{
 		auto& scene = this->CreateScene("3D Scene");
 		scene->PushLayer(new Layer3D());
+
+		App::SetMenuBar(new Tomato3DMenuBar());
 	}
 	virtual ~Tomato3D() override = default;
 };

@@ -39,6 +39,8 @@ namespace Tomato
 	{
 		GUI::Terminate();
 		Registry::Terminate();
+		if (Renderer::GetType() == RendererType::_3D)
+			Renderer3D::Terminate();
 	}
 
 	int App::Run()

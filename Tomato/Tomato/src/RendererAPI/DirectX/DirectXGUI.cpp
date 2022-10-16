@@ -39,7 +39,7 @@ namespace Tomato
 		ImGui_ImplWin32_NewFrame();
 
 		DirectXDevice::SetRenderTarget();
-		Renderer3D::Get()->Clear(1.0f, 0.5f, 0.2f, 1.0f);
+		Renderer3D::Get()->Clear(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 
 	void DirectXGUI::End()
