@@ -41,6 +41,8 @@ public:
 			m_Cube.Vertices[i].TexIndex = 1.0f;
 		for (; i < 24; i++)
 			m_Cube.Vertices[i].TexIndex = 2.0f;
+
+		Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position.y = -1.0f;
 	}
 
 	void OnUpdate(float dt)
@@ -53,7 +55,9 @@ public:
 
 		float angle = m_Timer.GetMilliseconds() / 10.0f;
 		Tomato::Mat4 rot = Tomato::Quaternion::Rotation(m_Rotation).ToMat4();
-		Tomato::Renderer3D::Get()->Draw(m_Cube, rot);
+		//Tomato::Renderer3D::Get()->Draw(m_Cube, rot);
+
+		DrawLines();
 
 		auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>();
 		auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
@@ -68,47 +72,24 @@ public:
 		float rotationSpeed = 30.0f * dt;
 
 		float cameraSpeed = m_CameraSpeed * dt;
-		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
+
+		float squareSpeed = m_SquareSpeed * dt;
+
+		if (Tomato::Input::Keyboard(TOMATO_KEY_A))
 		{
-			m_Rotation.y += rotationSpeed;
-			//tran.Position.x -= cameraSpeed;
-			//camera.Target.x -= 2 * cameraSpeed;
+			m_SquarePos.x -= squareSpeed;
 		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
+		if (Tomato::Input::Keyboard(TOMATO_KEY_D))
 		{
-			m_Rotation.y -= rotationSpeed;
-			//tran.Position.x += cameraSpeed;
-			//camera.Target.x += 2 * cameraSpeed;
+			m_SquarePos.x += squareSpeed;
 		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_UP))
+		if (Tomato::Input::Keyboard(TOMATO_KEY_W))
 		{
-			m_Rotation.x -= rotationSpeed;
-			//tran.Position.y += cameraSpeed;
-			//camera.Target.y += 2 * cameraSpeed;
+			m_SquarePos.y += squareSpeed;
 		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_DOWN))
+		if (Tomato::Input::Keyboard(TOMATO_KEY_S))
 		{
-			m_Rotation.x += rotationSpeed;
-			//tran.Position.y -= cameraSpeed;
-			//camera.Target.y -= 2 * cameraSpeed;
-		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_NUMPAD_8))
-		{
-			//tran.Position.z -= cameraSpeed;
-			//camera.Target.z -= 2 * cameraSpeed;
-		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_NUMPAD_2))
-		{
-			//tran.Position.z += cameraSpeed;
-			//camera.Target.z += 2 * cameraSpeed;
-		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_NUMPAD_4))
-		{
-			m_Rotation.z += rotationSpeed;
-		}
-		if (Tomato::Input::Keyboard(TOMATO_KEY_NUMPAD_6))
-		{
-			m_Rotation.z -= rotationSpeed;
+			m_SquarePos.y -= squareSpeed;
 		}
 		
 		if (Tomato::Input::Keyboard(TOMATO_KEY_MINUS))
@@ -125,44 +106,16 @@ public:
 	{
 		if (e.GetType() == Tomato::EventType::KeyPress)
 		{
-			auto& camera = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>();
-			auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
-
-			float cameraSpeed = m_CameraSpeed * 0.1f;
 			auto ev = Tomato::Event::Cast<Tomato::KeyPressEvent>(e);
 			if (ev.GetKey() == TOMATO_KEY_LEFT)
 			{
-				//m_Rotation.y += rotationSpeed;
-				//tran.Position.x -= cameraSpeed;
-				//camera.Target.x -= 2 * cameraSpeed;
+				m_CameraTheta -= m_CameraSpeed;
+				CameraRepositioning();
 			}
 			if (ev.GetKey() == TOMATO_KEY_RIGHT)
 			{
-				//m_Rotation.y -= rotationSpeed;
-				//tran.Position.x += cameraSpeed;
-				//camera.Target.x += 2 * cameraSpeed;
-			}
-			if (ev.GetKey() == TOMATO_KEY_UP)
-			{
-				//m_Rotation.x -= rotationSpeed;
-				//tran.Position.y += cameraSpeed;
-				//camera.Target.y += 2 * cameraSpeed;
-			}
-			if (ev.GetKey() == TOMATO_KEY_DOWN)
-			{
-				//m_Rotation.x += rotationSpeed;
-				//tran.Position.y -= cameraSpeed;
-				//camera.Target.y -= 2 * cameraSpeed;
-			}
-			if (ev.GetKey() == TOMATO_KEY_NUMPAD_8)
-			{
-				//tran.Position.z -= cameraSpeed;
-				//camera.Target.z -= 2 * cameraSpeed;
-			}
-			if (ev.GetKey() == TOMATO_KEY_NUMPAD_2)
-			{
-				//tran.Position.z += cameraSpeed;
-				//camera.Target.z += 2 * cameraSpeed;
+				m_CameraTheta += m_CameraSpeed;
+				CameraRepositioning();
 			}
 		}
 	}
@@ -174,23 +127,46 @@ public:
 		bool show_demo_window = true;
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
-		//
-		//ImGui::Begin("Menu");
-		//ImGui::Text("Menu");
-		//ImGui::End();
+		
+		ImGui::Begin("Menu");
+
+		const char* const cameraTypes[] = { "Orthographic", "Perspective" };
+		ImGui::Combo("Camera Type", &m_CurrentCameraProjection, cameraTypes, 2);
+		ImGui::End();
 	}
 private:
-	int m_CurrentCameraProjection = 1;
+	void DrawLines()
+	{
+		//Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
+		Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, 0.5);
+		Tomato::Renderer3D::Get()->DrawLine({-0.5, -0.5}, {0.5, -0.5}, Tomato::Color::Red);
+		//Tomato::Renderer3D::Get()->DrawSquare({ 0.5, 0.5 }, 0.5);
+	}
 
-	float m_CameraSpeed = 3.0f;
+	void CameraRepositioning()
+	{
+		auto& tran = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>();
+
+		tran.Position.x = 3 * Tomato::Math::Cos(m_CameraTheta);
+		tran.Position.z = 3 * Tomato::Math::Sin(m_CameraTheta);
+	}
+private:
+	float m_CameraSpeed = 0.1f;
 	float m_CameraOrthoSize = 1.0f;
 	float m_CameraFOV = 45.0f;
+	float m_CameraTheta = Tomato::Math::pi / 2.0f;
 
 	Tomato::Timer m_Timer;
+
+	Tomato::Float2 m_SquarePos = { -0.5, 0.5 };
+	float m_SquareSpeed = 0.4f;
 
 	Tomato::Mesh m_Cube;
 	Tomato::Float3 m_Rotation;
 	std::shared_ptr<Tomato::FrameBuffer> m_FrameBuffer;
+
+	// GUI
+	int m_CurrentCameraProjection = 1;
 };
 
 

@@ -105,8 +105,8 @@
     <ClInclude Include="src\RendererAPI\DirectX\DirectXTexture.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXVertexBuffer.h" />
     <ClInclude Include="src\RendererAPI\DirectX\DirectXWindow.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLInput.h" />
@@ -120,6 +120,7 @@
     <ClInclude Include="src\RendererAPI\RendererData.h" />
     <ClInclude Include="src\Tomato.h" />
     <ClInclude Include="src\Tomato\Core\App\App.h" />
+    <ClInclude Include="src\Tomato\Core\App\Color.h" />
     <ClInclude Include="src\Tomato\Core\App\ImGuiLayer.h" />
     <ClInclude Include="src\Tomato\Core\App\Layer.h" />
     <ClInclude Include="src\Tomato\Core\App\MenuBar.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\Tomato\Renderer\Buffer\Vertex.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexArray.h" />
     <ClInclude Include="src\Tomato\Renderer\Buffer\VertexBuffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Line.h" />
     <ClInclude Include="src\Tomato\Renderer\Mesh.h" />
     <ClInclude Include="src\Tomato\Renderer\Renderer.h" />
     <ClInclude Include="src\Tomato\Renderer\Renderer3D.h" />
@@ -194,8 +196,8 @@
     <ClCompile Include="src\RendererAPI\DirectX\DirectXTexture.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXVertexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\DirectX\DirectXWindow.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLInput.cpp" />
@@ -207,6 +209,7 @@
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLWindow.cpp" />
     <ClCompile Include="src\RendererAPI\RendererAPI.cpp" />
     <ClCompile Include="src\Tomato\Core\App\App.cpp" />
+    <ClCompile Include="src\Tomato\Core\App\Color.cpp" />
     <ClCompile Include="src\Tomato\Core\App\EntryPoint.cpp" />
     <ClCompile Include="src\Tomato\Core\App\Object.cpp" />
     <ClCompile Include="src\Tomato\Core\App\UUID.cpp" />
@@ -237,6 +240,7 @@
     <ClCompile Include="src\Tomato\Renderer\Buffer\Vertex.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexArray.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Buffer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Line.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Mesh.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Renderer3D.cpp" />

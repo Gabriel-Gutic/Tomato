@@ -4,6 +4,7 @@
 #include "Buffer/IndexBuffer.h"
 #include "Buffer/VertexArray.h"
 #include "Buffer/FrameBuffer.h"
+#include "Line.h"
 
 #include "RendererAPI/RendererData.h"
 
@@ -29,6 +30,12 @@ namespace Tomato
 
 		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f));
 		
+		// Simple objects for drawing
+		virtual void DrawTriangle(const Float3& center = Float3(), float scale = 1.0f, const Mat4& transform = Mat4(1.0f));
+		virtual void DrawSquare(const Float3& center = Float3(), float scale = 1.0f, const Mat4& transform = Mat4(1.0f));
+		virtual void DrawLine(const Float3& A, const Float3& B, const Float3& color = Float3(1.0f, 1.0f, 1.0f));
+
+
 		static Renderer3D* Get();
 		static void SetFrameBuffer(const std::shared_ptr<FrameBuffer>& fb);
 		static const std::shared_ptr<FrameBuffer>& GetFrameBuffer();
@@ -44,6 +51,9 @@ namespace Tomato
 			uint32_t IndexCounter = 0;
 			std::array<std::shared_ptr<Texture>, MAX_TEXTURE_SLOTS> TextureSlots = {};
 			uint32_t TextureSlotsCounter = 0;
+
+			std::array<Line::Vertex, MAX_VERTEX_NUMBER> LineVertices = {};
+			uint32_t LineVertexCounter = 0;
 		} m_Data;
 
 		std::unique_ptr<Shader> m_Shader;

@@ -7,7 +7,7 @@ namespace Tomato
 	class OpenGLVertexArray : public VertexArray
 	{
 	public:
-		OpenGLVertexArray();
+		OpenGLVertexArray(const std::initializer_list<uint8_t>& layout = {});
 		virtual ~OpenGLVertexArray() override;
 
 		virtual void Bind() override;

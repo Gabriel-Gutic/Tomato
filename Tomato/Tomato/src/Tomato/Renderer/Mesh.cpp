@@ -7,10 +7,12 @@ namespace Tomato
 	Mesh Mesh::TriangleMesh()
 	{
 		Mesh mesh;
-		mesh.Vertices = { Vertex(Float3(0.0f, 0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.5f, 1.0f)), 
+		mesh.Vertices = { 
+			Vertex(Float3(0.0f, 0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.5f, 1.0f)), 
 			Vertex(Float3(-0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.0f, 0.0f)), 
-			Vertex(Float3(0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(1.0f, 0.0f)) };
-		mesh.Indices = { 0, 1, 2 };
+			Vertex(Float3(0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(1.0f, 0.0f)) 
+		};
+		mesh.Indices = { 2, 1, 0 };
 		return mesh;
 	}
 

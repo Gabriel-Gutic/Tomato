@@ -40,8 +40,6 @@ files = {
     "Layer.cpp": "{0}Layer.cpp".format(project_name),
     "Layer.h": "{0}Layer.h".format(project_name),
     "Main.cpp": "Main.cpp",
-    "MenuBar.cpp": "{0}MenuBar.cpp".format(project_name),
-    "MenuBar.h": "{0}MenuBar.h".format(project_name),
     "pch.cpp": "pch{0}.cpp".format(project_name),
     "pch.h": "pch{0}.h".format(project_name),
 }

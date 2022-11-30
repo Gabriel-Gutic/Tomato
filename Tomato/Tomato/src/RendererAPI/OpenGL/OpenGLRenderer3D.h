@@ -17,5 +17,9 @@ namespace Tomato
 		virtual void Swap() const override;
 	private:
 		virtual void Flush() override;
+	private:
+		std::unique_ptr<Shader> m_LineShader;
+		std::unique_ptr<VertexArray> m_LineVertexArray;
+		std::unique_ptr<VertexBuffer> m_LineVertexBuffer;
 	};
 }

@@ -72,6 +72,9 @@
     <ClInclude Include="src\RendererAPI\DirectX\DirectXDevice.h">
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
+    <ClInclude Include="src\RendererAPI\DirectX\DirectXFrameBuffer.h">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClInclude>
     <ClInclude Include="src\RendererAPI\DirectX\DirectXGUI.h">
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
@@ -97,6 +100,9 @@
       <Filter>RendererAPI\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLBuffer.h">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.h">
       <Filter>RendererAPI\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererAPI\OpenGL\OpenGLGUI.h">
@@ -317,14 +323,17 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\pchTomato.h" />
-    <ClInclude Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.h" />
-    <ClInclude Include="src\RendererAPI\DirectX\DirectXFrameBuffer.h" />
+    <ClInclude Include="src\Tomato\Renderer\Line.h" />
+    <ClInclude Include="src\Tomato\Core\App\Color.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
       <Filter>RendererAPI\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXDevice.cpp">
+      <Filter>RendererAPI\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\DirectX\DirectXFrameBuffer.cpp">
       <Filter>RendererAPI\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXGUI.cpp">
@@ -352,6 +361,9 @@
       <Filter>RendererAPI\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLBuffer.cpp">
+      <Filter>RendererAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.cpp">
       <Filter>RendererAPI\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererAPI\OpenGL\OpenGLGUI.cpp">
@@ -526,7 +538,7 @@
       <Filter>Tomato\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\pchTomato.cpp" />
-    <ClCompile Include="src\RendererAPI\OpenGL\OpenGLFrameBuffer.cpp" />
-    <ClCompile Include="src\RendererAPI\DirectX\DirectXFrameBuffer.cpp" />
+    <ClCompile Include="src\Tomato\Renderer\Line.cpp" />
+    <ClCompile Include="src\Tomato\Core\App\Color.cpp" />
   </ItemGroup>
 </Project>

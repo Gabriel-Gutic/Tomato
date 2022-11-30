@@ -102,6 +102,10 @@
       <Project>{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Shaders\3D\LineFragmentShader.glsl" />
+    <None Include="assets\Shaders\3D\LineVertexShader.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

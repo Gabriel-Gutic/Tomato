@@ -11,12 +11,12 @@ uniform sampler2D u_Textures[32];
 
 void main()
 {
-	vec3 light = normalize(vec3(0.0, -2.0, 0.0));
-	vec3 normal = normalize(o_Normal);
-	float prod = max(dot(-light, normal), 0.0);
+	//vec3 light = normalize(vec3(0.0, -2.0, 0.0));
+	//vec3 normal = normalize(o_Normal);
+	//float prod = max(dot(-light, normal), 0.0);
 	if (o_TexIndex < 0)
 	{
-		FragColor = vec4(prod * o_Color.xyz, o_Color.w);
+		FragColor = o_Color;
 	}
 	else
 	{

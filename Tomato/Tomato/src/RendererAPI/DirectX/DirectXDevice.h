@@ -18,13 +18,13 @@ namespace Tomato
 		static void Clear(const Float4& color);
 		static void Swap();
 		static void SetRenderTarget(std::any rt);
-		static void RefreshRenderTarget(std::any rt, uint32_t width, uint32_t height);
+		static std::any RefreshRenderTarget(std::any rt, uint32_t width, uint32_t height);
 
 		static std::any GetDevice();
 		static std::any GetDeviceContext();
 		static std::any GetSwapChain();
 		static std::any GetBackBuffer();
-	private:
+		static void SetBackBuffer(std::any backbuffer);
 		static void SetViewport(uint32_t width, uint32_t height);
 	private:
 		static DirectXDevice* s_Instance;

@@ -62,6 +62,30 @@ namespace Tomato
 		}
 	}
 
+	void Renderer3D::DrawTriangle(const Float3& center, float scale, const Mat4& transform)
+	{
+		Mesh mesh = Mesh::TriangleMesh();
+		Mat4 tran = Math::Translate(center) * transform * Math::Scale(Float3(scale, scale, 1.0f));
+		Draw(mesh, tran);
+	}
+
+	void Renderer3D::DrawSquare(const Float3& center, float scale, const Mat4& transform)
+	{
+		Mesh mesh = Mesh::QuadMesh();
+		Mat4 tran = Math::Translate(center) * transform * Math::Scale(Float3(scale, scale, 1.0f));
+		Draw(mesh, tran);
+	}
+
+	void Renderer3D::DrawLine(const Float3& A, const Float3& B, const Float3& color)
+	{
+		auto& index = m_Data.LineVertexCounter;
+		if (index + 2 >= MAX_VERTEX_NUMBER)
+			Flush();
+
+		m_Data.LineVertices[index++] = Line::Vertex(A, color);
+		m_Data.LineVertices[index++] = Line::Vertex(B, color);
+	}
+
 	Renderer3D* Renderer3D::Get()
 	{
 		return s_Instance;

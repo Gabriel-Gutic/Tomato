@@ -144,11 +144,15 @@ namespace Tomato
 
             if (wParam != SIZE_MINIMIZED)
             {
-                DirectXDevice::RefreshRenderTarget(DirectXDevice::GetBackBuffer(), width, height);
+                DirectXDevice::SetBackBuffer(DirectXDevice::RefreshRenderTarget(DirectXDevice::GetBackBuffer(), width, height));
                 if (Renderer3D::Get() != nullptr)
                 {
                     if (Renderer3D::GetFrameBuffer() != nullptr)
-                        DirectXDevice::RefreshRenderTarget(Renderer3D::GetFrameBuffer(), width, height);
+                        Renderer3D::SetFrameBuffer(
+                            std::any_cast<std::shared_ptr<FrameBuffer>>(
+                                DirectXDevice::RefreshRenderTarget(
+                                    Renderer3D::GetFrameBuffer()
+                                    , width, height)));
                 }
             }
 

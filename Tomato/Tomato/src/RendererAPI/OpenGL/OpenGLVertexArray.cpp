@@ -2,55 +2,34 @@
 #include "OpenGLVertexArray.h"
 
 #include "Tomato/Renderer/Renderer.h"
+#include "Tomato/Renderer/Line.h"
 
 #include <glad/glad.h>
 
 
 namespace Tomato
 {
-	OpenGLVertexArray::OpenGLVertexArray()
+	OpenGLVertexArray::OpenGLVertexArray(const std::initializer_list<uint8_t>& layout)
 	{
 		glCreateVertexArrays(1, &m_RendererID);
 
 		this->Bind();
 
-		size_t size = 0;
+		size_t size = 0, vertex_size = 0;
 
-		if (Renderer::GetType() == RendererType::_2D)
+		for (const auto& el : layout)
 		{
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)size);
-			size += sizeof(Float3);
-			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)size);
-			size += sizeof(Float4);
-			glEnableVertexAttribArray(2);
-			glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)size);
-			size += sizeof(float);
-			glEnableVertexAttribArray(3);
-			glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)size);
-			size += sizeof(Float2);
-			glEnableVertexAttribArray(4);
-			glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)size);
-			size += sizeof(float);
+			ASSERT(el <= 4, "Invalid layout with component size {0}", el);
+			vertex_size += el * sizeof(float);
 		}
-		else
+
+		size_t i = 0;
+		for (const auto& el : layout)
 		{
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (const void*)size);
-			size += sizeof(Float3);
-			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (const void*)size);
-			size += sizeof(Float4);
-			glEnableVertexAttribArray(2);
-			glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (const void*)size);
-			size += sizeof(Float3);
-			glEnableVertexAttribArray(3);
-			glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (const void*)size);
-			size += sizeof(Float2);
-			glEnableVertexAttribArray(4);
-			glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (const void*)size);
-			size += sizeof(float);
+			glEnableVertexAttribArray(i);
+			glVertexAttribPointer(i, el, GL_FLOAT, GL_FALSE, vertex_size, (const void*)size);
+			size += el * sizeof(float);
+			i++;
 		}
 	}
 

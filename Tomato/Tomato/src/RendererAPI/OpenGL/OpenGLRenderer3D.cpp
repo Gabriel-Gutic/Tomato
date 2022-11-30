@@ -23,7 +23,11 @@ namespace Tomato
 		m_Shader = std::move(Shader::CreateUnique("assets/Shaders/3D/VertexShader.glsl", "assets/Shaders/3D/FragmentShader.glsl"));
 		m_VertexBuffer = std::move(VertexBuffer::CreateUnique(MAX_VERTEX_NUMBER * sizeof(Mesh::Vertex), BufferAllocType::Dynamic));
 		m_IndexBuffer = std::move(IndexBuffer::CreateUnique(MAX_INDEX_NUMBER, BufferAllocType::Dynamic));
-		m_VertexArray = std::move(VertexArray::CreateUnique());
+		m_VertexArray = std::move(VertexArray::CreateUnique({3, 4, 3, 2, 1}));
+		
+		m_LineShader = std::move(Shader::CreateUnique("assets/Shaders/3D/LineVertexShader.glsl", "assets/Shaders/3D/LineFragmentShader.glsl"));
+		m_LineVertexBuffer = std::move(VertexBuffer::CreateUnique(MAX_VERTEX_NUMBER * sizeof(Line::Vertex), BufferAllocType::Dynamic));
+		m_LineVertexArray = std::move(VertexArray::CreateUnique({ 3, 4 }));
 
 		m_FrameBuffer = nullptr;
 
@@ -32,10 +36,14 @@ namespace Tomato
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glEnable(GL_CULL_FACE);
+		glEnable(GL_LINE_SMOOTH);
+		glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+		glLineWidth(3.0);
+
+		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK);
-		glCullFace(GL_FRONT);
-		glFrontFace(GL_CW);
+		//glCullFace(GL_FRONT);
+		//glFrontFace(GL_CW);
 	}
 
 	OpenGLRenderer3D::~OpenGLRenderer3D()
@@ -52,18 +60,19 @@ namespace Tomato
 			std::dynamic_pointer_cast<OpenGLFrameBuffer>(m_FrameBuffer)->Bind();
 			std::dynamic_pointer_cast<OpenGLTexture>(m_FrameBuffer->GetTexture())->Bind();
 
-			glCullFace(GL_FRONT);
+			//glCullFace(GL_FRONT);
 		}
 		else
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			
-			glCullFace(GL_BACK);
+			//glCullFace(GL_BACK);
 		}
 		
 		OpenGLRenderer3D::Clear(0.8f, 0.2f, 0.3f, 1.0f);
 		
 		m_Shader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection(drawToFramebuffer));
+		m_LineShader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection(drawToFramebuffer));
 	}
 
 	void OpenGLRenderer3D::End()
@@ -71,6 +80,11 @@ namespace Tomato
 		Flush();
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void DrawLine()
+	{
+		
 	}
 
 	void OpenGLRenderer3D::Clear(float r, float g, float b, float a) const
@@ -92,6 +106,7 @@ namespace Tomato
 	void OpenGLRenderer3D::Flush()
 	{
 		m_Shader->Use();
+		m_VertexArray->Bind();
 
 		m_VertexBuffer->Bind();
 		m_VertexBuffer->SetData(m_Data.Vertices, m_Data.VertexCounter);
@@ -106,7 +121,6 @@ namespace Tomato
 		
 		m_Shader->SetIntArray("u_Textures", OpenGLRenderer3DData::TextureUnits);
 
-		m_VertexArray->Bind();
 
 		glDrawElements(GL_TRIANGLES, m_Data.IndexCounter, GL_UNSIGNED_INT, 0);
 
@@ -115,5 +129,19 @@ namespace Tomato
 		m_Data.TextureSlotsCounter = 0;
 
 		m_VertexArray->Unbind();
+
+		m_LineShader->Use();
+		
+		m_LineVertexArray->Bind();
+
+		m_LineVertexBuffer->Bind();
+		m_LineVertexBuffer->SetData(m_Data.LineVertices, m_Data.LineVertexCounter);
+		m_LineVertexBuffer->Unbind();
+		
+		glDrawArrays(GL_LINES, 0, m_Data.LineVertexCounter);
+		
+		m_Data.LineVertexCounter = 0;
+		
+		m_LineVertexArray->Unbind();
 	}
 }

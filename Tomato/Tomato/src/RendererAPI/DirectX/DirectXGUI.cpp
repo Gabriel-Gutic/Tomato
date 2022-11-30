@@ -38,13 +38,13 @@ namespace Tomato
 	{
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
-
-		DirectXDevice::SetRenderTarget(DirectXDevice::GetBackBuffer());
-		Renderer3D::Get()->Clear(0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	void DirectXGUI::End()
 	{
+		DirectXDevice::SetRenderTarget(DirectXDevice::GetBackBuffer());
+		DirectXDevice::Clear(Float4(0.0f, 0.0f, 1.0f, 1.0f));
+
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 		ImGuiIO& io = ImGui::GetIO();

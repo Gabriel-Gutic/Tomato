@@ -134,47 +134,44 @@ namespace Tomato
         DirectXDeviceData::DeviceContext->OMSetRenderTargets(1, &rtv, NULL);
     }
 
-    void DirectXDevice::RefreshRenderTarget(std::any rt, uint32_t width, uint32_t height)
+    std::any DirectXDevice::RefreshRenderTarget(std::any rt, uint32_t width, uint32_t height)
     {
         if (DirectXDeviceData::Device)
         {
             try
             {
                 ID3D11RenderTargetView* rtv = std::any_cast<ID3D11RenderTargetView*>(rt);
-                // Destroy BackBuffer
                 if (rtv)
                 {
                     rtv->Release();
                     rtv = nullptr;
                 }
 
-                DirectXDeviceData::SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
+                DirectXDeviceData::SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
                 
-                // Recreate BackBuffer
                 ID3D11Texture2D* pBackBuffer;
                 DirectXDeviceData::SwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
-                DirectXDeviceData::Device->CreateRenderTargetView(pBackBuffer, NULL,
-                    &DirectXDeviceData::FrameBuffer);
+                DirectXDeviceData::Device->CreateRenderTargetView(
+                    pBackBuffer, NULL, &rtv);
                 pBackBuffer->Release();
+                return rtv;
             } 
             catch (std::bad_any_cast)
             {
                 try
                 {
                     std::shared_ptr<FrameBuffer> fb = std::any_cast<std::shared_ptr<FrameBuffer>>(rt);
-                
-                    DirectXDeviceData::SwapChain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
+                    fb = FrameBuffer::CreateShared(width, height);
 
-                    fb = FrameBuffer::CreateShared();
+                    return fb;
                 }
                 catch (std::bad_any_cast)
                 {
                     TOMATO_ASSERT(0, "Invalid render target!");
                 }
             }
-
-            SetViewport(width, height);
         }
+        return nullptr;
     }
 
     std::any DirectXDevice::GetDevice()
@@ -197,17 +194,29 @@ namespace Tomato
         return std::any(DirectXDeviceData::FrameBuffer);
     }
 
+    void DirectXDevice::SetBackBuffer(std::any backbuffer)
+    {
+        try 
+        {
+            DirectXDeviceData::FrameBuffer = std::any_cast<ID3D11RenderTargetView*>(backbuffer);
+        }
+        catch (std::bad_any_cast){}
+    }
+
     void DirectXDevice::SetViewport(uint32_t width, uint32_t height)
     {        
-        // Set the viewport
-        D3D11_VIEWPORT viewport = {};
+        if (DirectXDeviceData::DeviceContext)
+        {
+            // Set the viewport
+            D3D11_VIEWPORT viewport = {};
 
-        viewport.TopLeftX = 0;
-        viewport.TopLeftY = 0;
-        viewport.Width = width;
-        viewport.Height = height;
+            viewport.TopLeftX = 0;
+            viewport.TopLeftY = 0;
+            viewport.Width = width;
+            viewport.Height = height;
 
-        DirectXDeviceData::DeviceContext->RSSetViewports(1, &viewport);
+            DirectXDeviceData::DeviceContext->RSSetViewports(1, &viewport);
+        }
     }
 }
 #endif // TOMATO_PLATFORM_WINDOWS

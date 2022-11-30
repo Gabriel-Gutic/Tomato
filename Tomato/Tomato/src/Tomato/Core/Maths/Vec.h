@@ -330,10 +330,10 @@ const Type* Name##3::ToPtr() const												\
 			};																	\
 		};																		\
 																				\
-		Name##4(Type x = 0.0f, Type y = 0.0f, Type z = 0.0f, Type w = 0.0f);	\
-		Name##4(Type x, const Name##2 & f, Type w = 0.0f);						\
+		Name##4(Type x = 0.0f, Type y = 0.0f, Type z = 0.0f, Type w = 1.0f);	\
+		Name##4(Type x, const Name##2 & f, Type w = 1.0f);						\
 		Name##4(const Name##2 & f1, const Name##2 & f2);						\
-		Name##4(const Name##3 & f, Type w = 0.0f);								\
+		Name##4(const Name##3 & f, Type w = 1.0f);								\
 		Name##4(Type x, const Name##3 & f);										\
 		Name##4(const Name##4 & f);												\
 		std::string ToString() const;											\
