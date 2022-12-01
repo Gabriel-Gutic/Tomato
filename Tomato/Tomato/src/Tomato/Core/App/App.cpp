@@ -251,6 +251,11 @@ namespace Tomato
 		return s_Instance->m_SceneMap[s_Instance->m_CurrentSceneName]->GetCamera();
 	}
 
+	Float3& App::GetCameraPosition()
+	{
+		return GetCurrentCamera()->GetComponent<TransformComponent>().Position;
+	}
+
 	unsigned int App::GetFPS()
 	{
 		return s_Instance->m_FPS;

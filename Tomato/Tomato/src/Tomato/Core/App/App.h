@@ -27,6 +27,7 @@ namespace Tomato
 		static const std::unique_ptr<MenuBar>& GetMenuBar();
 		static std::unordered_map<std::string, std::unique_ptr<Scene>>& GetScenes();
 		static const std::unique_ptr<Entity>& GetCurrentCamera();
+		static Float3& GetCameraPosition();
 		static unsigned int GetFPS();
 		static float GetDeltaTime();
 
