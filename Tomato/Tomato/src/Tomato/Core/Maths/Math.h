@@ -178,16 +178,7 @@ namespace Tomato::Math
 	template<typename T>
 	float Distance(const T& v1, const T& v2)
 	{
-		float sum = 0.0f;
-
-		size_t i = 0;
-		for (auto& el : v1.list)
-		{
-			float product = (el - v2.list[i++]);
-			sum += product * product;
-		}
-
-		return Math::Sqrt(sum);
+		return Length(v1 - v2);
 	}
 
 }
