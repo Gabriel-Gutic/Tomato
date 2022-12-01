@@ -17,10 +17,10 @@ namespace Tomato
 		std::vector<Layer*>& GetLayers();
 		const std::vector<Layer*>& GetLayers() const;
 
-		std::shared_ptr<Entity>& PushEntity(std::string_view name, const std::shared_ptr<Entity>& entity);
-		void PopEntity(std::string_view name);
-		const std::shared_ptr<Entity>& GetEntity(std::string_view name);
-		bool Contains(std::string_view name) const;
+		std::shared_ptr<Entity>& PushEntity(const std::string& name, const std::shared_ptr<Entity>& entity);
+		void PopEntity(const std::string& name);
+		const std::shared_ptr<Entity>& GetEntity(const std::string& name);
+		bool Contains(const std::string& name) const;
 		
 		std::map<std::string, std::shared_ptr<Entity>>& GetEntities();
 		const std::map<std::string, std::shared_ptr<Entity>>& GetEntities() const;

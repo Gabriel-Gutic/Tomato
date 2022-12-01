@@ -31,17 +31,17 @@ namespace Tomato
 		static float GetDeltaTime();
 
 		static void PushEvent(Event* event);
-		static const std::unique_ptr<Scene>& CreateScene(std::string_view name);
-		static void RemoveScene(std::string_view name);
-		static std::unique_ptr<Scene>& GetScene(std::string_view name);
-		static const std::unique_ptr<Scene>& SetCurrentScene(std::string_view name);
+		static const std::unique_ptr<Scene>& CreateScene(const std::string& name);
+		static void RemoveScene(const std::string& name);
+		static std::unique_ptr<Scene>& GetScene(const std::string& name);
+		static const std::unique_ptr<Scene>& SetCurrentScene(const std::string& name);
 		static const std::unique_ptr<Scene>& GetCurrentScene();
 		static const std::string& GetCurrentSceneName();
-		static void SetSceneName(std::string_view old_name, std::string_view new_name);
-		static void InitSceneSerializer(std::string_view sceneName, std::string_view  filePath);
+		static void SetSceneName(const std::string& old_name, std::string_view new_name);
+		static void InitSceneSerializer(const std::string& sceneName, std::string_view  filePath);
 
-		static void PushImGuiLayer(std::string_view name, ImGuiLayer* layer);
-		static void RemoveImGuiLayer(std::string_view name);
+		static void PushImGuiLayer(const std::string& name, ImGuiLayer* layer);
+		static void RemoveImGuiLayer(const std::string& name);
 
 		static const std::unordered_map<std::string, std::any>& GetArgs();
 	private:

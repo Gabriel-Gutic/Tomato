@@ -17,8 +17,8 @@ namespace Tomato
 
 	Scene::~Scene()
 	{
-		for (auto& layer : m_LayerStack)
-			delete layer;
+		while (!m_LayerStack.empty())
+			PopLayer();
 	}
 
 	const std::unique_ptr<Entity>& Scene::GetCamera() const
@@ -46,33 +46,30 @@ namespace Tomato
 		return m_LayerStack;
 	}
 
-	const std::shared_ptr<Entity>& Scene::GetEntity(std::string_view name)
+	const std::shared_ptr<Entity>& Scene::GetEntity(const std::string& name)
 	{
-		const char* c_name = name.data();
-		TOMATO_ASSERT(m_Entities.find(c_name) != m_Entities.end(), "Entity '{0}' doesn't exist!", c_name);
-		return m_Entities[c_name];
+		TOMATO_ASSERT(m_Entities.find(name) != m_Entities.end(), "Entity '{0}' doesn't exist!", name);
+		return m_Entities[name];
 	}
 
-	std::shared_ptr<Entity>& Scene::PushEntity(std::string_view name, const std::shared_ptr<Entity>& entity)
+	std::shared_ptr<Entity>& Scene::PushEntity(const std::string& name, const std::shared_ptr<Entity>& entity)
 	{
 		entity->AddComponent<MeshRendererComponent>();
 		entity->AddComponent<TransformComponent>();
-		const char* c_name = name.data();
-		TOMATO_ASSERT(m_Entities.find(c_name) == m_Entities.end(), "Entity '{0}' already exist!", c_name);
-		m_Entities[c_name] = entity;
-		return m_Entities[c_name];
+		TOMATO_ASSERT(m_Entities.find(name) == m_Entities.end(), "Entity '{0}' already exist!", name);
+		m_Entities[name] = entity;
+		return m_Entities[name];
 	}
 
-	void Scene::PopEntity(std::string_view name)
+	void Scene::PopEntity(const std::string& name)
 	{
-		const char* c_name = name.data();
-		TOMATO_ASSERT(m_Entities.find(c_name) != m_Entities.end(), "Entity '{0}' doesn't exist!", c_name);
-		m_Entities.erase(c_name);
+		TOMATO_ASSERT(m_Entities.find(name) != m_Entities.end(), "Entity '{0}' doesn't exist!", name);
+		m_Entities.erase(name);
 	}
 
-	bool Scene::Contains(std::string_view name) const
+	bool Scene::Contains(const std::string& name) const
 	{
-		return m_Entities.find(name.data()) != m_Entities.end();
+		return m_Entities.find(name) != m_Entities.end();
 	}
 
 	std::map<std::string, std::shared_ptr<Entity>>& Scene::GetEntities()
@@ -92,6 +89,7 @@ namespace Tomato
 
 	void Scene::PopLayer()
 	{
+		delete m_LayerStack.back();
 		m_LayerStack.pop_back();
 	}
 }

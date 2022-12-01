@@ -144,36 +144,36 @@ namespace Tomato
 		s_Instance->m_EventQueue.push(event);
 	}
 
-	const std::unique_ptr<Scene>& App::CreateScene(std::string_view name)
+	const std::unique_ptr<Scene>& App::CreateScene(const std::string& name)
 	{
 		auto& ins = s_Instance;
-		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) == ins->m_SceneMap.end(), "Scene {0} already exist!", name.data());
-		ins->m_SceneMap[name.data()] = std::make_unique<Scene>();
+		TOMATO_ASSERT(ins->m_SceneMap.find(name) == ins->m_SceneMap.end(), "Scene {0} already exist!", name);
+		ins->m_SceneMap[name] = std::make_unique<Scene>();
 		if (ins->m_SceneMap.size() == 1)
 			SetCurrentScene(name);
-		return ins->m_SceneMap[name.data()];
+		return ins->m_SceneMap[name];
 	}
 
-	void App::RemoveScene(std::string_view name)
+	void App::RemoveScene(const std::string& name)
 	{
 		auto& ins = s_Instance;
-		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) == ins->m_SceneMap.end(), "Scene {0} already exist!", name.data());
-		ins->m_SceneMap.erase(name.data());
+		TOMATO_ASSERT(ins->m_SceneMap.find(name) == ins->m_SceneMap.end(), "Scene {0} already exist!", name);
+		ins->m_SceneMap.erase(name);
 	}
 
-	std::unique_ptr<Scene>& App::GetScene(std::string_view name)
+	std::unique_ptr<Scene>& App::GetScene(const std::string& name)
 	{
 		auto& ins = s_Instance;
-		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", name.data());
-		return ins->m_SceneMap[name.data()];
+		TOMATO_ASSERT(ins->m_SceneMap.find(name) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", name);
+		return ins->m_SceneMap[name];
 	}
 
-	const std::unique_ptr<Scene>& App::SetCurrentScene(std::string_view name)
+	const std::unique_ptr<Scene>& App::SetCurrentScene(const std::string& name)
 	{
 		auto& ins = s_Instance;
-		TOMATO_ASSERT(ins->m_SceneMap.find(name.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", name.data());
+		TOMATO_ASSERT(ins->m_SceneMap.find(name) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", name);
 		ins->m_CurrentSceneName = name;
-		return ins->m_SceneMap[name.data()];
+		return ins->m_SceneMap[name];
 	}
 
 	const std::unique_ptr<Scene>& App::GetCurrentScene()
@@ -186,36 +186,37 @@ namespace Tomato
 		return s_Instance->m_CurrentSceneName;
 	}
 
-	void App::SetSceneName(std::string_view old_name, std::string_view new_name)
+	void App::SetSceneName(const std::string& old_name, std::string_view new_name)
 	{
 		auto& ins = s_Instance;
-		TOMATO_ASSERT(ins->m_SceneMap.find(old_name.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", old_name.data());
+		TOMATO_ASSERT(ins->m_SceneMap.find(old_name) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", old_name);
 	
-		auto nodeHandler = ins->m_SceneMap.extract(old_name.data());
-		nodeHandler.key() = new_name.data();
+		auto nodeHandler = ins->m_SceneMap.extract(old_name);
+		nodeHandler.key() = new_name;
 		ins->m_SceneMap.insert(std::move(nodeHandler));
 	}
 
-	void App::InitSceneSerializer(std::string_view sceneName, std::string_view filePath)
+	void App::InitSceneSerializer(const std::string& sceneName, std::string_view filePath)
 	{
 		auto& ins = s_Instance;
-		TOMATO_ASSERT(ins->m_SceneMap.find(sceneName.data()) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", sceneName.data());
+		TOMATO_ASSERT(ins->m_SceneMap.find(sceneName) != ins->m_SceneMap.end(), "Scene '{0}' doesn't exist!", sceneName);
 		ins->m_Serializers.push_back(std::make_unique<SceneSerializer>(sceneName, filePath));
 		ins->m_Serializers.back()->Deserialize();
 	}
 
-	void App::PushImGuiLayer(std::string_view name, ImGuiLayer* layer)
+	void App::PushImGuiLayer(const std::string& name, ImGuiLayer* layer)
 	{
 		auto& ins = s_Instance;
-		TOMATO_ASSERT(ins->m_ImGuiLayers.find(name.data()) == ins->m_ImGuiLayers.end(), "ImGuiLayer '{0}' already exist!", name.data());
-		s_Instance->m_ImGuiLayers[name.data()] = layer;
+		TOMATO_ASSERT(ins->m_ImGuiLayers.find(name) == ins->m_ImGuiLayers.end(), "ImGuiLayer '{0}' already exist!", name);
+		s_Instance->m_ImGuiLayers[name] = layer;
 	}
 
-	void App::RemoveImGuiLayer(std::string_view name)
+	void App::RemoveImGuiLayer(const std::string& name)
 	{
 		auto& ins = s_Instance;
-		TOMATO_ASSERT(ins->m_ImGuiLayers.find(name.data()) != ins->m_ImGuiLayers.end(), "ImGuiLayer '{0}' doesn't exist!", name.data());
-		s_Instance->m_ImGuiLayers.erase(name.data());
+		TOMATO_ASSERT(ins->m_ImGuiLayers.find(name) != ins->m_ImGuiLayers.end(), "ImGuiLayer '{0}' doesn't exist!", name);
+		delete s_Instance->m_ImGuiLayers[name];
+		s_Instance->m_ImGuiLayers.erase(name);
 	}
 
 	const std::unordered_map<std::string, std::any>& App::GetArgs()
