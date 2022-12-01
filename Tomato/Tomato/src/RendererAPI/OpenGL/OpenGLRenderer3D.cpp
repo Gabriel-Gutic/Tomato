@@ -69,7 +69,7 @@ namespace Tomato
 			//glCullFace(GL_BACK);
 		}
 		
-		OpenGLRenderer3D::Clear(0.8f, 0.2f, 0.3f, 1.0f);
+		OpenGLRenderer3D::Clear(0.0f, 0.0f, 0.0f, 1.0f);
 		
 		m_Shader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection(drawToFramebuffer));
 		m_LineShader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection(drawToFramebuffer));

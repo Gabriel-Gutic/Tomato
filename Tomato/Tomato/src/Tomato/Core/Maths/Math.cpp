@@ -159,6 +159,28 @@ namespace Tomato
 		return floor(number * power) / (double)power;
 	}
 
+	float Math::Sqrt(float x)
+	{
+		return sqrtf(x);
+	}
+
+	float Math::RSqrt(float x)
+	{
+		long i;
+		float x2, y;
+		const float threehalfs = 1.5F;
+
+		x2 = x * 0.5F;
+		y = x;
+		i = *(long*)&y;								// evil floating point bit level hacking
+		i = 0x5f3759df - (i >> 1);					// what the fuck? 
+		y = *(float*)&i;
+		y = y * (threehalfs - (x2 * y * y));		// 1st iteration
+		y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration, this can be removed
+
+		return y;
+	}
+
 	float Math::Exp(float x)
 	{
 		return expf(x);
@@ -186,7 +208,7 @@ namespace Tomato
 
 	float Math::Pow(float a, float b)
 	{
-		return Exp(a * Log(b));
+		return powf(a, b);
 	}
 
 	float Math::Sin(float rad)

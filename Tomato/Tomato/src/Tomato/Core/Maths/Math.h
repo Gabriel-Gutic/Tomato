@@ -30,6 +30,8 @@ namespace Tomato::Math
 	double Trunc(double number, unsigned int precision = 2);
 
 	float Exp(float x);
+	float Sqrt(float x);
+	float RSqrt(float x);
 	float Log(float x);
 	float Log2(float x);
 	float Log10(float x);

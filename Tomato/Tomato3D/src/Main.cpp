@@ -132,14 +132,36 @@ public:
 
 		const char* const cameraTypes[] = { "Orthographic", "Perspective" };
 		ImGui::Combo("Camera Type", &m_CurrentCameraProjection, cameraTypes, 2);
+		
+
+
 		ImGui::End();
 	}
 private:
+	float f(float x)
+	{
+		return 1 / Tomato::Math::Exp(x);
+	}
+
 	void DrawLines()
 	{
 		//Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
-		Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, 0.5);
-		Tomato::Renderer3D::Get()->DrawLine({-0.5, -0.5}, {0.5, -0.5}, Tomato::Color::Red);
+		//Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, 0.5);
+		Tomato::Renderer3D::Get()->DrawLine({ -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f, 0.0f }, Tomato::Color::Red);
+		Tomato::Renderer3D::Get()->DrawLine({  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f, 0.0f }, Tomato::Color::Green);
+		Tomato::Renderer3D::Get()->DrawLine({  0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f }, Tomato::Color::Blue);
+		
+		Tomato::Float3 last;
+		for (float x = -10.0f; x <= 10.0f; x += 0.1f)
+		{
+			Tomato::Float3 newPoint = { x / 10.0f, f(x) / 10.0f, 0.0f };
+			if (x != -10.0f)
+			{
+				Tomato::Renderer3D::Get()->DrawLine(last, newPoint, Tomato::Color::White);
+			}
+			last = newPoint;
+		}
+
 		//Tomato::Renderer3D::Get()->DrawSquare({ 0.5, 0.5 }, 0.5);
 	}
 
