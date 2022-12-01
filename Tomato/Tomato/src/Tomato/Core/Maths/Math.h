@@ -29,8 +29,10 @@ namespace Tomato::Math
 	float Trunc(float number, unsigned int precision = 2);
 	double Trunc(double number, unsigned int precision = 2);
 
+	float Abs(float x);
 	float Exp(float x);
 	float Sqrt(float x);
+	float Cbrt(float x);
 	float RSqrt(float x);
 	float Log(float x);
 	float Log2(float x);

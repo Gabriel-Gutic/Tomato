@@ -164,6 +164,11 @@ namespace Tomato
 		return sqrtf(x);
 	}
 
+	float Math::Cbrt(float x)
+	{
+		return cbrtf(x);
+	}
+
 	float Math::RSqrt(float x)
 	{
 		long i;
@@ -179,6 +184,13 @@ namespace Tomato
 		y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration, this can be removed
 
 		return y;
+	}
+
+	float Math::Abs(float x)
+	{
+		if (x < 0.0f)
+			return -x;
+		return x;
 	}
 
 	float Math::Exp(float x)
@@ -208,6 +220,8 @@ namespace Tomato
 
 	float Math::Pow(float a, float b)
 	{
+		if (a < 0.0f)
+			return -powf(-a, b);
 		return powf(a, b);
 	}
 
