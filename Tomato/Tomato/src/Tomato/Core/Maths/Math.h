@@ -95,6 +95,10 @@ namespace Tomato::Math
 	template <typename T>
 	T Normalize(const T& vector);
 
+	// Return the distance between 2 vectors
+	template <typename T>
+	float Distance(const T& v1, const T& v2);
+
 	// Transformation Matrix
 	Mat4 Translate(const Float3& vector);
 	Mat4 Translate(float x, float y, float z);
@@ -128,7 +132,7 @@ namespace Tomato::Math
 		for (unsigned int i = 0; i < SIZE; i++)
 			for (unsigned int j = 0; j < SIZE; j++)
 			{
-				reverse[i][j] = pow(-1, i + j) * transpose.Minor(i, j).GetDeterminant();
+				reverse[i][j] = Math::Pow(-1, i + j) * transpose.Minor(i, j).GetDeterminant();
 			}
 
 		return 1 / det * reverse;
@@ -144,7 +148,7 @@ namespace Tomato::Math
 			sum += (el * el);
 		}
 
-		return sqrt(sum);
+		return Math::Sqrt(sum);
 	}
 
 	template<typename T>
@@ -169,6 +173,21 @@ namespace Tomato::Math
 		if (length == 0)
 			return vector;
 		return (1.0f / Length(vector)) * vector;
+	}
+
+	template<typename T>
+	float Distance(const T& v1, const T& v2)
+	{
+		float sum = 0.0f;
+
+		size_t i = 0;
+		for (auto& el : v1.list)
+		{
+			float product = (el - v2.list[i++]);
+			sum += product * product;
+		}
+
+		return Math::Sqrt(sum);
 	}
 
 }

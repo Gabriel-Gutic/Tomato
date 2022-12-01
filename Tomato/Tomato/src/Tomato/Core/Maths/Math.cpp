@@ -220,8 +220,6 @@ namespace Tomato
 
 	float Math::Pow(float a, float b)
 	{
-		if (a < 0.0f)
-			return -powf(-a, b);
 		return powf(a, b);
 	}
 
