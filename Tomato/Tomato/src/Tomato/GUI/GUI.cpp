@@ -165,7 +165,7 @@ namespace Tomato::GUI
         ImGui::End();
     }
 
-    void RenderWindow(const std::shared_ptr<FrameBuffer>& fb)
+    void RenderWindow(const std::shared_ptr<FrameBuffer>& fb, bool centered)
     {
         if (fb)
         {
@@ -187,7 +187,12 @@ namespace Tomato::GUI
                     id = DirectXGUI::GetImTextureID(std::dynamic_pointer_cast<DirectXTexture>(fb->GetTexture())->GetResourceView());
                 } break;
             }
-            ImGui::Image((ImTextureID)id, ImVec2(size.x, (size.x * h) / (float)w));
+
+            float height = (size.x * h) / (float)w;
+
+            TOMATO_PRINT(size.y / 2.0f - height);
+            ImGui::SetCursorPos(ImVec2(0.0f, (size.y - height) / 2.0f));
+            ImGui::Image((ImTextureID)id, ImVec2(size.x, height));
 
             ImGui::End();
             ImGui::PopStyleVar();

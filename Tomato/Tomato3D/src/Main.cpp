@@ -123,7 +123,7 @@ public:
 
 	virtual void OnGUI() override
 	{
-		Tomato::GUI::RenderWindow(m_FrameBuffer);
+		Tomato::GUI::RenderWindow(m_FrameBuffer, true);
 
 		bool show_demo_window = true;
 		if (show_demo_window)

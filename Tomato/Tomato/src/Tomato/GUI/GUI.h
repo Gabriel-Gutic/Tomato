@@ -15,7 +15,7 @@ namespace Tomato::GUI
 	void HideDockspace();
 	void Dockspace();
 
-	void RenderWindow(const std::shared_ptr<FrameBuffer>& fb);
+	void RenderWindow(const std::shared_ptr<FrameBuffer>& fb, bool centered = false);
 
 	void ShowMainMenu();
 	void HideMainMenu();
