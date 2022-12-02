@@ -89,6 +89,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="assets\Shaders\3D\TextFragmentShader.glsl" />
     <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>

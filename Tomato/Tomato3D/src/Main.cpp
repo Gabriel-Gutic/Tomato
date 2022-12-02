@@ -19,6 +19,7 @@ class Layer3D : public Tomato::Layer
 {
 public:
 	Layer3D()
+		:m_Font("assets/Fonts/Roboto/Roboto-Regular.ttf")
 	{
 		m_FrameBuffer = Tomato::FrameBuffer::CreateShared();
 		Tomato::Renderer3D::SetFrameBuffer(m_FrameBuffer);
@@ -145,8 +146,10 @@ private:
 
 	void DrawLines()
 	{
-		//Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
-		//Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, 0.5);
+		Tomato::Renderer3D::Get()->RenderText("Hello world", m_Font, Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 1.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
+
+		Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
+		Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, Tomato::Color::Green);
 		Tomato::Renderer3D::Get()->DrawLine({ -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f, 0.0f }, Tomato::Color::Red);
 		Tomato::Renderer3D::Get()->DrawLine({  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f, 0.0f }, Tomato::Color::Green);
 		Tomato::Renderer3D::Get()->DrawLine({  0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f }, Tomato::Color::Blue);
@@ -161,8 +164,6 @@ private:
 			}
 			last = newPoint;
 		}
-
-		//Tomato::Renderer3D::Get()->DrawSquare({ 0.5, 0.5 }, 0.5);
 	}
 
 	void CameraRepositioning()
@@ -186,6 +187,8 @@ private:
 	Tomato::Mesh m_Cube;
 	Tomato::Float3 m_Rotation;
 	std::shared_ptr<Tomato::FrameBuffer> m_FrameBuffer;
+
+	Tomato::Font m_Font;
 
 	// GUI
 	int m_CurrentCameraProjection = 1;

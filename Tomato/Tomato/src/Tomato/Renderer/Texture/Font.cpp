@@ -12,7 +12,7 @@ namespace Tomato
 	Font::Font(std::string_view filePath)
 	{
 		FT_Library ft;
-		TOMATO_ASSERT(!FT_Init_FreeType(&ft), "ERROR::FREETYPE: Could not init FreeType Library");
+		TOMATO_ASSERT(!FT_Init_FreeType(&ft), "FREETYPE: Could not init FreeType Library");
 		
 		FT_Face face;
 		TOMATO_ASSERT(!FT_New_Face(ft, filePath.data(), 0, &face), "ERROR::FREETYPE: Failed to load font");
@@ -26,7 +26,7 @@ namespace Tomato
             // load character glyph 
             if (FT_Load_Char(face, c, FT_LOAD_RENDER))
             {
-                TOMATO_ERROR("ERROR::FREETYTPE: Failed to load Glyph");
+                TOMATO_ERROR("FREETYPE: Failed to load Glyph");
                 continue;
             }
             // generate texture
@@ -54,5 +54,30 @@ namespace Tomato
     const std::array<Character, 128>& Font::GetChars() const
     {
         return m_Chars;
+    }
+
+    Float2 Font::GetSize(std::string_view text, float fontSize) const
+    {
+        Float2 size;
+
+        fontSize /= 1200.0f;
+
+        float y1 = 0, y2 = 0;
+
+        for (const auto& c : text)
+        {
+            const auto& ch = m_Chars[c];
+
+            size.x += (ch.Advance >> 6) * fontSize;
+
+            float ch_bearing_y = static_cast<float>(ch.Size.y);
+            float ch_height = static_cast<float>(ch.Size.y);
+            if (ch_bearing_y > y1)
+                y1 = ch_bearing_y;
+            if (ch_height - ch_bearing_y > y2)
+                y2 = ch_height - ch_bearing_y;
+        }
+        size.y = (y1 + y2) * fontSize;
+        return size;
     }
 }

@@ -25,6 +25,11 @@ namespace Tomato
 		m_IndexBuffer = std::move(IndexBuffer::CreateUnique(MAX_INDEX_NUMBER, BufferAllocType::Dynamic));
 		m_VertexArray = std::move(VertexArray::CreateUnique({3, 4, 3, 2, 1}));
 		
+		m_TextShader = std::move(Shader::CreateUnique("assets/Shaders/3D/VertexShader.glsl", "assets/Shaders/3D/TextFragmentShader.glsl"));
+		m_TextVertexBuffer = std::move(VertexBuffer::CreateUnique(MAX_VERTEX_NUMBER * sizeof(Mesh::Vertex), BufferAllocType::Dynamic));
+		m_TextIndexBuffer = std::move(IndexBuffer::CreateUnique(MAX_INDEX_NUMBER, BufferAllocType::Dynamic));
+		m_TextVertexArray = std::move(VertexArray::CreateUnique({ 3, 4, 3, 2, 1 }));
+
 		m_LineShader = std::move(Shader::CreateUnique("assets/Shaders/3D/LineVertexShader.glsl", "assets/Shaders/3D/LineFragmentShader.glsl"));
 		m_LineVertexBuffer = std::move(VertexBuffer::CreateUnique(MAX_VERTEX_NUMBER * sizeof(Line::Vertex), BufferAllocType::Dynamic));
 		m_LineVertexArray = std::move(VertexArray::CreateUnique({ 3, 4 }));
@@ -71,8 +76,11 @@ namespace Tomato
 		
 		OpenGLRenderer3D::Clear(0.0f, 0.0f, 0.0f, 1.0f);
 		
-		m_Shader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection(drawToFramebuffer));
-		m_LineShader->SetMat4("u_VP", App::GetCurrentScene()->GetViewProjection(drawToFramebuffer));
+		Mat4 vp = App::GetCurrentScene()->GetViewProjection(drawToFramebuffer);
+
+		m_Shader->SetMat4("u_VP", vp);
+		m_LineShader->SetMat4("u_VP", vp);
+		m_TextShader->SetMat4("u_VP", vp);
 	}
 
 	void OpenGLRenderer3D::End()
@@ -143,5 +151,31 @@ namespace Tomato
 		m_Data.LineVertexCounter = 0;
 		
 		m_LineVertexArray->Unbind();
+
+		// Draw Text
+		m_TextShader->Use();
+		m_TextVertexArray->Bind();
+
+		m_TextVertexBuffer->Bind();
+		m_TextVertexBuffer->SetData(m_Data.TextVertices, m_Data.TextVertexCounter);
+		m_TextVertexBuffer->Unbind();
+
+		m_TextIndexBuffer->Bind();
+		m_TextIndexBuffer->SetData(m_Data.TextIndices, m_Data.TextIndexCounter);
+		m_TextIndexBuffer->Unbind();
+
+		for (uint32_t i = 0; i < m_Data.TextTextureSlotsCounter; i++)
+			std::dynamic_pointer_cast<OpenGLTexture>(m_Data.TextTextureSlots[i])->BindUnit(i);
+
+		m_TextShader->SetIntArray("u_Textures", OpenGLRenderer3DData::TextureUnits);
+
+
+		glDrawElements(GL_TRIANGLES, m_Data.TextIndexCounter, GL_UNSIGNED_INT, 0);
+
+		m_Data.TextVertexCounter = 0;
+		m_Data.TextIndexCounter = 0;
+		m_Data.TextTextureSlotsCounter = 0;
+
+		m_TextVertexArray->Unbind();
 	}
 }

@@ -62,16 +62,32 @@ namespace Tomato
 		}
 	}
 
-	void Renderer3D::DrawTriangle(const Float3& center, float scale, const Mat4& transform)
+	void Renderer3D::DrawTriangle(const Float3& center, 
+		const Float3& color, 
+		float scale, 
+		const float alpha, 
+		const Mat4& transform)
 	{
 		Mesh mesh = Mesh::TriangleMesh();
+		for (auto& vertex : mesh.Vertices)
+		{
+			vertex.Color = Float4(color, alpha);
+		}
 		Mat4 tran = Math::Translate(center) * transform * Math::Scale(Float3(scale, scale, 1.0f));
 		Draw(mesh, tran);
 	}
 
-	void Renderer3D::DrawSquare(const Float3& center, float scale, const Mat4& transform)
+	void Renderer3D::DrawSquare(const Float3& center, 
+		const Float3& color, 
+		float scale, 
+		const float alpha, 
+		const Mat4& transform)
 	{
 		Mesh mesh = Mesh::QuadMesh();
+		for (auto& vertex : mesh.Vertices)
+		{
+			vertex.Color = Float4(color, alpha);
+		}
 		Mat4 tran = Math::Translate(center) * transform * Math::Scale(Float3(scale, scale, 1.0f));
 		Draw(mesh, tran);
 	}
@@ -84,6 +100,95 @@ namespace Tomato
 
 		m_Data.LineVertices[index++] = Line::Vertex(A, color);
 		m_Data.LineVertices[index++] = Line::Vertex(B, color);
+	}
+
+	void Renderer3D::RenderText(std::string_view text, const Font& font, const Float3& center, const Float4& color, float fontSize, const Float3& rotation)
+	{
+		Mat4 rot = Quaternion::Rotation(rotation).ToMat4();
+
+		Float2 size = font.GetSize(text, fontSize);
+
+		auto[x, y] = center.xy.data;
+		x -= size.x / 2.0f;
+		y -= size.y / 2.0f;
+
+		fontSize = fontSize / 1200.0f;
+
+		for (const auto& c : text)
+		{
+			const auto& ch = font[c];
+			float xpos = x + ch.Bearing.x * fontSize;
+			float ypos = y + (ch.Size.y - ch.Bearing.y) * fontSize;
+
+			float w = ch.Size.x * fontSize;
+			float h = ch.Size.y * fontSize;
+
+			Mesh mesh;
+			mesh.Vertices.resize(4);
+
+			mesh.Vertices[0] = Mesh::Vertex(
+				Float3(xpos, ypos + h, 0.0f),
+				color,
+				Float3(0.0f, 0.0f, 1.0f),
+				Float2(0.0f, 0.0f),
+				0.0f
+			);
+			mesh.Vertices[1] = Mesh::Vertex(
+				Float3(xpos + w, ypos, 0.0f),
+				color,
+				Float3(0.0f, 0.0f, 1.0f),
+				Float2(1.0f, 1.0f),
+				0.0f
+			);
+			mesh.Vertices[2] = Mesh::Vertex(
+				Float3(xpos, ypos, 0.0f),
+				color,
+				Float3(0.0f, 0.0f, 1.0f),
+				Float2(0.0f, 1.0f),
+				0.0f
+			);
+			mesh.Vertices[3] = Mesh::Vertex(
+				Float3(xpos + w, ypos + h, 0.0f),
+				color,
+				Float3(0.0f, 0.0f, 1.0f),
+				Float2(1.0f, 0.0f),
+				0.0f
+			);
+
+			mesh.Indices = { 0, 2, 1, 0, 1, 3 };
+			mesh.Textures.push_back(ch.Texture);
+			DrawTextMesh(mesh, rot);
+
+			x += (ch.Advance >> 6) * fontSize;
+		}
+	}
+
+	void Renderer3D::DrawTextMesh(const Mesh& mesh, const Mat4& transform)
+	{
+		if (m_Data.TextVertexCounter + mesh.Vertices.size() >= MAX_VERTEX_NUMBER ||
+			m_Data.TextIndexCounter + mesh.Indices.size() >= MAX_INDEX_NUMBER ||
+			m_Data.TextTextureSlotsCounter + mesh.Textures.size() >= MAX_TEXTURE_SLOTS)
+			Flush();
+		if (m_Data.TextVertexCounter + mesh.Vertices.size() >= MAX_VERTEX_NUMBER ||
+			m_Data.TextIndexCounter + mesh.Indices.size() >= MAX_INDEX_NUMBER ||
+			m_Data.TextTextureSlotsCounter + mesh.Textures.size() >= MAX_TEXTURE_SLOTS)
+			return;
+
+		for (const auto& index : mesh.Indices)
+		{
+			m_Data.TextIndices[m_Data.TextIndexCounter++] = m_Data.TextVertexCounter + index;
+		}
+
+		for (auto vertex : mesh.Vertices)
+		{
+			float texIndex = -1.0f;
+			if (vertex.TexIndex >= 0.0f)
+				texIndex = GetTextureIndex(mesh.Textures[static_cast<int>(vertex.TexIndex)]);
+			vertex.Position = (transform * Float4(vertex.Position, 1.0f)).xyz;
+			vertex.Normal = (transform * Float4(vertex.Normal, 1.0f)).xyz;
+			vertex.TexIndex = texIndex;
+			m_Data.TextVertices[m_Data.TextVertexCounter++] = vertex;
+		}
 	}
 
 	Renderer3D* Renderer3D::Get()

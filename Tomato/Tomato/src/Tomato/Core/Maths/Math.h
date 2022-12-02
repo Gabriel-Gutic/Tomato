@@ -180,5 +180,4 @@ namespace Tomato::Math
 	{
 		return Length(v1 - v2);
 	}
-
 }

@@ -87,12 +87,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 	bool isRendererChosen = false;
 	while (!isRendererChosen)
 	{
-		std::cout << "Select the Renderer: " << std::endl;
-		std::cout << "0 -> Exit" << std::endl;
-		std::cout << "1 -> OpenGL" << std::endl;
-		std::cout << "2 -> DirectX" << std::endl;
+		//std::cout << "Select the Renderer: " << std::endl;
+		//std::cout << "0 -> Exit" << std::endl;
+		//std::cout << "1 -> OpenGL" << std::endl;
+		//std::cout << "2 -> DirectX" << std::endl;
 		int choice;
-		std::cout << "Choice: "; std::cin >> choice;
+		//std::cout << "Choice: "; std::cin >> choice;
+
+		// Choose the OpenGL Renderer
+		choice = 1;
+
 		switch (choice)
 		{
 		case 0:
