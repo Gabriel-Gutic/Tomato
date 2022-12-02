@@ -6,6 +6,8 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+#include "Renderer/Renderer3D.h"
+
 
 namespace Tomato
 {
@@ -79,5 +81,10 @@ namespace Tomato
         }
         size.y = (y1 + y2) * fontSize;
         return size;
+    }
+
+    void Font::RenderText(std::string_view text, const Float3& center, const Float4& color, float fontSize, const Float3& rotation) const
+    {
+        Renderer3D::Get()->RenderText(text, *this, center, color, fontSize, rotation);
     }
 }

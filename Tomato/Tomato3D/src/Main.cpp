@@ -146,7 +146,7 @@ private:
 
 	void DrawLines()
 	{
-		Tomato::Renderer3D::Get()->RenderText("Hello world", m_Font, Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 1.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
+		m_Font.RenderText("Hello world", Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 1.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
 
 		Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
 		Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, Tomato::Color::Green);
