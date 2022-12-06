@@ -62,7 +62,18 @@ namespace Tomato
 		}
 	}
 
-	void Renderer3D::DrawTriangle(const Float3& center, 
+	void Renderer3D::DrawTriangle(const Float3& A, const Float3& B, const Float3& C, const Float3& color, const float alpha, const Mat4& transform)
+	{
+		Mesh mesh;
+		mesh.Vertices.emplace_back(A, Float4(color, alpha));
+		mesh.Vertices.emplace_back(B, Float4(color, alpha));
+		mesh.Vertices.emplace_back(C, Float4(color, alpha));
+
+		mesh.Indices = { 0, 1, 2 };
+		Draw(mesh, transform);
+	}
+
+	void Renderer3D::DrawTriangle(const Float3& center,
 		const Float3& color, 
 		float scale, 
 		const float alpha, 
@@ -75,6 +86,12 @@ namespace Tomato
 		}
 		Mat4 tran = Math::Translate(center) * transform * Math::Scale(Float3(scale, scale, 1.0f));
 		Draw(mesh, tran);
+	}
+
+	void Renderer3D::DrawQuad(const Float3& A, const Float3& B, const Float3& C, const Float3& D, const Float3& color, const float alpha, const Mat4& transform)
+	{
+		DrawTriangle(A, B, C, color, alpha, transform);
+		DrawTriangle(A, C, D, color, alpha, transform);
 	}
 
 	void Renderer3D::DrawSquare(const Float3& center, 

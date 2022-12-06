@@ -31,7 +31,9 @@ namespace Tomato
 		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f));
 		
 		// Simple objects for drawing
+		virtual void DrawTriangle(const Float3& A, const Float3& B, const Float3& C, const Float3& color = Float3(), const float alpha = 1.0f, const Mat4& transform = Mat4(1.0f));
 		virtual void DrawTriangle(const Float3& center = Float3(), const Float3& color = Float3(), float scale = 1.0f, const float alpha = 1.0f, const Mat4& transform = Mat4(1.0f));
+		virtual void DrawQuad(const Float3& A, const Float3& B, const Float3& C, const Float3& D, const Float3& color = Float3(), const float alpha = 1.0f, const Mat4& transform = Mat4(1.0f));
 		virtual void DrawSquare(const Float3& center = Float3(), const Float3& color = Float3(), float scale = 1.0f, const float alpha = 1.0f, const Mat4& transform = Mat4(1.0f));
 		virtual void DrawLine(const Float3& A, const Float3& B, const Float3& color = Float3(1.0f, 1.0f, 1.0f));
 		virtual void RenderText(std::string_view text, const Font& font, const Float3& center = Float3(), const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f), float fontSize = 12.0f, const Float3& rotation = Float3(0.0f));

@@ -43,7 +43,7 @@ public:
 		for (; i < 24; i++)
 			m_Cube.Vertices[i].TexIndex = 2.0f;
 
-		Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position.y = -1.0f;
+		//Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position.y = -1.0f;
 	}
 
 	void OnUpdate(float dt)
@@ -146,24 +146,32 @@ private:
 
 	void DrawLines()
 	{
-		m_Font.RenderText("Hello world", Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 1.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
+		Tomato::Renderer3D::Get()->DrawQuad(
+			{ 0.0f, 0.0f, 0.0f },
+			{ 1.0f, 0.0f, 0.0f },
+			{ 1.0f, 1.0f, -1.0f },
+			{ -2.0f, 1.0f, -1.0f },
+			Tomato::Color::White
+			);
 
-		Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
-		Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, Tomato::Color::Green);
-		Tomato::Renderer3D::Get()->DrawLine({ -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f, 0.0f }, Tomato::Color::Red);
-		Tomato::Renderer3D::Get()->DrawLine({  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f, 0.0f }, Tomato::Color::Green);
-		Tomato::Renderer3D::Get()->DrawLine({  0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f }, Tomato::Color::Blue);
-		
-		Tomato::Float3 last;
-		for (float x = -10.0f; x <= 10.0f; x += 0.1f)
-		{
-			Tomato::Float3 newPoint = { x / 10.0f, f(x) / 10.0f, 0.0f };
-			if (x != -10.0f)
-			{
-				Tomato::Renderer3D::Get()->DrawLine(last, newPoint, Tomato::Color::White);
-			}
-			last = newPoint;
-		}
+		m_Font.RenderText("Hello -+=() world", Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 1.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
+		//
+		//Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
+		//Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, Tomato::Color::Green);
+		//Tomato::Renderer3D::Get()->DrawLine({ -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f, 0.0f }, Tomato::Color::Red);
+		//Tomato::Renderer3D::Get()->DrawLine({  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f, 0.0f }, Tomato::Color::Green);
+		//Tomato::Renderer3D::Get()->DrawLine({  0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f }, Tomato::Color::Blue);
+		//
+		//Tomato::Float3 last;
+		//for (float x = -10.0f; x <= 10.0f; x += 0.1f)
+		//{
+		//	Tomato::Float3 newPoint = { x / 10.0f, f(x) / 10.0f, 0.0f };
+		//	if (x != -10.0f)
+		//	{
+		//		Tomato::Renderer3D::Get()->DrawLine(last, newPoint, Tomato::Color::White);
+		//	}
+		//	last = newPoint;
+		//}
 	}
 
 	void CameraRepositioning()
