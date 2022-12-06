@@ -9,6 +9,11 @@
 namespace Tomato
 {
 	Renderer3D* Renderer3D::s_Instance = nullptr;
+	Renderer3D::Renderer3D()
+		:m_BackgroundColor(0.0f, 0.0f, 0.0f, 1.0f)
+	{
+	}
+
 	void Renderer3D::Initialize()
 	{
 		TOMATO_ASSERT(!s_Instance, "Renderer3D already initialized!");
@@ -27,11 +32,6 @@ namespace Tomato
 	void Renderer3D::Terminate()
 	{
 		delete s_Instance;
-	}
-
-	void Renderer3D::Clear(const Float4& color) const
-	{
-		this->Clear(color.x, color.y, color.z, color.w);
 	}
 
 	void Renderer3D::Draw(const Mesh& mesh, const Mat4& transform)
@@ -206,6 +206,16 @@ namespace Tomato
 			vertex.TexIndex = texIndex;
 			m_Data.TextVertices[m_Data.TextVertexCounter++] = vertex;
 		}
+	}
+
+	const Float4& Renderer3D::GetBackgroundColor()
+	{
+		return s_Instance->m_BackgroundColor;
+	}
+
+	void Renderer3D::SetBackgroundColor(const Float4& bgcolor)
+	{
+		s_Instance->m_BackgroundColor = bgcolor;
 	}
 
 	Renderer3D* Renderer3D::Get()

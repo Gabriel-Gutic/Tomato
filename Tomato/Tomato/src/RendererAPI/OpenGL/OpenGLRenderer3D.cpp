@@ -74,7 +74,7 @@ namespace Tomato
 			//glCullFace(GL_BACK);
 		}
 		
-		OpenGLRenderer3D::Clear(0.0f, 0.0f, 0.0f, 1.0f);
+		Clear();
 		
 		Mat4 vp = App::GetCurrentScene()->GetViewProjection(drawToFramebuffer);
 
@@ -95,11 +95,16 @@ namespace Tomato
 		
 	}
 
-	void OpenGLRenderer3D::Clear(float r, float g, float b, float a) const
+	void OpenGLRenderer3D::Clear() const
 	{
 		glEnable(GL_DEPTH_TEST);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(r, g, b, a);
+		glClearColor(
+			m_BackgroundColor.x, 
+			m_BackgroundColor.y,
+			m_BackgroundColor.z,
+			m_BackgroundColor.w
+		);
 	}
 
 	void OpenGLRenderer3D::Swap() const

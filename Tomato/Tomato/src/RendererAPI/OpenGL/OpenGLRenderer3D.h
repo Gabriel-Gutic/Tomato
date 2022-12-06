@@ -13,7 +13,7 @@ namespace Tomato
 		virtual void Begin() override;
 		virtual void End() override;
 
-		virtual void Clear(float r, float g, float b, float a) const override;
+		virtual void Clear() const override;
 		virtual void Swap() const override;
 	private:
 		virtual void Flush() override;

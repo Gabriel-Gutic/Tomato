@@ -30,7 +30,7 @@ namespace Tomato
 	void OpenGLGUI::Begin()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		Renderer3D::Get()->Clear(0.0f, 0.0f, 0.0f, 1.0f);
+		Renderer3D::Get()->Clear();
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();

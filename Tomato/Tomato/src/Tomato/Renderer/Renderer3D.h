@@ -14,7 +14,7 @@ namespace Tomato
 	class Renderer3D
 	{
 	protected:
-		Renderer3D() = default;
+		Renderer3D();
 		virtual ~Renderer3D() = default;
 	public:
 		Renderer3D(const Renderer3D&) = delete;
@@ -24,8 +24,7 @@ namespace Tomato
 		virtual void Begin() = 0;
 		virtual void End() = 0;
 
-		virtual void Clear(float r, float g, float b, float a) const = 0;
-		virtual void Clear(const Float4& color) const;
+		virtual void Clear() const = 0;
 		virtual void Swap() const = 0;
 
 		virtual void Draw(const Mesh& mesh, const Mat4& transform = Mat4(1.0f));
@@ -39,6 +38,8 @@ namespace Tomato
 		virtual void RenderText(std::string_view text, const Font& font, const Float3& center = Float3(), const Float4& color = Float4(1.0f, 1.0f, 1.0f, 1.0f), float fontSize = 12.0f, const Float3& rotation = Float3(0.0f));
 		virtual void DrawTextMesh(const Mesh& mesh, const Mat4& transform = Mat4(1.0f));
 
+		static const Float4& GetBackgroundColor();
+		static void SetBackgroundColor(const Float4& bgcolor);
 
 		static Renderer3D* Get();
 		static void SetFrameBuffer(const std::shared_ptr<FrameBuffer>& fb);
@@ -78,6 +79,8 @@ namespace Tomato
 		std::unique_ptr<VertexArray> m_TextVertexArray;
 
 		std::shared_ptr<FrameBuffer> m_FrameBuffer;
+
+		Float4 m_BackgroundColor;
 
 		static Renderer3D* s_Instance;
 	};

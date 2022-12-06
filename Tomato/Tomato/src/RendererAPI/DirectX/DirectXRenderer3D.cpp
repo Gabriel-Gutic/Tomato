@@ -35,7 +35,7 @@ namespace Tomato
 		if (Renderer3D::GetFrameBuffer())
 			DirectXDevice::SetRenderTarget(std::dynamic_pointer_cast<DirectXFrameBuffer>(Renderer3D::GetFrameBuffer())->GetRenderTargetView());
 
-		Renderer3D::Get()->Clear(1.0f, 0.0f, 0.0f, 1.0f);
+		Renderer3D::Get()->Clear();
 
 		m_Shader->Use();
 		m_Shader->SetMat4("VP", Math::Transpose(App::GetCurrentScene()->GetViewProjection()));
@@ -46,17 +46,12 @@ namespace Tomato
 		Flush();
 
 		DirectXDevice::SetRenderTarget(DirectXDevice::GetBackBuffer());
-		Renderer3D::Get()->Clear(0.0f, 0.0f, 1.0f, 1.0f);
+		Renderer3D::Get()->Clear();
 	}
 
-	void DirectXRenderer3D::Clear(float r, float g, float b, float a) const
+	void DirectXRenderer3D::Clear() const
 	{
-		Clear(Float4(r, g, b, a));
-	}
-
-	void DirectXRenderer3D::Clear(const Float4& color) const
-	{
-		DirectXDevice::Clear(color);
+		DirectXDevice::Clear(m_BackgroundColor);
 	}
 
 	void DirectXRenderer3D::Swap() const

@@ -44,6 +44,7 @@ public:
 			m_Cube.Vertices[i].TexIndex = 2.0f;
 
 		//Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position.y = -1.0f;
+		Tomato::Renderer3D::SetBackgroundColor({ 1.0f, 1.0f, 1.0f });
 	}
 
 	void OnUpdate(float dt)
