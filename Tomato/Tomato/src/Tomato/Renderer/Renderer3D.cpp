@@ -144,28 +144,28 @@ namespace Tomato
 			mesh.Vertices.resize(4);
 
 			mesh.Vertices[0] = Mesh::Vertex(
-				Float3(xpos, ypos + h, 0.0f),
+				Float3(xpos, ypos + h, center.z),
 				color,
 				Float3(0.0f, 0.0f, 1.0f),
 				Float2(0.0f, 0.0f),
 				0.0f
 			);
 			mesh.Vertices[1] = Mesh::Vertex(
-				Float3(xpos + w, ypos, 0.0f),
+				Float3(xpos + w, ypos, center.z),
 				color,
 				Float3(0.0f, 0.0f, 1.0f),
 				Float2(1.0f, 1.0f),
 				0.0f
 			);
 			mesh.Vertices[2] = Mesh::Vertex(
-				Float3(xpos, ypos, 0.0f),
+				Float3(xpos, ypos, center.z),
 				color,
 				Float3(0.0f, 0.0f, 1.0f),
 				Float2(0.0f, 1.0f),
 				0.0f
 			);
 			mesh.Vertices[3] = Mesh::Vertex(
-				Float3(xpos + w, ypos + h, 0.0f),
+				Float3(xpos + w, ypos + h, center.z),
 				color,
 				Float3(0.0f, 0.0f, 1.0f),
 				Float2(1.0f, 0.0f),
