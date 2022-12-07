@@ -45,7 +45,7 @@ namespace Tomato
 	std::string Math::ToString(float number, unsigned int precision)
 	{
 		long long a = (long long)number;
-		float b = number - a;
+		float b = Abs(number - a);
 
 		for (unsigned int i = 0; i < precision; i++)
 			b *= 10;
@@ -62,7 +62,7 @@ namespace Tomato
 	std::string Math::ToString(double number, unsigned int precision)
 	{
 		long long a = (long long)number;
-		double b = number - a;
+		double b = Abs(number - a);
 
 		for (unsigned int i = 0; i < precision; i++)
 			b *= 10;
