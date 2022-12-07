@@ -435,9 +435,9 @@ namespace Tomato
 		for (unsigned int j = 0; j < 3; j++)
 			result[j][2] = -direction[j];
 		
-		result[3][0] = -(right * position);
-		result[3][1] = -(up * position);
-		result[3][2] =  (direction * position);
+		result[3][0] = -Float3::DotProduct(right, position);
+		result[3][1] = -Float3::DotProduct(up, position);
+		result[3][2] = Float3::DotProduct(direction, position);
 
 		return result;
 	}

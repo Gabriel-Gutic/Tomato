@@ -15,7 +15,7 @@ out float o_TexIndex;
 
 void main()
 {
-	o_Color = Color;
+	o_Color = vec4(Color.a * Color.rgb, Color.a);
 	o_Normal = Normal;
 	o_TexCoords = TexCoords;
 	o_TexIndex = TexIndex;

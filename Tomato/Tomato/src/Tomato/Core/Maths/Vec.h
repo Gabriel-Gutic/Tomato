@@ -29,7 +29,7 @@ public:																			\
 	bool operator!=(const Name##2& other) const;								\
 	Name##2 operator+(const Name##2& other) const;								\
 	Name##2 operator-(const Name##2& other) const;								\
-	Type operator*(const Name##2& other) const;									\
+	Name##2 operator*(const Name##2& other) const;									\
 	Type& operator[](size_t index); 											\
 	const Type& operator[](size_t index) const;									\
 	friend Name##2 operator*(const Name##2& f2, Type dot);						\
@@ -93,9 +93,9 @@ Name##2 Name##2::operator-(const Name##2& other) const							\
 	return Name##2(x - other.x, y - other.y);									\
 }																				\
 																				\
-Type Name##2::operator*(const Name##2& other) const								\
+Name##2 Name##2::operator*(const Name##2& other) const								\
 {																				\
-	return DotProduct(*this, other);											\
+	return { x * other.x, y * other.y };											\
 }																				\
 																				\
 Type& Name##2::operator[](size_t index)											\
@@ -173,7 +173,7 @@ const Type* Name##2::ToPtr() const												\
 		bool operator!=(const Name##3& other) const;							\
 		Name##3 operator+(const Name##3 & other) const;							\
 		Name##3 operator-(const Name##3 & other) const;							\
-		Type operator*(const Name##3 & other) const;							\
+		Name##3 operator*(const Name##3 & other) const;							\
 		Type& operator[](size_t index); 										\
 		const Type& operator[](size_t index) const;								\
 		friend Name##3 operator*(const Name##3 & f3, Type dot);					\
@@ -258,9 +258,9 @@ Name##3 Name##3::operator-(const Name##3& other) const							\
 	return Name##3(x - other.x, y - other.y, z - other.z);						\
 }																				\
 																				\
-Type Name##3::operator*(const Name##3& other) const								\
+Name##3 Name##3::operator*(const Name##3& other) const								\
 {																				\
-	return DotProduct(*this, other);											\
+	return { x * other.x, y * other.y, z * other.z };											\
 }																				\
 																				\
 Type& Name##3::operator[](size_t index)											\
@@ -345,7 +345,7 @@ const Type* Name##3::ToPtr() const												\
 		bool operator!=(const Name##4& other) const;							\
 		Name##4 operator+(const Name##4 & other) const;							\
 		Name##4 operator-(const Name##4 & other) const;							\
-		Type operator*(const Name##4 & other) const;							\
+		Name##4 operator*(const Name##4 & other) const;							\
 		Type& operator[](size_t index); 										\
 		const Type& operator[](size_t index) const;								\
 		friend Name##4 operator*(const Name##4 & f3, Type dot);					\
@@ -429,9 +429,9 @@ Name##4 Name##4::operator-(const Name##4& other) const							\
 	return Name##4(x - other.x, y - other.y, z - other.z, w - other.w);			\
 }																				\
 																				\
-Type Name##4::operator*(const Name##4& other) const								\
+Name##4 Name##4::operator*(const Name##4& other) const							\
 {																				\
-	return DotProduct(*this, other);											\
+	return { x * other.x, y * other.y, z * other.z, w * other.w };				\
 }																				\
 																				\
 Type& Name##4::operator[](size_t index)											\

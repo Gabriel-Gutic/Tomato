@@ -44,6 +44,7 @@ public:
 			m_Cube.Vertices[i].TexIndex = 2.0f;
 
 		//Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position.y = -1.0f;
+	
 		Tomato::Renderer3D::SetBackgroundColor({ 1.0f, 1.0f, 1.0f });
 	}
 
@@ -152,10 +153,11 @@ private:
 			{ 1.0f, 0.0f, 0.0f },
 			{ 1.0f, 1.0f, -1.0f },
 			{ -2.0f, 1.0f, -1.0f },
-			Tomato::Color::White
+			Tomato::Color::Blue,
+			0.1f
 			);
 
-		m_Font.RenderText("Hello -+=() world", Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 1.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
+		m_Font.RenderText("Hello -+=() world", Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 0.0f, 0.0f), 12.0f, {0.0f, 45.0f, 0.0f});
 		//
 		//Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
 		//Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, Tomato::Color::Green);
