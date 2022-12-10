@@ -103,24 +103,54 @@ public:
 		{
 			window->SetFullscreen(false);
 		}
+
+
+
+		auto& pos = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position;
+		auto& target = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>().Target;
+		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
+		{
+			pos.x -= m_CameraSpeed;
+			target.x -= m_CameraSpeed;
+
+			m_CameraTheta -= m_CameraSpeed;
+			//CameraRepositioning();
+		}
+		if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
+		{
+			pos.x += m_CameraSpeed;
+			target.x += m_CameraSpeed;
+
+			m_CameraTheta += m_CameraSpeed;
+			//CameraRepositioning();
+		}
 	}
 
 	virtual void OnEvent(const Tomato::Event& e)
 	{
-		if (e.GetType() == Tomato::EventType::KeyPress)
-		{
-			auto ev = Tomato::Event::Cast<Tomato::KeyPressEvent>(e);
-			if (ev.GetKey() == TOMATO_KEY_LEFT)
-			{
-				m_CameraTheta -= m_CameraSpeed;
-				CameraRepositioning();
-			}
-			if (ev.GetKey() == TOMATO_KEY_RIGHT)
-			{
-				m_CameraTheta += m_CameraSpeed;
-				CameraRepositioning();
-			}
-		}
+		//if (e.GetType() == Tomato::EventType::KeyPress)
+		//{
+		//	auto ev = Tomato::Event::Cast<Tomato::KeyPressEvent>(e);
+		//
+		//	auto& pos = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position;
+		//	auto& target = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>().Target;
+		//	if (ev.GetKey() == TOMATO_KEY_LEFT)
+		//	{
+		//		pos.x -= m_CameraSpeed;
+		//		target.x -= m_CameraSpeed;
+		//
+		//		m_CameraTheta -= m_CameraSpeed;
+		//		//CameraRepositioning();
+		//	}
+		//	if (ev.GetKey() == TOMATO_KEY_RIGHT)
+		//	{
+		//		pos.x += m_CameraSpeed;
+		//		target.x += m_CameraSpeed;
+		//
+		//		m_CameraTheta += m_CameraSpeed;
+		//		//CameraRepositioning();
+		//	}
+		//}
 	}
 
 	virtual void OnGUI() override
@@ -157,7 +187,13 @@ private:
 		//	0.1f
 		//	);
 
-		m_Font.RenderText("Hello -+=() world", Tomato::Float3(0.0f, 0.0f, -3.0f), Tomato::Float4(1.0f, 0.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
+		std::string str = "";
+		for (uint8_t c = 32; c <= 127; c++)
+		{
+			str += c;
+		}
+
+		m_Font.RenderText(str, Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 0.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
 		//
 		//Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
 		//Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, Tomato::Color::Green);

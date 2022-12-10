@@ -135,7 +135,7 @@ namespace Tomato
 		{
 			const auto& ch = font[c];
 			float xpos = x + ch.Bearing.x * fontSize;
-			float ypos = y + (ch.Size.y - ch.Bearing.y) * fontSize;
+			float ypos = y - (ch.Size.y - ch.Bearing.y) * fontSize;
 
 			float w = ch.Size.x * fontSize;
 			float h = ch.Size.y * fontSize;
