@@ -55,8 +55,8 @@ namespace Tomato
 			float texIndex = -1.0f;
 			if (vertex.TexIndex >= 0.0f)
 				texIndex = GetTextureIndex(mesh.Textures[static_cast<int>(vertex.TexIndex)]);
-			vertex.Position = (transform * Float4(vertex.Position, 1.0f)).xyz;
-			vertex.Normal = (transform * Float4(vertex.Normal, 1.0f)).xyz;
+			vertex.Position = transform * vertex.Position;
+			vertex.Normal = transform * vertex.Normal;
 			vertex.TexIndex = texIndex;
 			m_Data.Vertices[m_Data.VertexCounter++] = vertex;
 		}

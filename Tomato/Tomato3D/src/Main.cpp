@@ -43,7 +43,7 @@ public:
 		for (; i < 24; i++)
 			m_Cube.Vertices[i].TexIndex = 2.0f;
 
-		//Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position.y = -1.0f;
+		Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position.y = -1.0f;
 	
 		Tomato::Renderer3D::SetBackgroundColor({ 1.0f, 1.0f, 1.0f });
 	}
@@ -104,113 +104,66 @@ public:
 			window->SetFullscreen(false);
 		}
 
-
-
 		auto& pos = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position;
 		auto& target = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>().Target;
 		if (Tomato::Input::Keyboard(TOMATO_KEY_LEFT))
 		{
-			pos.x -= m_CameraSpeed;
-			target.x -= m_CameraSpeed;
-
-			m_CameraTheta -= m_CameraSpeed;
-			//CameraRepositioning();
+			m_CameraTheta -= m_CameraSpeed * dt;
 		}
 		if (Tomato::Input::Keyboard(TOMATO_KEY_RIGHT))
 		{
-			pos.x += m_CameraSpeed;
-			target.x += m_CameraSpeed;
-
-			m_CameraTheta += m_CameraSpeed;
-			//CameraRepositioning();
+			m_CameraTheta += m_CameraSpeed * dt;
 		}
+		CameraRepositioning();
 	}
 
 	virtual void OnEvent(const Tomato::Event& e)
 	{
-		//if (e.GetType() == Tomato::EventType::KeyPress)
-		//{
-		//	auto ev = Tomato::Event::Cast<Tomato::KeyPressEvent>(e);
-		//
-		//	auto& pos = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position;
-		//	auto& target = Tomato::App::GetCurrentCamera()->GetComponent<Tomato::CameraComponent>().Target;
-		//	if (ev.GetKey() == TOMATO_KEY_LEFT)
-		//	{
-		//		pos.x -= m_CameraSpeed;
-		//		target.x -= m_CameraSpeed;
-		//
-		//		m_CameraTheta -= m_CameraSpeed;
-		//		//CameraRepositioning();
-		//	}
-		//	if (ev.GetKey() == TOMATO_KEY_RIGHT)
-		//	{
-		//		pos.x += m_CameraSpeed;
-		//		target.x += m_CameraSpeed;
-		//
-		//		m_CameraTheta += m_CameraSpeed;
-		//		//CameraRepositioning();
-		//	}
-		//}
+
 	}
 
 	virtual void OnGUI() override
 	{
 		Tomato::GUI::RenderWindow(m_FrameBuffer, true);
-
+		
 		bool show_demo_window = true;
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
 		
 		ImGui::Begin("Menu");
+		
+		ImGui::Text(("FPS: " + Tomato::Math::ToString(Tomato::App::GetFPS())).c_str());
 
 		const char* const cameraTypes[] = { "Orthographic", "Perspective" };
 		ImGui::Combo("Camera Type", &m_CurrentCameraProjection, cameraTypes, 2);
 		
-
-
+		ImGui::SliderFloat("Smoothness", &m_Smoothness, 0.3f, 1.0f);
+		
 		ImGui::End();
 	}
 private:
-	float f(float x)
-	{
-		return 1 / Tomato::Math::Exp(x);
-	}
-
 	void DrawLines()
 	{
-		//Tomato::Renderer3D::Get()->DrawQuad(
-		//	{ 0.0f, 0.0f, 0.0f },
-		//	{ 1.0f, 0.0f, 0.0f },
-		//	{ 1.0f, 1.0f, -1.0f },
-		//	{ -2.0f, 1.0f, -1.0f },
-		//	Tomato::Color::Blue,
-		//	0.1f
-		//	);
+		TOMATO_BENCHMARKING_FUNCTION();
 
-		std::string str = "";
-		for (uint8_t c = 32; c <= 127; c++)
-		{
-			str += c;
-		}
+		float maxPoint = m_CameraRadius / 3.0f;
 
-		m_Font.RenderText(str, Tomato::Float3(0.0f, 0.0f, 0.0f), Tomato::Float4(1.0f, 0.0f, 1.0f), 12.0f, {0.0f, 45.0f, 0.0f});
-		//
-		//Tomato::Renderer3D::Get()->DrawTriangle({ 0.5, 0.5 }, 1);
-		//Tomato::Renderer3D::Get()->DrawSquare(m_SquarePos, Tomato::Color::Green);
-		//Tomato::Renderer3D::Get()->DrawLine({ -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f, 0.0f }, Tomato::Color::Red);
-		//Tomato::Renderer3D::Get()->DrawLine({  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f, 0.0f }, Tomato::Color::Green);
-		//Tomato::Renderer3D::Get()->DrawLine({  0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f }, Tomato::Color::Blue);
-		//
-		//Tomato::Float3 last;
-		//for (float x = -10.0f; x <= 10.0f; x += 0.1f)
-		//{
-		//	Tomato::Float3 newPoint = { x / 10.0f, f(x) / 10.0f, 0.0f };
-		//	if (x != -10.0f)
-		//	{
-		//		Tomato::Renderer3D::Get()->DrawLine(last, newPoint, Tomato::Color::White);
-		//	}
-		//	last = newPoint;
-		//}
+		Tomato::Renderer3D::Get()->DrawLine({ -maxPoint,  0.0f,  0.0f }, { maxPoint, 0.0f, 0.0f }, Tomato::Color::Red);
+		m_Font.RenderText("x", { maxPoint, maxPoint / 20.0f, 0.0f },
+			Tomato::Color::Red, maxPoint
+		);
+		Tomato::Renderer3D::Get()->DrawLine({ 0.0f, -maxPoint,  0.0f }, { 0.0f, maxPoint, 0.0f }, Tomato::Color::Green);
+		m_Font.RenderText("y", { maxPoint / 20.0f, maxPoint, 0.0f },
+			Tomato::Color::Green, maxPoint
+		);
+		Tomato::Renderer3D::Get()->DrawLine({ 0.0f,  0.0f, -maxPoint }, { 0.0f, 0.0f, maxPoint }, Tomato::Color::Blue);
+		m_Font.RenderText("z", { 0.0f, maxPoint / 20.0f , maxPoint },
+			Tomato::Color::Blue, maxPoint
+		);
+
+		DrawExplicitGraph([](float x, float z) {
+			return -Tomato::Math::Sin(x * z);
+		}, Tomato::Float3(0.5f, 0.4f, 0.3f));
 	}
 
 	void CameraRepositioning()
@@ -220,11 +173,38 @@ private:
 		tran.Position.x = 3 * Tomato::Math::Cos(m_CameraTheta);
 		tran.Position.z = 3 * Tomato::Math::Sin(m_CameraTheta);
 	}
+
+	void DrawExplicitGraph(const std::function<float(float, float)>& f, const Tomato::Float3& color, const float alpha = 1.0f) const
+	{
+		TOMATO_BENCHMARKING_FUNCTION();
+
+		float dx, dz;
+		dx = dz = m_CameraRadius / (100.0f * m_Smoothness);
+
+		float limit = m_CameraRadius / 3.0f;
+
+		for (float x = -limit; x <= limit - dx; x += dx)
+		{
+			for (float z = -limit; z <= limit - dz; z += dz)
+			{
+				Tomato::Renderer3D::Get()->DrawQuad(
+					Tomato::Float3(x, f(x, z), z),
+					Tomato::Float3(x, f(x, z + dz), z + dz),
+					Tomato::Float3(x + dx, f(x + dx, z + dz), z + dz),
+					Tomato::Float3(x + dx, f(x + dx, z), z),
+					color * Tomato::Float3(std::max(x, 0.5f), std::max(0.5f, z), std::max(z, x)),
+					alpha
+				);
+			}
+		}
+	}
 private:
-	float m_CameraSpeed = 0.1f;
+	float m_CameraSpeed = 0.5f;
 	float m_CameraOrthoSize = 1.0f;
 	float m_CameraFOV = 45.0f;
 	float m_CameraTheta = Tomato::Math::pi / 2.0f;
+	float m_CameraRadius = 3.0f;
+	float m_Smoothness = 0.7f;
 
 	Tomato::Timer m_Timer;
 

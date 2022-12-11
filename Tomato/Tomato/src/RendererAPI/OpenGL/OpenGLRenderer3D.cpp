@@ -118,6 +118,8 @@ namespace Tomato
 
 	void OpenGLRenderer3D::Flush()
 	{
+		TOMATO_BENCHMARKING_FUNCTION();
+
 		m_Shader->Use();
 		m_VertexArray->Bind();
 

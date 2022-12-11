@@ -190,7 +190,6 @@ namespace Tomato::GUI
 
             float height = (size.x * h) / (float)w;
 
-            TOMATO_PRINT(size.y / 2.0f - height);
             ImGui::SetCursorPos(ImVec2(0.0f, (size.y - height) / 2.0f));
             ImGui::Image((ImTextureID)id, ImVec2(size.x, height));
 
