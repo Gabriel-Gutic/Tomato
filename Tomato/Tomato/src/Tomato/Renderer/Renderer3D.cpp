@@ -121,13 +121,13 @@ namespace Tomato
 
 	void Renderer3D::RenderText(std::string_view text, const Font& font, const Float3& center, const Float4& color, float fontSize, const Float3& rotation)
 	{
-		Mat4 rot = Quaternion::Rotation(rotation).ToMat4();
+		Mat4 tran = Quaternion::Rotation(rotation).ToMat4();
+		tran = Math::Translate(center) * tran;
 
 		Float2 size = font.GetSize(text, fontSize);
 
-		auto[x, y] = center.xy.data;
-		x -= size.x / 2.0f;
-		y -= size.y / 2.0f;
+		float x = -size.x / 2.0f;
+		float y = -size.y / 2.0f;
 
 		fontSize = fontSize / 1200.0f;
 
@@ -144,28 +144,28 @@ namespace Tomato
 			mesh.Vertices.resize(4);
 
 			mesh.Vertices[0] = Mesh::Vertex(
-				Float3(xpos, ypos + h, center.z),
+				Float3(xpos, ypos + h, 0.0f),
 				color,
 				Float3(0.0f, 0.0f, 1.0f),
 				Float2(0.0f, 0.0f),
 				0.0f
 			);
 			mesh.Vertices[1] = Mesh::Vertex(
-				Float3(xpos + w, ypos, center.z),
+				Float3(xpos + w, ypos, 0.0f),
 				color,
 				Float3(0.0f, 0.0f, 1.0f),
 				Float2(1.0f, 1.0f),
 				0.0f
 			);
 			mesh.Vertices[2] = Mesh::Vertex(
-				Float3(xpos, ypos, center.z),
+				Float3(xpos, ypos, 0.0f),
 				color,
 				Float3(0.0f, 0.0f, 1.0f),
 				Float2(0.0f, 1.0f),
 				0.0f
 			);
 			mesh.Vertices[3] = Mesh::Vertex(
-				Float3(xpos + w, ypos + h, center.z),
+				Float3(xpos + w, ypos + h, 0.0f),
 				color,
 				Float3(0.0f, 0.0f, 1.0f),
 				Float2(1.0f, 0.0f),
@@ -174,7 +174,7 @@ namespace Tomato
 
 			mesh.Indices = { 0, 2, 1, 0, 1, 3 };
 			mesh.Textures.push_back(ch.Texture);
-			DrawTextMesh(mesh, rot);
+			DrawTextMesh(mesh, tran);
 
 			x += (ch.Advance >> 6) * fontSize;
 		}

@@ -146,6 +146,10 @@ private:
 	{
 		TOMATO_BENCHMARKING_FUNCTION();
 
+		m_Font.RenderText("Text", { 1.0f, 0.5f, 1.0f },
+			Tomato::Color::Red, 12.0f, Tomato::Float3(0.0f, 90.0f, 90.0f)
+		);
+
 		float maxPoint = m_CameraRadius / 3.0f;
 
 		Tomato::Renderer3D::Get()->DrawLine({ -maxPoint,  0.0f,  0.0f }, { maxPoint, 0.0f, 0.0f }, Tomato::Color::Red);
@@ -161,9 +165,9 @@ private:
 			Tomato::Color::Blue, maxPoint
 		);
 
-		DrawExplicitGraph([](float x, float z) {
-			return -Tomato::Math::Sin(x * z);
-		}, Tomato::Float3(0.5f, 0.4f, 0.3f));
+		//DrawExplicitGraph([](float x, float z) {
+		//	return -Tomato::Math::Sin(x * z);
+		//}, Tomato::Float3(0.5f, 0.4f, 0.3f));
 	}
 
 	void CameraRepositioning()
