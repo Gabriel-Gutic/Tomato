@@ -6,6 +6,8 @@ namespace Tomato::Math
 {
 	const float pi = acosf(-1.0f);
 	const float e = expf(1.0f);
+	const float nan = std::nanf("");
+	const float inf = std::numeric_limits<float>::infinity();
 
 	unsigned int NumberOfDigits(int number);
 	unsigned int NumberOfDigits(unsigned int number);
@@ -29,6 +31,8 @@ namespace Tomato::Math
 	float Trunc(float number, unsigned int precision = 2);
 	double Trunc(double number, unsigned int precision = 2);
 
+	bool IsNaN(float x);
+	bool IsInf(float x);
 	float Abs(float x);
 	float Exp(float x);
 	float Sqrt(float x);

@@ -25,12 +25,16 @@ namespace Tomato
 		TOMATO_ASSERT(!s_Instance, "App already instantiated!");
 		s_Instance = this;
 
+
+		RandomEngine::Initialize();
+
+
 		m_Window = Window::CreateShared();
 		TOMATO_ASSERT(m_Window, "Failed to create Tomato Window!");
 
 		if (Renderer::GetType() == RendererType::_3D)
 			Renderer3D::Initialize();
-		
+			
 		GUI::Initialize();
 		Registry::Initialize();
 	}
@@ -41,6 +45,8 @@ namespace Tomato
 		Registry::Terminate();
 		if (Renderer::GetType() == RendererType::_3D)
 			Renderer3D::Terminate();
+
+		RandomEngine::Terminate();
 	}
 
 	int App::Run()

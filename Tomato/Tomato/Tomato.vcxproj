@@ -141,6 +141,7 @@
     <ClInclude Include="src\Tomato\Core\Maths\Maths.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Matrix.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Quaternion.h" />
+    <ClInclude Include="src\Tomato\Core\Maths\Random.h" />
     <ClInclude Include="src\Tomato\Core\Maths\UInt.h" />
     <ClInclude Include="src\Tomato\Core\Maths\Vec.h" />
     <ClInclude Include="src\Tomato\Core\Serializer\Serializer.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="src\Tomato\Core\Maths\Int.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Math.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Quaternion.cpp" />
+    <ClCompile Include="src\Tomato\Core\Maths\Random.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp" />
     <ClCompile Include="src\Tomato\Core\Serializer\Serializer.cpp" />
     <ClCompile Include="src\Tomato\Core\String\String.cpp" />

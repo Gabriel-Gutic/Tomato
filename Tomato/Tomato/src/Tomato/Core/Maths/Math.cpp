@@ -127,20 +127,12 @@ namespace Tomato
 
 	int Math::RandomInt(int a, int b)
 	{
-		std::random_device rd;
-		std::mt19937 mt(rd());
-		std::uniform_int_distribution<int> distribution(a, b);
-		int random_int = distribution(mt);
-		return random_int;
+		return RandomEngine::Get().RandomInt(a, b);
 	}
 
 	float Math::RandomFloat(float a, float b)
 	{
-		std::random_device rd;
-		std::mt19937 mt(rd());
-		std::uniform_real_distribution<float> distribution(a, b);
-		float random_float = distribution(mt);
-		return random_float;
+		return RandomEngine::Get().RandomFloat(a, b);
 	}
 
 	float Math::Trunc(float number, unsigned int precision)
@@ -159,8 +151,20 @@ namespace Tomato
 		return floor(number * power) / (double)power;
 	}
 
+	bool Math::IsNaN(float x)
+	{
+		return std::isnan(x);
+	}
+
+	bool Math::IsInf(float x)
+	{
+		return std::isinf(x);
+	}
+
 	float Math::Sqrt(float x)
 	{
+		if (x < 0)
+			return nan;
 		return sqrtf(x);
 	}
 
@@ -171,6 +175,11 @@ namespace Tomato
 
 	float Math::RSqrt(float x)
 	{
+		if (x == 0)
+			return inf;
+		if (x < 0)
+			return nan;
+
 		long i;
 		float x2, y;
 		const float threehalfs = 1.5F;
@@ -200,21 +209,39 @@ namespace Tomato
 
 	float Math::Log(float x)
 	{
+		if (x == 0)
+			return -inf;
+		if (x < 0)
+			return nan;
 		return logf(x);
 	}
 
 	float Math::Log2(float x)
 	{
+		if (x == 0)
+			return -inf;
+		if (x < 0)
+			return nan;
 		return log2f(x);
 	}
 
 	float Math::Log10(float x)
 	{
+		if (x == 0)
+			return -inf;
+		if (x < 0)
+			return nan;
 		return log10f(x);
 	}
 
 	float Math::Log(float base, float x)
 	{
+		if (base == 1 || base <= 0)
+			return nan;
+		if (x == 0)
+			return -inf;
+		if (x < 0)
+			return nan;
 		return Log(x) / Log(base);
 	}
 
@@ -240,13 +267,21 @@ namespace Tomato
 
 	float Math::ASin(float rad)
 	{
-		TOMATO_ASSERT(-1.0f <= rad && rad <= 1, "ASin invalid parameter: {0}", rad);
+		if (-1.0f > rad || rad > 1.0f)
+		{
+			TOMATO_ERROR("ASin invalid parameter: {0}", rad);
+			return nan;
+		}
 		return asinf(rad);
 	}
 
 	float Math::ACos(float rad)
 	{
-		TOMATO_ASSERT(-1.0f <= rad && rad <= 1, "ACos invalid parameter: {0}", rad);
+		if (rad < -1.0f || rad > 1.0f)
+		{
+			TOMATO_ERROR("ACos invalid parameter: {0}", rad);
+			return nan;
+		}
 		return acosf(rad);
 	}
 
@@ -258,39 +293,63 @@ namespace Tomato
 	float Math::Csc(float rad)
 	{
 		float _sin = Sin(rad);
-		TOMATO_ASSERT(_sin != 0.0f, "Csc invalid parameter: {0}", rad);
+		if (_sin == 0.0f)
+		{
+			TOMATO_ERROR("Csc invalid parameter: {0}", rad);
+			return nan;
+		}
 		return 1.0f / _sin;
 	}
 
 	float Math::Sec(float rad)
 	{
 		float _cos = Cos(rad);
-		TOMATO_ASSERT(_cos != 0.0f, "Sec invalid parameter: {0}", rad);
+		if (_cos == 0.0f)
+		{
+			TOMATO_ERROR("Sec invalid parameter: {0}", rad);
+			return nan;
+		}
 		return 1.0f / _cos;
 	}
 
 	float Math::Cot(float rad)
 	{
 		float _tan = Tan(rad);
-		TOMATO_ASSERT(_tan != 0.0f, "Cot invalid parameter: {0}", rad);
+		if (_tan == 0.0f)
+		{
+			TOMATO_ERROR("Cot invalid parameter: {0}", rad);
+			return nan;
+		}
 		return 1.0f / _tan;
 	}
 
 	float Math::ACsc(float rad)
 	{
-		TOMATO_ASSERT(rad != 0.0f, "ACsc invalid argument: {0}", rad);
+		if (rad == 0.0f)
+		{
+			TOMATO_ERROR("ACsc invalid argument: {0}", rad);
+			return nan;
+		}
 		return ASin(1.0f / rad);
 	}
 
 	float Math::ASec(float rad)
 	{
-		TOMATO_ASSERT(rad != 0.0f, "ACsc invalid argument: {0}", rad);
+		if (rad == 0.0f)
+		{
+			TOMATO_ERROR("ACsc invalid argument: {0}", rad);
+			return nan;
+		}
 		return ACos(1.0f / rad);
 	}
 
 	float Math::ACot(float rad)
 	{
-		TOMATO_ASSERT(rad != 0.0f, "ACsc invalid argument: {0}", rad);
+		if (rad == 0.0f)
+		{
+			TOMATO_ERROR("ACsc invalid argument: {0}", rad);
+			return nan;
+		}
 		return ATan(1.0f / rad);
 	}
 
@@ -327,39 +386,63 @@ namespace Tomato
 	float Math::Csch(float rad)
 	{
 		float _sinh = Sinh(rad);
-		TOMATO_ASSERT(_sinh != 0.0f, "Csch invalid argument: {0}", rad);
+		if (_sinh == 0.0f)
+		{
+			TOMATO_ERROR("Csch invalid argument: {0}", rad);
+			return nan;
+		}
 		return 1.0f / _sinh;
 	}
 
 	float Math::Sech(float rad)
 	{
 		float _sech = Sech(rad);
-		TOMATO_ASSERT(_sech != 0.0f, "Sech invalid argument: {0}", rad);
+		if (_sech == 0.0f)
+		{
+			TOMATO_ERROR("Sech invalid argument: {0}", rad);
+			return nan;
+		}
 		return 1.0f / _sech;
 	}
 
 	float Math::Coth(float rad)
 	{
 		float _tanh = Tanh(rad);
-		TOMATO_ASSERT(_tanh != 0.0f, "Coth invalid argument: {0}", rad);
+		if (_tanh == 0.0f)
+		{
+			TOMATO_ERROR("Coth invalid argument: {0}", rad);
+			return nan;
+		}
 		return 1.0f / _tanh;
 	}
 
 	float Math::ACsch(float rad)
 	{
-		TOMATO_ASSERT(rad != 0.0f, "ACsch invalid argument: {0}", rad);
+		if (rad == 0.0f)
+		{
+			TOMATO_ERROR("ACsch invalid argument: {0}", rad);
+			return nan;
+		}
 		return ASinh(1.0f / rad);
 	}
 
 	float Math::ASech(float rad)
 	{
-		TOMATO_ASSERT(rad != 0.0f, "ASech invalid argument: {0}", rad);
+		if (rad == 0.0f)
+		{
+			TOMATO_ERROR("ASech invalid argument: {0}", rad);
+			return nan;
+		}
 		return ACosh(1.0f / rad);
 	}
 
 	float Math::ACoth(float rad)
 	{
-		TOMATO_ASSERT(rad != 0.0f, "ACoth invalid argument: {0}", rad);
+		if (rad == 0.0f)
+		{
+			TOMATO_ERROR("ACoth invalid argument: {0}", rad);
+			return nan;
+		}
 		return ATanh(1.0f / rad);
 	}
 

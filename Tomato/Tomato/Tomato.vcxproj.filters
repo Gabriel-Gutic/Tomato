@@ -325,6 +325,7 @@
     <ClInclude Include="src\pchTomato.h" />
     <ClInclude Include="src\Tomato\Renderer\Line.h" />
     <ClInclude Include="src\Tomato\Core\App\Color.h" />
+    <ClInclude Include="src\Tomato\Core\Maths\Random.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RendererAPI\DirectX\DirectXCodes.cpp">
@@ -540,5 +541,6 @@
     <ClCompile Include="src\pchTomato.cpp" />
     <ClCompile Include="src\Tomato\Renderer\Line.cpp" />
     <ClCompile Include="src\Tomato\Core\App\Color.cpp" />
+    <ClCompile Include="src\Tomato\Core\Maths\Random.cpp" />
   </ItemGroup>
 </Project>

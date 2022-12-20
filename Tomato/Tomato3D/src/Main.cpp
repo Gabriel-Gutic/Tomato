@@ -50,6 +50,7 @@ public:
 
 	void OnUpdate(float dt)
 	{
+		PRINT(Tomato::Math::RandomFloat(0, 10));
 		// Show FPS
 		if (Tomato::Input::Keyboard(TOMATO_KEY_F))
 		{

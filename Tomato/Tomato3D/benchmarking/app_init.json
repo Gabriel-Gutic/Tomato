@@ -5,20 +5,20 @@
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::OpenGLWindow::OpenGLWindow(class std::basic_string_view<char,struct std::char_traits<char> >,int,int)",
-      "dur": 607996,
+      "dur": 439172,
       "pid": 0,
       "tid": 0,
-      "ts": 1038,
+      "ts": 520,
       "ph": "X"
     }
     ,
     {
       "cat": "App Initialization",
       "name": "__cdecl Tomato::App::App(const class std::unordered_map<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::any,struct std::hash<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,struct std::equal_to<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,class std::allocator<struct std::pair<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const ,class std::any> > > &)",
-      "dur": 613371,
+      "dur": 443155,
       "pid": 0,
       "tid": 0,
-      "ts": 609034,
+      "ts": 439692,
       "ph": "X"
     }
   ]
