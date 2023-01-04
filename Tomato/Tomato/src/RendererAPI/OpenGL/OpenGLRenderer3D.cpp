@@ -105,10 +105,10 @@ namespace Tomato
 		glEnable(GL_DEPTH_TEST);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(
-			m_BackgroundColor.x, 
-			m_BackgroundColor.y,
-			m_BackgroundColor.z,
-			m_BackgroundColor.w
+			m_BackgroundColor.r, 
+			m_BackgroundColor.g,
+			m_BackgroundColor.b,
+			m_BackgroundColor.a
 		);
 	}
 

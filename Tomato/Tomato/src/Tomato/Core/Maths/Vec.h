@@ -14,7 +14,7 @@ public:																			\
 			Type x, y;															\
 		};																		\
 		struct {																\
-			Type a, b;															\
+			Type r, g;															\
 		};																		\
 	};																			\
 																				\
@@ -149,13 +149,13 @@ const Type* Name##2::ToPtr() const												\
 				Name##2 xy;														\
 			};																	\
 			struct {															\
-				Name##2 ab;														\
+				Name##2 rg;														\
 			};																	\
 			struct {															\
 				Type x, y, z;													\
 			};																	\
 			struct {															\
-				Type a, b, c;													\
+				Type r, g, b;													\
 			};																	\
 		};																		\
 																				\
@@ -203,7 +203,7 @@ Name##3::Name##3(Type x, const Name##2& f)										\
 }																				\
 																				\
 Name##3::Name##3(const Name##3& f)												\
-	: a(f.a), b(f.b), c(f.c)													\
+	: x(f.x), y(f.y), z(f.z)													\
 {																				\
 }																				\
 																				\
@@ -317,16 +317,16 @@ const Type* Name##3::ToPtr() const												\
 				Name##2 xy, zw;													\
 			};																	\
 			struct {															\
-				Name##3 abc;													\
+				Name##3 rgb;													\
 			};																	\
 			struct {															\
-				Name##2 ab, cd;													\
+				Name##2 rg, ba;													\
 			};																	\
 			struct {															\
 				Type x, y, z, w;												\
 			};																	\
 			struct {															\
-				Type a, b, c, d;												\
+				Type r, g, b, a;												\
 			};																	\
 		};																		\
 																				\
