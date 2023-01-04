@@ -12,7 +12,7 @@ namespace Tomato
 		~Scene();
 
 		const std::unique_ptr<Entity>& GetCamera() const;
-		Mat4 GetViewProjection(bool viewReversed = false) const;
+		Mat4 GetProjectionView(bool viewReversed = false) const;
 
 		std::vector<Layer*>& GetLayers();
 		const std::vector<Layer*>& GetLayers() const;

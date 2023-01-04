@@ -36,6 +36,30 @@ namespace Tomato
 		glUniformMatrix4fv(id, 1, GL_FALSE, matrix.GetData().data()->data());
 	}
 
+	void OpenGLShader::SetFloat(std::string_view location, float f)
+	{
+		int id = GetUniformLocation(location);
+		glUniform1f(id, f);
+	}
+
+	void OpenGLShader::SetFloat2(std::string_view location, const Float2& f2)
+	{
+		int id = GetUniformLocation(location);
+		glUniform2fv(id, 1, f2.ToPtr());
+	}
+
+	void OpenGLShader::SetFloat3(std::string_view location, const Float3& f3)
+	{
+		int id = GetUniformLocation(location);
+		glUniform3fv(id, 1, f3.ToPtr());
+	}
+
+	void OpenGLShader::SetFloat4(std::string_view location, const Float4& f4)
+	{
+		int id = GetUniformLocation(location);
+		glUniform4fv(id, 1, f4.ToPtr());
+	}
+
 	void OpenGLShader::SetIntData(std::string_view location, unsigned int size, const int* data)
 	{
 		int id = GetUniformLocation(location);

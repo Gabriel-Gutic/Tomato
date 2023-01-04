@@ -38,7 +38,7 @@ namespace Tomato
 		Renderer3D::Get()->Clear();
 
 		m_Shader->Use();
-		m_Shader->SetMat4("VP", Math::Transpose(App::GetCurrentScene()->GetViewProjection()));
+		m_Shader->SetMat4("VP", Math::Transpose(App::GetCurrentScene()->GetProjectionView()));
 	}
 
 	void DirectXRenderer3D::End()

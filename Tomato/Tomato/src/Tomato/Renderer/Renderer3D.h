@@ -41,6 +41,10 @@ namespace Tomato
 		static const Float4& GetBackgroundColor();
 		static void SetBackgroundColor(const Float4& bgcolor);
 
+		static void SetLight(const Float3& lightSource);
+		static void RemoveLight();
+		static const Float3& GetLight();
+
 		static Renderer3D* Get();
 		static void SetFrameBuffer(const std::shared_ptr<FrameBuffer>& fb);
 		static const std::shared_ptr<FrameBuffer>& GetFrameBuffer();
@@ -81,6 +85,10 @@ namespace Tomato
 		std::shared_ptr<FrameBuffer> m_FrameBuffer;
 
 		Float4 m_BackgroundColor;
+
+		// Lighting
+		Float3 m_LightSource;
+		bool m_IsUsingLight;
 
 		static Renderer3D* s_Instance;
 	};

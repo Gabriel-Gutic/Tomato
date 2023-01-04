@@ -10,7 +10,8 @@ namespace Tomato
 {
 	Renderer3D* Renderer3D::s_Instance = nullptr;
 	Renderer3D::Renderer3D()
-		:m_BackgroundColor(0.0f, 0.0f, 0.0f, 1.0f)
+		:m_BackgroundColor(0.0f, 0.0f, 0.0f, 1.0f), 
+		m_IsUsingLight(false), m_LightSource()
 	{
 	}
 
@@ -64,10 +65,14 @@ namespace Tomato
 
 	void Renderer3D::DrawTriangle(const Float3& A, const Float3& B, const Float3& C, const Float3& color, const float alpha, const Mat4& transform)
 	{
+		Float3 u = B - A;
+		Float3 v = C - A;
+		Float3 normal = Float3::CrossProduct(u, v);
+
 		Mesh mesh;
-		mesh.Vertices.emplace_back(A, Float4(color, alpha));
-		mesh.Vertices.emplace_back(B, Float4(color, alpha));
-		mesh.Vertices.emplace_back(C, Float4(color, alpha));
+		mesh.Vertices.emplace_back(A, Float4(color, alpha), normal);
+		mesh.Vertices.emplace_back(B, Float4(color, alpha), normal);
+		mesh.Vertices.emplace_back(C, Float4(color, alpha), normal);
 
 		mesh.Indices = { 0, 1, 2 };
 		Draw(mesh, transform);
@@ -216,6 +221,22 @@ namespace Tomato
 	void Renderer3D::SetBackgroundColor(const Float4& bgcolor)
 	{
 		s_Instance->m_BackgroundColor = bgcolor;
+	}
+
+	void Renderer3D::SetLight(const Float3& lightSource)
+	{
+		s_Instance->m_LightSource = lightSource;
+		s_Instance->m_IsUsingLight = true;
+	}
+
+	void Renderer3D::RemoveLight()
+	{
+		s_Instance->m_IsUsingLight = false;
+	}
+
+	const Float3& Renderer3D::GetLight()
+	{
+		return s_Instance->m_LightSource;
 	}
 
 	Renderer3D* Renderer3D::Get()

@@ -26,7 +26,7 @@ namespace Tomato
 		return m_Camera;
 	}
 
-	Mat4 Scene::GetViewProjection(bool viewReversed) const
+	Mat4 Scene::GetProjectionView(bool viewReversed) const
 	{
 		if (!m_Camera->HasComponent<CameraComponent>() || !m_Camera->HasComponent<TransformComponent>())
 			return Mat4(1.0f);

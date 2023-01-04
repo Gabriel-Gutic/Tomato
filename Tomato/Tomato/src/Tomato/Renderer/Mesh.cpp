@@ -8,9 +8,9 @@ namespace Tomato
 	{
 		Mesh mesh;
 		mesh.Vertices = { 
-			Vertex(Float3(0.0f, 0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.5f, 1.0f)), 
-			Vertex(Float3(-0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.0f, 0.0f)), 
-			Vertex(Float3(0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(1.0f, 0.0f)) 
+			Vertex(Float3(0.0f, 0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f),   Float3(0.0f, 0.0f, 1.0f), Float2(0.5f, 1.0f)), 
+			Vertex(Float3(-0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(0.0f, 0.0f, 1.0f), Float2(0.0f, 0.0f)), 
+			Vertex(Float3(0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f),  Float3(0.0f, 0.0f, 1.0f), Float2(1.0f, 0.0f)) 
 		};
 		mesh.Indices = { 2, 1, 0 };
 		return mesh;
@@ -20,10 +20,10 @@ namespace Tomato
 	{
 		Mesh mesh;
 		mesh.Vertices = { 
-			Vertex(Float3(-0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.0f, 0.0f)),
-			Vertex(Float3( 0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(1.0f, 0.0f)),
-			Vertex(Float3(-0.5f,  0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(0.0f, 1.0f)),
-			Vertex(Float3( 0.5f,  0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(), Float2(1.0f, 1.0f)) };
+			Vertex(Float3(-0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(0.0f, 0.0f, 1.0f), Float2(0.0f, 0.0f)),
+			Vertex(Float3( 0.5f, -0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(0.0f, 0.0f, 1.0f), Float2(1.0f, 0.0f)),
+			Vertex(Float3(-0.5f,  0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(0.0f, 0.0f, 1.0f), Float2(0.0f, 1.0f)),
+			Vertex(Float3( 0.5f,  0.5f, 0.0f), Float4(1.0f, 1.0f, 1.0f, 1.0f), Float3(0.0f, 0.0f, 1.0f), Float2(1.0f, 1.0f)) };
 		mesh.Indices = { 0, 2, 1, 1, 2, 3 };
 		return mesh;
 	}

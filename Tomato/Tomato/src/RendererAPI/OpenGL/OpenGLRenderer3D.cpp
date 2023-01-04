@@ -76,9 +76,14 @@ namespace Tomato
 		
 		Clear();
 		
-		Mat4 vp = App::GetCurrentScene()->GetViewProjection(drawToFramebuffer);
+		Mat4 vp = App::GetCurrentScene()->GetProjectionView(drawToFramebuffer);
 
 		m_Shader->SetMat4("u_VP", vp);
+		m_Shader->SetFloat3("u_CameraPosition", App::GetCurrentCamera()->GetComponent<TransformComponent>().Position);
+		m_Shader->SetFloat3("u_CameraTarget", App::GetCurrentCamera()->GetComponent<CameraComponent>().Target);
+		m_Shader->SetFloat3("u_LightSource", GetLight());
+		m_Shader->SetFloat("u_IsUsingLight", static_cast<float>(m_IsUsingLight));
+
 		m_LineShader->SetMat4("u_VP", vp);
 		m_TextShader->SetMat4("u_VP", vp);
 	}

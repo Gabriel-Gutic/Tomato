@@ -171,6 +171,26 @@ namespace Tomato
             devcon->VSSetConstantBuffers(0u, 1u, &Data.ConstantBuffer);
         }
 	}
+
+    void DirectXShader::SetFloat(std::string_view location, float f)
+    {
+        // TODO: Implementation
+    }
+
+    void DirectXShader::SetFloat2(std::string_view location, const Float2& f2)
+    {
+        // TODO: Implementation
+    }
+
+    void DirectXShader::SetFloat3(std::string_view location, const Float3& f3)
+    {
+        // TODO: Implementation
+    }
+
+    void DirectXShader::SetFloat4(std::string_view location, const Float4& f4)
+    {
+        // TODO: Implementation
+    }
 }
 
 #endif // TOMATO_PLATFORM_WINDOWS

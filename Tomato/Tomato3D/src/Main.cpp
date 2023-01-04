@@ -45,12 +45,13 @@ public:
 
 		Tomato::App::GetCurrentCamera()->GetComponent<Tomato::TransformComponent>().Position.y = -1.0f;
 	
-		Tomato::Renderer3D::SetBackgroundColor({ 1.0f, 1.0f, 1.0f });
+		Tomato::Renderer3D::SetBackgroundColor({ 0.8f, 0.8f, 0.8f });
+
+		Tomato::Renderer3D::SetLight(Tomato::Float3(2.0f, 2.0f, 0.0f));
 	}
 
 	void OnUpdate(float dt)
 	{
-		PRINT(Tomato::Math::RandomFloat(0, 10));
 		// Show FPS
 		if (Tomato::Input::Keyboard(TOMATO_KEY_F))
 		{
@@ -166,9 +167,9 @@ private:
 			Tomato::Color::Blue, maxPoint
 		);
 
-		//DrawExplicitGraph([](float x, float z) {
-		//	return -Tomato::Math::Sin(x * z);
-		//}, Tomato::Float3(0.5f, 0.4f, 0.3f));
+		DrawExplicitGraph([](float x, float z) {
+			return Tomato::Math::Sqrt(1.0f - x * x - z * z);
+		}, Tomato::Float3(0.5f, 0.4f, 0.3f));
 	}
 
 	void CameraRepositioning()
@@ -192,12 +193,13 @@ private:
 		{
 			for (float z = -limit; z <= limit - dz; z += dz)
 			{
-				Tomato::Renderer3D::Get()->DrawQuad(
+				Tomato::Renderer3D::Get()->DrawQuad
+				(
 					Tomato::Float3(x, f(x, z), z),
 					Tomato::Float3(x, f(x, z + dz), z + dz),
 					Tomato::Float3(x + dx, f(x + dx, z + dz), z + dz),
 					Tomato::Float3(x + dx, f(x + dx, z), z),
-					color * Tomato::Float3(std::max(x, 0.5f), std::max(0.5f, z), std::max(z, x)),
+					color,
 					alpha
 				);
 			}
@@ -208,7 +210,7 @@ private:
 	float m_CameraOrthoSize = 1.0f;
 	float m_CameraFOV = 45.0f;
 	float m_CameraTheta = Tomato::Math::pi / 2.0f;
-	float m_CameraRadius = 3.0f;
+	float m_CameraRadius = 4.0f;
 	float m_Smoothness = 0.7f;
 
 	Tomato::Timer m_Timer;

@@ -18,6 +18,10 @@ namespace Tomato
 		virtual void Use() = 0;
 
 		virtual void SetMat4(std::string_view location, const Mat4& matrix) = 0;
+		virtual void SetFloat(std::string_view location, float f) = 0;
+		virtual void SetFloat2(std::string_view location, const Float2& f2) = 0;
+		virtual void SetFloat3(std::string_view location, const Float3& f3) = 0;
+		virtual void SetFloat4(std::string_view location, const Float4& f4) = 0;
 		
 		template <size_t SIZE>
 		void SetIntArray(std::string_view location, const std::array<int, SIZE>& data);
