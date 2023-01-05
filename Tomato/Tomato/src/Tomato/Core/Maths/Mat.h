@@ -11,7 +11,6 @@ namespace Tomato
 	using Mat3x2 = Matrix<float, 3, 2>;
 	using Mat1x3 = Matrix<float, 1, 3>;
 	using Mat2x3 = Matrix<float, 2, 3>;
-	using Mat4 = Matrix<float, 4, 4>;
 	using Mat4x1 = Matrix<float, 4, 1>;
 	using Mat4x2 = Matrix<float, 4, 2>;
 	using Mat4x3 = Matrix<float, 4, 3>;
@@ -46,6 +45,11 @@ namespace Tomato
 	template <typename T>
 	Float3 operator*(const Matrix<T, 4, 4>& mat, const UInt3& vec);
 
+	Float3 operator*(const Mat4& mat, const Float3& vec);
+	Double3 operator*(const Mat4& mat, const Double3& vec);
+	Float3 operator*(const Mat4& mat, const Int3& vec);
+	Float3 operator*(const Mat4& mat, const UInt3& vec);
+
 	template <typename T>
 	Float4 operator*(const Matrix<T, 4, 4>& mat, const Float4& vec);
 	template <typename T>
@@ -54,6 +58,11 @@ namespace Tomato
 	Float4 operator*(const Matrix<T, 4, 4>& mat, const Int4& vec);
 	template <typename T>
 	Float4 operator*(const Matrix<T, 4, 4>& mat, const UInt4& vec);
+
+	Float4 operator*(const Mat4& mat, const Float4& vec);
+	Double4 operator*(const Mat4& mat, const Double4& vec);
+	Float4 operator*(const Mat4& mat, const Int4& vec);
+	Float4 operator*(const Mat4& mat, const UInt4& vec);
 
 	template<typename T>
 	Float2 operator*(const Matrix<T, 2, 2>& mat, const Float2& vec)

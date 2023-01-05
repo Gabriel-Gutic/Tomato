@@ -18,11 +18,6 @@ uniform sampler2D u_Textures[32];
 
 void main()
 {
-	//
-	vec3 cp = u_CameraPosition;
-	vec3 ct = u_CameraTarget;
-	//
-
 	vec3 light = normalize(o_Position - u_LightSource);
 	vec3 normal = normalize(o_Normal);
 	float prod = max(dot(-light, normal), 0.0);

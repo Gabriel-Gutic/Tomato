@@ -222,7 +222,9 @@
     <ClCompile Include="src\Tomato\Core\Logger\Logger.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Float.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Int.cpp" />
+    <ClCompile Include="src\Tomato\Core\Maths\Mat.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Math.cpp" />
+    <ClCompile Include="src\Tomato\Core\Maths\Matrix.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Quaternion.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Random.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\UInt.cpp" />
@@ -276,6 +278,9 @@
     <ProjectReference Include="dependencies\yaml-cpp\yaml-cpp.vcxproj">
       <Project>{88F1A057-74BE-FB62-9DD7-E90A890331F1}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

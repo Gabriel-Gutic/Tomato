@@ -344,12 +344,16 @@ const Type* Name##3::ToPtr() const												\
 		bool operator==(const Name##4& other) const;							\
 		bool operator!=(const Name##4& other) const;							\
 		Name##4 operator+(const Name##4 & other) const;							\
+		Name##4& operator+=(const Name##4 & other);							\
 		Name##4 operator-(const Name##4 & other) const;							\
+		Name##4& operator-=(const Name##4 & other);							\
 		Name##4 operator*(const Name##4 & other) const;							\
+		Name##4& operator*=(const Name##4 & other);							\
 		Type& operator[](size_t index); 										\
 		const Type& operator[](size_t index) const;								\
-		friend Name##4 operator*(const Name##4 & f3, Type dot);					\
-		friend Name##4 operator*(Type dot, const Name##4 & f3);					\
+		friend Name##4 operator*(const Name##4 & f4, Type dot);					\
+		friend Name##4& operator*=(Name##4 & f4, Type dot);											\
+		friend Name##4 operator*(Type dot, const Name##4 & f4);					\
 																				\
 		friend std::ostream& operator<<(std::ostream& os, const Name##4& f4);	\
 																				\
@@ -424,14 +428,32 @@ Name##4 Name##4::operator+(const Name##4& other) const							\
 	return Name##4(x + other.x, y + other.y, z + other.z, w + other.w);			\
 }																				\
 																				\
+Name##4& Name##4::operator+=(const Name##4& other)						\
+{																				\
+	*this = *this + other;														\
+	return *this;																\
+}																				\
+																				\
 Name##4 Name##4::operator-(const Name##4& other) const							\
 {																				\
 	return Name##4(x - other.x, y - other.y, z - other.z, w - other.w);			\
 }																				\
 																				\
+Name##4& Name##4::operator-=(const Name##4& other)						\
+{																				\
+	*this = *this - other;														\
+	return *this;																\
+}																				\
+																				\
 Name##4 Name##4::operator*(const Name##4& other) const							\
 {																				\
 	return { x * other.x, y * other.y, z * other.z, w * other.w };				\
+}																				\
+																				\
+Name##4& Name##4::operator*=(const Name##4& other)						\
+{																				\
+	*this = *this * other;													\
+	return *this;																\
 }																				\
 																				\
 Type& Name##4::operator[](size_t index)											\
@@ -447,6 +469,12 @@ const Type& Name##4::operator[](size_t index) const								\
 Name##4 operator*(const Name##4& f4, Type dot)									\
 {																				\
 	return Name##4(f4.x * dot, f4.y * dot, f4.z * dot, f4.w * dot);				\
+}																				\
+																				\
+Name##4& operator*=(Name##4 & f4, Type dot)						\
+{																				\
+	f4 = dot * f4;														\
+	return f4;																\
 }																				\
 																				\
 Name##4 operator*(Type dot, const Name##4& f4)									\

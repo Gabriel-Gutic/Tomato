@@ -86,6 +86,8 @@ namespace Tomato::Math
 	Matrix<T, COLS, ROWS> Transpose(const Matrix<T, ROWS, COLS>& mat);
 	template <typename T, size_t SIZE>
 	Matrix<T, SIZE, SIZE> Inverse(const Matrix<T, SIZE, SIZE>& mat);
+	Mat4 Transpose(const Mat4& mat);
+	Mat4 Inverse(const Mat4& mat);
 
 	// Return the length of a vector
 	template <typename T>

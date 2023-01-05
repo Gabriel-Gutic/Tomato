@@ -184,15 +184,14 @@ namespace Tomato
 	}
 
 	template<typename T, size_t M, size_t N, size_t P>
-	Matrix<T, M, P> operator*(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B)
+	inline Matrix<T, M, P> operator*(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B)
 	{
 		Matrix<T, M, P> C;
 		for (unsigned int i = 0; i < M; i++)
 		{
-			for (unsigned int j = 0; j < P; j++)
+			for (unsigned int k = 0; k < N; k++)
 			{
-				C[i][j] = 0;
-				for (unsigned int k = 0; k < N; k++)
+				for (unsigned int j = 0; j < P; j++)
 				{
 					C[i][j] += (A[i][k] * B[k][j]);
 				}
@@ -202,7 +201,7 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	Matrix<T, ROWS, COLS> operator*(const T scalar, const Matrix<T, ROWS, COLS>& mat)
+	inline Matrix<T, ROWS, COLS> operator*(const T scalar, const Matrix<T, ROWS, COLS>& mat)
 	{
 		Matrix<T, ROWS, COLS> result;
 
@@ -213,7 +212,7 @@ namespace Tomato
 	}
 
 	template<typename T, size_t ROWS, size_t COLS>
-	Matrix<T, ROWS, COLS> operator*(const Matrix<T, ROWS, COLS>& mat, const T scalar)
+	inline Matrix<T, ROWS, COLS> operator*(const Matrix<T, ROWS, COLS>& mat, const T scalar)
 	{
 		return scalar * mat;
 	}
@@ -268,4 +267,35 @@ namespace Tomato
 			Diagonally(A, n + 1);
 	}
 
+	class Mat4
+	{
+	public:
+		Mat4(float value = 0.0f);
+		Mat4(const Mat4&) = default;
+		~Mat4() = default;
+
+		std::string ToString() const;
+
+		bool operator==(const Mat4& other) const;
+		bool operator!=(const Mat4& other) const;
+		Float4& operator[](unsigned int index);
+		const Float4& operator[](unsigned int index) const;
+		Mat4 operator+(const Mat4& other) const;
+		Mat4 operator-(const Mat4& other) const;
+
+		float GetDeterminant() const;
+		Matrix<float, 3, 3> Minor(unsigned int row, unsigned int col) const;
+		const std::array<Float4, 4>& GetData() const;
+
+		friend Mat4 operator*(const Mat4& A, const Mat4& B);
+		friend Mat4 operator*(const float scalar, const Mat4& mat);
+		friend Mat4 operator*(const Mat4& mat, const float scalar);
+
+		friend std::ostream& operator<<(std::ostream& os, const Mat4& A);
+
+		float* ToPtr();
+		const float* ToPtr() const;
+	private:
+		std::array<Float4, 4> m_Data;
+	};
 }

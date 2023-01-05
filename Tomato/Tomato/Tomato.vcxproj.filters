@@ -542,5 +542,10 @@
     <ClCompile Include="src\Tomato\Renderer\Line.cpp" />
     <ClCompile Include="src\Tomato\Core\App\Color.cpp" />
     <ClCompile Include="src\Tomato\Core\Maths\Random.cpp" />
+    <ClCompile Include="src\Tomato\Core\Maths\Matrix.cpp" />
+    <ClCompile Include="src\Tomato\Core\Maths\Mat.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

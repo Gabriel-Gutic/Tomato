@@ -33,7 +33,7 @@ namespace Tomato
 	void OpenGLShader::SetMat4(std::string_view location, const Mat4& matrix)
 	{
 		int id = GetUniformLocation(location);
-		glUniformMatrix4fv(id, 1, GL_FALSE, matrix.GetData().data()->data());
+		glUniformMatrix4fv(id, 1, GL_FALSE, matrix.GetData().data()->ToPtr());
 	}
 
 	void OpenGLShader::SetFloat(std::string_view location, float f)

@@ -456,6 +456,33 @@ namespace Tomato
 		return radians * (180 / pi);
 	}
 
+	Mat4 Math::Transpose(const Mat4& mat)
+	{
+		Mat4 transpose;
+		for (unsigned int i = 0; i < 4; i++)
+			for (unsigned int j = 0; j < 4; j++)
+				transpose[j][i] = mat[i][j];
+		return transpose;
+	}
+
+	Mat4 Math::Inverse(const Mat4& mat)
+	{
+		float det = mat.GetDeterminant();
+
+		TOMATO_ASSERT(det != 0, "The determinant can not be null");
+
+		Mat4 transpose = Transpose(mat);
+		Mat4 reverse;
+
+		for (unsigned int i = 0; i < 4; i++)
+			for (unsigned int j = 0; j < 4; j++)
+			{
+				reverse[i][j] = Math::Pow(-1, i + j) * transpose.Minor(i, j).GetDeterminant();
+			}
+
+		return 1 / det * reverse;
+	}
+
 	Mat4 Math::Translate(const Float3& vector)
 	{
 		Mat4 scale(1.0f);
