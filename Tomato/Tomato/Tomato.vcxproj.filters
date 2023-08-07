@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Tomato">
+      <UniqueIdentifier>{D96AE6D3-C50C-11AA-AEC7-24FE9A0898FA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tomato\Mathf">
+      <UniqueIdentifier>{F869F6F8-E4CC-859D-8D52-BE5379945120}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Tomato.h" />
+    <ClInclude Include="src\Tomato\Mathf\Complex.h">
+      <Filter>Tomato\Mathf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tomato\Mathf\Mathf.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Tomato\Mathf\Complex.cpp">
+      <Filter>Tomato\Mathf</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tomato\Mathf\Mathf.cpp" />
+  </ItemGroup>
+</Project>
