@@ -1,0 +1,3 @@
+[submodule "Tomato/Tomato/dependencies/GLFW"]
+	path = Tomato/Tomato/dependencies/GLFW
+	url = https://github.com/glfw/glfw.git
