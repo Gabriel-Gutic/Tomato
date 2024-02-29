@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef MAX_VERTEX_NUMBER
-	#define MAX_VERTEX_NUMBER 1024
+	#define MAX_VERTEX_NUMBER 16384
 #endif // !MAX_VERTEX_NUMBER
 
 #ifndef MAX_INDEX_NUMBER
